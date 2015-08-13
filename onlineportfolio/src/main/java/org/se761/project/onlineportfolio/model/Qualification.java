@@ -32,7 +32,7 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String relevanceToClient;
 	
-	private MetaData metaData;	
+//	private MetaData metaData;	
 	
 	//TO-DO
 	//Client Logo
@@ -50,7 +50,7 @@ public class Qualification {
 		this.challengesFaced = challengesFaced;
 		this.solution = solution;
 		this.relevanceToClient = relevanceToClient;
-		this.metaData = metaData;
+		//this.metaData = metaData;
 	}
 	
 
@@ -100,12 +100,12 @@ public class Qualification {
 	public void setRelevanceToClient(String relevanceToClient) {
 		this.relevanceToClient = relevanceToClient;
 	}
-	public MetaData getMetaData() {
-		return metaData;
-	}
-
-	public void setMetaData(MetaData metaData) {
-		this.metaData = metaData;
-	}
+//	public MetaData getMetaData() {
+//		return metaData;
+//	}
+//
+//	public void setMetaData(MetaData metaData) {
+//		this.metaData = metaData;
+//	}
 	
 }
