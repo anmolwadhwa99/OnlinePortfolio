@@ -2,6 +2,8 @@ package org.se761.project.onlineportfolio.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,6 +14,7 @@ import org.se761.project.onlineportfolio.model.helper.MetaData;
 @Entity
 public class Qualification {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int qualId;
 	private String projectName;
 	private String clientName;

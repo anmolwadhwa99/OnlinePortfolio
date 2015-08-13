@@ -1,7 +1,12 @@
 package org.se761.project.onlineportfolio.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class AdminGroup {
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int adminGroupId;
 	private String adminGroupName;
 	
