@@ -18,21 +18,38 @@ public class AdminGroup {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int adminGroupId;
 	private String adminGroupName;
-	
-	@OneToMany(mappedBy = "adminGroup")
+
+	@OneToMany(mappedBy = "adminGroup", orphanRemoval = true)
 	private List<Qualification> quals = new ArrayList<Qualification>();
-	
-	@OneToMany(mappedBy = "adminGroup")
+
+	@OneToMany(mappedBy = "adminGroup", orphanRemoval = true)
 	private List<Account> accounts = new ArrayList<Account>();
-	
+
 	public AdminGroup(){
-		
+
 	}
-	
+
 	public AdminGroup(int adminGroupId, String adminGroupName) {
 		super();
 		this.adminGroupId = adminGroupId;
 		this.adminGroupName = adminGroupName;
+	}
+
+
+	public List<Qualification> getQuals() {
+		return quals;
+	}
+
+	public void setQuals(List<Qualification> quals) {
+		this.quals = quals;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	public int getAdminGroupId() {
@@ -50,9 +67,9 @@ public class AdminGroup {
 	public void setAdminGroupName(String adminGroupName) {
 		this.adminGroupName = adminGroupName;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

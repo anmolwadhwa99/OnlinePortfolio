@@ -3,6 +3,7 @@ package org.se761.project.onlineportfolio.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,34 +23,41 @@ public class Account {
 	private String pin;
 	private boolean isAdmin;
 
-	@OneToMany(mappedBy = "account")
+	@OneToMany(mappedBy = "account", orphanRemoval = true)
 	private List<Qualification> quals = new ArrayList<Qualification>();
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="admin_group_id")
 	private AdminGroup adminGroup;
 
-
+	
 	public Account(){
 
 	}
-
 	
-	public List<Qualification> getQuals() {
-		return quals;
-	}
-
-	public void setQuals(List<Qualification> quals) {
-		this.quals = quals;
-	}
-
-
 	public Account(int accountId, String userName, String pin, boolean isAdmin) {
 		super();
 		this.accountId = accountId;
 		this.userName = userName;
 		this.pin = pin;
 		this.isAdmin = isAdmin;
+	}
+
+	public AdminGroup getAdminGroup() {
+		return adminGroup;
+	}
+
+
+	public void setAdminGroup(AdminGroup adminGroup) {
+		this.adminGroup = adminGroup;
+	}
+
+	public List<Qualification> getQuals() {
+		return quals;
+	}
+
+	public void setQuals(List<Qualification> quals) {
+		this.quals = quals;
 	}
 
 	public int getAccountId() {
@@ -83,9 +91,5 @@ public class Account {
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-
-
-
-
 
 }

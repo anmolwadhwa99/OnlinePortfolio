@@ -24,7 +24,9 @@ public class HibernateTest {
 		account.setUserName("awad");
 		account.setPin("1234");
 		
-		session.save(account);
+		Qualification qual = new Qualification();
+		qual.setAccount(account);
+		
 		
 		session.getTransaction().commit();
 		session.close();

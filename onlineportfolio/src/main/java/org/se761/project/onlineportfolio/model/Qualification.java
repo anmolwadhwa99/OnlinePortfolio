@@ -49,8 +49,6 @@ public class Qualification {
 	//Product picture
 	//Microsite link
 	
-	
-
 
 	public Qualification(int qualId, String projectName, String clientName,
 			String problemStatement, String challengesFaced, String solution,
@@ -70,7 +68,21 @@ public class Qualification {
 	public Qualification(){
 		
 	}
+
+
 	
+	
+	
+	public AdminGroup getAdminGroup() {
+		return adminGroup;
+	}
+
+
+	public void setAdminGroup(AdminGroup adminGroup) {
+		this.adminGroup = adminGroup;
+	}
+
+
 	public int getQualId() {
 		return qualId;
 	}
