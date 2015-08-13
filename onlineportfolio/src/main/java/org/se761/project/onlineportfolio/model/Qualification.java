@@ -38,6 +38,10 @@ public class Qualification {
 	@JoinColumn(name="account_id")
 	private Account account;
 	
+	@ManyToOne
+	@JoinColumn(name="admin_group_id")
+	private AdminGroup adminGroup;
+	
 //	private MetaData metaData;	
 	
 	//TO-DO
