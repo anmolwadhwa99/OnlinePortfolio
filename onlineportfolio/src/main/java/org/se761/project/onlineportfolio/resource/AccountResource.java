@@ -48,7 +48,7 @@ public class AccountResource {
 	 * Getting all admin accounts
 	 */
 	@GET
-	@Path("/{admin}")
+	@Path("/admin")
 	public List<Account> getAdminAccounts(){
 		return null;
 	}
@@ -57,7 +57,7 @@ public class AccountResource {
 	 * Getting all client accounts
 	 */
 	@GET
-	@Path("/{client}")
+	@Path("/client")
 	public List<Account> getClientAccounts(){
 		return null;
 	}
