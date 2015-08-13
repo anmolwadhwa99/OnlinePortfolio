@@ -1,6 +1,13 @@
 package org.se761.project.onlineportfolio.model.helper;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class MetaData {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int metaDataId;
 	private String industry; //e.g. Financial Services, Education, etc.
 	private String tag; 
 	private String status; //either "open" or "confidential"

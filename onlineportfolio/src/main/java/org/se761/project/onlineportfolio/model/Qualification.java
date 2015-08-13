@@ -1,6 +1,7 @@
 package org.se761.project.onlineportfolio.model;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +19,19 @@ public class Qualification {
 	private int qualId;
 	private String projectName;
 	private String clientName;
+	
+	@Column(columnDefinition="TEXT")
 	private String problemStatement;
+	
+	@Column(columnDefinition="TEXT")
 	private String challengesFaced;
+	
+	@Column(columnDefinition="TEXT")
 	private String solution;
+	
+	@Column(columnDefinition="TEXT")
 	private String relevanceToClient;
+	
 	private MetaData metaData;	
 	
 	//TO-DO
