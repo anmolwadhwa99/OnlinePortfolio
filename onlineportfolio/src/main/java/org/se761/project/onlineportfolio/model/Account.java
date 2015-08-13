@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,6 +24,10 @@ public class Account {
 
 	@OneToMany(mappedBy = "account")
 	private List<Qualification> quals = new ArrayList<Qualification>();
+	
+	@ManyToOne
+	@JoinColumn(name="admin_group_id")
+	private AdminGroup adminGroup;
 
 
 	public Account(){

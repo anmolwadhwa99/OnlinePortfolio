@@ -22,6 +22,9 @@ public class AdminGroup {
 	@OneToMany(mappedBy = "adminGroup")
 	private List<Qualification> quals = new ArrayList<Qualification>();
 	
+	@OneToMany(mappedBy = "adminGroup")
+	private List<Account> accounts = new ArrayList<Account>();
+	
 	public AdminGroup(){
 		
 	}
