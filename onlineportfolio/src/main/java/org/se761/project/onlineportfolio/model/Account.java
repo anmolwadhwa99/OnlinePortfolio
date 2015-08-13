@@ -10,9 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.se761.project.onlineportfolio.model.AdminGroup;
 
 @XmlRootElement
@@ -25,12 +27,8 @@ public class Account {
 	private String pin;
 	private boolean isAdmin;
 
-	@OneToMany(mappedBy = "account", orphanRemoval = true, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.PERSIST)
 	private List<Qualification> quals = new ArrayList<Qualification>();
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="admin_group_id")
-	private AdminGroup adminGroup;
 
 	
 	public Account(){
@@ -45,22 +43,7 @@ public class Account {
 		this.isAdmin = isAdmin;
 	}
 
-	public AdminGroup getAdminGroup() {
-		return adminGroup;
-	}
 
-
-	public void setAdminGroup(AdminGroup adminGroup) {
-		this.adminGroup = adminGroup;
-	}
-
-	public List<Qualification> getQuals() {
-		return quals;
-	}
-
-	public void setQuals(List<Qualification> quals) {
-		this.quals = quals;
-	}
 
 	public int getAccountId() {
 		return accountId;

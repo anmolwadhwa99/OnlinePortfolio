@@ -1,6 +1,10 @@
 package org.se761.project.onlineportfolio.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -35,13 +41,18 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String relevanceToClient;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="account_id")
-	private Account account;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "Access", joinColumns = { 
+			@JoinColumn(name = "qual_id")}, 
+			inverseJoinColumns = { @JoinColumn(name = "account_id") })
+	private List<Account> accounts = new ArrayList<Account>();
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="admin_group_id")
-	private AdminGroup adminGroup;
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "Own", joinColumns = { 
+			@JoinColumn(name = "qual_id")}, 
+			inverseJoinColumns = { @JoinColumn(name = "admin_group_id") })
+	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 	
 //	private MetaData metaData;	
 	
@@ -50,6 +61,16 @@ public class Qualification {
 	//Product picture
 	//Microsite link
 	
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
 
 	public Qualification(int qualId, String projectName, String clientName,
 			String problemStatement, String challengesFaced, String solution,
@@ -70,17 +91,14 @@ public class Qualification {
 		
 	}
 
-
 	
-	
-	
-	public AdminGroup getAdminGroup() {
-		return adminGroup;
+	public List<AdminGroup> getAdminGroup() {
+		return adminGroups;
 	}
 
 
-	public void setAdminGroup(AdminGroup adminGroup) {
-		this.adminGroup = adminGroup;
+	public void setAdminGroup(List<AdminGroup> adminGroups) {
+		this.adminGroups = adminGroups;
 	}
 
 
@@ -127,14 +145,7 @@ public class Qualification {
 		this.relevanceToClient = relevanceToClient;
 	}
 	
-	public Account getAccount() {
-		return account;
-	}
 
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 	
 //	public MetaData getMetaData() {
 //		return metaData;
