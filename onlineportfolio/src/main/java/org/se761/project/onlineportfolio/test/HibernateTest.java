@@ -18,13 +18,15 @@ public class HibernateTest {
 		Session session = factory.openSession();
 
 		
+		session.beginTransaction();
 		
-		Qualification qual = new Qualification();
-		qual.setProblemStatement("This is a problem");
-		qual.setClientName("Deloitte");
+		Account account = new Account();
+		account.setUserName("awad");
+		account.setPin("1234");
 		
-		session.save(qual);
+		session.save(account);
 		
+		session.getTransaction().commit();
 		session.close();
 		
 		factory.close();
