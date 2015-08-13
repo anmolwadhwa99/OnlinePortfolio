@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.se761.project.onlineportfolio.model.helper.MetaData;
@@ -32,6 +34,10 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String relevanceToClient;
 	
+	@ManyToOne
+	@JoinColumn(name="account_id")
+	private Account account;
+	
 //	private MetaData metaData;	
 	
 	//TO-DO
@@ -39,6 +45,9 @@ public class Qualification {
 	//Product picture
 	//Microsite link
 	
+	
+
+
 	public Qualification(int qualId, String projectName, String clientName,
 			String problemStatement, String challengesFaced, String solution,
 			String relevanceToClient, MetaData metaData) {
@@ -100,6 +109,16 @@ public class Qualification {
 	public void setRelevanceToClient(String relevanceToClient) {
 		this.relevanceToClient = relevanceToClient;
 	}
+	
+	public Account getAccount() {
+		return account;
+	}
+
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	
 //	public MetaData getMetaData() {
 //		return metaData;
 //	}
