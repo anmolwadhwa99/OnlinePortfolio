@@ -28,7 +28,7 @@ public class Account {
 
 	}
 
-
+	
 	public List<Qualification> getQuals() {
 		return quals;
 	}
