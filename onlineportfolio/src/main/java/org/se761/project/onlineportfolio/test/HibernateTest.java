@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 
 public class HibernateTest {
@@ -21,11 +22,9 @@ public class HibernateTest {
 		session.beginTransaction();
 		
 		Account account = new Account();
-		account.setUserName("awad");
-		account.setPin("1234");
 		
-		Qualification qual = new Qualification();
-		qual.setAccount(account);
+		account.setUserName("awad");
+		account.setPin("6666");
 		
 		
 		session.getTransaction().commit();
