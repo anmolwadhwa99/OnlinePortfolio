@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,10 +20,10 @@ public class AdminGroup {
 	private int adminGroupId;
 	private String adminGroupName;
 
-	@OneToMany(mappedBy = "adminGroup", orphanRemoval = true)
+	@OneToMany(mappedBy = "adminGroup", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Qualification> quals = new ArrayList<Qualification>();
 
-	@OneToMany(mappedBy = "adminGroup", orphanRemoval = true)
+	@OneToMany(mappedBy = "adminGroup", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Account> accounts = new ArrayList<Account>();
 
 	public AdminGroup(){

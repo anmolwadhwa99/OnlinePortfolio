@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 
 @XmlRootElement
 @Entity
@@ -23,10 +25,10 @@ public class Account {
 	private String pin;
 	private boolean isAdmin;
 
-	@OneToMany(mappedBy = "account", orphanRemoval = true)
+	@OneToMany(mappedBy = "account", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Qualification> quals = new ArrayList<Qualification>();
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="admin_group_id")
 	private AdminGroup adminGroup;
 

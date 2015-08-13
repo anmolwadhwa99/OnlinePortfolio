@@ -3,6 +3,7 @@ package org.se761.project.onlineportfolio.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,11 +35,11 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String relevanceToClient;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="account_id")
 	private Account account;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="admin_group_id")
 	private AdminGroup adminGroup;
 	
