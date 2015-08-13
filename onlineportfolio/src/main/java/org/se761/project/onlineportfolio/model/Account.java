@@ -22,24 +22,31 @@ public class Account {
 	public int getAccountId() {
 		return accountId;
 	}
+	
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
+	
 	public String getUserName() {
 		return userName;
 	}
+	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
 	public String getPin() {
 		return pin;
 	}
+	
 	public void setPin(String pin) {
 		this.pin = pin;
 	}
+	
 	public boolean isAdmin() {
 		return isAdmin;
 	}
+	
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}

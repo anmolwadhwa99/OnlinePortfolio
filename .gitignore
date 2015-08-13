@@ -75,3 +75,4 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+.metadata/.mylyn/repositories.xml.zip
