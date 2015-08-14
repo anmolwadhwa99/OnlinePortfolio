@@ -129,7 +129,7 @@ public class AccountDatabase {
 	/**
 	 * Deletes an account from the database
 	 */
-	public void removeAccount(int accountId){
+	public Account removeAccount(int accountId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -144,6 +144,7 @@ public class AccountDatabase {
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
+		return account;
 	}
 
 }
