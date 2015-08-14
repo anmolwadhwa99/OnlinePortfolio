@@ -62,16 +62,6 @@ public class Qualification {
 	//Microsite link
 	
 
-	public List<Account> getAccounts() {
-		return accounts;
-	}
-
-
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
-
-
 	public Qualification(int qualId, String projectName, String clientName,
 			String problemStatement, String challengesFaced, String solution,
 			String relevanceToClient, MetaData metaData) {
@@ -89,6 +79,15 @@ public class Qualification {
 
 	public Qualification(){
 		
+	}
+	
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	
@@ -114,6 +113,16 @@ public class Qualification {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+	public List<AdminGroup> getAdminGroups() {
+		return adminGroups;
+	}
+
+
+	public void setAdminGroups(List<AdminGroup> adminGroups) {
+		this.adminGroups = adminGroups;
+	}
+
+
 	public String getClientName() {
 		return clientName;
 	}
