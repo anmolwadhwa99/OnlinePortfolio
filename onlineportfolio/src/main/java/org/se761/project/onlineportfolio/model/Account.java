@@ -31,10 +31,15 @@ public class Account {
 	private List<Qualification> quals = new ArrayList<Qualification>();
 
 	//TODO: need mapping with adminGroup!
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.PERSIST)
+	private List<AdminGroup> adminGroup = new ArrayList<AdminGroup>();
+	
+	
 	
 	public Account(){
-
+		
 	}
+	
 	
 	public Account(int accountId, String userName, String pin, boolean isAdmin) {
 		super();
@@ -44,6 +49,28 @@ public class Account {
 		this.isAdmin = isAdmin;
 	}
 
+
+	public List<Qualification> getQuals() {
+		return quals;
+	}
+
+
+
+	public void setQuals(List<Qualification> quals) {
+		this.quals = quals;
+	}
+
+
+
+	public List<AdminGroup> getAdminGroup() {
+		return adminGroup;
+	}
+
+
+
+	public void setAdminGroup(List<AdminGroup> adminGroup) {
+		this.adminGroup = adminGroup;
+	}
 
 
 	public int getAccountId() {
