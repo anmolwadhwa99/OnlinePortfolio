@@ -1,14 +1,17 @@
 package org.se761.project.onlineportfolio.service;
 
+import java.util.List;
+
 import org.se761.project.onlineportfolio.database.AdminGroupDatabase;
 import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.model.Qualification;
 
 public class AdminGroupService {
 	
 	private AdminGroupDatabase adminGroupDatabase = new AdminGroupDatabase();
 	
 	/**
-	 * Get a admin group 
+	 * Get an admin group 
 	 */
 	public AdminGroup getAdminGroup(int adminGroupId){
 		AdminGroup adminGroup = adminGroupDatabase.getAdminGroup(adminGroupId);	
@@ -16,7 +19,7 @@ public class AdminGroupService {
 	}
 	
 	/**
-	 * Add a admin group 
+	 * Add an admin group 
 	 */
 	public void addAdminGroup(AdminGroup adminGroup){
 		adminGroupDatabase.addAdminGroup(adminGroup);
@@ -30,5 +33,20 @@ public class AdminGroupService {
 		AdminGroup adminGroup = adminGroupDatabase.deleteAdminGroup(adminGroupId);
 		return adminGroup;
 	}
-
+	
+	/**
+	 * Add qualification against an admin group
+	 */
+	public Qualification addQualification(int adminGroupId, Qualification qual){
+		Qualification qualification = adminGroupDatabase.addQualification(adminGroupId, qual);
+		return qualification;
+	}
+	
+	/**
+	 * Get all qualifications associated with an admin group
+	 */
+	public List<Qualification> getAllQualifications(int adminGroupId){
+		List<Qualification> quals = adminGroupDatabase.getAllQualifications(adminGroupId);
+		return quals;
+	}
 }

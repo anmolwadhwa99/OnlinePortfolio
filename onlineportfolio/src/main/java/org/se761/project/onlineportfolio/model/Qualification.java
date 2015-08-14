@@ -80,39 +80,88 @@ public class Qualification {
 	public Qualification(){
 		
 	}
-	
-	public List<Account> getAccounts() {
-		return accountsQual;
-	}
-
-
-	public void setAccounts(List<Account> accountsQual) {
-		this.accountsQual = accountsQual;
-	}
-
-	
-	public List<AdminGroup> getAdminGroup() {
-		return adminGroups;
-	}
-
-
-	public void setAdminGroup(List<AdminGroup> adminGroups) {
-		this.adminGroups = adminGroups;
-	}
 
 
 	public int getQualId() {
 		return qualId;
 	}
+
+
 	public void setQualId(int qualId) {
 		this.qualId = qualId;
 	}
+
+
 	public String getProjectName() {
 		return projectName;
 	}
+
+
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
+
+	public String getClientName() {
+		return clientName;
+	}
+
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+
+	public String getProblemStatement() {
+		return problemStatement;
+	}
+
+
+	public void setProblemStatement(String problemStatement) {
+		this.problemStatement = problemStatement;
+	}
+
+
+	public String getChallengesFaced() {
+		return challengesFaced;
+	}
+
+
+	public void setChallengesFaced(String challengesFaced) {
+		this.challengesFaced = challengesFaced;
+	}
+
+
+	public String getSolution() {
+		return solution;
+	}
+
+
+	public void setSolution(String solution) {
+		this.solution = solution;
+	}
+
+
+	public String getRelevanceToClient() {
+		return relevanceToClient;
+	}
+
+
+	public void setRelevanceToClient(String relevanceToClient) {
+		this.relevanceToClient = relevanceToClient;
+	}
+
+
+	public List<Account> getAccountsQual() {
+		return accountsQual;
+	}
+
+
+	public void setAccountsQual(List<Account> accountsQual) {
+		this.accountsQual = accountsQual;
+	}
+
+
 	public List<AdminGroup> getAdminGroups() {
 		return adminGroups;
 	}
@@ -121,39 +170,8 @@ public class Qualification {
 	public void setAdminGroups(List<AdminGroup> adminGroups) {
 		this.adminGroups = adminGroups;
 	}
-
-
-	public String getClientName() {
-		return clientName;
-	}
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
-	public String getProblemStatement() {
-		return problemStatement;
-	}
-	public void setProblemStatement(String problemStatement) {
-		this.problemStatement = problemStatement;
-	}
-	public String getChallengesFaced() {
-		return challengesFaced;
-	}
-	public void setChallengesFaced(String challengesFaced) {
-		this.challengesFaced = challengesFaced;
-	}
-	public String getSolution() {
-		return solution;
-	}
-	public void setSolution(String solution) {
-		this.solution = solution;
-	}
-	public String getRelevanceToClient() {
-		return relevanceToClient;
-	}
-	public void setRelevanceToClient(String relevanceToClient) {
-		this.relevanceToClient = relevanceToClient;
-	}
 	
+
 
 	
 //	public MetaData getMetaData() {

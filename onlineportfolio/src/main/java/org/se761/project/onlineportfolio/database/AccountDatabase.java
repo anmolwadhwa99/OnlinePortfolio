@@ -166,7 +166,7 @@ public class AccountDatabase {
 		
 		
 		account.getQuals().add(qual);
-		qual.getAccounts().add(account);
+		qual.getAccountsQual().add(account);
 		session.save(qual);
 		session.save(account);
 		session.getTransaction().commit();
@@ -175,6 +175,9 @@ public class AccountDatabase {
 		return qual;
 	}
 	
+	/**
+	 * Get all qualifications associated it with an account
+	 */
 	public List<Qualification> getAllQualifications(int accountId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
