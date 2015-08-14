@@ -30,7 +30,7 @@ public class Account {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.PERSIST)
 	private List<Qualification> quals = new ArrayList<Qualification>();
 
-	//TODO: need mapping with adminGroup!
+	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.PERSIST)
 	private List<AdminGroup> adminGroup = new ArrayList<AdminGroup>();
 	
