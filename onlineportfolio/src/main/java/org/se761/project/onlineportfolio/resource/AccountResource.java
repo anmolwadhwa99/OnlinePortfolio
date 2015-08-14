@@ -7,6 +7,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -27,7 +28,8 @@ public class AccountResource {
 	
 	@POST
 	public Account addAccount(Account account){
-		return null;
+		accountService.addAccountDetails(account);
+		return account;
 	}
 	
 	/**
@@ -35,8 +37,8 @@ public class AccountResource {
 	 */
 	@GET
 	@Path("/{accountId}")
-	public Account getAccount(int accountId){
-		return null;
+	public Account getAccount(@PathParam("accountId") int accountId){
+		return accountService.getAccountDetails(accountId);
 	}
 	
 	/**
@@ -44,7 +46,7 @@ public class AccountResource {
 	 */
 	@GET
 	public List<Account> getAllAccounts(){
-		return null;
+		return accountService.getAllAccounts();
 	}
 	
 	/**
@@ -53,7 +55,7 @@ public class AccountResource {
 	@GET
 	@Path("/admin")
 	public List<Account> getAdminAccounts(){
-		return null;
+		return accountService.getAdminAccounts();
 	}
 	
 	/**
@@ -62,7 +64,7 @@ public class AccountResource {
 	@GET
 	@Path("/client")
 	public List<Account> getClientAccounts(){
-		return null;
+		return accountService.getClientAccounts();
 	}
 	
 	/**
@@ -70,8 +72,8 @@ public class AccountResource {
 	 */
 	@DELETE
 	@Path("/{accountId}")
-	public Account deleteAccount(int accountId){
-		return null;
+	public Account deleteAccount(@PathParam("userName") int accountId){
+		return accountService.removeAccount(accountId);
 	}
 	
 	

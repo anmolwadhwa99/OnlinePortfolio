@@ -5,6 +5,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -26,7 +27,8 @@ public class AdminGroupResource {
 	
 	@POST
 	public AdminGroup addAdminGroup(AdminGroup adminGroup){
-		return null;
+		adminGroupService.addAdminGroup(adminGroup);
+		return adminGroup;
 	}
 	
 	/**
@@ -34,8 +36,8 @@ public class AdminGroupResource {
 	 */
 	@GET
 	@Path("/{adminGroupId}")
-	public AdminGroup getAdminGroup(int adminGroupId){
-		return null;
+	public AdminGroup getAdminGroup(@PathParam("adminGroupId") int adminGroupId){
+		return adminGroupService.getAdminGroup(adminGroupId);
 	}
 	
 	/**
@@ -43,8 +45,8 @@ public class AdminGroupResource {
 	 */
 	@DELETE
 	@Path("/{adminGroupId}")
-	public AdminGroup deleteAccount(int adminGroupId){
-		return null;
+	public AdminGroup deleteAccount(@PathParam("adminGroupId") int adminGroupId){
+		return adminGroupService.deleteAdminGroup(adminGroupId);
 	}
 
 }

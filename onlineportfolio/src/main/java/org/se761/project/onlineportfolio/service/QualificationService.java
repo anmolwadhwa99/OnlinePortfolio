@@ -38,7 +38,7 @@ public class QualificationService {
 	/**
 	 * Delete a qualification 
 	 */
-	public Qualification deleteAdminGroup(int qualId){
+	public Qualification deleteQual(int qualId){
 		Qualification qual = qualDatabase.deleteQual(qualId);
 		return qual;
 	}

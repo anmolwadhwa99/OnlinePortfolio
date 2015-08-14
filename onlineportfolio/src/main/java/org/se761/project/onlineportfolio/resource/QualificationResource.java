@@ -7,6 +7,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -26,7 +27,8 @@ public class QualificationResource {
 	
 	@POST
 	public Qualification addQualification(Qualification qualification){
-		return null;
+		qualificationService.addQul(qualification);
+		return qualification;
 	}
 	
 	/**
@@ -34,8 +36,8 @@ public class QualificationResource {
 	 */
 	@GET
 	@Path("/{qualificationId}")
-	public Qualification getQualification(int qualificationId){
-		return null;
+	public Qualification getQualification(@PathParam("qualificationId") int qualificationId){
+		return qualificationService.getQual(qualificationId);
 	}
 	
 	/**
@@ -43,34 +45,35 @@ public class QualificationResource {
 	 */
 	@GET
 	public List<Qualification> getAllQualifications(){
-		return null;
+		return qualificationService.getAllQuals();
 	}
 	
-	/**
-	 * Getting all qualifications for admin group account
-	 */
-	@GET
-	@Path("/admin/{adminGroupId}")
-	public List<Qualification> getAdminGroupQualifications(){
-		return null;
-	}
-	
-	/**
-	 * Getting clients' qualifications
-	 */
-	@GET
-	@Path("/client/{clientId}")
-	public List<Qualification> getClientQualifications(){
-		return null;
-	}
+//TODO
+//	/**
+//	 * Getting all qualifications for admin group account
+//	 */
+//	@GET
+//	@Path("/admin/{adminGroupName}")
+//	public List<Qualification> getAdminGroupQualifications(){
+//		return null;
+//	}
+//	
+//	/**
+//	 * Getting clients' qualifications
+//	 */
+//	@GET
+//	@Path("/client/{clientName}")
+//	public List<Qualification> getClientQualifications(){
+//		return null;
+//	}
 	
 	/**
 	 * Delete an qualification
 	 */
 	@DELETE
 	@Path("/{qualificationId}")
-	public Qualification deleteQualification(int qualificationId){
-		return null;
+	public Qualification deleteQualification(@PathParam("qualificationId") int qualificationId){
+		return qualificationService.deleteQual(qualificationId);
 	}
 
 }
