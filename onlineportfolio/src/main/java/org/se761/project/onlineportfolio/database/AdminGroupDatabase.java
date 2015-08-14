@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 
@@ -136,6 +137,63 @@ public class AdminGroupDatabase {
 		session.close();
 		closeSessionFactory();
 		return quals;
+	}
+	
+	/**
+	 * Add an account to an admin group
+	 */
+	public Account addAccount(int adminGroupId, int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so unable to add account to admin group");
+		}
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so unable to add account to admin group");
+		}
+		
+		adminGroup.getAccounts().add(account);
+		account.getAdminGroup().add(adminGroup);
+		session.save(account);
+		session.save(adminGroup);
+		
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		return account;
+	}
+	
+	/**
+	 * Get all accounts associated with an admin group
+	 */
+	public List<Account> getAllAccounts(int adminGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
+		
+		if(adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so unable to retrieve all accounts");
+		}
+		
+		List<Account> accounts = adminGroup.getAccounts();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		return accounts;
+		
 	}
 
 

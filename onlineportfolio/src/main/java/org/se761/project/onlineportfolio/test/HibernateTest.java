@@ -8,8 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 import org.se761.project.onlineportfolio.service.AccountService;
+import org.se761.project.onlineportfolio.service.AdminGroupService;
 import org.se761.project.onlineportfolio.service.QualificationService;
 
 public class HibernateTest {
@@ -25,22 +27,30 @@ public class HibernateTest {
 //		Session session = sessionFactory.openSession();
 		
 		
-		AccountService accountService = new AccountService();
-		QualificationService qualService = new QualificationService();
-		
+//		AccountService accountService = new AccountService();
+		AdminGroupService adminGroupService = new AdminGroupService();
+//		QualificationService qualService = new QualificationService();
+//		
 		Qualification qual = new Qualification();
-		qual.setClientName("Deloitte 2 ");
-		qual.setProblemStatement("This is a problem 2 ");
-		qual.setProjectName("This is a project 2");
-		qual.setRelevanceToClient("This is relevant 2");
-		
-		
-		List<Qualification> quals = accountService.getAllQualifications(1);
-		
-		for(Qualification q : quals){
-			System.out.println(q.getClientName());
-		}
+		qual.setClientName("Deloitte 3 ");
+		qual.setProblemStatement("This is a problem 3 ");
+		qual.setProjectName("This is a project 3");
+		qual.setRelevanceToClient("This is relevant 3");
+//		
+//		
+//		List<Qualification> quals = accountService.getAllQualifications(1);
+//		
+//		for(Qualification q : quals){
+//			System.out.println(q.getClientName());
+//		}
 	
+		
+//		AdminGroup adminGroup = new AdminGroup();
+//		adminGroup.setAdminGroupName("This is an admin group");
+		
+//		adminGroupService.addAdminGroup(adminGroup);
+//		adminGroupService.addQualification(6, qual);
+		
 		
 //		accountService.addQualification(1, qual);
 		
@@ -102,7 +112,7 @@ public class HibernateTest {
 //		accountService.addAccountDetails(account);
 		
 //		
-//		adminGroup.setAdminGroupName("This is an admin group");
+//		
 		
 		
 		
