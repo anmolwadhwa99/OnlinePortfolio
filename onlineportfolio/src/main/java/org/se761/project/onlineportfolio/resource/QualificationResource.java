@@ -11,11 +11,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.se761.project.onlineportfolio.model.Qualification;
+import org.se761.project.onlineportfolio.service.QualificationService;
 
 @Path("/qual")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class QualificationResource {
+	
+	private QualificationService qualificationService = new QualificationService();
 	
 	/**
 	 * Adding a qualification

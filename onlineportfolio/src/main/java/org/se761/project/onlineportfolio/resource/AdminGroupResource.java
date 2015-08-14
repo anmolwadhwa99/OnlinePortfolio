@@ -10,11 +10,15 @@ import javax.ws.rs.core.MediaType;
 
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.service.AccountService;
+import org.se761.project.onlineportfolio.service.AdminGroupService;
 
 @Path("/admin")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AdminGroupResource {
+	
+	private AdminGroupService adminGroupService = new AdminGroupService();
 	
 	/**
 	 * Adding a admin group
