@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.se761.project.onlineportfolio.model.AdminGroup;
 
@@ -49,7 +50,7 @@ public class Account {
 		this.isAdmin = isAdmin;
 	}
 
-
+	@XmlTransient
 	public List<Qualification> getQuals() {
 		return quals;
 	}
@@ -61,7 +62,7 @@ public class Account {
 	}
 
 
-
+	@XmlTransient
 	public List<AdminGroup> getAdminGroup() {
 		return adminGroup;
 	}

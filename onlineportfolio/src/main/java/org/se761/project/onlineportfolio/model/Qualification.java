@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.se761.project.onlineportfolio.model.helper.MetaData;
 
@@ -151,7 +152,7 @@ public class Qualification {
 		this.relevanceToClient = relevanceToClient;
 	}
 
-
+	@XmlTransient
 	public List<Account> getAccountsQual() {
 		return accountsQual;
 	}
@@ -161,7 +162,7 @@ public class Qualification {
 		this.accountsQual = accountsQual;
 	}
 
-
+	@XmlTransient
 	public List<AdminGroup> getAdminGroups() {
 		return adminGroups;
 	}
