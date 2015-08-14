@@ -1,8 +1,14 @@
 package org.se761.project.onlineportfolio.model.helper;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.se761.project.onlineportfolio.model.Qualification;
 
 public class MetaData {
 	@Id
@@ -13,6 +19,9 @@ public class MetaData {
 	private String status; //either "open" or "confidential"
 	private String deloitteServiceLine; //e.g. auditing, consulting, etc
 	private String colourScheme;
+	
+	@OneToOne(mappedBy = "metaData", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Qualification qualification;
 	
 	public MetaData(){
 		
@@ -31,34 +40,58 @@ public class MetaData {
 	public String getIndustry() {
 		return industry;
 	}
+	
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
+	
 	public String getTag() {
 		return tag;
 	}
+	
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	
 	public String getStatus() {
 		return status;
 	}
+	
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
 	public String getDeloitteServiceLine() {
 		return deloitteServiceLine;
 	}
+	
 	public void setDeloitteServiceLine(String deloitteServiceLine) {
 		this.deloitteServiceLine = deloitteServiceLine;
 	}
+	
 	public String getColourScheme() {
 		return colourScheme;
 	}
+	
 	public void setColourScheme(String colourScheme) {
 		this.colourScheme = colourScheme;
 	}
-	
-	
 
+	public int getMetaDataId() {
+		return metaDataId;
+	}
+
+	public void setMetaDataId(int metaDataId) {
+		this.metaDataId = metaDataId;
+	}
+	
+	@XmlTransient
+	public Qualification getQualification() {
+		return qualification;
+	}
+
+	public void setQualification(Qualification qualification) {
+		this.qualification = qualification;
+	}
+	
 }

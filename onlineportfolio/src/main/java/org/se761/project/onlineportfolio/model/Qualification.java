@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -55,7 +56,10 @@ public class Qualification {
 			inverseJoinColumns = { @JoinColumn(name = "admin_group_id") })
 	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 	
-//	private MetaData metaData;	
+	
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private MetaData metaData;	
 	
 	//TO-DO
 	//Client Logo
@@ -171,16 +175,17 @@ public class Qualification {
 	public void setAdminGroups(List<AdminGroup> adminGroups) {
 		this.adminGroups = adminGroups;
 	}
-	
+
+	@XmlTransient
+	public MetaData getMetaData() {
+		return metaData;
+	}
 
 
+	public void setMetaData(MetaData metaData) {
+		this.metaData = metaData;
+	}
 	
-//	public MetaData getMetaData() {
-//		return metaData;
-//	}
-//
-//	public void setMetaData(MetaData metaData) {
-//		this.metaData = metaData;
-//	}
+	
 	
 }
