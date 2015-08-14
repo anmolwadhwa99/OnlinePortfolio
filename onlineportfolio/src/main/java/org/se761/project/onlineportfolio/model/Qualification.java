@@ -41,14 +41,14 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String relevanceToClient;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Access", joinColumns = { 
 			@JoinColumn(name = "qual_id")}, 
 			inverseJoinColumns = { @JoinColumn(name = "account_id") })
-	private List<Account> accounts = new ArrayList<Account>();
+	private List<Account> accountsQual = new ArrayList<Account>();
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Own", joinColumns = { 
 			@JoinColumn(name = "qual_id")}, 
 			inverseJoinColumns = { @JoinColumn(name = "admin_group_id") })
@@ -82,12 +82,12 @@ public class Qualification {
 	}
 	
 	public List<Account> getAccounts() {
-		return accounts;
+		return accountsQual;
 	}
 
 
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
+	public void setAccounts(List<Account> accountsQual) {
+		this.accountsQual = accountsQual;
 	}
 
 	

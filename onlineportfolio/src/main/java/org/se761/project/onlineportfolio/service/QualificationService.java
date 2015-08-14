@@ -21,7 +21,7 @@ public class QualificationService {
 	
 	
 	/**
-	 * Gets all the quals 
+	 * Gets all the qualifications 
 	 */
 	public List<Qualification> getAllQuals(){
 		List<Qualification> quals = qualDatabase.getAllQuals();

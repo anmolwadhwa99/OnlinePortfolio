@@ -27,11 +27,11 @@ public class Account {
 	private String pin;
 	private boolean isAdmin;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accountsQual", cascade = CascadeType.ALL)
 	private List<Qualification> quals = new ArrayList<Qualification>();
 
 	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.ALL)
 	private List<AdminGroup> adminGroup = new ArrayList<AdminGroup>();
 	
 	

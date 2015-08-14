@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.se761.project.onlineportfolio.database.AccountDatabase;
 import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.Qualification;
 
 public class AccountService {
 
@@ -57,4 +58,18 @@ public class AccountService {
 		Account account = accountDatabase.removeAccount(accountId);
 		return account;
 	}
+	
+	/**
+	 * Adds a qualification against an existing account
+	 */
+	public Qualification addQualification(int accountId, Qualification qualification){
+		Qualification qual = accountDatabase.addQualification(accountId, qualification);
+		return qual;
+	}
+	
+	public List<Qualification> getAllQualifications(int accountId){
+		return accountDatabase.getAllQualifications(accountId);
+	}
+	
+	
 }

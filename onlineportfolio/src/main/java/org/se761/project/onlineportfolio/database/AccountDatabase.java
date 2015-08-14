@@ -11,11 +11,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.Qualification;
+import org.se761.project.onlineportfolio.service.QualificationService;
 
 public class AccountDatabase {
 	
 	private SessionFactory sessionFactory;
 	private Session session;
+	private QualificationService qualService = new QualificationService();
 	
 	public AccountDatabase(){
 		
@@ -146,5 +149,51 @@ public class AccountDatabase {
 		closeSessionFactory();
 		return account;
 	}
+	
+	/**
+	 * Adds a qualification against an existing account
+	 */
+	public Qualification addQualification(int accountId, Qualification qual){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Account account  = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so qual could not be added");
+		}
+		
+		
+		account.getQuals().add(qual);
+		qual.getAccounts().add(account);
+		session.save(qual);
+		session.save(account);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return qual;
+	}
+	
+	public List<Qualification> getAllQualifications(int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Account account  = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so quals could not be retrieved");
+		}
+		
+		List<Qualification> quals = account.getQuals();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return quals;
+		
+	}
+	
 
 }

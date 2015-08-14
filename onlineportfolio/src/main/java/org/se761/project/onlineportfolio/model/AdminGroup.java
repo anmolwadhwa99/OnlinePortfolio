@@ -22,16 +22,17 @@ public class AdminGroup {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int adminGroupId;
+	
 	private String adminGroupName;
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Permission", joinColumns = { 
 			@JoinColumn(name = "admin_group_id")}, 
 			inverseJoinColumns = { @JoinColumn(name = "account_id") })
 	private List<Account> accounts = new ArrayList<Account>();
 	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "adminGroups", cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "adminGroups", cascade = CascadeType.ALL)
 	private List<Qualification> quals = new ArrayList<Qualification>();
 
 	
