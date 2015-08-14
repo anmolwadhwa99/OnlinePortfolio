@@ -19,7 +19,7 @@ public class AccountService {
 	}
 	
 	/**
-	 * Gets all the accounts from the database
+	 * Gets all the accounts 
 	 */
 	public List<Account> getAllAccounts(){
 		List<Account> accounts = accountDatabase.getAllAccounts();	
@@ -28,7 +28,7 @@ public class AccountService {
 	
 	
 	/**
-	 * Gets all the client accounts from the database
+	 * Gets all the client accounts 
 	 */
 	public List<Account> getClientAccounts(){
 		List<Account> clientAccounts = accountDatabase.getClientAccounts();
@@ -36,7 +36,7 @@ public class AccountService {
 	}
 	
 	/**
-	 * Gets all the admin accounts from the database
+	 * Gets all the admin accounts 
 	 */
 	public List<Account> getAdminAccounts(){
 		List<Account> adminAccounts = accountDatabase.getAdminAccounts();
@@ -51,7 +51,7 @@ public class AccountService {
 	}
 	
 	/**
-	 * Deletes an account from the database
+	 * Deletes an account 
 	 */
 	public Account removeAccount(int accountId){
 		Account account = accountDatabase.removeAccount(accountId);

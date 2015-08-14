@@ -97,7 +97,7 @@ public class QualificationDatabase {
 	/**
 	 * Delete qualification from database
 	 */
-	public Qualification deleteAdminGroup(int qualId){
+	public Qualification deleteQual(int qualId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();

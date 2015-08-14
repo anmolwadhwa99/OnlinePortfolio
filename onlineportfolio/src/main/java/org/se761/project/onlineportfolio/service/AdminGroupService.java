@@ -8,7 +8,7 @@ public class AdminGroupService {
 	private AdminGroupDatabase adminGroupDatabase = new AdminGroupDatabase();
 	
 	/**
-	 * Get a admin group from the database
+	 * Get a admin group 
 	 */
 	public AdminGroup getAdminGroup(int adminGroupId){
 		AdminGroup adminGroup = adminGroupDatabase.getAdminGroup(adminGroupId);	
@@ -16,7 +16,7 @@ public class AdminGroupService {
 	}
 	
 	/**
-	 * Add a admin group to the database
+	 * Add a admin group 
 	 */
 	public void addAdminGroup(AdminGroup adminGroup){
 		adminGroupDatabase.addAdminGroup(adminGroup);
@@ -24,7 +24,7 @@ public class AdminGroupService {
 	}
 	
 	/**
-	 * Delete admin group from database
+	 * Delete admin group 
 	 */
 	public AdminGroup deleteAdminGroup(int adminGroupId){
 		AdminGroup adminGroup = adminGroupDatabase.deleteAdminGroup(adminGroupId);
