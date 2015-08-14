@@ -46,6 +46,22 @@ public class AdminGroup {
 	}
 
 
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
+	public List<Qualification> getQuals() {
+		return quals;
+	}
+
+	public void setQuals(List<Qualification> quals) {
+		this.quals = quals;
+	}
+
 	public int getAdminGroupId() {
 		return adminGroupId;
 	}
