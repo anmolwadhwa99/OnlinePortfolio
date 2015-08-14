@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.se761.project.onlineportfolio.database.QualificationDatabase;
 import org.se761.project.onlineportfolio.model.Qualification;
+import org.se761.project.onlineportfolio.model.helper.MetaData;
 
 public class QualificationService {
 	
@@ -41,6 +42,14 @@ public class QualificationService {
 	public Qualification deleteQual(int qualId){
 		Qualification qual = qualDatabase.deleteQual(qualId);
 		return qual;
+	}
+	
+	/**
+	 * Add metadata against a qualification
+	 */
+	public MetaData addMetaData(int qualId, MetaData metaData){
+		MetaData meta = qualDatabase.addMetaData(qualId, metaData);
+		return meta;
 	}
 
 

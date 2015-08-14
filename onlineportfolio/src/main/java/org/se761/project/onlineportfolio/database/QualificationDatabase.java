@@ -2,6 +2,8 @@ package org.se761.project.onlineportfolio.database;
 
 import java.util.List;
 
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +13,7 @@ import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
+import org.se761.project.onlineportfolio.model.helper.MetaData;
 
 public class QualificationDatabase {
 	
@@ -113,6 +116,28 @@ public class QualificationDatabase {
 		session.close();
 		closeSessionFactory();
 		return qual;
+	}
+	
+	/**
+	 * Add metadata against a qualification
+	 */
+	public MetaData addMetaData(int qualId, MetaData metaData){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found. Unable to add metadata");
+		}
+		
+		qual.setMetaData(metaData);
+		session.save(qual);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return metaData;
 	}
 
 }
