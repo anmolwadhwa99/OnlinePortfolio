@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.se761.project.onlineportfolio.database.QualificationDatabase;
 import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 
 
@@ -85,6 +86,13 @@ public class QualificationService {
 		return accounts;
 	}
 	
+	/**
+	 * Get all admin groups associated with a qualification
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromQualification(int qualId){
+		List<AdminGroup> adminGroups = qualDatabase.getAllAdminGroupsFromQualification(qualId);
+		return adminGroups;
+	}
 
 
 

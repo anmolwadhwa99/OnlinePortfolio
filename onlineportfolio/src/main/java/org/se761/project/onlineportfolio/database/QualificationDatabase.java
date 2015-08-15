@@ -251,5 +251,27 @@ public class QualificationDatabase {
 		closeSessionFactory();
 		return accounts;
 	}
+	
+	/**
+	 * Get all admin groups associated with a qualification
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromQualification(int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found, so can't retrieve admin groups");
+		}
+		
+		List<AdminGroup> adminGroups = qual.getAdminGroups();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return adminGroups;
+	}
 
 }
