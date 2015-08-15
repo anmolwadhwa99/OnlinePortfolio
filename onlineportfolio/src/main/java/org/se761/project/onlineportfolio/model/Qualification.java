@@ -78,7 +78,7 @@ public class Qualification {
 		this.challengesFaced = challengesFaced;
 		this.solution = solution;
 		this.relevanceToClient = relevanceToClient;
-		//this.metaData = metaData;
+		this.metaData = metaData;
 	}
 	
 

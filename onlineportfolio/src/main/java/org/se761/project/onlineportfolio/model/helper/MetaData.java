@@ -1,15 +1,19 @@
 package org.se761.project.onlineportfolio.model.helper;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.se761.project.onlineportfolio.model.Qualification;
 
+@XmlRootElement
+@Entity
 public class MetaData {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

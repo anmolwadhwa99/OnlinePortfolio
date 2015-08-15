@@ -45,10 +45,26 @@ public class AccountService {
 	}
 	
 	/**
+	 * Get all the accounts associated with an admin group
+	 */
+	public List<Account> getAllAccountsFromAdminGroup(int adminGroupId){
+		List<Account> accounts = accountDatabase.getAllAccountsFromAdminGroup(adminGroupId);
+		return accounts;
+	}
+	
+	/**
 	 * Adds an account to the database
 	 */
 	public void addAccountDetails(Account account){
 		accountDatabase.addAccountDetails(account);
+	}
+	
+	/**
+	 * Add existing account to an admin group
+	 */
+	public Account addAccountToAdminGroup(int adminGroupId, int accountId){
+		Account account = accountDatabase.addAccountToAdminGroup(adminGroupId, accountId);
+		return account;
 	}
 	
 	/**
@@ -59,21 +75,9 @@ public class AccountService {
 		return account;
 	}
 	
-	/**
-	 * Add account against an admin group
-	 */
-	public Account addAccountToAdminGroup(int adminGroupId, int accountId){
-		Account account = accountDatabase.addAccountToAdminGroup(adminGroupId, accountId);
-		return account;
-	}
+
 	
-	/**
-	 * Get all the accounts associated with an admin group
-	 */
-	public List<Account> getAllAccountsFromAdminGroup(int adminGroupId){
-		List<Account> accounts = accountDatabase.getAllAccountsFromAdminGroup(adminGroupId);
-		return accounts;
-	}
+
 
 	
 	

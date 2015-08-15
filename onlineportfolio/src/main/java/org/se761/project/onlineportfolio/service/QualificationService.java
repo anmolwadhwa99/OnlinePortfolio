@@ -36,6 +36,14 @@ public class QualificationService {
 	}
 	
 	/**
+	 * Get all qualifications associated with an admin group
+	 */
+	public List<Qualification> getAllQualificationsFromAdminGroup(int adminGroupId){
+		List<Qualification> quals = qualDatabase.getAllQualificationsForAdminGroup(adminGroupId);
+		return quals;
+	}
+	
+	/**
 	 * Adds a qualification against an existing account
 	 */
 	public Qualification addQualificationToAccount(int accountId, Qualification qualification){
@@ -66,13 +74,6 @@ public class QualificationService {
 		return qualification;
 	}
 	
-	/**
-	 * Get all qualifications associated with an admin group
-	 */
-	public List<Qualification> getAllQualificationsFromAdminGroup(int adminGroupId){
-		List<Qualification> quals = qualDatabase.getAllQualificationsForAdminGroup(adminGroupId);
-		return quals;
-	}
 	
 	/**
 	 * Delete a qualification 
