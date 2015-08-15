@@ -11,14 +11,12 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
-import org.se761.project.onlineportfolio.model.Qualification;
-import org.se761.project.onlineportfolio.service.QualificationService;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 
 public class AccountDatabase {
 	
 	private SessionFactory sessionFactory;
 	private Session session;
-	private QualificationService qualService = new QualificationService();
 	
 	public AccountDatabase(){
 		
@@ -151,52 +149,63 @@ public class AccountDatabase {
 	}
 	
 	/**
-	 * Adds a qualification against an existing account
+	 * Add an account to an admin group
 	 */
-	public Qualification addQualification(int accountId, Qualification qual){
+	public Account addAccountToAdminGroup(int adminGroupId, int accountId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		Account account  = (Account) session.get(Account.class, accountId);
+		
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so unable to add account to admin group");
+		}
 		
 		if(account == null){
 			closeSessionFactory();
-			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so qual could not be added");
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so unable to add account to admin group");
 		}
 		
-		
-		account.getQuals().add(qual);
-		qual.getAccountsQual().add(account);
-		session.save(qual);
+		adminGroup.getAccounts().add(account);
+		account.getAdminGroup().add(adminGroup);
 		session.save(account);
+		session.save(adminGroup);
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		return qual;
+		
+		return account;
 	}
 	
 	/**
-	 * Get all qualifications associated it with an account
+	 * Get all accounts associated with an admin group
 	 */
-	public List<Qualification> getAllQualifications(int accountId){
+	public List<Account> getAllAccountsFromAdminGroup(int adminGroupId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		Account account  = (Account) session.get(Account.class, accountId);
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
 		
-		if(account == null){
+		if(adminGroup == null){
 			closeSessionFactory();
-			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so quals could not be retrieved");
+			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so unable to retrieve all accounts");
 		}
 		
-		List<Qualification> quals = account.getQuals();
+		List<Account> accounts = adminGroup.getAccounts();
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		return quals;
+		
+		return accounts;
 		
 	}
+	
+
 	
 
 }

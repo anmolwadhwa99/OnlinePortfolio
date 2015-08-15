@@ -60,16 +60,21 @@ public class AccountService {
 	}
 	
 	/**
-	 * Adds a qualification against an existing account
+	 * Add account against an admin group
 	 */
-	public Qualification addQualification(int accountId, Qualification qualification){
-		Qualification qual = accountDatabase.addQualification(accountId, qualification);
-		return qual;
+	public Account addAccountToAdminGroup(int adminGroupId, int accountId){
+		Account account = accountDatabase.addAccountToAdminGroup(adminGroupId, accountId);
+		return account;
 	}
 	
-	public List<Qualification> getAllQualifications(int accountId){
-		return accountDatabase.getAllQualifications(accountId);
+	/**
+	 * Get all the accounts associated with an admin group
+	 */
+	public List<Account> getAllAccountsFromAdminGroup(int adminGroupId){
+		List<Account> accounts = accountDatabase.getAllAccountsFromAdminGroup(adminGroupId);
+		return accounts;
 	}
+
 	
 	
 }
