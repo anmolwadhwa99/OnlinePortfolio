@@ -202,12 +202,30 @@ public class AccountDatabase {
 		closeSessionFactory();
 		
 		return accounts;
-		
 	}
 	
-
-	
-
+	/**
+	 * Get all admin groups associated with an account
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromAccount(int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so unable to retrieve admin groups");
+		}
+		
+		List<AdminGroup> adminGroups = account.getAdminGroup();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		return adminGroups;
+	}
 	
 
 }

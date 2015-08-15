@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.se761.project.onlineportfolio.database.AccountDatabase;
 import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 
 public class AccountService {
@@ -75,10 +76,11 @@ public class AccountService {
 		return account;
 	}
 	
-
-	
-
-
-	
-	
+	/**
+	 * Get all admin groups associated with an account
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromAccount(int accountId){
+		List<AdminGroup> adminGroups = accountDatabase.getAllAdminGroupsFromAccount(accountId);
+		return adminGroups;
+	}
 }

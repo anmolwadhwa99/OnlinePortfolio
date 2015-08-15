@@ -33,6 +33,5 @@
 		<mapping class="org.se761.project.onlineportfolio.model.Account" />
 		<mapping class="org.se761.project.onlineportfolio.model.AdminGroup" />
 		<mapping class="org.se761.project.onlineportfolio.model.Qualification" />
-		<mapping class="org.se761.project.onlineportfolio.model.helper.MetaData" />
 	</session-factory>
 </hibernate-configuration>
