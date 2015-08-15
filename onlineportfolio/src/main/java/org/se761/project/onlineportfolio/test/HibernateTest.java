@@ -10,7 +10,6 @@ import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
-import org.se761.project.onlineportfolio.model.helper.MetaData;
 import org.se761.project.onlineportfolio.service.AccountService;
 import org.se761.project.onlineportfolio.service.AdminGroupService;
 import org.se761.project.onlineportfolio.service.QualificationService;
@@ -31,10 +30,7 @@ public class HibernateTest {
 		qual.setProjectName("This is a project 3");
 		qual.setRelevanceToClient("This is relevant 3");
 		
-		MetaData meta1 = new MetaData();
-		meta1.setIndustry("Financial Services");
-		meta1.setStatus("open");
-		meta1.setColourScheme("Red");
+		
 		
 		
 

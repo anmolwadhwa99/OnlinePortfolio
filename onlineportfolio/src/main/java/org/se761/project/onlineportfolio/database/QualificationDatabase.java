@@ -13,7 +13,6 @@ import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
-import org.se761.project.onlineportfolio.model.helper.MetaData;
 
 public class QualificationDatabase {
 	
@@ -87,8 +86,7 @@ public class QualificationDatabase {
 	/**
 	 * Adding a qualification to the database
 	 */
-	public void addQual(Qualification qual, MetaData metaData){
-		qual.setMetaData(metaData);
+	public void addQual(Qualification qual){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -209,30 +207,7 @@ public class QualificationDatabase {
 		
 	}
 	
-	/**
-	 * Add metadata against a qualification
-	 */
-	public MetaData addMetaData(int qualId, MetaData metaData){
-		openSessionFactory();
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
-		if(qual == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found. Unable to add metadata");
-		}
-		
-		qual.setMetaData(metaData);
-		session.save(qual);
-		session.getTransaction().commit();
-		session.close();
-		closeSessionFactory();
-		return metaData;
-	}
 	
-
-
 	/**
 	 * Get all qualifications associated with an admin group
 	 */

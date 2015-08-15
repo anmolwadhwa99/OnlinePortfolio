@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.se761.project.onlineportfolio.model.helper.MetaData;
+
 
 
 @XmlRootElement
@@ -60,10 +60,12 @@ public class Qualification {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 	
+	private String metaDataIndustry; //e.g. Financial Services, Education, etc.
+	private String metaDataTag; 
+	private String metaDataStatus; //either "open" or "confidential"
+	private String metaDataDeloitteServiceLine; //e.g. auditing, consulting, etc
+	private String metaDataColourScheme;
 	
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private MetaData metaData;	
 	
 	//TO-DO
 	//Client Logo
@@ -71,20 +73,25 @@ public class Qualification {
 	//Microsite link
 	
 
-	public Qualification(int qualId, String projectName, String clientName,
+	public Qualification(String projectName, String clientName,
 			String problemStatement, String challengesFaced, String solution,
-			String relevanceToClient, MetaData metaData) {
+			String relevanceToClient, String metaDataIndustry,
+			String metaDataTag, String metaDataStatus,
+			String metaDataDeloitteServiceLine, String metaDataColourScheme) {
 		super();
-		this.qualId = qualId;
 		this.projectName = projectName;
 		this.clientName = clientName;
 		this.problemStatement = problemStatement;
 		this.challengesFaced = challengesFaced;
 		this.solution = solution;
 		this.relevanceToClient = relevanceToClient;
-		this.metaData = metaData;
+		this.metaDataIndustry = metaDataIndustry;
+		this.metaDataTag = metaDataTag;
+		this.metaDataStatus = metaDataStatus;
+		this.metaDataDeloitteServiceLine = metaDataDeloitteServiceLine;
+		this.metaDataColourScheme = metaDataColourScheme;
 	}
-	
+
 
 	public Qualification(){
 		
@@ -180,16 +187,55 @@ public class Qualification {
 		this.adminGroups = adminGroups;
 	}
 
-	@XmlTransient
-	public MetaData getMetaData() {
-		return metaData;
+
+
+	public String getMetaDataIndustry() {
+		return metaDataIndustry;
 	}
 
 
-	public void setMetaData(MetaData metaData) {
-		this.metaData = metaData;
+	public void setMetaDataIndustry(String metaDataIndustry) {
+		this.metaDataIndustry = metaDataIndustry;
 	}
-	
-	
-	
+
+
+	public String getMetaDataTag() {
+		return metaDataTag;
+	}
+
+
+	public void setMetaDataTag(String metaDataTag) {
+		this.metaDataTag = metaDataTag;
+	}
+
+
+	public String getMetaDataStatus() {
+		return metaDataStatus;
+	}
+
+
+	public void setMetaDataStatus(String metaDataStatus) {
+		this.metaDataStatus = metaDataStatus;
+	}
+
+
+	public String getMetaDataDeloitteServiceLine() {
+		return metaDataDeloitteServiceLine;
+	}
+
+
+	public void setMetaDataDeloitteServiceLine(String metaDataDeloitteServiceLine) {
+		this.metaDataDeloitteServiceLine = metaDataDeloitteServiceLine;
+	}
+
+
+	public String getMetaDataColourScheme() {
+		return metaDataColourScheme;
+	}
+
+
+	public void setMetaDataColourScheme(String metaDataColourScheme) {
+		this.metaDataColourScheme = metaDataColourScheme;
+	}
+		
 }

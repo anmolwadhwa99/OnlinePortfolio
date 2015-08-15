@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.se761.project.onlineportfolio.model.Qualification;
-import org.se761.project.onlineportfolio.model.helper.MetaData;
 import org.se761.project.onlineportfolio.service.QualificationService;
 
 @Path("/qual")
@@ -28,8 +27,7 @@ public class QualificationResource {
 	
 	@POST
 	public Qualification addQualification(Qualification qualification){
-		MetaData metaData = new MetaData(); //this needs to be changed
-		qualificationService.addQual(qualification, metaData);
+		qualificationService.addQual(qualification);
 		return qualification;
 	}
 	

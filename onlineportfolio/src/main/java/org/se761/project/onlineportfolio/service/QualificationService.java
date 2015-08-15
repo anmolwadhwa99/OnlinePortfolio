@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.se761.project.onlineportfolio.database.QualificationDatabase;
 import org.se761.project.onlineportfolio.model.Qualification;
-import org.se761.project.onlineportfolio.model.helper.MetaData;
+
 
 public class QualificationService {
 	
@@ -54,17 +54,11 @@ public class QualificationService {
 	/**
 	 * Adding a qualification 
 	 */
-	public void addQual(Qualification qual, MetaData metaData){
-		qualDatabase.addQual(qual, metaData);
+	public void addQual(Qualification qual){
+		qualDatabase.addQual(qual);
 	}
 	
-	/**
-	 * Add metadata against a qualification
-	 */
-	public MetaData addMetaData(int qualId, MetaData metaData){
-		MetaData meta = qualDatabase.addMetaData(qualId, metaData);
-		return meta;
-	}
+
 	
 	/**
 	 * Add qualification against an admin group
