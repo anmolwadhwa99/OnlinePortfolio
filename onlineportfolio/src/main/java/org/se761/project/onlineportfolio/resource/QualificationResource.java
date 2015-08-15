@@ -11,6 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 import org.se761.project.onlineportfolio.service.QualificationService;
 
@@ -95,5 +97,22 @@ public class QualificationResource {
 	public Qualification deleteQualification(@PathParam("qualificationId") int qualificationId){
 		return qualificationService.deleteQual(qualificationId);
 	}
-
+	
+	/**
+	 * Get all accounts associated with a qualification
+	 */
+	@GET
+	@Path("/{qualificationId}/account")
+	public List<Account> getAllAccountsFromQualification(@PathParam("qualificationId") int qualificationId){
+		return qualificationService.getAllAccountsFromQualification(qualificationId);
+	}
+	
+	/**
+	 * Get all admin groups associated with a qualification
+	 */
+	@GET
+	@Path("/{qualificationId}/admin")
+	public List<AdminGroup> getAllAdminGroupsFromQualification(@PathParam("qualificationId") int qualificationId){
+		return qualificationService.getAllAdminGroupsFromQualification(qualificationId);
+	}
 }

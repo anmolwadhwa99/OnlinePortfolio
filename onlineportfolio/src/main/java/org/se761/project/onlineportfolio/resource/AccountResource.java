@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.se761.project.onlineportfolio.model.Account;
+import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.service.AccountService;
 
 
@@ -94,6 +95,14 @@ public class AccountResource {
 		return accountService.removeAccount(accountId);
 	}
 	
+	/**
+	 * Get all admin groups associated with an account
+	 */
+	@GET
+	@Path("/{accountId}/admin")
+	public List<AdminGroup> getAllAdminGroupsFromAccount(@PathParam("accountId") int accountId){
+		return accountService.getAllAdminGroupsFromAccount(accountId);
+	}
 	
 	
 	
