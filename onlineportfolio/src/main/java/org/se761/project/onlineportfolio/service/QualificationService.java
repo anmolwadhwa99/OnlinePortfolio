@@ -2,8 +2,8 @@ package org.se761.project.onlineportfolio.service;
 
 import java.util.List;
 
-
 import org.se761.project.onlineportfolio.database.QualificationDatabase;
+import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.Qualification;
 
 
@@ -75,6 +75,14 @@ public class QualificationService {
 	public Qualification deleteQual(int qualId){
 		Qualification qual = qualDatabase.deleteQual(qualId);
 		return qual;
+	}
+	
+	/**
+	 * Get all accounts associated with a qualification
+	 */
+	public List<Account> getAllAccountsFromQualification(int qualId){
+		List<Account> accounts = qualDatabase.getAllAccountsFromQualification(qualId);
+		return accounts;
 	}
 	
 
