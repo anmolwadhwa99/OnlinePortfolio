@@ -46,16 +46,16 @@ public class QualificationService {
 	/**
 	 * Adds a qualification against an existing account
 	 */
-	public Qualification addQualificationToAccount(int accountId, Qualification qualification){
-		Qualification qual = qualDatabase.addQualificationToAccount(accountId, qualification);
+	public Qualification addQualificationToAccount(int accountId, int qualId){
+		Qualification qual = qualDatabase.addQualificationToAccount(accountId, qualId);
 		return qual;
 	}
 		
 	/**
 	 * Adding a qualification 
 	 */
-	public void addQul(Qualification qual){
-		qualDatabase.addQul(qual);
+	public void addQual(Qualification qual, MetaData metaData){
+		qualDatabase.addQual(qual, metaData);
 	}
 	
 	/**
@@ -69,8 +69,8 @@ public class QualificationService {
 	/**
 	 * Add qualification against an admin group
 	 */
-	public Qualification addQualificationToAdminGroup(int adminGroupId, Qualification qual){
-		Qualification qualification = qualDatabase.addQualificationToAdminGroup(adminGroupId, qual);
+	public Qualification addQualificationToAdminGroup(int adminGroupId, int qualId){
+		Qualification qualification = qualDatabase.addQualificationToAdminGroup(adminGroupId, qualId);
 		return qualification;
 	}
 	

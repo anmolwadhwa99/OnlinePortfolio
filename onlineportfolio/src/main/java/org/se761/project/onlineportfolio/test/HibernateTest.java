@@ -25,28 +25,32 @@ public class HibernateTest {
 		AdminGroupService adminGroupService = new AdminGroupService();
 		QualificationService qualService = new QualificationService();
 		
-//		Qualification qual = new Qualification();
-//		qual.setClientName("Client 1");
-//		qual.setProblemStatement("This is a problem 1");
-//		qual.setProjectName("This is a project 1");
-//		qual.setRelevanceToClient("This is relevant 1");
-//		
-//		MetaData meta1 = new MetaData();
-//		meta1.setIndustry("FinancialServices");
-//		meta1.setStatus("open");
-//		meta1.setColourScheme("Yellow");
-//		
-//		qualService.addQul(qual);
+		Qualification qual = new Qualification();
+		qual.setClientName("Client 3");
+		qual.setProblemStatement("This is a problem 3");
+		qual.setProjectName("This is a project 3");
+		qual.setRelevanceToClient("This is relevant 3");
 		
-		Account dheeraj = new Account();
-		dheeraj.setAdmin(true);
-		dheeraj.setUserName("dgop");
-		dheeraj.setPin("1234");
-		accountService.addAccountDetails(dheeraj);
+		MetaData meta1 = new MetaData();
+		meta1.setIndustry("Financial Services");
+		meta1.setStatus("open");
+		meta1.setColourScheme("Red");
+		
+		
+
+		
+//		Account dheeraj = new Account();
+//		dheeraj.setAdmin(true);
+//		dheeraj.setUserName("dgop");
+//		dheeraj.setPin("1234");
+//		accountService.addAccountDetails(dheeraj);
 //		
 //		AdminGroup group = new AdminGroup();
-//		group.setAdminGroupName("Consulting");
+//		group.setAdminGroupName("Audit");
 //		adminGroupService.addAdminGroup(group);
+//		accountService.addAccountToAdminGroup(8, 6);
+		
+		
 		
 		
 	}

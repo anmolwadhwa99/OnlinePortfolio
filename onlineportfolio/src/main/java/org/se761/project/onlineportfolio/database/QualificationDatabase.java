@@ -87,7 +87,8 @@ public class QualificationDatabase {
 	/**
 	 * Adding a qualification to the database
 	 */
-	public void addQul(Qualification qual){
+	public void addQual(Qualification qual, MetaData metaData){
+		qual.setMetaData(metaData);
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -121,7 +122,8 @@ public class QualificationDatabase {
 	/**
 	 * Adds a qualification against an existing account
 	 */
-	public Qualification addQualificationToAccount(int accountId, Qualification qual){
+	public Qualification addQualificationToAccount(int accountId, int qualId){
+
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -130,6 +132,13 @@ public class QualificationDatabase {
 		if(account == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so qual could not be added");
+		}
+		
+		Qualification qual = (Qualification) session.get(Account.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
 		}
 		
 		
@@ -193,7 +202,7 @@ public class QualificationDatabase {
 	/**
 	 * Add a qualification against an admin group
 	 */
-	public Qualification addQualificationToAdminGroup(int adminGroupId, Qualification qual){
+	public Qualification addQualificationToAdminGroup(int adminGroupId, int qualId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -202,6 +211,13 @@ public class QualificationDatabase {
 		if(adminGroup == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so can't add qualification");
+		}
+		
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
 		}
 
 		adminGroup.getQuals().add(qual);
