@@ -2,6 +2,7 @@ package org.se761.project.onlineportfolio.database;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -56,6 +57,29 @@ public class AdminGroupDatabase {
 		session.close();
 		closeSessionFactory();
 		return adminGroup;
+	}
+	
+	/**
+	 * Get all admin groups from the database
+	 */
+	public List<AdminGroup> getAllAdminGroups(){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String getAllQuery = "FROM AdminGroup ag";
+		Query query = session.createQuery(getAllQuery);
+
+		List<AdminGroup> adminGroups = query.list();
+		
+		if(adminGroups.size() == 0){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("No admin groups in the database to display.");
+		}
+		
+
+		session.close();
+		closeSessionFactory();
+		return adminGroups;
 	}
 
 	/**

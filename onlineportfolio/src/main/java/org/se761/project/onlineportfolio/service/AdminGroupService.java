@@ -1,6 +1,8 @@
 package org.se761.project.onlineportfolio.service;
 
 
+import java.util.List;
+
 import org.se761.project.onlineportfolio.database.AdminGroupDatabase;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 
@@ -14,6 +16,13 @@ public class AdminGroupService {
 	public AdminGroup getAdminGroup(int adminGroupId){
 		AdminGroup adminGroup = adminGroupDatabase.getAdminGroup(adminGroupId);	
 		return adminGroup;
+	}
+	
+	/**
+	 * Get an admin group 
+	 */
+	public List<AdminGroup> getAllAdminGroups(){
+		return adminGroupDatabase.getAllAdminGroups();			
 	}
 	
 	/**

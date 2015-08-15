@@ -1,5 +1,7 @@
 package org.se761.project.onlineportfolio.resource;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -31,6 +33,15 @@ public class AdminGroupResource {
 		return adminGroup;
 	}
 	
+	/**
+	 * Getting all admin groups
+	 */
+	
+	@GET
+	public List<AdminGroup> getAdminGroups(){
+		return adminGroupService.getAllAdminGroups();
+	}
+		
 	/**
 	 * Getting a admin group
 	 */

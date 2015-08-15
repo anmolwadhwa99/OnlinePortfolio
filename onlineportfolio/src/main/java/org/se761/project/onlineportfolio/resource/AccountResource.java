@@ -72,7 +72,7 @@ public class AccountResource {
 	 */
 	@DELETE
 	@Path("/{accountId}")
-	public Account deleteAccount(@PathParam("userName") int accountId){
+	public Account deleteAccount(@PathParam("accountId") int accountId){
 		return accountService.removeAccount(accountId);
 	}
 	

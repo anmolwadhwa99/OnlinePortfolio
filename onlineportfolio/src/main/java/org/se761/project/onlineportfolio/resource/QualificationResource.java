@@ -27,7 +27,8 @@ public class QualificationResource {
 	 */
 	
 	@POST
-	public Qualification addQualification(Qualification qualification, MetaData metaData){
+	public Qualification addQualification(Qualification qualification){
+		MetaData metaData = new MetaData(); //this needs to be changed
 		qualificationService.addQual(qualification, metaData);
 		return qualification;
 	}
