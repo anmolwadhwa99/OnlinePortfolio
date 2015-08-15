@@ -43,7 +43,7 @@ public class QualificationResource {
 	}
 	
 	/**
-	 * Adding qual to account account 
+	 * Adding qual to account  
 	 */
 	@POST
 	@Path("/account/{accountId}/{qualId}")
@@ -88,7 +88,6 @@ public class QualificationResource {
 		return qualificationService.getAllQualificationsFromAccount(accountId);
 	}
 	
-
 	
 	/**
 	 * Delete an qualification
