@@ -19,6 +19,8 @@ import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.se761.project.onlineportfolio.model.helper.MetaData;
 
 
@@ -47,6 +49,7 @@ public class Qualification {
 	@JoinTable(name = "Access", joinColumns = { 
 			@JoinColumn(name = "qual_id")}, 
 			inverseJoinColumns = { @JoinColumn(name = "account_id") })
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Account> accountsQual = new ArrayList<Account>();
 	
 	
@@ -54,6 +57,7 @@ public class Qualification {
 	@JoinTable(name = "Own", joinColumns = { 
 			@JoinColumn(name = "qual_id")}, 
 			inverseJoinColumns = { @JoinColumn(name = "admin_group_id") })
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 	
 	

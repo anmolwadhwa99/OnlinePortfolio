@@ -17,6 +17,9 @@ import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @XmlRootElement
 @Entity
 public class AdminGroup {
@@ -31,9 +34,11 @@ public class AdminGroup {
 	@JoinTable(name = "Permission", joinColumns = { 
 			@JoinColumn(name = "admin_group_id")}, 
 			inverseJoinColumns = { @JoinColumn(name = "account_id") })
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Account> accounts = new ArrayList<Account>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "adminGroups", cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Qualification> quals = new ArrayList<Qualification>();
 
 	
