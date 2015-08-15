@@ -134,7 +134,7 @@ public class QualificationDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so qual could not be added");
 		}
 		
-		Qualification qual = (Qualification) session.get(Account.class, qualId);
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
 		
 		if(qual == null){
 			closeSessionFactory();
@@ -150,6 +150,38 @@ public class QualificationDatabase {
 		session.close();
 		closeSessionFactory();
 		return qual;
+	}
+	
+	/**
+	 * Add a qualification against an admin group
+	 */
+	public Qualification addQualificationToAdminGroup(int adminGroupId, int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
+
+		if(adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so can't add qualification");
+		}
+		
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
+		}
+
+		adminGroup.getQuals().add(qual);
+		qual.getAdminGroups().add(adminGroup);
+		session.save(qual);
+		session.save(adminGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return qual;
+
 	}
 	
 	
@@ -199,37 +231,7 @@ public class QualificationDatabase {
 		return metaData;
 	}
 	
-	/**
-	 * Add a qualification against an admin group
-	 */
-	public Qualification addQualificationToAdminGroup(int adminGroupId, int qualId){
-		openSessionFactory();
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
 
-		if(adminGroup == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so can't add qualification");
-		}
-		
-		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
-		if(qual == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
-		}
-
-		adminGroup.getQuals().add(qual);
-		qual.getAdminGroups().add(adminGroup);
-		session.save(qual);
-		session.save(adminGroup);
-		session.getTransaction().commit();
-		session.close();
-		closeSessionFactory();
-		return qual;
-
-	}
 
 	/**
 	 * Get all qualifications associated with an admin group

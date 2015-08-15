@@ -34,6 +34,25 @@ public class QualificationResource {
 	}
 	
 	/**
+	 * Adding qual to admin group 
+	 */
+	@POST
+	@Path("/admin/{adminGroupId}/{qualId}")
+	public Qualification addAdminGroupQualifications(@PathParam("adminGroupId") int adminGroupId, @PathParam("qualId") int qualId ){
+		return qualificationService.addQualificationToAdminGroup(adminGroupId, qualId);
+	}
+	
+	/**
+	 * Adding qual to account account 
+	 */
+	@POST
+	@Path("/account/{accountId}/{qualId}")
+	public Qualification addAccountQualifications(@PathParam("accountId") int accountId, @PathParam("qualId") int qualId ){
+		return qualificationService.addQualificationToAccount(accountId, qualId);
+	}
+	
+		
+	/**
 	 * Getting any qualification
 	 */
 	@GET
@@ -50,24 +69,26 @@ public class QualificationResource {
 		return qualificationService.getAllQuals();
 	}
 	
-//TODO
-//	/**
-//	 * Getting all qualifications for admin group account
-//	 */
-//	@GET
-//	@Path("/admin/{adminGroupName}")
-//	public List<Qualification> getAdminGroupQualifications(){
-//		return null;
-//	}
-//	
-//	/**
-//	 * Getting clients' qualifications
-//	 */
-//	@GET
-//	@Path("/client/{clientName}")
-//	public List<Qualification> getClientQualifications(){
-//		return null;
-//	}
+
+	/**
+	 * Getting all qualifications from admin group 
+	 */
+	@GET
+	@Path("/admin/{adminGroupId}")
+	public List<Qualification> getAdminGroupQualifications(@PathParam("adminGroupId") int adminGroupId){
+		return qualificationService.getAllQualificationsFromAdminGroup(adminGroupId);
+	}
+	
+	/**
+	 * Getting all qualifications from account 
+	 */
+	@GET
+	@Path("/account/{accountId}") 
+	public List<Qualification> getAccountQualifications(@PathParam("accountId") int accountId){
+		return qualificationService.getAllQualificationsFromAccount(accountId);
+	}
+	
+
 	
 	/**
 	 * Delete an qualification

@@ -33,6 +33,15 @@ public class AccountResource {
 	}
 	
 	/**
+	 * Setting account to a particular admin group
+	 */
+	@POST
+	@Path("/admin/{adminGroupId}/{accountId}")
+	public Account getAdminGroupAccounts(@PathParam("adminGroupId") int adminGroupId, @PathParam("accountId") int accountId ){
+		return accountService.addAccountToAdminGroup(adminGroupId, accountId);
+	}
+	
+	/**
 	 * Getting any account
 	 */
 	@GET
@@ -54,8 +63,17 @@ public class AccountResource {
 	 */
 	@GET
 	@Path("/admin")
-	public List<Account> getAdminAccounts(){
+	public List<Account> getAllAdminAccounts(){
 		return accountService.getAdminAccounts();
+	}
+	
+	/**
+	 * Getting all admin accounts from a particular group
+	 */
+	@GET
+	@Path("/admin/{adminGroupId}")
+	public List<Account> getAdminGroupAccounts(@PathParam("adminGroupId") int adminGroupId){
+		return accountService.getAllAccountsFromAdminGroup(adminGroupId);
 	}
 	
 	/**
