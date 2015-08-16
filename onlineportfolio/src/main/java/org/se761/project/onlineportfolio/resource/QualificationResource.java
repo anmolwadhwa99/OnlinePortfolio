@@ -102,7 +102,7 @@ public class QualificationResource {
 	 * Get all accounts associated with a qualification
 	 */
 	@GET
-	@Path("/{qualificationId}/account")
+	@Path("account/qual/{qualificationId}")
 	public List<Account> getAllAccountsFromQualification(@PathParam("qualificationId") int qualificationId){
 		return qualificationService.getAllAccountsFromQualification(qualificationId);
 	}
@@ -111,7 +111,7 @@ public class QualificationResource {
 	 * Get all admin groups associated with a qualification
 	 */
 	@GET
-	@Path("/{qualificationId}/admin")
+	@Path("/admin/qual/{qualificationId}")
 	public List<AdminGroup> getAllAdminGroupsFromQualification(@PathParam("qualificationId") int qualificationId){
 		return qualificationService.getAllAdminGroupsFromQualification(qualificationId);
 	}

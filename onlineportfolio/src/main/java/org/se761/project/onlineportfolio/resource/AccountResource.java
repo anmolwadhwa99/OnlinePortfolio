@@ -99,7 +99,7 @@ public class AccountResource {
 	 * Get all admin groups associated with an account
 	 */
 	@GET
-	@Path("/{accountId}/admin")
+	@Path("/admin/account/{accountId}")
 	public List<AdminGroup> getAllAdminGroupsFromAccount(@PathParam("accountId") int accountId){
 		return accountService.getAllAdminGroupsFromAccount(accountId);
 	}
