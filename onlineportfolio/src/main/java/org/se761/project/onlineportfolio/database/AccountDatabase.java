@@ -12,6 +12,7 @@ import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.model.Qualification;
 
 public class AccountDatabase {
 	
@@ -205,26 +206,25 @@ public class AccountDatabase {
 	}
 	
 	/**
-	 * Get all admin groups associated with an account
+	 * Get all account associated with a qualification
 	 */
-	public List<AdminGroup> getAllAdminGroupsFromAccount(int accountId){
+	public List<Account> getAllAccountsFromQualification(int qualId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		Account account = (Account) session.get(Account.class, accountId);
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
 		
-		if(account == null){
+		if(qual == null){
 			closeSessionFactory();
-			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so unable to retrieve admin groups");
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found, so can't retrieve accounts");
 		}
 		
-		List<AdminGroup> adminGroups = account.getAdminGroup();
+		List<Account> accounts = qual.getAccountsQual();
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		
-		return adminGroups;
+		return accounts;
 	}
 	
 

@@ -59,5 +59,22 @@ public class AdminGroupResource {
 	public AdminGroup deleteAccount(@PathParam("adminGroupId") int adminGroupId){
 		return adminGroupService.deleteAdminGroup(adminGroupId);
 	}
+	
+	/**
+	 * Get all admin groups associated with an account
+	 */
+	@GET
+	@Path("/account/{accountId}")
+	public List<AdminGroup> getAllAdminGroupsFromAccount(@PathParam("accountId") int accountId){
+		return adminGroupService.getAllAdminGroupsFromAccount(accountId);
+	}
 
+	/**
+	 * Get all admin groups associated with a qualification
+	 */
+	@GET
+	@Path("/qual/{qualificationId}")
+	public List<AdminGroup> getAllAdminGroupsFromQualification(@PathParam("qualificationId") int qualificationId){
+		return adminGroupService.getAllAdminGroupsFromQualification(qualificationId);
+	}
 }

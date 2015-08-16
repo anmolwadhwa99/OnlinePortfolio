@@ -76,11 +76,15 @@ public class AccountService {
 		return account;
 	}
 	
+	
 	/**
-	 * Get all admin groups associated with an account
+	 * Get all accounts associated with a qualification
 	 */
-	public List<AdminGroup> getAllAdminGroupsFromAccount(int accountId){
-		List<AdminGroup> adminGroups = accountDatabase.getAllAdminGroupsFromAccount(accountId);
-		return adminGroups;
+	public List<Account> getAllAccountsFromQualification(int qualId){
+		List<Account> accounts = accountDatabase.getAllAccountsFromQualification(qualId);
+		return accounts;
 	}
+	
+	
+	
 }

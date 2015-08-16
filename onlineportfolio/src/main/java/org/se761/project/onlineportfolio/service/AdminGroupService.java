@@ -41,6 +41,22 @@ public class AdminGroupService {
 		return adminGroup;
 	}
 	
+	/**
+	 * Get all admin groups associated with an account
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromAccount(int accountId){
+		List<AdminGroup> adminGroups = adminGroupDatabase.getAllAdminGroupsFromAccount(accountId);
+		return adminGroups;
+	}
+	
+	/**
+	 * Get all admin groups associated with a qualification
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromQualification(int qualId){
+		List<AdminGroup> adminGroups = adminGroupDatabase.getAllAdminGroupsFromQualification(qualId);
+		return adminGroups;
+	}
+	
 	
 
 }

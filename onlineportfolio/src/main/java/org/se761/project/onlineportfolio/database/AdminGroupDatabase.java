@@ -115,6 +115,50 @@ public class AdminGroupDatabase {
 		closeSessionFactory();
 		return adminGroup;
 	}
-
+	
+	/**
+	 * Get all admin groups associated with a qualification
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromQualification(int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found, so can't retrieve admin groups");
+		}
+		
+		List<AdminGroup> adminGroups = qual.getAdminGroups();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return adminGroups;
+	}
+	
+	/**
+	 * Get all admin groups associated with an account
+	 */
+	public List<AdminGroup> getAllAdminGroupsFromAccount(int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so unable to retrieve admin groups");
+		}
+		
+		List<AdminGroup> adminGroups = account.getAdminGroup();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		return adminGroups;
+	}
 
 }

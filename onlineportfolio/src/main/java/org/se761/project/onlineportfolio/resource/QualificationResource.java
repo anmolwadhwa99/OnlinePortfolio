@@ -98,21 +98,7 @@ public class QualificationResource {
 		return qualificationService.deleteQual(qualificationId);
 	}
 	
-	/**
-	 * Get all accounts associated with a qualification
-	 */
-	@GET
-	@Path("account/qual/{qualificationId}")
-	public List<Account> getAllAccountsFromQualification(@PathParam("qualificationId") int qualificationId){
-		return qualificationService.getAllAccountsFromQualification(qualificationId);
-	}
 	
-	/**
-	 * Get all admin groups associated with a qualification
-	 */
-	@GET
-	@Path("/admin/qual/{qualificationId}")
-	public List<AdminGroup> getAllAdminGroupsFromQualification(@PathParam("qualificationId") int qualificationId){
-		return qualificationService.getAllAdminGroupsFromQualification(qualificationId);
-	}
+	
+	
 }

@@ -95,13 +95,14 @@ public class AccountResource {
 		return accountService.removeAccount(accountId);
 	}
 	
+	
 	/**
-	 * Get all admin groups associated with an account
+	 * Get all accounts associated with a qualification
 	 */
 	@GET
-	@Path("/admin/account/{accountId}")
-	public List<AdminGroup> getAllAdminGroupsFromAccount(@PathParam("accountId") int accountId){
-		return accountService.getAllAdminGroupsFromAccount(accountId);
+	@Path("/qual/{qualificationId}")
+	public List<Account> getAllAccountsFromQualification(@PathParam("qualificationId") int qualificationId){
+		return accountService.getAllAccountsFromQualification(qualificationId);
 	}
 	
 	

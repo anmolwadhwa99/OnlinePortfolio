@@ -77,22 +77,8 @@ public class QualificationService {
 		Qualification qual = qualDatabase.deleteQual(qualId);
 		return qual;
 	}
+
 	
-	/**
-	 * Get all accounts associated with a qualification
-	 */
-	public List<Account> getAllAccountsFromQualification(int qualId){
-		List<Account> accounts = qualDatabase.getAllAccountsFromQualification(qualId);
-		return accounts;
-	}
-	
-	/**
-	 * Get all admin groups associated with a qualification
-	 */
-	public List<AdminGroup> getAllAdminGroupsFromQualification(int qualId){
-		List<AdminGroup> adminGroups = qualDatabase.getAllAdminGroupsFromQualification(qualId);
-		return adminGroups;
-	}
 
 
 
