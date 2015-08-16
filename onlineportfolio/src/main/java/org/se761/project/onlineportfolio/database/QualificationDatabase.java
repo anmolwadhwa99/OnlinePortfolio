@@ -75,7 +75,7 @@ public class QualificationDatabase {
 		
 		if(quals.size() == 0){
 			closeSessionFactory();
-			throw new DatabaseRetrievalException("No accounts in the database to display.");
+			throw new DatabaseRetrievalException("No quals in the database to display.");
 		}
 		
 		session.close();
