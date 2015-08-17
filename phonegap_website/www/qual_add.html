@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Add Qual</title>
+    <title>Signin Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,6 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 
-<<<<<<< HEAD
     <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/webServices.js" ></script>
@@ -52,55 +51,10 @@
                     challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
         }
     </script>
-=======
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    <script src="js/webServices.js"></script>
-
->>>>>>> 1e620317f2f15c2bac90a33f46fc5903a8aff4c0
 </head>
 
 <body style="padding:20px;">
-<script>
-    function addQual() {
-        var clientName = document.getElementById("qual_client_name").value;
-        var projName = document.getElementById("qual_project_name").value;
-
-        var relevance = "relevance";
-
-        var problem = document.getElementById("qual_problems").value;
-        var challenges = document.getElementById("qual_challenges").value;
-        var solution = document.getElementById("qual_solution").value;
-
-        var mdIndustry = document.getElementById("qual_industry").value;
-        var mdTag = "tag";
-        var mdStatus;
-        if(document.getElementById("qual_private").checked){
-            mdStatus = "confidential";
-        }else{
-            mdStatus = "open";
-        }
-        var mdServiceLine = "serviceLine";
-        var mdColourScheme = document.getElementById("qual_colour_primary").value;
-
-        console.log(clientName);
-        console.log(projName);
-        console.log(relevance);
-        console.log(problem);
-        console.log(challenges);
-        console.log(solution);
-        console.log(mdIndustry);
-        console.log(mdTag);
-        console.log(mdStatus);
-        console.log(mdServiceLine);
-        console.log(mdColourScheme);
-
-        //insertQual(clientName, problem, projName, relevance, solution,
-        //        challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
-    }
-</script>
-<div id="qual_add" class="container-fluid">
+<form class="container-fluid">
     <div class="row">
         <div class="col-md-6">
             <img src="imgs/download.png" alt="Deloitte Logo" class=".img-responsive" style="margin: auto;">
@@ -110,13 +64,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_project_name">Project Name: </label>
-                        <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name" name="project" required autofocus>
+                        <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name" required autofocus>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_client_name">Client Name: </label>
-                        <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name" name="client" required >
+                        <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name" required >
                     </div>
                 </div>
             </div>
@@ -124,13 +78,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_email">Email: </label>
-                        <input id="qual_email" type="email" class="form-control" placeholder="Email" name="email" required >
+                        <input id="qual_email" type="email" class="form-control" placeholder="Email" required >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_website">Website: </label>
-                        <input id="qual_website" type="url" class="form-control" placeholder="Website" name="website" required >
+                        <input id="qual_website" type="url" class="form-control" placeholder="Website" required >
                     </div>
                 </div>
             </div>
@@ -138,28 +92,28 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry" name="industry" required >
+                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry" required >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_client_logo">Client Logo: </label>
-                        <input id="qual_client_logo" type="file" class="form-control" name="logo" required >
+                        <input id="qual_client_logo" type="file" class="form-control" required >
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <label for="qual_colour_primary">Primary Colour: </label>
-                    <input id="qual_colour_primary" type="color" class="form-control" name="primary_colour" required >
+                    <input id="qual_colour_primary" type="color" class="form-control" required >
                 </div>
                 <div class="col-md-4">
                     <label for="qual_colour_secondary">Secondary Colour: </label>
-                    <input id="qual_colour_secondary" type="color" class="form-control" name="secondary_colour" required >
+                    <input id="qual_colour_secondary" type="color" class="form-control" required >
                 </div>
                 <div class="col-md-4">
                     <label for="qual_colour_accent">Accent Colour: </label>
-                    <input id="qual_colour_accent" type="color" class="form-control" name="accent_colour" required >
+                    <input id="qual_colour_accent" type="color" class="form-control" required >
                 </div>
             </div>
             <div class="row">
@@ -169,10 +123,10 @@
                     <br/>
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-primary active">
-                            <input type="radio" id="qual_private" name="access_status" value="confidential" checked="checked" required />Private
+                            <input type="radio" id="qual_private" name="qual_public_access" value="N" required />Private
                         </label>
                         <label class="btn btn-warning">
-                            <input type="radio" id="qual_public" name="access_status" value="open" required />Public
+                            <input type="radio" id="qual_public" name="qual_public_access" value="Y" required />Public
                         </label>
                     </div>
                 </div>
@@ -184,29 +138,25 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="qual_problems">Problem Statement</label>
-                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement" name="problemStatement" required ></textarea>
+                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement" required ></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_challenges">Challenges Faced</label>
-                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges" name="challengeStatement" required ></textarea>
+                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges" required ></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_solution">Solution/Outcome</label>
-                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution" name="solutionStatement" required ></textarea>
+                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution" required ></textarea>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <br/>
-<<<<<<< HEAD
             <button type="button" class="btn btn-info" onclick="addQual()" >Submit</button>
-=======
-            <button type="button" onclick="addQual();" class="btn btn-success btn-block">Submit</button>
->>>>>>> 1e620317f2f15c2bac90a33f46fc5903a8aff4c0
         </div>
     </div>
-</div>
+</form>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
