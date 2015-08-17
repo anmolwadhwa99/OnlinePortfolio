@@ -2,6 +2,7 @@
 var url = "https://onlineportfolio.herokuapp.com/webapi";
 
 function Qual(x){
+    this.id = x.qualId;
     this.challengesFaced = x.challengesFaced;
     this.clientName = x.clientName;
     this.metaDataColourScheme = x.metaDataColourScheme;
@@ -11,13 +12,13 @@ function Qual(x){
     this.metaDataTag = x.metaDataTag;
     this.problemStatement = x.problemStatement;
     this.projectName = x.projectName;
-    this.qualId = x.qualId;
     this.relevanceToClient = x.relevanceToClient;
     this.solution = x.solution;
 
 
     this.getInfo = function(){
-        return this.challengesFaced + "\n" +
+        return this.id + "\n" +
+            this.challengesFaced + "\n" +
             this.clientName+ "\n" +
             this.metaDataColourScheme + "\n" +
             this.metaDataDeloitteServiceLine + "\n" +
@@ -26,7 +27,6 @@ function Qual(x){
             this.metaDataTag + "\n" +
             this.problemStatement + "\n" +
             this.projectName + "\n" +
-            this.qualId + "\n" +
             this.relevanceToClient + "\n" +
             this.solution;
     };
@@ -106,6 +106,34 @@ function createRequest() {
         // No known mechanism -- consider aborting the application
     }
     return result;
+}
+
+function getQualById(id, callback){
+    var methodURL = url + "/qual/" + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending")
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new Qual(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
 }
 
 function insertQual(clientName, problem, projName, relevance, solution,
