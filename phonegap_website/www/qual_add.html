@@ -28,8 +28,29 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/webServices.js" ></script>
+
+    <script>
+        //            <!--make the on click call addQual()-->
+        function addQual() {
+            var clientName = document.getElementById("qual_client_name").value;
+            var problem = document.getElementById("qual_problems").value;
+            var projName = document.getElementById("qual_project_name").value;
+            var relevance = "";
+            var solution = document.getElementById("qual_solution").value;
+            var challenges = document.getElementById("qual_challenges").value;
+            var mdIndustry = document.getElementById("qual_industry").value;
+            var mdTag = "trial"
+            var mdStatus = "trial";
+            var mdServiceLine = "trial";
+            var mdColourScheme = "trial";
+//
+            insertQual(clientName, problem, projName, relevance, solution,
+                    challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
+        }
+    </script>
 </head>
 
 <body style="padding:20px;">
@@ -132,7 +153,7 @@
     <div class="row">
         <div class="col-md-12">
             <br/>
-            <button type="submit" class="btn btn-success btn-block">Submit</button>
+            <button type="button" class="btn btn-info" onclick="addQual()" >Submit</button>
         </div>
     </div>
 </form>
