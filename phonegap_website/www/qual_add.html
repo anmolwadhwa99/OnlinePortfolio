@@ -43,13 +43,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_project_name">Project Name: </label>
-                        <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name">
+                        <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name" required autofocus>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_client_name">Client Name: </label>
-                        <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name">
+                        <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name" required >
                     </div>
                 </div>
             </div>
@@ -57,13 +57,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_email">Email: </label>
-                        <input id="qual_email" type="email" class="form-control" placeholder="Email">
+                        <input id="qual_email" type="email" class="form-control" placeholder="Email" required >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_website">Website: </label>
-                        <input id="qual_website" type="url" class="form-control" placeholder="Website">
+                        <input id="qual_website" type="url" class="form-control" placeholder="Website" required >
                     </div>
                 </div>
             </div>
@@ -71,28 +71,28 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
+                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry" required >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_client_logo">Client Logo: </label>
-                        <input id="qual_client_logo" type="file" class="form-control">
+                        <input id="qual_client_logo" type="file" class="form-control" required >
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <label for="qual_colour_primary">Primary Colour: </label>
-                    <input id="qual_colour_primary" type="color" class="form-control">
+                    <input id="qual_colour_primary" type="color" class="form-control" required >
                 </div>
                 <div class="col-md-4">
                     <label for="qual_colour_secondary">Secondary Colour: </label>
-                    <input id="qual_colour_secondary" type="color" class="form-control">
+                    <input id="qual_colour_secondary" type="color" class="form-control" required >
                 </div>
                 <div class="col-md-4">
                     <label for="qual_colour_accent">Accent Colour: </label>
-                    <input id="qual_colour_accent" type="color" class="form-control">
+                    <input id="qual_colour_accent" type="color" class="form-control" required >
                 </div>
             </div>
             <div class="row">
@@ -102,10 +102,10 @@
                     <br/>
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-primary active">
-                            <input type="radio" id="qual_private" name="qual_public_access" value="N" />Private
+                            <input type="radio" id="qual_private" name="qual_public_access" value="N" required />Private
                         </label>
                         <label class="btn btn-warning">
-                            <input type="radio" id="qual_public" name="qual_public_access" value="Y" />Public
+                            <input type="radio" id="qual_public" name="qual_public_access" value="Y" required />Public
                         </label>
                     </div>
                 </div>
@@ -117,15 +117,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="qual_problems">Problem Statement</label>
-                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement"></textarea>
+                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement" required ></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_challenges">Challenges Faced</label>
-                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges"></textarea>
+                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges" required ></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_solution">Solution/Outcome</label>
-                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution"></textarea>
+                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution" required ></textarea>
             </div>
         </div>
     </div>
