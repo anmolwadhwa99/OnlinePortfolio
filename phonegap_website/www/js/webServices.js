@@ -162,18 +162,19 @@ challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
 
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
-        '"clientName": ' + clientName + ','+
-        '"problemStatement": ' + problem + ','+
-        '"projectName": ' + projName + ','+
-        '"relevanceToClient": ' + relevance + ','+
-        '"solution": ' + solution + ','+
-        '"challengesFaced": ' + challenges + ','+
-        '"metaDataIndustry": ' + mdIndustry + ','+
-        '"metaDataTag": ' + mdTag + ','+
-        '"metaDataStatus": ' + mdStatus + ','+
-        '"metaDataDeloitteServiceLine":' + mdServiceLine + ','+
-        '"metaDataColourScheme":' + mdColourScheme + ''+
+        '"clientName": "' + clientName + '",'+
+        '"problemStatement": "' + problem + '",'+
+        '"projectName": "' + projName + '",'+
+        '"relevanceToClient": "' + relevance + '",'+
+        '"solution": "' + solution + '",'+
+        '"challengesFaced": "' + challenges + '",'+
+        '"metaDataIndustry": "' + mdIndustry + '",'+
+        '"metaDataTag": "' + mdTag + '",'+
+        '"metaDataStatus": "' + mdStatus + '",'+
+        '"metaDataDeloitteServiceLine":"' + mdServiceLine + '",'+
+        '"metaDataColourScheme":"' + mdColourScheme + '"'+
     '}';
+    //console.log(x);
     req.send(x);
 }
 
