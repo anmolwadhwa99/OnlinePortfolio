@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>WebService Test</title>
+        <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/webServices.js" ></script>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+        <script type="application/javascript" src="js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <div class="row">
+            <h1 class="col-md-12">WebService Test</h1>
+            <button type="button" class="btn btn-info" onclick="GetAllAccounts('list', '?')" >Retrieve Accounts</button>
+        </div>
+        <div class="row">
+            <ul id="list" class="col-md-8">
+
+            </ul>
+        </div>
+    </body>
+</html>
