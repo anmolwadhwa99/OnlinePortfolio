@@ -14,11 +14,34 @@
 
         <script type="application/javascript" src="js/bootstrap.min.js"></script>
 
+        <!--This bit is for adding a qual-->
+
+        <script>
+            function addQual() {
+                var clientName = "cName";
+                var problem = "problem";
+                var projName = "pName";
+                var relevance = "relevance";
+                var solution = "solution";
+                var challenges = "challenges";
+                var mdIndustry = "industry";
+                var mdTag = "tag";
+                var mdStatus = "status";
+                var mdServiceLine = "serviceLine";
+                var mdColourScheme = "colour";
+
+                insertQual(clientName, problem, projName, relevance, solution,
+                        challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
+            }
+        </script>
+
+        <!--Add qual END-->
+
     </head>
     <body>
         <div class="row">
             <h1 class="col-md-12">WebService Test</h1>
-            <button type="button" class="btn btn-info" onclick="GetAllAccounts('list', '?')" >Retrieve Accounts</button>
+            <button type="button" class="btn btn-info" onclick="deleteQual(11)" >Retrieve Accounts</button>
         </div>
         <div class="row">
             <ul id="list" class="col-md-8">
