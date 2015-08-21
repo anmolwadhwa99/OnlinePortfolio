@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Add New Qual</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -54,10 +54,15 @@
 </head>
 
 <body style="padding:20px;">
-<form class="container-fluid">
+<form id="qual_add_form" class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <img src="imgs/download.png" alt="Deloitte Logo" class=".img-responsive" style="margin: auto;">
+            <div class="image-upload">
+                <label for="qual_product_service_img">
+                    <img class="img-rounded img-responsive" src="imgs/download.png" />
+                </label>
+                <input id="qual_product_service_img" type="file">
+            </div>
         </div>
         <div class="col-md-6">
             <div class="row">
