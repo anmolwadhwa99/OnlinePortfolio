@@ -35,20 +35,62 @@
     <script>
         //            <!--make the on click call addQual()-->
         function addQual() {
-            var clientName = document.getElementById("qual_client_name").value;
-            var problem = document.getElementById("qual_problems").value;
+
+            // TODO Custom validation
+
             var projName = document.getElementById("qual_project_name").value;
-            var relevance = "";
-            var solution = document.getElementById("qual_solution").value;
+            var projSubTitle = document.getElementById("qual_project_name").value;
+            var clientName = document.getElementById("qual_project_sub").value;
+            var isAnonymous = $('input[name=qual_anonymous]:checked').val();
+            var anonymousName = document.getElementById("qual_anonymous_name").value;
+
+            var access = $('input[name=qual_public_access]:checked').val();
+
+            var problem = document.getElementById("qual_problems").value;
             var challenges = document.getElementById("qual_challenges").value;
-            var mdIndustry = document.getElementById("qual_industry").value;
-            var mdTag = "trial"
-            var mdStatus = "trial";
-            var mdServiceLine = "trial";
-            var mdColourScheme = "trial";
+            var solution = document.getElementById("qual_solution").value;
+            var outcome = document.getElementById("qual_outcome").value;
+            var relevance = document.getElementById("qual_relevance").value;
+
+            var primaryColour = document.getElementById("qual_colour_primary").value;
+            var secondaryColour = document.getElementById("qual_colour_secondary").value;
+            var accentColour = document.getElementById("qual_colour_accent").value;
+
+            var clientLogo = document.getElementById("qual_client_logo").value;
+            var productServicesImage = document.getElementById("qual_product_service_img").value;
+
+            var emailAction = document.getElementById("qual_email").value;
+            var websiteAction = document.getElementById("qual_website").value;
+
+            var industry = document.getElementById("qual_industry").value;
+            var tags = document.getElementById("qual_tags").value;
+            var serviceLine = document.getElementById("qual_service_line").value;
+
+            console.log(projName);
+            console.log(projSubTitle);
+            console.log(clientName);
+            console.log(isAnonymous);
+            console.log(anonymousName);
+            console.log(access);
+            console.log(problem);
+            console.log(challenges);
+            console.log(solution);
+            console.log(outcome);
+            console.log(relevance);
+            console.log(primaryColour);
+            console.log(secondaryColour);
+            console.log(accentColour);
+            console.log(clientLogo);
+            console.log(productServicesImage);
+            console.log(emailAction);
+            console.log(websiteAction);
+            console.log(industry);
+            console.log(tags);
+            console.log(serviceLine);
 //
-            insertQual(clientName, problem, projName, relevance, solution,
-                    challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
+            // TODO add other missing fields to webservice function insertQual
+            // insertQual(clientName, problem, projName, relevance, solution,
+            //        challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
         }
     </script>
     <style>
