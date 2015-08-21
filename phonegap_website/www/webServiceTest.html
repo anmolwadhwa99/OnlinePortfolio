@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>WebService Test</title>
+        <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/webServices.js" ></script>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+        <script type="application/javascript" src="js/bootstrap.min.js"></script>
+
+        <!--This bit is for adding a qual-->
+
+        <script>
+//            <!--make the on click call addQual()-->
+            function addQual() {
+                var clientName = "cName";
+                var problem = "problem";
+                var projName = "pName";
+                var relevance = "relevance";
+                var solution = "solution";
+                var challenges = "challenges";
+                var mdIndustry = "industry";
+                var mdTag = "tag";
+                var mdStatus = "status";
+                var mdServiceLine = "serviceLine";
+                var mdColourScheme = "colour";
+//
+                insertQual(clientName, problem, projName, relevance, solution,
+                        challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
+            }
+        </script>
+
+        <!--Add qual END-->
+
+        <!--This bit for getting a qual-->
+        <script>
+//            you need a callback func that whose 'this' refers to the qual returned
+            function getQual(id){
+                getQualById(id, function(){
+                    alert(this.getInfo());
+                })
+            }
+        </script>
+        <!--get qual END-->
+
+    </head>
+    <body>
+        <div class="row">
+            <h1 class="col-md-12">WebService Test</h1>
+            <button type="button" class="btn btn-info" onclick="addQual()" >Retrieve Accounts</button>
+        </div>
+        <div class="row">
+            <ul id="list" class="col-md-8">
+
+            </ul>
+        </div>
+
+        <p id="p">testing</p>
+
+        <div class="row">
+            <a href="login.html" class="btn btn-info">Go to Login</a>
+        </div>
+        <div class="row">
+            <a href="qual_add.html" class="btn btn-info">Add a Qual</a>
+        </div>
+    </body>
+</html>
