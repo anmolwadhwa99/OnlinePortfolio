@@ -35,11 +35,8 @@
     <script>
         //            <!--make the on click call addQual()-->
         function addQual() {
-
-            // TODO Custom validation
-
             var projName = document.getElementById("qual_project_name").value;
-            var projSubTitle = document.getElementById("qual_project_name").value;
+            var projSubTitle = document.getElementById("qual_client_name").value;
             var clientName = document.getElementById("qual_project_sub").value;
             var isAnonymous = $('input[name=qual_anonymous]:checked').val();
             var anonymousName = document.getElementById("qual_anonymous_name").value;
@@ -136,7 +133,7 @@
 </head>
 
 <body style="padding:20px;">
-<form id="qual_add_form" class="container-fluid">
+<form id="qual_add_form" action="javascript:addQual();" class="container-fluid">
     <div class="row">
         <div class="col-md-6">
             <div class="image-upload">
@@ -283,7 +280,7 @@
     <div class="row">
         <div class="col-md-12">
             <br/>
-            <button type="button" class="btn btn-block btn-success" onclick="addQual()" >Submit</button>
+            <button type="submit" class="btn btn-block btn-success" >Submit</button>
         </div>
     </div>
 </form>
