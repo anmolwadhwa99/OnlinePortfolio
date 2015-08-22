@@ -94,16 +94,44 @@
         }
     </script>
     <style>
+        .image-upload{
+            height: 10em;
+            position: relative;
+        }
+        .image-upload img{
+            margin: 0;
+            position: absolute;
+            top: 100%;
+        }
+        @media all
+            and (max-width: 991px)
+        {
+            .image-upload img{
+                top:0%;
+            }
+        }
         .image-upload > input
         {
             display: none;
         }
-        
+
         .hand_interact {
             cursor: pointer;
             cursor: hand;
         }
 
+        .fill{
+            zoom: 2;
+
+            display: block;
+            margin: auto;
+
+            height: auto;
+            max-height: 100%;
+
+            width: auto;
+            max-width: 100%;
+        }
     </style>
 </head>
 
@@ -113,9 +141,9 @@
         <div class="col-md-6">
             <div class="image-upload">
                 <label for="qual_product_service_img">
-                    <img class="img-rounded img-responsive" src="imgs/download.png" />
+                    <img class="img-rounded hand_interact fill" src="imgs/download.png" />
                 </label>
-                <input id="qual_product_service_img" type="file">
+                <input id="qual_product_service_img" class="hand_interact" type="file">
             </div>
         </div>
         <div class="col-md-6">
