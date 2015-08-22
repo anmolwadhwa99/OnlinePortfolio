@@ -33,7 +33,6 @@
     <script src="js/webServices.js" ></script>
 
     <script>
-        //            <!--make the on click call addQual()-->
         function addQual() {
             var projName = document.getElementById("qual_project_name").value;
             var projSubTitle = document.getElementById("qual_client_name").value;
@@ -130,6 +129,14 @@
             max-width: 100%;
         }
     </style>
+    <script type="application/javascript">
+        function requireAnonName(){
+            document.getElementById('qual_anonymous_name').required = true;
+        }
+        function optionalAnonName(){
+            document.getElementById('qual_anonymous_name').required = false;
+        }
+    </script>
 </head>
 
 <body style="padding:20px;">
@@ -168,11 +175,11 @@
                 <div class="col-md-6">
                     <label for="qual_is_not_anonymous">Qual Anonymity: </label>
                     <div class="btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-warning">
-                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="N" />Named
+                        <label class="btn btn-info active" onclick="optionalAnonName();">
+                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="N" checked="checked" />Named
                         </label>
-                        <label class="btn btn-info active">
-                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="Y" checked="checked" />Anonymous
+                        <label class="btn btn-warning" onclick="requireAnonName();">
+                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="Y" />Anonymous
                         </label>
                     </div>
                 </div>
