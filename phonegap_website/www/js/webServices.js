@@ -32,6 +32,9 @@ function Qual(x){
     };
 }
 
+function ProjectGroup(x){
+}
+
 
 function GetAllAccounts(id, callbackFunction) {
     var opAccount = "http://onlineportfolio.herokuapp.com/webapi/qual";
@@ -128,6 +131,35 @@ function getQualById(id, callback){
             if(typeof callback == 'function'){
 
                 callback.apply(new Qual(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getProjectById(id, callback){
+
+    var methodURL = url + "/projectGroup/" + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new ProjectGroup(json));
             }
 
         }
