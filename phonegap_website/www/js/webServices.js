@@ -59,64 +59,6 @@ function AdminGroup(x){
     }
 }
 
-function GetAllAccounts(id, callbackFunction) {
-    var opAccount = "http://onlineportfolio.herokuapp.com/webapi/qual";
-    console.log("Accessing: " + opAccount);
-
-    var accounts = accessWS(opAccount);
-    var list = document.getElementById(id);
-
-    for(i = 0; i< accounts.length; i++){
-        list.appendChild(accounts[i]);
-    }
-
-}
-
-function accessWS(url){
-    var items = [];
-    alert("hi");
-    $.ajax({
-        url: "https://onlineportfolio.herokuapp.com/webapi/qual/59",
-        type: 'GET',
-        dataType: 'json',
-        success: function(xhr){
-            var j = xhr[0];
-            var q = new Qual(j);
-            alert(q.getInfo());
-        },
-        error: function(){
-            alert("fail");
-        }
-    });
-
-    //.success(function () {alert("Success");})
-    //.error(function () {alert("Error Occurred"); items.push("<li id = ErrorCode>Error Occurred</li>");});
-    //.complete(function () {alert("Complete");});
-    console.log(items);
-    return items;
-}
-
-function test() {
-    var req = createRequest(); // defined above
-// Create the callback:
-    req.onreadystatechange = function() {
-        if (req.readyState != 4) return; // Not there yet
-        if (req.status != 200) {
-            // Handle request failure here...
-            //TODO what if request fails
-            return;
-        }
-        // Request successful, read the response
-        var resp = req.responseText;
-        var json = JSON.parse(resp);
-
-        var s = json;
-        // ... and use it as needed by your app.
-    }
-
-    req.open("GET", url+"/qual", true);
-    req.send();
-}
 
 function createRequest() {
     var result = null;
@@ -136,7 +78,9 @@ function createRequest() {
 }
 
 
-// === QUALS =========
+// === QUALS =======================================================
+
+
 function getQualById(id, callback){
     var methodURL = url + _qual + id;
     var method = "GET";
@@ -409,7 +353,9 @@ function assignQualToAdminGroup(agId, qId){
     req.send(x);
 }
 
-// === ACCOUNTS ======
+
+// === ACCOUNTS ====================================================
+
 
 function getAccountById(id, callback){
     var methodURL = url + _ac + "/" + id;
@@ -705,7 +651,10 @@ function getAccountsByQual(qId, callback){
     req.open(method, methodURL, true);
     req.send();
 }
-// === ADMIN GROUP ====
+
+
+// === ADMIN GROUPS =================================================
+
 
 function getAdminGroupById(id, callback){
     var methodURL = url + _ag + "/" + id;
