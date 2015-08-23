@@ -44,7 +44,7 @@
 
             <!--Include your navigation here-->
             <li class="text-right"><a href="#" id="nav-close">X</a></li>
-            <li><a href="#">Menu One <span class="icon"></span></a></li>
+            
 
 
         </ul>
@@ -60,6 +60,10 @@
     </div>
 
     <script>
+
+
+
+
         function addToCart(m){
 
 
@@ -75,6 +79,7 @@
             a.appendChild(span);
 
             li.appendChild(a);
+            li.onclick = function() {this.parentNode.removeChild(this);}
             li.setAttribute("id", m); // added line
             ul.appendChild(li);
 
