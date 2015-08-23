@@ -10,6 +10,7 @@ public class ProjectGroupResource {
 	private ProjectGroupService projectGroupService = new ProjectGroupService();
 	
 	public void addProjectGroup(ProjectGroup projectGroup){
+		projectGroupService.addProjectGroup(projectGroup);
 		
 	}
 	
@@ -19,12 +20,12 @@ public class ProjectGroupResource {
 	}
 	
 	public List<ProjectGroup> getAllProjectGroups(){
-		return null;
+		return projectGroupService.getAllProjectGroups();
 		
 	}
 	
 	public ProjectGroup deleteProjectGroup(int projectGroupId){
-		return null;
+		return projectGroupService.deleteProjGroup(projectGroupId);
 		
 	}
 	
