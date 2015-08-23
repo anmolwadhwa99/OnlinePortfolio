@@ -12,7 +12,8 @@ import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
-import org.se761.project.onlineportfolio.model.Qualification;
+import org.se761.project.onlineportfolio.model.ProjectGroup;
+
 
 public class AccountDatabase {
 	
@@ -150,6 +151,38 @@ public class AccountDatabase {
 	}
 	
 	/**
+	 * Add an account against a project group
+	 */
+	public Account addAccountToProjectGroup(int projGroupId, int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		ProjectGroup projectGroup = (ProjectGroup) session.get(ProjectGroup.class, projGroupId);
+
+		if(projectGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project Group with id " + projGroupId + " could not be found, so can't add account");
+		}
+		
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId  + " could not be found");
+		}
+
+		projectGroup.getAccounts().add(account);
+		account.getProjGroups().add(projectGroup);
+		session.save(account);
+		session.save(projectGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return account;
+
+	}
+	
+	/**
 	 * Add an account to an admin group
 	 */
 	public Account addAccountToAdminGroup(int adminGroupId, int accountId){
@@ -198,6 +231,26 @@ public class AccountDatabase {
 		}
 		
 		List<Account> accounts = adminGroup.getAccounts();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		return accounts;
+	}
+	
+	public List<Account> getAllAccountsFromProjectGroup(int projGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		ProjectGroup projGroup = (ProjectGroup) session.get(ProjectGroup.class, projGroupId);
+		
+		if(projGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project group with id " +projGroupId + " could not be found, so unable to retrieve all accounts");
+		}
+		
+		List<Account> accounts = projGroup.getAccounts();
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
