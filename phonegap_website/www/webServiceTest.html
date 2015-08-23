@@ -47,13 +47,22 @@
                 })
             }
         </script>
+
+        <script>
+
+            function getAlQuals(){
+                getAllQuals(function(){
+                    alert(this.getInfo());
+            })}
+
+        </script>
         <!--get qual END-->
 
     </head>
     <body>
         <div class="row">
             <h1 class="col-md-12">WebService Test</h1>
-            <button type="button" class="btn btn-info" onclick="addQual()" >Retrieve Accounts</button>
+            <button type="button" class="btn btn-info" onclick="getAlQuals()" >Retrieve Accounts</button>
         </div>
         <div class="row">
             <ul id="list" class="col-md-8">

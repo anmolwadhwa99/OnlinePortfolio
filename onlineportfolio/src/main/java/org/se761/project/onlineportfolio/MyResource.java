@@ -20,6 +20,6 @@ public class MyResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
-        return "Nikita, Richa, Anmol, Taz, Sufiyaan, Dheeraj. Juhi, Laurence. YOLO";
+        return "Nikita, Richa, Anmol, Taz, Sufiyaan, Dheeraj, Juhi, Laurence and YOLO";
     }
 }
