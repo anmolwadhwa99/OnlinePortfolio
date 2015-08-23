@@ -172,6 +172,39 @@ function getAllQuals(callback){
     req.send();
 }
 
+function getAllProjectGroups(callback) {
+    var methodURL = url + "/projectGroup";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var projects = new Array();
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                projects.push(new Qual(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(projects);
+            }
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
 function insertQual(clientName, problem, projName, relevance, solution,
 challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
     var methodURL = url + "/qual";
