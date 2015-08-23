@@ -22,6 +22,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 
+
 @XmlRootElement
 @Entity
 public class Qualification {
@@ -79,6 +80,13 @@ public class Qualification {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "Include", joinColumns = { 
+			@JoinColumn(name = "qual_id")}, 
+			inverseJoinColumns = { @JoinColumn(name = "proj_group_id") })
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<ProjectGroup> projGroups = new ArrayList<ProjectGroup>();
+	
 	private String industry; //e.g. Financial Services, Education, etc.
 	
 	@Column(columnDefinition="TEXT")
@@ -100,6 +108,16 @@ public class Qualification {
 
 	public Qualification(){
 		
+	}
+
+	@XmlTransient
+	public List<ProjectGroup> getProjGroups() {
+		return projGroups;
+	}
+
+
+	public void setProjGroups(List<ProjectGroup> projGroups) {
+		this.projGroups = projGroups;
 	}
 
 
