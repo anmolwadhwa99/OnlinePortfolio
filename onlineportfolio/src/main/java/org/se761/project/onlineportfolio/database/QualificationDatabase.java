@@ -117,38 +117,7 @@ public class QualificationDatabase {
 		return qual;
 	}
 	
-	/**
-	 * Adds a qualification against an existing account
-	 */
-	public Qualification addQualificationToAccount(int accountId, int qualId){
 
-		openSessionFactory();
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		Account account  = (Account) session.get(Account.class, accountId);
-		
-		if(account == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so qual could not be added");
-		}
-		
-		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
-		if(qual == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
-		}
-		
-		
-		account.getQuals().add(qual);
-		qual.getAccountsQual().add(account);
-		session.save(qual);
-		session.save(account);
-		session.getTransaction().commit();
-		session.close();
-		closeSessionFactory();
-		return qual;
-	}
 	
 	/**
 	 * Add a qualification against an admin group
@@ -182,30 +151,6 @@ public class QualificationDatabase {
 
 	}
 	
-	
-	
-	/**
-	 * Get all qualifications associated it with an account
-	 */
-	public List<Qualification> getAllQualificationsFromAccount(int accountId){
-		openSessionFactory();
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		Account account  = (Account) session.get(Account.class, accountId);
-		
-		if(account == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so quals could not be retrieved");
-		}
-		
-		List<Qualification> quals = account.getQuals();
-		session.getTransaction().commit();
-		session.close();
-		closeSessionFactory();
-		return quals;
-		
-	}
 	
 	
 	/**

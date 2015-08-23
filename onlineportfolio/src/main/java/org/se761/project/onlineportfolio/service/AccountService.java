@@ -77,14 +77,6 @@ public class AccountService {
 	}
 	
 	
-	/**
-	 * Get all accounts associated with a qualification
-	 */
-	public List<Account> getAllAccountsFromQualification(int qualId){
-		List<Account> accounts = accountDatabase.getAllAccountsFromQualification(qualId);
-		return accounts;
-	}
-	
 	
 	
 }

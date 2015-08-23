@@ -95,17 +95,4 @@ public class AccountResource {
 		return accountService.removeAccount(accountId);
 	}
 	
-	
-	/**
-	 * Get all accounts associated with a qualification
-	 */
-	@GET
-	@Path("/qual/{qualificationId}")
-	public List<Account> getAllAccountsFromQualification(@PathParam("qualificationId") int qualificationId){
-		return accountService.getAllAccountsFromQualification(qualificationId);
-	}
-	
-	
-	
-
 }
