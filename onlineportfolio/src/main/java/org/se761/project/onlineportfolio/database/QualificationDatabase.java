@@ -210,6 +210,28 @@ public class QualificationDatabase {
 		return quals;
 	}
 	
+	/**
+	 * Get all qualifications associated with an project group
+	 */
+	public List<Qualification> getAllQualificationsForProjectGroup(int projectGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction(); 
+
+		ProjectGroup projectGroup = (ProjectGroup) session.get(ProjectGroup.class, projectGroupId);
+
+		if(projectGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project Group with id " + projectGroupId + " could not be found, so can't retrieve qualifications");
+		}
+		
+		List<Qualification> quals = projectGroup.getQuals();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return quals;
+	}
+	
 	
 	
 	
