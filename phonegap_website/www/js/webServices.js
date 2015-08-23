@@ -48,8 +48,9 @@ function GetAllAccounts(id, callbackFunction) {
 
 function accessWS(url){
     var items = [];
+    alert("hi");
     $.ajax({
-        url: url,
+        url: "https://onlineportfolio.herokuapp.com/webapi/qual/59",
         type: 'GET',
         dataType: 'json',
         success: function(xhr){
@@ -118,7 +119,7 @@ function getQualById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending")
+                alert("An error occurred while sending");
                 return;
             }
             // Request successful, read the response
@@ -146,15 +147,23 @@ function getAllQuals(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending")
+                alert("An error occurred while sending");
                 return;
             }
             // Request successful, read the response
             var resp = req.responseText;
+            alert(resp);
+            var quals = new Array();
+
             var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                quals.push(new Qual(json[i]));
+            }
+
             if(typeof callback == 'function'){
 
-                callback.apply(new Qual(json));
+                callback.apply(quals);
             }
 
         }
@@ -215,12 +224,13 @@ function deleteQual(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending")
+                alert("An error occurred while deleting")
                 return;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
+            alert(new Qual(json).getInfo);
 
             var s = json;
 
