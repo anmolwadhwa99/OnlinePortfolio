@@ -113,4 +113,25 @@ public class ProjectGroupDatabase {
 		return projGroup;
 	}
 	
+	/**
+	 * Get a project groups associated with a particular account
+	 */
+	public List<ProjectGroup> getProjectGroupForAccount(int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
+		}
+		
+		List<ProjectGroup> projectGroups = account.getProjGroups();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return projectGroups;
+		
+	}
+	
 }
