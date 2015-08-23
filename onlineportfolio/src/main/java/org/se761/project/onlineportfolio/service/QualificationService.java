@@ -29,12 +29,6 @@ public class QualificationService {
 		return quals;
 	}
 	
-	/**
-	 *Gets quals associated with an account
-	 */
-	public List<Qualification> getAllQualificationsFromAccount(int accountId){
-		return qualDatabase.getAllQualificationsFromAccount(accountId);
-	}
 	
 	/**
 	 * Get all qualifications associated with an admin group
@@ -45,21 +39,11 @@ public class QualificationService {
 	}
 	
 	/**
-	 * Adds a qualification against an existing account
-	 */
-	public Qualification addQualificationToAccount(int accountId, int qualId){
-		Qualification qual = qualDatabase.addQualificationToAccount(accountId, qualId);
-		return qual;
-	}
-		
-	/**
 	 * Adding a qualification 
 	 */
 	public void addQual(Qualification qual){
 		qualDatabase.addQual(qual);
 	}
-	
-
 	
 	/**
 	 * Add qualification against an admin group

@@ -27,9 +27,6 @@ public class Account {
 	private boolean isAdmin;
 	private boolean isSuperUser;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accountsQual", cascade = CascadeType.ALL)
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Qualification> quals = new ArrayList<Qualification>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
@@ -46,15 +43,13 @@ public class Account {
 	
 	
 	public Account(int accountId, String accountName, String password,
-			boolean isAdmin, boolean isSuperUser, List<Qualification> quals,
-			List<AdminGroup> adminGroup) {
+			boolean isAdmin, boolean isSuperUser, List<AdminGroup> adminGroup) {
 		super();
 		this.accountId = accountId;
 		this.accountName = accountName;
 		this.password = password;
 		this.isAdmin = isAdmin;
 		this.isSuperUser = isSuperUser;
-		this.quals = quals;
 		this.adminGroup = adminGroup;
 	}
 
@@ -109,20 +104,9 @@ public class Account {
 	}
 
 	@XmlTransient
-	public List<Qualification> getQuals() {
-		return quals;
-	}
-
-
-	public void setQuals(List<Qualification> quals) {
-		this.quals = quals;
-	}
-
-	@XmlTransient
 	public List<AdminGroup> getAdminGroup() {
 		return adminGroup;
 	}
-
 
 	public void setAdminGroup(List<AdminGroup> adminGroup) {
 		this.adminGroup = adminGroup;
@@ -137,7 +121,6 @@ public class Account {
 	public void setProjGroups(List<ProjectGroup> projGroups) {
 		this.projGroups = projGroups;
 	}
-	
 	
 	
 }

@@ -205,27 +205,5 @@ public class AccountDatabase {
 		return accounts;
 	}
 	
-	/**
-	 * Get all account associated with a qualification
-	 */
-	public List<Account> getAllAccountsFromQualification(int qualId){
-		openSessionFactory();
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
-		if(qual == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found, so can't retrieve accounts");
-		}
-		
-		List<Account> accounts = qual.getAccountsQual();
-		session.getTransaction().commit();
-		session.close();
-		closeSessionFactory();
-		return accounts;
-	}
-	
 
 }

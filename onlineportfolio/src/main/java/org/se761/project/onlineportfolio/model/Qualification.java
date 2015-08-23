@@ -65,12 +65,7 @@ public class Qualification {
 	private String websiteButton;
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "Access", joinColumns = { 
-			@JoinColumn(name = "qual_id")}, 
-			inverseJoinColumns = { @JoinColumn(name = "account_id") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Account> accountsQual = new ArrayList<Account>();
+
 	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -115,8 +110,8 @@ public class Qualification {
 			String solutionStatement, String relevanceToClient,
 			String outcomeStatement, String subtitle, boolean isAnonymous,
 			boolean isActive, String primaryColour, String secondaryColour,
-			String accentColour, String emailButton, String clientLogo,
-			List<Account> accountsQual, List<AdminGroup> adminGroups,
+			String accentColour, String emailButton, String clientLogo, 
+			List<AdminGroup> adminGroups,
 			String industry, String tags, String status,
 			String serviceLine, String metaDataColourScheme) {
 		super();
@@ -136,7 +131,6 @@ public class Qualification {
 		this.accentColour = accentColour;
 		this.emailButton = emailButton;
 		this.websiteButton = clientLogo;
-		this.accountsQual = accountsQual;
 		this.adminGroups = adminGroups;
 		this.industry = industry;
 		this.tags = tags;
@@ -227,16 +221,6 @@ public class Qualification {
 	}
 
 	@XmlTransient
-	public List<Account> getAccountsQual() {
-		return accountsQual;
-	}
-
-
-	public void setAccountsQual(List<Account> accountsQual) {
-		this.accountsQual = accountsQual;
-	}
-
-	@XmlTransient
 	public List<AdminGroup> getAdminGroups() {
 		return adminGroups;
 	}
@@ -245,8 +229,6 @@ public class Qualification {
 	public void setAdminGroups(List<AdminGroup> adminGroups) {
 		this.adminGroups = adminGroups;
 	}
-
-
 
 	public String getMetaDataIndustry() {
 		return industry;
