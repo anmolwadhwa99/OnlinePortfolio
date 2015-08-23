@@ -129,11 +129,42 @@
 
     </script>
 
+    <script>
+        // get all Admin groups
+        function getAdminGroups(){
+            getAllAdminGroups(function(){
+
+                var ags = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< ags.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(ags[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        // get admin group by ID
+        function getGroupByID(id){
+            getAdminGroupById(id, function(){
+                alert(this.getInfo());
+            })
+        }
+
+        //insert admin group
+        function insertGroup(){
+            insertAdminGroup("finance");
+        }
+
+    </script>
+
 </head>
 <body>
 <div class="row">
     <h1 class="col-md-12">WebService Test</h1>
-    <button type="button" class="btn btn-info" onclick="getClients()" >Retrieve Accounts</button>
+    <button type="button" class="btn btn-info" onclick="getGroupByID(7)" >Retrieve Accounts</button>
 </div>
 <div class="row">
     <ul id="list" class="col-md-8">

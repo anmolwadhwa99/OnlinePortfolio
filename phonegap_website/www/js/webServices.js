@@ -2,6 +2,7 @@
 var url = "https://onlineportfolio.herokuapp.com/webapi";
 var _qual = "/qual/";
 var _ac = "/account/";
+var _ag = "/admin/";
 
 function Qual(x){
     this.id = x.qualId;
@@ -47,6 +48,15 @@ function Account(x){
                 this.userName;
     }
 
+}
+
+function AdminGroup(x){
+    this.id = x.adminGroupId;
+    this.name = x.adminGroupName;
+
+    this.getInfo = function(){
+        return this.id + "\n" + this.name;
+    }
 }
 
 function GetAllAccounts(id, callbackFunction) {
@@ -393,41 +403,6 @@ function getAllClients(callback){
     req.send();
 }
 
-/*function getAllAdmins(callback){
-    var methodURL = url + _ac + "/admin";
-    var method = "GET";
-
-    var req = createRequest();
-
-    if (req){
-        req.onreadystatechange = function(){
-            if (req.readyState != 4) return;
-            if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
-            }
-            // Request successful, read the response
-            var resp = req.responseText;
-            var accs = [];
-
-            var json = JSON.parse(resp);
-
-            for (i = 0; i < json.length; i++ ){
-                accs.push(new Account(json[i]));
-            }
-
-            if(typeof callback == 'function'){
-
-                callback.apply(accs);
-            }
-
-        }
-    }
-    req.open(method, methodURL, true);
-    req.send();
-}
-*/
-
 function insertAccount(isAdmin, pin, userName){
     var methodURL = url + _ac;
     var method = "POST";
@@ -476,6 +451,130 @@ function deleteAccount(id){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert("An error occurred while deleting the account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Account(json).getInfo);
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+// === ADMIN GROUP ====
+
+function getAdminGroupById(id, callback){
+    var methodURL = url + _ag + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new AdminGroup(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAllAdminGroups(callback){
+    var methodURL = url + _ag;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while get all groups");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var ags = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                ags.push(new AdminGroup(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(ags);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function insertAdminGroup(groupName){
+    var methodURL = url + _ag;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while creating group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ag = new AdminGroup(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ag.id);
+            }
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"adminGroupName": "' + groupName + '"'+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function deleteAdminGroup(id){
+    var methodURL = url + _ag + id;
+    var method = "DELETE";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while deleting the group");
                 return;
             }
             // Request successful, read the response
