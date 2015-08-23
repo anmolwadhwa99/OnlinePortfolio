@@ -20,11 +20,12 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Account {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int accountId;
-	private String userName;
-	private String pin;
+	private String accountName;
+	private String password;
 	private boolean isAdmin;
+	private boolean isSuperUser;
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accountsQual", cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
@@ -36,40 +37,21 @@ public class Account {
 	private List<AdminGroup> adminGroup = new ArrayList<AdminGroup>();
 	
 	
-	
-	public Account(){
+	public Account() {
 		
 	}
 	
 	
-	public Account(int accountId, String userName, String pin, boolean isAdmin) {
+	public Account(int accountId, String accountName, String password,
+			boolean isAdmin, boolean isSuperUser, List<Qualification> quals,
+			List<AdminGroup> adminGroup) {
 		super();
 		this.accountId = accountId;
-		this.userName = userName;
-		this.pin = pin;
+		this.accountName = accountName;
+		this.password = password;
 		this.isAdmin = isAdmin;
-	}
-
-	@XmlTransient
-	public List<Qualification> getQuals() {
-		return quals;
-	}
-
-
-
-	public void setQuals(List<Qualification> quals) {
+		this.isSuperUser = isSuperUser;
 		this.quals = quals;
-	}
-
-
-	@XmlTransient
-	public List<AdminGroup> getAdminGroup() {
-		return adminGroup;
-	}
-
-
-
-	public void setAdminGroup(List<AdminGroup> adminGroup) {
 		this.adminGroup = adminGroup;
 	}
 
@@ -78,32 +60,69 @@ public class Account {
 		return accountId;
 	}
 
+
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
 
-	public String getUserName() {
-		return userName;
+
+	public String getAccountName() {
+		return accountName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
-	public String getPin() {
-		return pin;
+
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPin(String pin) {
-		this.pin = pin;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
+
 
 	public boolean isAdmin() {
 		return isAdmin;
 	}
 
+
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
+
+	public boolean isSuperUser() {
+		return isSuperUser;
+	}
+
+
+	public void setSuperUser(boolean isSuperUser) {
+		this.isSuperUser = isSuperUser;
+	}
+
+	@XmlTransient
+	public List<Qualification> getQuals() {
+		return quals;
+	}
+
+
+	public void setQuals(List<Qualification> quals) {
+		this.quals = quals;
+	}
+
+	@XmlTransient
+	public List<AdminGroup> getAdminGroup() {
+		return adminGroup;
+	}
+
+
+	public void setAdminGroup(List<AdminGroup> adminGroup) {
+		this.adminGroup = adminGroup;
+	}
+	
 }

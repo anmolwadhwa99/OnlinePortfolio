@@ -24,7 +24,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class AdminGroup {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int adminGroupId;
 	
 	private String adminGroupName;

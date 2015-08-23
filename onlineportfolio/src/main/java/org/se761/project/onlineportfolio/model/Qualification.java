@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,7 +26,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Qualification {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int qualId;
 	private String projectName;
 	private String clientName;
@@ -40,10 +38,31 @@ public class Qualification {
 	private String challengesFaced;
 	
 	@Column(columnDefinition="TEXT")
-	private String solution;
+	private String solutionStatement;
 	
 	@Column(columnDefinition="TEXT")
 	private String relevanceToClient;
+	
+	@Column(columnDefinition="TEXT")
+	private String outcomeStatement;
+	
+	@Column(columnDefinition="TEXT")
+	private String subtitle;
+	
+	private boolean isAnonymous;
+	
+	private boolean isActive;
+	
+	@Column(columnDefinition="TEXT")
+	private String primaryColour;
+	@Column(columnDefinition="TEXT")
+	private String secondaryColour;
+	@Column(columnDefinition="TEXT")
+	private String accentColour;
+	
+	private String emailButton;
+	private String websiteButton;
+	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Access", joinColumns = { 
@@ -60,41 +79,63 @@ public class Qualification {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 	
-	private String metaDataIndustry; //e.g. Financial Services, Education, etc.
-	private String metaDataTag; 
-	private String metaDataStatus; //either "open" or "confidential"
-	private String metaDataDeloitteServiceLine; //e.g. auditing, consulting, etc
+	private String industry; //e.g. Financial Services, Education, etc.
+	
+	@Column(columnDefinition="TEXT")
+	private String tags;
+	
+	private String status; //either "open" or "confidential"
+	private String serviceLine; //e.g. auditing, consulting, etc
 	private String metaDataColourScheme;
 	
 	
-	//TO-DO
+	//TODO
 	//Client Logo
-	//Product picture
-	//Microsite link
+	//Product service image
+
 	
 
-	public Qualification(String projectName, String clientName,
-			String problemStatement, String challengesFaced, String solution,
-			String relevanceToClient, String metaDataIndustry,
-			String metaDataTag, String metaDataStatus,
-			String metaDataDeloitteServiceLine, String metaDataColourScheme) {
-		super();
-		this.projectName = projectName;
-		this.clientName = clientName;
-		this.problemStatement = problemStatement;
-		this.challengesFaced = challengesFaced;
-		this.solution = solution;
-		this.relevanceToClient = relevanceToClient;
-		this.metaDataIndustry = metaDataIndustry;
-		this.metaDataTag = metaDataTag;
-		this.metaDataStatus = metaDataStatus;
-		this.metaDataDeloitteServiceLine = metaDataDeloitteServiceLine;
-		this.metaDataColourScheme = metaDataColourScheme;
-	}
+
 
 
 	public Qualification(){
 		
+	}
+
+
+	public Qualification(int qualId, String projectName, String clientName,
+			String problemStatement, String challengesFaced,
+			String solutionStatement, String relevanceToClient,
+			String outcomeStatement, String subtitle, boolean isAnonymous,
+			boolean isActive, String primaryColour, String secondaryColour,
+			String accentColour, String emailButton, String clientLogo,
+			List<Account> accountsQual, List<AdminGroup> adminGroups,
+			String industry, String tags, String status,
+			String serviceLine, String metaDataColourScheme) {
+		super();
+		this.qualId = qualId;
+		this.projectName = projectName;
+		this.clientName = clientName;
+		this.problemStatement = problemStatement;
+		this.challengesFaced = challengesFaced;
+		this.solutionStatement = solutionStatement;
+		this.relevanceToClient = relevanceToClient;
+		this.outcomeStatement = outcomeStatement;
+		this.subtitle = subtitle;
+		this.isAnonymous = isAnonymous;
+		this.isActive = isActive;
+		this.primaryColour = primaryColour;
+		this.secondaryColour = secondaryColour;
+		this.accentColour = accentColour;
+		this.emailButton = emailButton;
+		this.websiteButton = clientLogo;
+		this.accountsQual = accountsQual;
+		this.adminGroups = adminGroups;
+		this.industry = industry;
+		this.tags = tags;
+		this.status = status;
+		this.serviceLine = serviceLine;
+		this.metaDataColourScheme = metaDataColourScheme;
 	}
 
 
@@ -149,12 +190,12 @@ public class Qualification {
 
 
 	public String getSolution() {
-		return solution;
+		return solutionStatement;
 	}
 
 
 	public void setSolution(String solution) {
-		this.solution = solution;
+		this.solutionStatement = solution;
 	}
 
 
@@ -190,42 +231,32 @@ public class Qualification {
 
 
 	public String getMetaDataIndustry() {
-		return metaDataIndustry;
+		return industry;
 	}
 
 
 	public void setMetaDataIndustry(String metaDataIndustry) {
-		this.metaDataIndustry = metaDataIndustry;
-	}
-
-
-	public String getMetaDataTag() {
-		return metaDataTag;
-	}
-
-
-	public void setMetaDataTag(String metaDataTag) {
-		this.metaDataTag = metaDataTag;
+		this.industry = metaDataIndustry;
 	}
 
 
 	public String getMetaDataStatus() {
-		return metaDataStatus;
+		return status;
 	}
 
 
 	public void setMetaDataStatus(String metaDataStatus) {
-		this.metaDataStatus = metaDataStatus;
+		this.status = metaDataStatus;
 	}
 
 
 	public String getMetaDataDeloitteServiceLine() {
-		return metaDataDeloitteServiceLine;
+		return serviceLine;
 	}
 
 
 	public void setMetaDataDeloitteServiceLine(String metaDataDeloitteServiceLine) {
-		this.metaDataDeloitteServiceLine = metaDataDeloitteServiceLine;
+		this.serviceLine = metaDataDeloitteServiceLine;
 	}
 
 
@@ -237,5 +268,147 @@ public class Qualification {
 	public void setMetaDataColourScheme(String metaDataColourScheme) {
 		this.metaDataColourScheme = metaDataColourScheme;
 	}
+	
+	public String getSolutionStatement() {
+		return solutionStatement;
+	}
+
+
+	public void setSolutionStatement(String solutionStatement) {
+		this.solutionStatement = solutionStatement;
+	}
+
+
+	public String getOutcomeStatement() {
+		return outcomeStatement;
+	}
+
+
+	public void setOutcomeStatement(String outcomeStatement) {
+		this.outcomeStatement = outcomeStatement;
+	}
+
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+
+	public boolean isAnonymous() {
+		return isAnonymous;
+	}
+
+
+	public void setAnonymous(boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
+	}
+
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+
+	public String getPrimaryColour() {
+		return primaryColour;
+	}
+
+
+	public void setPrimaryColour(String primaryColour) {
+		this.primaryColour = primaryColour;
+	}
+
+
+	public String getSecondaryColour() {
+		return secondaryColour;
+	}
+
+
+	public void setSecondaryColour(String secondaryColour) {
+		this.secondaryColour = secondaryColour;
+	}
+
+
+	public String getAccentColour() {
+		return accentColour;
+	}
+
+
+	public void setAccentColour(String accentColour) {
+		this.accentColour = accentColour;
+	}
+
+
+	public String getEmailButton() {
+		return emailButton;
+	}
+
+
+	public void setEmailButton(String emailButton) {
+		this.emailButton = emailButton;
+	}
+
+
+	public String getWebsiteButton() {
+		return websiteButton;
+	}
+
+
+	public void setWebsiteButton(String websiteButton) {
+		this.websiteButton = websiteButton;
+	}
+
+
+	public String getIndustry() {
+		return industry;
+	}
+
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+
+	public String getTags() {
+		return tags;
+	}
+
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public String getServiceLine() {
+		return serviceLine;
+	}
+
+
+	public void setServiceLine(String serviceLine) {
+		this.serviceLine = serviceLine;
+	}
+
+
+
 		
 }
