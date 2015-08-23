@@ -603,6 +603,108 @@ function deleteAccount(id){
 
 }
 
+function assignAccountToAdminGroup(agId, acId){
+    var methodURL = url + _ac + _ag + "/" + agId + "/" + acId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to admin group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ac = new Account(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ac.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"accountId": ' + acId + ','+
+        '"adminGroupId": ' + agId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function getAccountsByAdminGroup(agId, callback){
+    var methodURL = url + _ac + _ag + "/" + agId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var acs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                acs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(acs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAccountsByQual(qId, callback){
+    var methodURL = url + _ac + _qual + "/" + qId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var acs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                acs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(acs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
 // === ADMIN GROUP ====
 
 function getAdminGroupById(id, callback){
@@ -719,6 +821,74 @@ function deleteAdminGroup(id){
             var resp = req.responseText;
             var json = JSON.parse(resp);
             alert(new Account(json).getInfo);
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAdminGroupsByQual(qId, callback){
+    var methodURL = url + _ag + _qual + "/" + qId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+
+            var ags = [];
+
+            for (i = 0; i < json.length; i++ ){
+                ags.push(new AdminGroup(json[i]));
+            }
+            if(typeof callback == 'function'){
+
+                callback.apply(ags);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAdminGroupsByAccount(acId, callback){
+    var methodURL = url + _ag + _ac + "/" + acId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+
+            var ags = [];
+
+            for (i = 0; i < json.length; i++ ){
+                ags.push(new AdminGroup(json[i]));
+            }
+            if(typeof callback == 'function'){
+
+                callback.apply(ags);
+            }
 
         }
     }
