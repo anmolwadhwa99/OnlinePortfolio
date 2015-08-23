@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 
@@ -92,6 +93,24 @@ public class ProjectGroupDatabase {
 		session.close();
 		closeSessionFactory();
 		return projectGroups;
+	}
+	
+	/**
+	 * Get a project group
+	 */
+	public ProjectGroup getProjectGroup(int projGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		ProjectGroup projGroup = (ProjectGroup) session.get(ProjectGroup.class, projGroupId);
+		
+		if(projGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project group with id " + projGroupId + " could not be found");
+		}
+		
+		session.close();
+		closeSessionFactory();
+		return projGroup;
 	}
 	
 }
