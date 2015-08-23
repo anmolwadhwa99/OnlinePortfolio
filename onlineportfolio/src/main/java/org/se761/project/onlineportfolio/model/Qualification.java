@@ -26,7 +26,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Qualification {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int qualId;
 	private String projectName;
 	private String clientName;
