@@ -924,6 +924,7 @@ body.nav-expanded {
     line-height: 1;
     text-transform: none;
     content: '\f147';
+    margin-right: 0px;
 }
 
 .main-menu li > a > span.icon {
@@ -934,12 +935,14 @@ body.nav-expanded {
     -moz-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    margin-right: 15px;
 
 }
 
 .main-menu li > a:hover > span.icon {
     float: left;
     margin: 0.1em 0.8em -0.1em 0;
+    margin-right: 15px;
     opacity: 1;
 }
 a.nav-expander {
