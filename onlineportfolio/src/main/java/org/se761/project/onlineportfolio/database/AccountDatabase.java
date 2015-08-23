@@ -238,6 +238,9 @@ public class AccountDatabase {
 		return accounts;
 	}
 	
+	/**
+	 * Get all accounts associated with a project group
+	 */
 	public List<Account> getAllAccountsFromProjectGroup(int projGroupId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
