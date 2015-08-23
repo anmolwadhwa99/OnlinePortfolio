@@ -41,6 +41,15 @@ public class QualificationResource {
 	public Qualification addAdminGroupQualifications(@PathParam("adminGroupId") int adminGroupId, @PathParam("qualId") int qualId ){
 		return qualificationService.addQualificationToAdminGroup(adminGroupId, qualId);
 	}
+	
+	/**
+	 * Adding qual to project group 
+	 */
+	@POST
+	@Path("/project/{projectGroupId}/{qualId}")
+	public Qualification addProjectGroupQualifications(@PathParam("projectGroupId") int projectGroupId, @PathParam("qualId") int qualId ){
+		return qualificationService.addQualificationToProjectGroup(projectGroupId, qualId);
+	}
 		
 	
 	/**
@@ -68,6 +77,15 @@ public class QualificationResource {
 	@Path("/admin/{adminGroupId}")
 	public List<Qualification> getAdminGroupQualifications(@PathParam("adminGroupId") int adminGroupId){
 		return qualificationService.getAllQualificationsFromAdminGroup(adminGroupId);
+	}
+	
+	/**
+	 * Getting all qualifications from projet group 
+	 */
+	@GET
+	@Path("/project/{projectGroupId}")
+	public List<Qualification> getProjectGroupQualifications(@PathParam("projectGroupId") int projectGroupId){
+		return qualificationService.getAllQualificationsFromAdminGroup(projectGroupId);
 	}
 	
 	
