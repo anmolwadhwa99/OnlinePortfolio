@@ -1,5 +1,7 @@
 
 var url = "https://onlineportfolio.herokuapp.com/webapi";
+var _qual = "/qual/";
+var _ac = "/account/";
 
 function Qual(x){
     this.id = x.qualId;
@@ -32,6 +34,20 @@ function Qual(x){
     };
 }
 
+function Account(x){
+    this.accountId = x.accountId;
+    this.admin = x.admin;
+    this.pin = x.pin;
+    this.userName = x.userName;
+
+    this.getInfo = function(){
+        return this.accountId + "\n" +
+                this.admin + "\n" +
+                this.pin + "\n" +
+                this.userName;
+    }
+
+}
 
 function GetAllAccounts(id, callbackFunction) {
     var opAccount = "http://onlineportfolio.herokuapp.com/webapi/qual";
@@ -109,8 +125,10 @@ function createRequest() {
     return result;
 }
 
+
+// === QUALS =========
 function getQualById(id, callback){
-    var methodURL = url + "/qual/" + id;
+    var methodURL = url + _qual + id;
     var method = "GET";
 
     var req = createRequest();
@@ -138,7 +156,7 @@ function getQualById(id, callback){
 }
 
 function getAllQuals(callback){
-    var methodURL = url + "/qual";
+    var methodURL = url + _qual;
     var method = "GET";
 
     var req = createRequest();
@@ -152,8 +170,7 @@ function getAllQuals(callback){
             }
             // Request successful, read the response
             var resp = req.responseText;
-            alert(resp);
-            var quals = new Array();
+            var quals = [];
 
             var json = JSON.parse(resp);
 
@@ -173,8 +190,8 @@ function getAllQuals(callback){
 }
 
 function insertQual(clientName, problem, projName, relevance, solution,
-challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
-    var methodURL = url + "/qual";
+challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme, callback){
+    var methodURL = url + _qual;
     var method = "POST";
 
     var req = createRequest();
@@ -189,8 +206,11 @@ challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
+            var qual = new Qual(json);
 
-            var s = json;
+            if (typeof callback == 'function'){
+                callback.apply(qual.id);
+            }
 
         }
     }
@@ -215,7 +235,7 @@ challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
 }
 
 function deleteQual(id){
-    var methodURL = url + "/qual/" + id;
+    var methodURL = url + _qual + id;
     var method = "DELETE";
 
     var req = createRequest();
@@ -233,6 +253,235 @@ function deleteQual(id){
             alert(new Qual(json).getInfo);
 
             var s = json;
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+// === ACCOUNTS ======
+
+function getAccountById(id, callback){
+    var methodURL = url + _ac + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new Account(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAllAccounts(callback){
+    var methodURL = url + _ac;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var accs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                accs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(accs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAllAdmins(callback){
+    var methodURL = url + _ac + "admin";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting all admins");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var accs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                accs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(accs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAllClients(callback){
+    var methodURL = url + _ac + "client";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var accs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                accs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(accs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+/*function getAllAdmins(callback){
+    var methodURL = url + _ac + "/admin";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var accs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                accs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(accs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+*/
+
+function insertAccount(isAdmin, pin, userName){
+    var methodURL = url + _ac;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while creating account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ac = new Account(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ac.id);
+            }
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"admin": ' + isAdmin + ','+
+        '"pin": "' + pin + '",'+
+        '"userName": "' + userName + '"'+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function deleteAccount(id){
+    var methodURL = url + _ac + id;
+    var method = "DELETE";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while deleting the account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Account(json).getInfo);
 
         }
     }
