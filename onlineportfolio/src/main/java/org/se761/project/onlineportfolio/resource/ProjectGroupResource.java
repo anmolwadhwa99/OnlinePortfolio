@@ -30,7 +30,7 @@ public class ProjectGroupResource {
 	@GET
 	@Path("/{projectGroupId}")
 	public ProjectGroup getProjectGroup(@PathParam("projectGroupId") int projectGroupId){
-		return null;
+		return projectGroupService.getProjectGroup(projectGroupId);
 		
 	}
 	
