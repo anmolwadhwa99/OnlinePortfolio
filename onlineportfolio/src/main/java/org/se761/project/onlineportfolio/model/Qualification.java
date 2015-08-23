@@ -80,7 +80,10 @@ public class Qualification {
 	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 	
 	private String industry; //e.g. Financial Services, Education, etc.
-	private List<String> tags; 
+	
+	@Column(columnDefinition="TEXT")
+	private String tags;
+	
 	private String status; //either "open" or "confidential"
 	private String serviceLine; //e.g. auditing, consulting, etc
 	private String metaDataColourScheme;
@@ -107,7 +110,7 @@ public class Qualification {
 			boolean isActive, String primaryColour, String secondaryColour,
 			String accentColour, String emailButton, String clientLogo,
 			List<Account> accountsQual, List<AdminGroup> adminGroups,
-			String industry, List<String> tags, String status,
+			String industry, String tags, String status,
 			String serviceLine, String metaDataColourScheme) {
 		super();
 		this.qualId = qualId;
@@ -376,12 +379,12 @@ public class Qualification {
 	}
 
 
-	public List<String> getTags() {
+	public String getTags() {
 		return tags;
 	}
 
 
-	public void setTags(List<String> tags) {
+	public void setTags(String tags) {
 		this.tags = tags;
 	}
 
