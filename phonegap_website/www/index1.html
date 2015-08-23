@@ -40,30 +40,29 @@
     <!-- Navigation -->
 
     <nav>
-        <ul class="list-unstyled main-menu">
+        <ul class="list-unstyled main-menu" id="ProjectCart">
 
             <!--Include your navigation here-->
             <li class="text-right"><a href="#" id="nav-close">X</a></li>
             <li><a href="#">Menu One <span class="icon"></span></a></li>
-            <li><a href="#">Menu Two <span class="icon"></span></a></li>
-            <li><a href="#">Menu Three <span class="icon"></span></a></li>
-            <li><a href="#">Dropdown</a>
-                <ul class="list-unstyled">
-                    <li class="sub-nav"><a href="#">Sub Menu One <span class="icon"></span></a></li>
-                    <li class="sub-nav"><a href="#">Sub Menu Two <span class="icon"></span></a></li>
-                    <li class="sub-nav"><a href="#">Sub Menu Three <span class="icon"></span></a></li>
-                    <li class="sub-nav"><a href="#">Sub Menu Four <span class="icon"></span></a></li>
-                    <li class="sub-nav"><a href="#">Sub Menu Five <span class="icon"></span></a></li>
 
-                </ul>
-            </li>
-            <li><a href="#">Menu Four <span class="icon"></span></a></li>
-            <li><a href="#">Menu Five <span class="icon"></span></a></li>
+
         </ul>
     </nav>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
 
+        <!--Include your brand here-->
+        <div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
+            <div class="input-group col-md-6 col-sm-8 col-xs-8">
+                <input type="text" class="form-control input-sm" placeholder="Search.." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-sm" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </div>
         <div class="navbar-header pull-right">
             <a id="nav-expander" class="nav-expander fixed">
                 MENU &nbsp;<i class="fa fa-bars fa-lg white"></i>
@@ -71,7 +70,29 @@
         </div>
     </div>
 
+
+
     <script>
+        function addToCart(m){
+
+
+            var ul = document.getElementById("ProjectCart");
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            a.setAttribute("href", "#");
+
+            var span = document.createElement("span");
+            span.setAttribute("class","icon");
+
+            a.appendChild(document.createTextNode(m));
+            a.appendChild(span);
+
+            li.appendChild(a);
+            li.setAttribute("id", m); // added line
+            ul.appendChild(li);
+
+        }
+
         $(document).ready(function(){
 
             //Navigation Menu Slider
@@ -101,12 +122,17 @@
                 }
             });
 
+
+
         });
+
+
     </script>
 
     <!-- Header -->
     <header>
     </header>
+
     <section id="portfolio1" class="bg-light-gray" style="padding: 0px; padding-top: 22px">
         <div class="container" style="margin: 0px; padding: 0px; width: inherit;">
     <!-- Services Section -->
@@ -128,12 +154,13 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="projects">
                             <div class="col-md-4 col-sm-6 portfolio-item">
-                                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content">
-                                            <i class="fa fa-plus fa-3x"></i>
+                                            <a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('Hi')"></i></a>
                                         </div>
                                     </div>
+                                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
                                     <img src="img/portfolio/roundicons.png" class="img-responsive" alt="">
                                 </a>
                                 <div class="portfolio-caption">
@@ -251,141 +278,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Portfolio Modal 2 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Heading</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/startup-framework-preview.png" alt="">
-                            <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website builder for professionals. Startup Framework contains components and complex blocks (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost any design. All of these components are made in the same style, and can easily be integrated into projects, allowing you to create hundreds of solutions for your future projects.</p>
-                            <p>You can preview Startup Framework <a href="http://designmodo.com/startup/?u=787">here</a>.</p>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 3 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here -->
-                            <h2>Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/treehouse-preview.png" alt="">
-                            <p>Treehouse is a free PSD web template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. This is bright and spacious design perfect for people or startup companies looking to showcase their apps or other projects.</p>
-                            <p>You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/treehouse-free-psd-web-template/">FreebiesXpress.com</a>.</p>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 4 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here -->
-                            <h2>Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/golden-preview.png" alt="">
-                            <p>Start Bootstrap's Agency theme is based on Golden, a free PSD website template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. Golden is a modern and clean one page web template that was made exclusively for Best PSD Freebies. This template has a great portfolio, timeline, and meet your team sections that can be easily modified to fit your needs.</p>
-                            <p>You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/golden-free-one-page-web-template/">FreebiesXpress.com</a>.</p>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 5 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here -->
-                            <h2>Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/escape-preview.png" alt="">
-                            <p>Escape is a free PSD web template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. Escape is a one page web template that was designed with agencies in mind. This template is ideal for those looking for a simple one page solution to describe your business and offer your services.</p>
-                            <p>You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/escape-one-page-psd-web-template/">FreebiesXpress.com</a>.</p>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 6 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here -->
-                            <h2>Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/dreams-preview.png" alt="">
-                            <p>Dreams is a free PSD web template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. Dreams is a modern one page web template designed for almost any purpose. It’s a beautiful template that’s designed with the Bootstrap framework in mind.</p>
-                            <p>You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/dreams-free-one-page-web-template/">FreebiesXpress.com</a>.</p>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 
     <!-- Bootstrap Core JavaScript -->
