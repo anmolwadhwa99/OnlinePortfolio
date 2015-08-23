@@ -65,13 +65,24 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
 
         <!--Include your brand here-->
-        <a class="navbar-brand" href="#">Off Canvas Menu</a>
+        <div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
+            <div class="input-group col-md-6 col-sm-8 col-xs-8">
+                <input type="text" class="form-control input-sm" placeholder="Search.." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-sm" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </div>
         <div class="navbar-header pull-right">
             <a id="nav-expander" class="nav-expander fixed">
                 MENU &nbsp;<i class="fa fa-bars fa-lg white"></i>
             </a>
         </div>
     </div>
+
+
 
     <script>
         $(document).ready(function(){
@@ -109,6 +120,7 @@
     <!-- Header -->
     <header>
     </header>
+
     <section id="portfolio1" class="bg-light-gray" style="padding: 0px; padding-top: 22px">
         <div class="container" style="margin: 0px; padding: 0px; width: inherit;">
     <!-- Services Section -->
