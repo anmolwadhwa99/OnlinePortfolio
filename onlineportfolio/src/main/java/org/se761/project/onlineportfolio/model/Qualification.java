@@ -109,18 +109,7 @@ public class Qualification {
 	public Qualification(){
 		
 	}
-
-	@XmlTransient
-	public List<ProjectGroup> getProjGroups() {
-		return projGroups;
-	}
-
-
-	public void setProjGroups(List<ProjectGroup> projGroups) {
-		this.projGroups = projGroups;
-	}
-
-
+	
 	public Qualification(int qualId, String projectName, String clientName,
 			String problemStatement, String challengesFaced,
 			String solutionStatement, String relevanceToClient,
@@ -154,6 +143,17 @@ public class Qualification {
 		this.status = status;
 		this.serviceLine = serviceLine;
 		this.metaDataColourScheme = metaDataColourScheme;
+	}
+
+
+	@XmlTransient
+	public List<ProjectGroup> getProjGroups() {
+		return projGroups;
+	}
+
+
+	public void setProjGroups(List<ProjectGroup> projGroups) {
+		this.projGroups = projGroups;
 	}
 
 
