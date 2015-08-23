@@ -1,11 +1,15 @@
 package org.se761.project.onlineportfolio.database;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
+import org.se761.project.onlineportfolio.model.Qualification;
 
 public class ProjectGroupDatabase {
 	private SessionFactory sessionFactory;
@@ -50,7 +54,7 @@ public class ProjectGroupDatabase {
 	/**
 	 * Delete project group from database
 	 */
-	public ProjectGroup deleteQual(int projGroupId){
+	public ProjectGroup deleteProjGroup(int projGroupId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -66,6 +70,28 @@ public class ProjectGroupDatabase {
 		session.close();
 		closeSessionFactory();
 		return projGroup;
+	}
+	
+	/**
+	 * Get all project groups from the database
+	 */
+	public List<ProjectGroup> getAllProjectGroups(){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		
+		String getAllQuery = "FROM ProjectGroup p";
+		Query query = session.createQuery(getAllQuery);
+
+		List<ProjectGroup> projectGroups = query.list();
+		
+		if(projectGroups.size() == 0){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("No project groups in the database to display.");
+		}
+		
+		session.close();
+		closeSessionFactory();
+		return projectGroups;
 	}
 	
 }
