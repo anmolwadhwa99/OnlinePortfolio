@@ -29,6 +29,13 @@
     <![endif]-->
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+
+    <script type="application/javascript">
+        function signin(){
+            var password = $('input[name=signin_password]').val();
+            console.log(password);
+        }
+    </script>
 </head>
 
 <body>
@@ -142,11 +149,10 @@
 <!-- /.carousel -->
 
 <div class="container">
-    <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
+    <form id="signin_form" action="javascript:signin();" class="form-signin">
+        <h2 class="form-signin-heading">Please enter your password</h2>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
+        <input type="password" id="inputPassword" name="signin_password" class="form-control" placeholder="Password" required autofocus>
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
