@@ -29,6 +29,8 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
     <![endif]-->
 
 </head>
@@ -68,6 +70,39 @@
             </a>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+
+            //Navigation Menu Slider
+            $('#nav-expander').on('click',function(e){
+                e.preventDefault();
+                $('body').toggleClass('nav-expanded');
+            });
+            $('#nav-close').on('click',function(e){
+                e.preventDefault();
+                $('body').removeClass('nav-expanded');
+            });
+
+            // Initialize navgoco with default options
+            $(".main-menu").navgoco({
+                caret: '<span class="caret"></span>',
+                accordion: false,
+                openClass: 'open',
+                save: true,
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 300,
+                    easing: 'swing'
+                }
+            });
+
+        });
+    </script>
 
     <!-- Header -->
     <header>
@@ -632,8 +667,7 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
