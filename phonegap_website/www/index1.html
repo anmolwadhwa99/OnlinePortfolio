@@ -46,6 +46,8 @@
                     li.appendChild(document.createTextNode(quals[i].getInfo()));
                     list.appendChild(li);
                 }
+
+
             })}
     </script>
 
@@ -112,6 +114,9 @@
         }
 
         $(document).ready(function(){
+
+
+            getQuals();
 
             //Navigation Menu Slider
             $('#nav-expander').on('click',function(e){
@@ -203,6 +208,9 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="quals" onload="getQuals()">
+                            <ul id="list">
+
+                            </ul>
                             <div class="col-md-4 col-sm-6 portfolio-item">
                                 <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                                     <div class="portfolio-hover">
@@ -227,12 +235,6 @@
             </div>
 
         </div>
-
-
-
-    
-
-    
     <footer>
         <div class="container">
             <div class="row">
