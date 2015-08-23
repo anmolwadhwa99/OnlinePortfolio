@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,7 @@ import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.model.ProjectGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 
 public class QualificationDatabase {
@@ -144,6 +146,39 @@ public class QualificationDatabase {
 		qual.getAdminGroups().add(adminGroup);
 		session.save(qual);
 		session.save(adminGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return qual;
+
+	}
+	
+	
+	/**
+	 * Add a qualification against an project group
+	 */
+	public Qualification addQualificationToProjectGroup(int projectGroupId, int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		ProjectGroup projectGroup = (ProjectGroup) session.get(ProjectGroup.class, projectGroupId);
+
+		if(projectGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project Group with id " + projectGroupId + " could not be found, so can't add qualification");
+		}
+		
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
+		}
+
+		projectGroup.getQuals().add(qual);
+		qual.getProjGroups().add(projectGroup);
+		session.save(qual);
+		session.save(projectGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
