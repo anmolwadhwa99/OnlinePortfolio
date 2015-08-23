@@ -960,7 +960,7 @@ a.nav-expander {
     text-transform: uppercase;
     top: 0;
     transition: right 0.3s ease-in-out 0s;
-    width: 130px;
+    width: AUTO;
     z-index: 12;
 
     transition: right 0.3s ease-in-out 0s;
