@@ -1,8 +1,8 @@
 
 var url = "https://onlineportfolio.herokuapp.com/webapi";
-var _qual = "/qual/";
-var _ac = "/account/";
-var _ag = "/admin/";
+var _qual = "/qual";
+var _ac = "/account";
+var _ag = "/admin";
 
 function Qual(x){
     this.id = x.qualId;
@@ -199,6 +199,74 @@ function getAllQuals(callback){
     req.send();
 }
 
+function getQualsByAccount(acId, callback){
+    var methodURL = url + _qual + _ac + "/" + acId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var quals = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                quals.push(new Qual(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(quals);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getQualsByAdminGroup(agId, callback){
+    var methodURL = url + _qual + _ag + "/" + agId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var quals = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                quals.push(new Qual(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(quals);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
 function insertQual(clientName, problem, projName, relevance, solution,
 challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme, callback){
     var methodURL = url + _qual;
@@ -245,7 +313,7 @@ challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme, callback
 }
 
 function deleteQual(id){
-    var methodURL = url + _qual + id;
+    var methodURL = url + _qual + "/" + id;
     var method = "DELETE";
 
     var req = createRequest();
@@ -271,10 +339,80 @@ function deleteQual(id){
 
 }
 
+function assignQualToAccount(acId, qId){
+    var methodURL = url + _qual + _ac + "/" + acId + "/" + qId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var qual = new Qual(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(qual.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"qualId": ' + qId + ','+
+        '"accountId": ' + acId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function assignQualToAdminGroup(agId, qId){
+    var methodURL = url + _qual + _ag + "/" + agId + "/" + qId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to admin group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var qual = new Qual(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(qual.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"qualId": ' + qId + ','+
+        '"adminGroupId": ' + agId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
 // === ACCOUNTS ======
 
 function getAccountById(id, callback){
-    var methodURL = url + _ac + id;
+    var methodURL = url + _ac + "/" + id;
     var method = "GET";
 
     var req = createRequest();
@@ -336,7 +474,7 @@ function getAllAccounts(callback){
 }
 
 function getAllAdmins(callback){
-    var methodURL = url + _ac + "admin";
+    var methodURL = url + _ac + _ag;
     var method = "GET";
 
     var req = createRequest();
@@ -370,7 +508,7 @@ function getAllAdmins(callback){
 }
 
 function getAllClients(callback){
-    var methodURL = url + _ac + "client";
+    var methodURL = url + _ac + "/client";
     var method = "GET";
 
     var req = createRequest();
@@ -441,7 +579,7 @@ function insertAccount(isAdmin, pin, userName){
 }
 
 function deleteAccount(id){
-    var methodURL = url + _ac + id;
+    var methodURL = url + _ac + "/" + id;
     var method = "DELETE";
 
     var req = createRequest();
@@ -468,7 +606,7 @@ function deleteAccount(id){
 // === ADMIN GROUP ====
 
 function getAdminGroupById(id, callback){
-    var methodURL = url + _ag + id;
+    var methodURL = url + _ag + "/" + id;
     var method = "GET";
 
     var req = createRequest();
@@ -565,7 +703,7 @@ function insertAdminGroup(groupName){
 }
 
 function deleteAdminGroup(id){
-    var methodURL = url + _ag + id;
+    var methodURL = url + _ag + "/" + id;
     var method = "DELETE";
 
     var req = createRequest();

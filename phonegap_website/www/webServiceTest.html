@@ -34,21 +34,14 @@
             insertQual(clientName, problem, projName, relevance, solution,
                     challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
         }
-    </script>
 
-    <!--Add qual END-->
-
-    <!--This bit for getting a qual-->
-    <script>
         //            you need a callback func that whose 'this' refers to the qual returned
         function getQual(id){
             getQualById(id, function(){
                 alert(this.getInfo());
             })
         }
-    </script>
 
-    <script>
         // for getting all quals
         function getQuals(){
             getAllQuals(function(){
@@ -62,7 +55,40 @@
                     li.appendChild(document.createTextNode(quals[i].getInfo()));
                     list.appendChild(li);
                 }
-            })}
+            })
+        }
+
+        // for getting quals by account
+        function getQualsByAc(id){
+            getQualsByAccount(id, function(){
+
+                var quals = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< quals.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(quals[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+        // for getting quals by admin group
+        function getQualsByAG(id){
+            getQualsByAdminGroup(id, function(){
+
+                var quals = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< quals.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(quals[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
 
     </script>
 
@@ -164,7 +190,7 @@
 <body>
 <div class="row">
     <h1 class="col-md-12">WebService Test</h1>
-    <button type="button" class="btn btn-info" onclick="getGroupByID(7)" >Retrieve Accounts</button>
+    <button type="button" class="btn btn-info" onclick="getQualsByAc(1)" >Retrieve Accounts</button>
 </div>
 <div class="row">
     <ul id="list" class="col-md-8">
