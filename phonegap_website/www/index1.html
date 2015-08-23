@@ -31,6 +31,24 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <!-- jQuery -->
     <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/webServices.js"></script>
+
+    <script>
+        function getQuals(){
+            getAllQuals(function(){
+
+                var quals = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< quals.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(quals[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })}
+    </script>
+
     <![endif]-->
 
 </head>
@@ -184,7 +202,7 @@
                             </div>
                         </div>
 
-                        <div role="tabpanel" class="tab-pane" id="quals">
+                        <div role="tabpanel" class="tab-pane" id="quals" onload="getQuals()">
                             <div class="col-md-4 col-sm-6 portfolio-item">
                                 <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                                     <div class="portfolio-hover">
