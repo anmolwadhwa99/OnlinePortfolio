@@ -75,9 +75,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="modalClientName" >Client Name</label>
                             <div class="col-sm-9">
-                                <select class="form-control clientDropdown" style="width: 100% !important;height:34px !important;">
-                                    <option value="AL">Alabama</option>
-                                    <option value="WY">Wyoming</option>
+                                <select id="clientDropdown" class="form-control" style="width: 100% !important;height:34px !important;">
                                 </select>
                                 <!--<input type="text" class="form-control" id="modalClientName" />-->
                             </div>
@@ -370,7 +368,7 @@
             });
             getProjects();
 
-            $(".clientDropdown").select2();
+
 
             $('#createProjBtn').click(function(e){
                 e.preventDefault();
@@ -381,6 +379,28 @@
 
                 createProjectGroup(projName);
             });
+
+            $(window).on('shown.bs.modal', function() {
+
+                    getAllClients(function () {
+                        var clients = this;
+                        var htmlStr = "";
+                        for(i = 0; i < clients.length; i++) {
+                            htmlStr += "<option value='" + clients[i].accountId + "'>" + clients[i].accountName + "</option>";
+                        }
+
+                        var res = $.map(clients, function (item) {
+                            return {
+                                id: item.accountId,
+                                text: item.accountName
+                            };
+                        })
+
+                        $("#clientDropdown").select2({data: res});
+                    });
+
+            });
+
                 //Navigation Menu Slider
             $('#nav-expander').on('click',function(e){
                 e.preventDefault();
