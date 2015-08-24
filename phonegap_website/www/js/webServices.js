@@ -275,8 +275,10 @@ function getQualsByAdminGroup(agId, callback){
     req.send();
 }
 
-function insertQual(clientName, problem, projName, relevance, solution,
-challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme, callback){
+function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
+, metaDataDeloitteServiceLine, metaDataIndustry, metaDataStatus, outcomeStatement
+, problemStatement, projectName, relevanceToClient, serviceLine, solution
+, solutionStatement, status, subtitle, callback){
     var methodURL = url + _qual;
     var method = "POST";
 
@@ -304,18 +306,25 @@ challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme, callback
 
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
+        '"active": ' + isActive + ','+
+        '"anonymous": ' + isAnonymous + ','+
+        '"challengesFaced": "' + challengesFaced + '",'+
         '"clientName": "' + clientName + '",'+
-        '"problemStatement": "' + problem + '",'+
-        '"projectName": "' + projName + '",'+
-        '"relevanceToClient": "' + relevance + '",'+
+        '"industry": "' + industry + '",'+
+        '"metaDataDeloitteServiceLine": "' + metaDataDeloitteServiceLine + '",'+
+        '"metaDataIndustry": "' + metaDataIndustry + '",'+
+        '"metaDataStatus": "' + metaDataStatus + '",'+
+        '"outcomeStatement": "' + outcomeStatement + '",'+
+        '"problemStatement": "' + problemStatement + '",'+
+        '"projectName": "' + projectName + '",'+
+        '"relevanceToClient": "' + relevanceToClient + '",'+
+        '"serviceLine": "' + serviceLine + '",'+
         '"solution": "' + solution + '",'+
-        '"challengesFaced": "' + challenges + '",'+
-        '"metaDataIndustry": "' + mdIndustry + '",'+
-        '"metaDataTag": "' + mdTag + '",'+
-        '"metaDataStatus": "' + mdStatus + '",'+
-        '"metaDataDeloitteServiceLine":"' + mdServiceLine + '",'+
-        '"metaDataColourScheme":"' + mdColourScheme + '"'+
+        '"solutionStatement": "' + solutionStatement + '",'+
+        '"status": "' + status + '",'+
+        '"subtitle":"' + subtitle + '"'+
     '}';
+
     //console.log(x);
     req.send(x);
 }
@@ -586,7 +595,7 @@ function getAllClients(callback){
     req.send();
 }
 
-function insertAccount(isAdmin, pin, userName){
+function insertAccount(isAdmin, acName, pw, isSuperUser){
     var methodURL = url + _ac;
     var method = "POST";
 
@@ -616,9 +625,12 @@ function insertAccount(isAdmin, pin, userName){
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
         '"admin": ' + isAdmin + ','+
-        '"pin": "' + pin + '",'+
-        '"userName": "' + userName + '"'+
+        '"accountName": ' + acName + ','+
+        '"password": "' + pw + '",'+
+        '"superUser": ' + isSuperUser +
         '}';
+
+
     console.log(x);
     req.send(x);
 }
