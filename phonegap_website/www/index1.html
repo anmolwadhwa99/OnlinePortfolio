@@ -91,7 +91,7 @@
     </div><!-- /.modal -->
     <div class="navbar navbar-inverse navbar-fixed-top">
 
-        <!--Include your brand here-->
+
         <div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
             <div class="input-group col-md-6 col-sm-8 col-xs-8">
                 <input type="text" class="form-control input-sm" placeholder="Search.." />
@@ -115,9 +115,27 @@
         var qualsToAdd = new Array();
 
         function createProjectGroup(projectName) {
+
+            if(qualsToAdd.length == 0){
+                alert("No quals have been selected please select a qual");
+                return;
+            }
+
             insertProjectGroup(projectName, function(){
-                        alert(this);
+
+                 var pgId = this; //gets the new project ID
+
+
+
+                 for(i=0;i<qualsToAdd.length - 1;i++) {
+                     var tempId = qualsToAdd.pop();
+                     assignQualToProjectGroup(pgId,tempId);
+                 }
+
+                 alert("Project ID= " + pgId + " has been created");
             })
+
+
         }
 
         function getProjects(){
@@ -378,6 +396,7 @@
                 $('#createProjModal').modal('hide');
 
                 createProjectGroup(projName);
+
             });
 
             $(window).on('shown.bs.modal', function() {
