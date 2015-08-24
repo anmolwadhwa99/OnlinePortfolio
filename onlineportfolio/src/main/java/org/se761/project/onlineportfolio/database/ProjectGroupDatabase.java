@@ -135,6 +135,33 @@ public class ProjectGroupDatabase {
 		return projectGroups;
 		
 	}
+	
+	/**
+	 * Edit a project group
+	 */
+	public ProjectGroup editProjectGroupDetails(int projectGroupId, ProjectGroup newProjectGroup){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction(); 
+		
+		ProjectGroup projectGroup = (ProjectGroup) session.get(ProjectGroup.class, projectGroupId);
+		
+		if(projectGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project Group with id " + projectGroupId + " could not be found");
+		}
+		
+		projectGroup = newProjectGroup;
+		session.update(projectGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		
+		return projectGroup;
+		
+	}
+	
 
 	
 }
