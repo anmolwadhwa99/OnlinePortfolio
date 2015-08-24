@@ -7,7 +7,7 @@ function getQuals(){
         var quals = this;
         alert(quals)
         var list = document.getElementById("list");
-
+        var htmlStr = "";
         for(i = 0; i< quals.length; i++){
             var li = document.createElement("li");
             createImageBox()
@@ -26,11 +26,8 @@ function getQuals(){
 //        var list = document.getElementById("client_list");
 //
 //        for (i = 0; i < clients.length; i++) {
-//            alert(clients[i]);
-//            var li = document.createElement("li");
-//            createClientBox(clients[i].getInfo().$2)
-//            li.appendChild(document.createTextNode(clients[i].getInfo()));
-//            list.appendChild(li);
+//            alert(clients[i].accountName);
+//            createClientBox(clients[i].accountName);
 //        }
 //    })
 //}
@@ -68,7 +65,7 @@ function createImageBox(){
 }
 
 function createClientBox(clientName){
-    var div = $("#clients").html(
+    var div = $("#clientsTabPanel").html(
         '<div class="col-md-4 col-sm-6 portfolio-item">'+
 
     '<div class="portfolio-hover">' +

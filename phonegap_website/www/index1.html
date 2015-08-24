@@ -91,47 +91,59 @@
                 }
                 $("#projectsTabPanel").html(htmlStr);
 
-//                <div class="col-md-4 col-sm-6 portfolio-item">
-//                        <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-//                        <div class="portfolio-hover">
-//                        <div class="portfolio-hover-content">
-//                        <i class="fa fa-plus fa-3x"></i>
-//                        </div>
-//                        </div>
-//                        <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
-//                        </a>
-//                        <div class="portfolio-caption">
-//                        <h4>Startup Framework</h4>
-//                <p class="text-muted">Website Design</p>
-//                </div>
-//                </div>
-
-
                 return this;
             })
         }
 
-        function getClients(){
-            getAllClients(function(){
-
-
+        function getClients() {
+            getAllClients(function () {
+                //alert('hi')
                 var clients = this;
+                //alert(clients);
+                var list = document.getElementById("client_list");
 
                 var htmlStr = "";
-                for(i = 0; i< clients.length; i++){
+                for (i = 0; i < clients.length; i++) {
                     alert(clients[i].accountName);
-                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
-                    <a href='#portfolioModal2' class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='img-responsive' alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+clients[i].accountNameu+"</h4> \
-                    <p class='text-muted'>Website Design</p> \
-                    </div></div>"
+                    htmlStr += createClientBox(clients[i].accountName);
+                }
 
+                $("#clientsTabPanel").html(htmlStr)
+            })
+        }
+
+        function createClientBox(clientName){
+            var str =
+                    '<div class="col-md-4 col-sm-6 portfolio-item">'+
+
+                    '<div class="portfolio-hover">' +
+                    '<div class="portfolio-hover-content">' +
+                    '<a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('+clientName+')"></i></a>' +
+                    '</div>' +
+                    '</div>' +
+                    '<a href="#portfolioModal1" class="portfolio-link" onclick="getQualsForProject(1)">' +
+                    '<img src="img/portfolio/roundicons.png" class="img-responsive" alt="">' +
+                    '</a>' +
+                    '<div class="portfolio-caption">' +
+                    '<h4>'+clientName+'</h4>' +
+                    '<p class="text-muted">Graphic Design</p>' +
+                    '</div>' +
+                    '</div>';
+            return str;
+
+        }
+
+
+        //        }       <div class='portfolio-hover'> \
+//                    <div class='portfolio-hover-content'>\
+//                    <i class='fa fa-plus fa-3x'></i></div></div> \
+//                    <img src='img/portfolio/startup-framework.png' class='img-responsive' alt=''> \
+//                    </a> \
+//                    <div class='portfolio-caption'> \
+//                    <h4>"+clients[i].accountName+"</h4> \
+//                    <p class='text-muted'>Website Design</p> \
+//                    </div></div>"
+//
 //                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
 //                    <div class='portfolio-hover'> \
 //                    <div class='portfolio-hover-content'>\
@@ -140,18 +152,7 @@
 //                    <i class='fa fa-plus fa-3x'></i></div></div> \
 //                    <a href=''#portfolioModal1' class='portfolio-link' onclick='getQualsForProject(1)'> \
 //                    <img src='img/portfolio/startup-framework.png' class='img-responsive' alt=''> \
-//                    </a> \
-//                    <div class='portfolio-caption'> \
-//                    <h4>"+clients[i].accountName+"</h4> \
-//                    </div></div>"
-                }
-
-
-                $("#clientsTabPanel").html(htmlStr);
-
-                return this;
-            })
-        }
+////
 
         function addToCart(m){
 
@@ -233,7 +234,7 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="projectsTabPanel">
+                        <div role="tabpanel"  id="projectsTabPanel">
                             <!--<div class="col-md-4 col-sm-6 portfolio-item">-->
 
                                     <!--<div class="portfolio-hover">-->
@@ -270,7 +271,7 @@
 
                             </ul>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="clientsTabPanel" >
+                        <div role="tabpanel"  class="tab-pane active" class="tab-pane" id="clientsTabPanel" >
 
                             <!--<script>getClients();</script>-->
 
