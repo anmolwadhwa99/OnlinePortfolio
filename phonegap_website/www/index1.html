@@ -140,9 +140,17 @@
 
 
             insertProjectGroup(projectName, function () {
+                var pgId = this; //gets the new project ID
 
-                projGroupID = this;
+                for(i = 0; i < qualsToAdd.length - 1; i++) {
+                    var tempId = qualsToAdd.pop();
+                    assignQualToProjectGroup(pgId,tempId);
+                }
+
+                alert("Project ID= " + pgId + " has been created");
+                return;
             })
+            
             var clientID;
             if ($('#existingClientSelect').is(':checked') == true) {
                 clientID = $("#clientDropdown").val();
