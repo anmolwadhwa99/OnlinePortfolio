@@ -220,26 +220,25 @@
             getAllQuals(function(){
                 var quals = this;
 
-                var htmlStr = "";
+                var htmlStr = "<h1 id='heading'>All Quals</h1>";
 
                 for (i = 0; i < quals.length; i++) {
 //                    alert(clients[i].accountName);
-                    htmlStr += '<div class="col-md-3 col-sm-6 portfolio-item">'+
-
-                    '<div class="portfolio-hover">' +
-                    '<div class="portfolio-hover-content">' +
-                    '</div>' +
-                    '</div>' +
-                    '<img src="img/portfolio/roundicons.png" class="main-thumbnail img-responsive" alt="">' +
-                    '</a>' +
-                    '<div class="portfolio-caption">' +
-                    '<h4>'+quals[i]+'</h4>' +
-                    '</div>' +
-                    '</div>';
+                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
+                    <a class='portfolio-link' data-toggle='modal'> \
+                    <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content'>\
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].id+", \""+quals[i].projectName+"\")'></i></div></div> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
+                    </a> \
+                    <div class='portfolio-caption'> \
+                    <h4>"+quals[i].projectName+"</h4> \
+                    </div></div>"
 
                 }
 
                 $("#quals").html(htmlStr)
+
             });
         }
 
