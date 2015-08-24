@@ -232,6 +232,31 @@ public class QualificationDatabase {
 		return quals;
 	}
 	
+	/**
+	 * Edit a qualification
+	 */
+	public Qualification editQualification(int qualId, Qualification qual){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction(); 
+		
+		Qualification modifiedQual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(modifiedQual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
+		}
+		
+		modifiedQual = qual;
+		session.update(modifiedQual);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		
+		return modifiedQual;
+		
+	}
 	
 	
 	
