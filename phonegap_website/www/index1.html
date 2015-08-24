@@ -25,7 +25,6 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
           type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,7 +67,7 @@
                 <h4 class="modal-title">Create Project</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" role="form" id="createProjForm">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="modalProjName">Project Name</label>
 
@@ -78,7 +77,8 @@
                     </div>
                     <div class="form-group">
                         <div class="radio col-sm-3">
-                            <label><input type="radio" style="text-align: left;" class=" control-label" name="clientRadio">Existing
+                            <label><input type="radio" id="existingClientSelect" style="text-align: left;"
+                                          class="control-label" name="clientRadio">Existing
                                 Client</label>
                         </div>
                         <div class="col-sm-9" style="padding-bottom: 15px;">
@@ -87,7 +87,8 @@
                             </select>
                         </div>
                         <div class="radio col-sm-3">
-                            <label><input type="radio" class=" control-label" for="modalClientName" name="clientRadio">Client
+                            <label><input type="radio" id="newClientSelect" class=" control-label" for="modalClientName"
+                                          name="clientRadio">Client
                                 Name</label>
                         </div>
                         <div class="col-sm-9">
@@ -132,9 +133,25 @@
     var qualsToAdd = new Array();
 
     function createProjectGroup(projectName) {
+        var projGroupID;
         insertProjectGroup(projectName, function () {
-            alert(this);
+            projGroupID = this;
         })
+        var clientID;
+        if ($('#existingClientSelect').is(':checked') == true) {
+            clientID = $("#clientDropdown").val();
+        } else if ($('#newClientSelect').is(':checked') == true) {
+            var accountName = $("#modalClientName").val();
+            insertAccount(false, accountName, "password", false, function () {
+                clientID = this;
+            });
+        } else {
+            alert("Select a client!");
+        }
+        alert(projGroupID + " " + clientID);
+//        assignAccountToProjectGroup(projGroupID, clientID, function() {
+//            alert(this);
+//        });
     }
 
     function getProjects() {
@@ -312,27 +329,6 @@
 
     }
 
-
-    //        }       <div class='portfolio-hover'> \
-    //                    <div class='portfolio-hover-content'>\
-    //                    <i class='fa fa-plus fa-3x'></i></div></div> \
-    //                    <img src='img/portfolio/startup-framework.png' class='img-responsive' alt=''> \
-    //                    </a> \
-    //                    <div class='portfolio-caption'> \
-    //                    <h4>"+clients[i].accountName+"</h4> \
-    //                    <p class='text-muted'>Website Design</p> \
-    //                    </div></div>"
-    //
-    //                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
-    //                    <div class='portfolio-hover'> \
-    //                    <div class='portfolio-hover-content'>\
-    //                    <a class='ortfolio-link'> <i class='fa fa-plus fa-3x'  style='cursor: pointer;' onclick='addToCart("+clients[i].accountName+")'></i></a>\
-    //                    </div></div>\
-    //                    <i class='fa fa-plus fa-3x'></i></div></div> \
-    //                    <a href=''#portfolioModal1' class='portfolio-link' onclick='getQualsForProject(1)'> \
-    //                    <img src='img/portfolio/startup-framework.png' class='img-responsive' alt=''> \
-    ////
-
     function addToCart(qID, m) {
 
         qualsToAdd.push(qID);
@@ -474,19 +470,9 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-
-                        <div role="tabpanel" class="tab-pane active" id="projects">
-
-                        </div>
-
-                        <div role="tabpanel" class="tab-pane" id="quals">
-
-                        </div>
-
+                        <div role="tabpanel" class="tab-pane active" id="projects"></div>
+                        <div role="tabpanel" class="tab-pane" id="quals"></div>
                         <div role="tabpanel" class="tab-pane" id="clients">
-
-                            <!--<script>getClients();</script>-->
-
                         </div>
                     </div>
 

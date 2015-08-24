@@ -714,7 +714,7 @@ function assignAccountToProjectGroup(pgId, acId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while assigning qual to admin group");
+                alert("An error occurred while assigning account to project group");
                 return;
             }
             // Request successful, read the response
