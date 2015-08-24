@@ -16,6 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
+    <link href="css/select2.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -23,6 +24,7 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,6 +35,7 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/webServices.js"></script>
     <script src="js/WebServiceConnection.js"></script>
+    <script src="js/select2.min.js"></script>
 
 
 </head>
@@ -72,7 +75,11 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="modalClientName" >Client Name</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="modalClientName" />
+                                <select class="form-control clientDropdown" style="width: 100% !important;height:34px !important;">
+                                    <option value="AL">Alabama</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                                <!--<input type="text" class="form-control" id="modalClientName" />-->
                             </div>
                         </div>
                     </form>
@@ -333,6 +340,8 @@
                 loadTab(target);
             });
             getProjects();
+
+            $(".clientDropdown").select2();
 
             $('#createProjBtn').click(function(e){
                 e.preventDefault();
