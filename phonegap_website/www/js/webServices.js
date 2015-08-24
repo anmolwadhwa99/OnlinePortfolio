@@ -4,35 +4,47 @@ var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
 var _pg = "/projectGroup";
+var _proj = "/project";
 
 function Qual(x){
     this.id = x.qualId;
+    this.active = x.active;
+    this.annonymous = x.annonymous;
     this.challengesFaced = x.challengesFaced;
     this.clientName = x.clientName;
-    this.metaDataColourScheme = x.metaDataColourScheme;
+    this.industry = x.industry;
     this.metaDataDeloitteServiceLine = x.metaDataDeloitteServiceLine;
     this.metaDataIndustry = x.metaDataIndustry;
     this.metaDataStatus = x.metaDataStatus;
-    this.metaDataTag = x.metaDataTag;
+    this.outcomeStatement = x.outcomeStatement;
     this.problemStatement = x.problemStatement;
     this.projectName = x.projectName;
     this.relevanceToClient = x.relevanceToClient;
+    this.serviceLine = x.serviceLine;
     this.solution = x.solution;
-
+    this.solutionStatement = x.solutionStatement;
+    this.status = x.status;
+    this.subtitle = x.subtitle;
 
     this.getInfo = function(){
         return this.id + "\n" +
-            this.challengesFaced + "\n" +
-            this.clientName+ "\n" +
-            this.metaDataColourScheme + "\n" +
-            this.metaDataDeloitteServiceLine + "\n" +
-            this.metaDataIndustry + "\n" +
-            this.metaDataStatus + "\n" +
-            this.metaDataTag + "\n" +
-            this.problemStatement + "\n" +
-            this.projectName + "\n" +
-            this.relevanceToClient + "\n" +
-            this.solution;
+        this.active + "\n" +
+        this.annonymous + "\n" +
+        this.challengesFaced + "\n" +
+        this.clientName + "\n" +
+        this.industry + "\n" +
+        this.metaDataDeloitteServiceLine + "\n" +
+        this.metaDataIndustry + "\n" +
+        this.metaDataStatus + "\n" +
+        this.outcomeStatement + "\n" +
+        this.problemStatement + "\n" +
+        this.projectName + "\n" +
+        this.relevanceToClient + "\n" +
+        this.serviceLine + "\n" +
+        this.solution + "\n" +
+        this.solutionStatement + "\n" +
+        this.status + "\n" +
+        this.subtitle;
     };
 }
 
@@ -55,8 +67,8 @@ function Account(x){
     this.accountId = x.accountId;
     this.accountName = x.accountName;
     this.password = x.password;
-    this.isAdmin = x.isAdmin;
-    this.isSuperUser = x.isSuperUser;
+    this.isAdmin = x.admin;
+    this.isSuperUser = x.superUser;
 
     this.getInfo = function(){
         return this.accountId + "\n" +
@@ -225,7 +237,7 @@ function getQualsByAccount(acId, callback){
 }
 
 function getQualsByProject(projectId, callback){
-    var methodURL = url + _qual  + "/project/" + projectId;
+    var methodURL = url + _qual  + _proj + "/" + projectId;
     var method = "GET";
 
     var req = createRequest();
@@ -292,7 +304,6 @@ function getQualsByAdminGroup(agId, callback){
     req.send();
 }
 
-
 function getProjectsByClient(cId, callback){
     var methodURL = url + _pg + _ac + "/" + cId;
     var method = "GET";
@@ -326,8 +337,6 @@ function getProjectsByClient(cId, callback){
     req.open(method, methodURL, true);
     req.send();
 }
-
-
 
 function getAllProjectGroups(callback) {
     var methodURL = url + "/projectGroup";
@@ -499,6 +508,41 @@ function assignQualToAdminGroup(agId, qId){
     var x = '{'+
         '"qualId": ' + qId + ','+
         '"adminGroupId": ' + agId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function assignQualToProjectGroup(pgId, qId){
+    var methodURL = url + _qual + _proj + "/" + pgId + "/" + qId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to project group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var qual = new Qual(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(qual.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"qualId": ' + qId + ','+
+        '"projectGroupId": ' + pgId + ''+
         '}';
     console.log(x);
     req.send(x);
@@ -735,6 +779,41 @@ function assignAccountToAdminGroup(agId, acId){
     req.send(x);
 }
 
+function assignAccountToProjectGroup(pgId, acId){
+    var methodURL = url + _ac + _proj + "/" + pgId + "/" + acId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to admin group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ac = new Account(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ac.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"accountId": ' + acId + ','+
+        '"projectGroupId": ' + pgId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
 function getAccountsByAdminGroup(agId, callback){
     var methodURL = url + _ac + _ag + "/" + agId;
     var method = "GET";
@@ -771,6 +850,40 @@ function getAccountsByAdminGroup(agId, callback){
 
 function getAccountsByQual(qId, callback){
     var methodURL = url + _ac + _qual + "/" + qId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var acs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                acs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(acs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAccountsByProjectGroup(pgId, callback){
+    var methodURL = url + _ac + _proj + "/" + pgId;
     var method = "GET";
 
     var req = createRequest();

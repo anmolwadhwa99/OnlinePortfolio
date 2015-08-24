@@ -168,9 +168,26 @@
                 }
             })
         }
+
         // for getting all accounts by qual
         function getAcByQual(id){
             getAccountsByQual(id, function(){
+
+                var acs = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< acs.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(acs[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        // for getting all accounts by project group
+        function getAcByPG(id){
+            getAccountsByProjectGroup(id, function(){
 
                 var acs = this;
 
@@ -253,7 +270,7 @@
 <body>
 <div class="row">
     <h1 class="col-md-12">WebService Test</h1>
-    <button type="button" class="btn btn-info" onclick="getAGsByAc(2)" >Retrieve Accounts</button>
+    <button type="button" class="btn btn-info" onclick="getAcByPG(2)" >Retrieve Accounts</button>
 </div>
 <div class="row">
     <ul id="list" class="col-md-8">
