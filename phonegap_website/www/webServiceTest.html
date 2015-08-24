@@ -100,6 +100,12 @@
             })
         }
 
+        function getPGByID(id){
+            getProjectById(id, function(){
+                alert(this.getInfo());
+            })
+        }
+
         // get all Accounts
         function getAccounts(){
             getAllAccounts(function(){
@@ -270,7 +276,7 @@
 <body>
 <div class="row">
     <h1 class="col-md-12">WebService Test</h1>
-    <button type="button" class="btn btn-info" onclick="getAcByPG(2)" >Retrieve Accounts</button>
+    <button type="button" class="btn btn-info" onclick="getPGByID(2)" >Retrieve Accounts</button>
 </div>
 <div class="row">
     <ul id="list" class="col-md-8">

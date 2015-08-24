@@ -139,35 +139,6 @@ function getQualById(id, callback){
 
 }
 
-function getProjectById(id, callback){
-
-    var methodURL = url + "/projectGroup/" + id;
-    var method = "GET";
-
-    var req = createRequest();
-
-    if (req){
-        req.onreadystatechange = function(){
-            if (req.readyState != 4) return;
-            if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
-            }
-            // Request successful, read the response
-            var resp = req.responseText;
-            var json = JSON.parse(resp);
-            if(typeof callback == 'function'){
-
-                callback.apply(new ProjectGroup(json));
-            }
-
-        }
-    }
-    req.open(method, methodURL, true);
-    req.send();
-
-}
-
 function getAllQuals(callback){
     var methodURL = url + _qual;
     var method = "GET";
@@ -298,73 +269,6 @@ function getQualsByAdminGroup(agId, callback){
                 callback.apply(quals);
             }
 
-        }
-    }
-    req.open(method, methodURL, true);
-    req.send();
-}
-
-function getProjectsByClient(cId, callback){
-    var methodURL = url + _pg + _ac + "/" + cId;
-    var method = "GET";
-
-    var req = createRequest();
-
-    if (req){
-        req.onreadystatechange = function(){
-            if (req.readyState != 4) return;
-            if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
-            }
-            // Request successful, read the response
-            var resp = req.responseText;
-            var projects = [];
-
-            var json = JSON.parse(resp);
-
-            for (i = 0; i < json.length; i++ ){
-                projects.push(new ProjectGroup(json[i]));
-            }
-
-            if(typeof callback == 'function'){
-
-                callback.apply(projects);
-            }
-
-        }
-    }
-    req.open(method, methodURL, true);
-    req.send();
-}
-
-function getAllProjectGroups(callback) {
-    var methodURL = url + "/projectGroup";
-    var method = "GET";
-
-    var req = createRequest();
-
-    if (req){
-        req.onreadystatechange = function(){
-            if (req.readyState != 4) return;
-            if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
-            }
-            // Request successful, read the response
-            var resp = req.responseText;
-            var projects = new Array();
-
-            var json = JSON.parse(resp);
-
-            for (i = 0; i < json.length; i++ ){
-                projects.push(new ProjectGroup(json[i]));
-            }
-
-            if(typeof callback == 'function'){
-
-                callback.apply(projects);
-            }
         }
     }
     req.open(method, methodURL, true);
@@ -1102,6 +1006,165 @@ function getAdminGroupsByAccount(acId, callback){
 
                 callback.apply(ags);
             }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+
+// === PROJECT GROUPS ==============================================
+
+function insertProjectGroup(projGroupName, callback){
+    var methodURL = url + _pg;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while creating group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var pg = new ProjectGroup(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(pg.id);
+            }
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"projGroupName": "' + projGroupName + '"'+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function getProjectById(id, callback){
+
+    var methodURL = url + _pg +"/" + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new ProjectGroup(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getProjectsByClient(cId, callback){
+    var methodURL = url + _pg + _ac + "/" + cId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var projects = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                projects.push(new ProjectGroup(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(projects);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAllProjectGroups(callback) {
+    var methodURL = url + "/projectGroup";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var projects = new Array();
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                projects.push(new ProjectGroup(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(projects);
+            }
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function deleteProjectGroup(id){
+    var methodURL = url + _pg + "/" + id;
+    var method = "DELETE";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while deleting the project group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new ProjectGroup(json).getInfo);
 
         }
     }
