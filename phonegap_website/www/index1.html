@@ -78,12 +78,12 @@
 
                 var htmlStr = "<h1 id='heading'>Projects</h1>";
                 for(i = 0; i< projects.length; i++){
-                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
+                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
                     <i class='fa fa-plus fa-3x' onclick='addToCart(\"Hi\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' onclick='openQualsForProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' onclick='openQualsForProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+projects[i].projectGroupName+"</h4> \
@@ -102,12 +102,12 @@
 
                 var htmlStr = "<h1 id='heading'>Projects</h1>";
                 for(i = 0; i< quals.length; i++){
-                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
+                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
                     <i class='fa fa-plus fa-3x' onclick='addToCart('Hi')'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' alt=''> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].clientName+"</h4> \
@@ -128,12 +128,12 @@
 
                 var htmlStr = "<h1 id='heading'>Projects</h1>";
                 for(i = 0; i< quals.length; i++){
-                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
+                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
                     <i class='fa fa-plus fa-3x' onclick='addToCart('Hi')'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' alt=''> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].clientName+"</h4> \
@@ -156,14 +156,14 @@
                 var htmlStr = "";
                 for (i = 0; i < clients.length; i++) {
 //                    alert(clients[i].accountName);
-                    htmlStr += '<div class="col-md-4 col-sm-6 portfolio-item">'+
+                    htmlStr += '<div class="col-md-3 col-sm-6 portfolio-item">'+
 
                     '<div class="portfolio-hover">' +
                     '<div class="portfolio-hover-content">' +
                     '</div>' +
                     '</div>' +
                     '<a href="#portfolioModal1" class="portfolio-link" onclick="getProjectforClient('+clients[i].accountId+')">' +
-                    '<img src="img/portfolio/roundicons.png" class="img-responsive" alt="">' +
+                    '<img src="img/portfolio/roundicons.png" class="main-thumbnail img-responsive" alt="">' +
                     '</a>' +
                     '<div class="portfolio-caption">' +
                     '<h4>'+clients[i].accountName+'</h4>' +
@@ -181,12 +181,12 @@
                 var projects = this;
                 var htmlStr = "";
                 for(i = 0; i< projects.length; i++){
-                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
+                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
                     <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart('Hi')'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' onclick='openQualsForClientProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' onclick='openQualsForClientProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+projects[i].projectGroupName+"</h4> \
