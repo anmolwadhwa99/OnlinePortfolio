@@ -216,6 +216,33 @@
             $("#clients").html(htmlClientProject);
         }
 
+        function getQuals(){
+            getAllQuals(function(){
+                var quals = this;
+
+                var htmlStr = "";
+
+                for (i = 0; i < quals.length; i++) {
+//                    alert(clients[i].accountName);
+                    htmlStr += '<div class="col-md-3 col-sm-6 portfolio-item">'+
+
+                    '<div class="portfolio-hover">' +
+                    '<div class="portfolio-hover-content">' +
+                    '</div>' +
+                    '</div>' +
+                    '<img src="img/portfolio/roundicons.png" class="main-thumbnail img-responsive" alt="">' +
+                    '</a>' +
+                    '<div class="portfolio-caption">' +
+                    '<h4>'+quals[i]+'</h4>' +
+                    '</div>' +
+                    '</div>';
+
+                }
+
+                $("#quals").html(htmlStr)
+            });
+        }
+
         function getClients() {
             getAllClients(function () {
                 //alert('hi')
@@ -317,7 +344,10 @@
         function loadTab(tab) {
 
             if (tab == "#quals") {
-
+                $('#clients').removeClass('active'); // remove active class from tabs
+                $('#projects').removeClass('active'); // remove active class from tabs
+                $(tab).addClass('active');
+                getQuals()
             } else if (tab == "#projects") {
                 $('#clients').removeClass('active'); // remove active class from tabs
                 $('#quals').removeClass('active'); // remove active class from tabs
@@ -409,9 +439,7 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="quals">
-                            <ul id="list">
 
-                            </ul>
                         </div>
 
                         <div role="tabpanel"   class="tab-pane" id="clients" >
