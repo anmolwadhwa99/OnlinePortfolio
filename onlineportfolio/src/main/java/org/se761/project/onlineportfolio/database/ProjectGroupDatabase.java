@@ -120,6 +120,7 @@ public class ProjectGroupDatabase {
 	public List<ProjectGroup> getProjectGroupForAccount(int accountId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
+		session.beginTransaction();
 		Account account = (Account) session.get(Account.class, accountId);
 		
 		if(account == null){

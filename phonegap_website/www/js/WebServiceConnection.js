@@ -5,7 +5,7 @@ function getQuals(){
     getAllQuals(function(){
 
         var quals = this;
-
+        alert(quals)
         var list = document.getElementById("list");
 
         for(i = 0; i< quals.length; i++){
@@ -17,6 +17,23 @@ function getQuals(){
 
 
     })}
+
+//function getClients(){
+//    getAllClients(function() {
+//        //alert('hi')
+//        var clients = this;
+//        //alert(clients);
+//        var list = document.getElementById("client_list");
+//
+//        for (i = 0; i < clients.length; i++) {
+//            alert(clients[i]);
+//            var li = document.createElement("li");
+//            createClientBox(clients[i].getInfo().$2)
+//            li.appendChild(document.createTextNode(clients[i].getInfo()));
+//            list.appendChild(li);
+//        }
+//    })
+//}
 
 function getProjects(){
     getAllProjectGroups(function(){
@@ -32,7 +49,7 @@ function getQualsForProject(id) {
 }
 
 function createImageBox(){
-    var div = $("#list").html(
+    var div = $("#quals").html(
         '<div class="col-md-4 col-sm-6 portfolio-item">' +
         '<a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">' +
         '<div class="portfolio-hover">'+
@@ -47,6 +64,26 @@ function createImageBox(){
         '<p class="text-muted">Website Design</p>' +
         '</div>' +
         '</div>'
+    );
+}
+
+function createClientBox(clientName){
+    var div = $("#clients").html(
+        '<div class="col-md-4 col-sm-6 portfolio-item">'+
+
+    '<div class="portfolio-hover">' +
+    '<div class="portfolio-hover-content">' +
+    '<a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('+clientName+')"></i></a>' +
+    '</div>' +
+    '</div>' +
+    '<a href="#portfolioModal1" class="portfolio-link" onclick="getQualsForProject(1)">' +
+    '<img src="img/portfolio/roundicons.png" class="img-responsive" alt="">' +
+    '</a>' +
+    '<div class="portfolio-caption">' +
+    '<h4>'+clientName+'</h4>' +
+    '<p class="text-muted">Graphic Design</p>' +
+    '</div>' +
+    '</div>'
     );
 }
 
