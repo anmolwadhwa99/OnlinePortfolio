@@ -57,6 +57,14 @@ public class AdminGroupService {
 		return adminGroups;
 	}
 	
+	/**
+	 * Edit an Admin Groups details
+	 */
+	public AdminGroup editAdminGroupDetails(int adminGroupId, AdminGroup modifiedAdminGroup){
+		AdminGroup adminGroup = adminGroupDatabase.editAdminGroupDetails(adminGroupId, modifiedAdminGroup);
+		return adminGroup;
+	}
+	
 	
 
 }
