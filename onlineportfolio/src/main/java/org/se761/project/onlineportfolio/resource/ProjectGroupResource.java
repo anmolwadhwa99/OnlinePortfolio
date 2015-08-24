@@ -23,8 +23,8 @@ public class ProjectGroupResource {
 	private ProjectGroupService projectGroupService = new ProjectGroupService();
 	
 	@POST
-	public void addProjectGroup(ProjectGroup projectGroup){
-		projectGroupService.addProjectGroup(projectGroup);
+	public ProjectGroup addProjectGroup(ProjectGroup projectGroup){
+		return projectGroupService.addProjectGroup(projectGroup);
 		
 	}
 	
