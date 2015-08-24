@@ -43,12 +43,8 @@
 
     <nav>
         <ul class="list-unstyled main-menu" id="ProjectCart">
-
             <!--Include your navigation here-->
             <li class="text-right"><a href="#" id="nav-close"> > </a></li>
-            
-
-
         </ul>
     </nav>
 
@@ -72,15 +68,50 @@
         </div>
     </div>
 
-
-
     <script>
 
+        function getProjects(){
+            getAllProjectGroups(function(){
+
+                var projects = this;
+
+                var htmlStr = "";
+                for(i = 0; i< projects.length; i++){
+                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
+                    <a href='#portfolioModal2' class='portfolio-link' data-toggle='modal'> \
+                    <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content'>\
+                    <i class='fa fa-plus fa-3x'></i></div></div> \
+                    <img src='img/portfolio/startup-framework.png' class='img-responsive' alt=''> \
+                    </a> \
+                    <div class='portfolio-caption'> \
+                    <h4>"+projects[i].projectGroupName+"</h4> \
+                    <p class='text-muted'>Website Design</p> \
+                    </div></div>"
+                }
+                $("#projectsTabPanel").html(htmlStr);
+
+//                <div class="col-md-4 col-sm-6 portfolio-item">
+//                        <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+//                        <div class="portfolio-hover">
+//                        <div class="portfolio-hover-content">
+//                        <i class="fa fa-plus fa-3x"></i>
+//                        </div>
+//                        </div>
+//                        <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
+//                        </a>
+//                        <div class="portfolio-caption">
+//                        <h4>Startup Framework</h4>
+//                <p class="text-muted">Website Design</p>
+//                </div>
+//                </div>
 
 
+                return this;
+            })
+        }
 
         function addToCart(m){
-
 
             var ul = document.getElementById("ProjectCart");
             var li = document.createElement("li");
@@ -101,6 +132,8 @@
         }
 
         $(document).ready(function(){
+
+            getProjects();
 
             //Navigation Menu Slider
             $('#nav-expander').on('click',function(e){
@@ -128,8 +161,6 @@
                     easing: 'swing'
                 }
             });
-
-
 
         });
 
@@ -159,36 +190,36 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="projects">
-                            <div class="col-md-4 col-sm-6 portfolio-item">
+                        <div role="tabpanel" class="tab-pane active" id="projectsTabPanel">
+                            <!--<div class="col-md-4 col-sm-6 portfolio-item">-->
 
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content">
-                                            <a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('Hi')"></i></a>
-                                        </div>
-                                    </div>
-                                <a href="#portfolioModal1" class="portfolio-link" onclick="getQualsForProject(1)">
-                                    <img src="img/portfolio/roundicons.png" class="img-responsive" alt="">
-                                </a>
-                                <div class="portfolio-caption">
-                                    <h4>Round Icons</h4>
-                                    <p class="text-muted">Graphic Design</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 portfolio-item">
-                                <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content">
-                                            <i class="fa fa-plus fa-3x"></i>
-                                        </div>
-                                    </div>
-                                    <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
-                                </a>
-                                <div class="portfolio-caption">
-                                    <h4>Startup Framework</h4>
-                                    <p class="text-muted">Website Design</p>
-                                </div>
-                            </div>
+                                    <!--<div class="portfolio-hover">-->
+                                        <!--<div class="portfolio-hover-content">-->
+                                            <!--<a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('Hi')"></i></a>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--<a href="#portfolioModal1" class="portfolio-link" onclick="getQualsForProject(1)">-->
+                                    <!--<img src="img/portfolio/roundicons.png" class="img-responsive" alt="">-->
+                                <!--</a>-->
+                                <!--<div class="portfolio-caption">-->
+                                    <!--<h4>Round Icons</h4>-->
+                                    <!--<p class="text-muted">Graphic Design</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4 col-sm-6 portfolio-item">-->
+                                <!--<a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">-->
+                                    <!--<div class="portfolio-hover">-->
+                                        <!--<div class="portfolio-hover-content">-->
+                                            <!--<i class="fa fa-plus fa-3x"></i>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">-->
+                                <!--</a>-->
+                                <!--<div class="portfolio-caption">-->
+                                    <!--<h4>Startup Framework</h4>-->
+                                    <!--<p class="text-muted">Website Design</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="quals" onload="getQuals()">
