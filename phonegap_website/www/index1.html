@@ -104,11 +104,11 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' onclick='addToCart('Hi')'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' onclick='addToCart( \""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
-                    <h4>"+quals[i].clientName+"</h4> \
+                    <h4>"+quals[i].projectName+"</h4> \
                     </div></div>"
                 }
                 $("#projects").html(htmlStr);
@@ -129,11 +129,11 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' onclick='addToCart('Hi')'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' onclick='addToCart(\""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
-                    <h4>"+quals[i].clientName+"</h4> \
+                    <h4>"+quals[i].projectName+"</h4> \
                     </div></div>"
                 }
                 $("#clients").html(htmlStr);
