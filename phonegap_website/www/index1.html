@@ -89,12 +89,9 @@
                     </div></div>"
                 }
 
-
-                return this;
-            })
-
+                $("#projects").html(htmlStr);
+            });
         }
-
         function getClients() {
             getAllClients(function () {
                 //alert('hi')
@@ -104,34 +101,53 @@
 
                 var htmlStr = "";
                 for (i = 0; i < clients.length; i++) {
-                    alert(clients[i].accountName);
-                    htmlStr += createClientBox(clients[i].accountName);
-                }
-
-                $("#clientsTabPanel").html(htmlStr)
-            })
-        }
-
-        function createClientBox(clientName){
-            var str =
-                    '<div class="col-md-4 col-sm-6 portfolio-item">'+
+//                    alert(clients[i].accountName);
+                    htmlStr += '<div class="col-md-4 col-sm-6 portfolio-item">'+
 
                     '<div class="portfolio-hover">' +
                     '<div class="portfolio-hover-content">' +
-                    '<a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('+clientName+')"></i></a>' +
+                    '<a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('+clients[i].accountName+')"></i></a>' +
                     '</div>' +
                     '</div>' +
-                    '<a href="#portfolioModal1" class="portfolio-link" onclick="getQualsForProject(1)">' +
+                    '<a href="#portfolioModal1" class="portfolio-link" onclick="getProjectforClient('+clients[i].accountId+')">' +
                     '<img src="img/portfolio/roundicons.png" class="img-responsive" alt="">' +
                     '</a>' +
                     '<div class="portfolio-caption">' +
-                    '<h4>'+clientName+'</h4>' +
+                    '<h4>'+clients[i].accountName+'</h4>' +
                     '<p class="text-muted">Graphic Design</p>' +
                     '</div>' +
                     '</div>';
-            return str;
+                }
+
+                $("#clients").html(htmlStr)
+            })
+        }
+
+        function getProjectforClient(id){
+            getProjectsByClient(id,function(){
+                var projects = this;
+
+                var htmlStr = "<button type='submit' class='btn btn-xl'>Back To Clients</button>";
+                for(i = 0; i< projects.length; i++){
+                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
+                    <a class='portfolio-link' data-toggle='modal'> \
+                    <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content'>\
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart('Hi')'></i></div></div> \
+                    <img src='img/portfolio/startup-framework.png' onclick='openQuals("+projects[i].id+")' alt=''> \
+                    </a> \
+                    <div class='portfolio-caption'> \
+                    <h4>"+projects[i].projectGroupName+"</h4> \
+                    </div></div>"
+                }
+
+                $("#clients").html(htmlStr);
+
+
+            })
 
         }
+
 
 
         //        }       <div class='portfolio-hover'> \
@@ -199,6 +215,7 @@
                 loadTab(target);
             });
             getProjects();
+            getClients();
             
             //Navigation Menu Slider
             $('#nav-expander').on('click',function(e){
@@ -261,7 +278,7 @@
 
                             </ul>
                         </div>
-                        <div role="tabpanel"   class="tab-pane" id="clientsTabPanel" >
+                        <div role="tabpanel"   class="tab-pane" id="clients" >
 
                             <!--<script>getClients();</script>-->
 
