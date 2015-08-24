@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.se761.project.onlineportfolio.model.Account;
-import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.service.AccountService;
 
 
@@ -40,6 +39,15 @@ public class AccountResource {
 	@Path("/admin/{adminGroupId}/{accountId}")
 	public Account getAdminGroupAccounts(@PathParam("adminGroupId") int adminGroupId, @PathParam("accountId") int accountId ){
 		return accountService.addAccountToAdminGroup(adminGroupId, accountId);
+	}
+	
+	/**
+	 * Setting account to particular project group
+	 */
+	@POST
+	@Path("/project/{projectGroupId}/{accountId}")
+	public Account addAccountToProjectGroup(@PathParam("projectGroupId") int projGroupId, @PathParam("accountId") int accountId){
+		return accountService.addAccountToProjectGroup(projGroupId, accountId);
 	}
 	
 	/**
@@ -75,6 +83,15 @@ public class AccountResource {
 	@Path("/admin/{adminGroupId}")
 	public List<Account> getAdminGroupAccounts(@PathParam("adminGroupId") int adminGroupId){
 		return accountService.getAllAccountsFromAdminGroup(adminGroupId);
+	}
+	
+	/**
+	 * Getting all accounts from a particular project group
+	 */
+	@GET
+	@Path("/project/{projectGroupId}")
+	public List<Account> getProjectGroupAccounts(@PathParam("projectGroupId") int projGroupId){
+		return accountService.getAllAccountsFromProjectGroup(projGroupId);
 	}
 	
 	/**

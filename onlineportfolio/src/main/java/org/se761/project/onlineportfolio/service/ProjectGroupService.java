@@ -32,6 +32,14 @@ public class ProjectGroupService {
 	}
 	
 	/**
+	 * Get all project groups for an account
+	 */
+	public List<ProjectGroup> getAllProjectGroupsForAccount(int accountId){
+		List<ProjectGroup> projectGroups = projGroupDb.getProjectGroupForAccount(accountId);
+		return projectGroups;
+	}
+	
+	/**
 	 * Get a project group
 	 */
 	public ProjectGroup getProjectGroup(int projGroupId){

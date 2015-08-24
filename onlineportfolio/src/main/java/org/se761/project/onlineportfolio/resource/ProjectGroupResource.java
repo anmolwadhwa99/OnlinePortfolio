@@ -35,6 +35,13 @@ public class ProjectGroupResource {
 	}
 	
 	@GET
+	@Path("/account/{accountId}")
+	public List<ProjectGroup> getProjectGroupForAccount(@PathParam("accountId") int accountId){
+		return projectGroupService.getAllProjectGroupsForAccount(accountId);
+		
+	}
+	
+	@GET
 	public List<ProjectGroup> getAllProjectGroups(){
 		return projectGroupService.getAllProjectGroups();
 		

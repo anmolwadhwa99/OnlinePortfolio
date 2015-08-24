@@ -35,6 +35,10 @@
         function signin(){
             var password = $('input[name=signin_password]').val();
             console.log(password);
+
+            var account_id; //TODO authenticate and retrieve account_id
+            sessionStorage.setItem("account_id",account_id);
+            var act_id = sessionStorage.getItem("account_id");
         }
     </script>
 

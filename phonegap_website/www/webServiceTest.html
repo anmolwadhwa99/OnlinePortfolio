@@ -1,89 +1,271 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>WebService Test</title>
-        <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
-        <script src="js/webServices.js" ></script>
+    <title>WebService Test</title>
+    <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/webServices.js" ></script>
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
-        <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
 
-        <!--This bit is for adding a qual-->
+    <!--This bit is for adding a qual-->
 
-        <script>
-//            <!--make the on click call addQual()-->
-            function addQual() {
-                var clientName = "cName";
-                var problem = "problem";
-                var projName = "pName";
-                var relevance = "relevance";
-                var solution = "solution";
-                var challenges = "challenges";
-                var mdIndustry = "industry";
-                var mdTag = "tag";
-                var mdStatus = "status";
-                var mdServiceLine = "serviceLine";
-                var mdColourScheme = "colour";
+    <script>
+        //            <!--make the on click call addQual()-->
+        function addQual() {
+            var clientName = "cName";
+            var problem = "problem";
+            var projName = "pName";
+            var relevance = "relevance";
+            var solution = "solution";
+            var challenges = "challenges";
+            var mdIndustry = "industry";
+            var mdTag = "tag";
+            var mdStatus = "status";
+            var mdServiceLine = "serviceLine";
+            var mdColourScheme = "colour";
 //
-                insertQual(clientName, problem, projName, relevance, solution,
-                        challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
-            }
-        </script>
+            insertQual(clientName, problem, projName, relevance, solution,
+                    challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
+        }
 
-        <!--Add qual END-->
+        //            you need a callback func that whose 'this' refers to the qual returned
+        function getQual(id){
+            getQualById(id, function(){
+                alert(this.getInfo());
+            })
+        }
 
-        <!--This bit for getting a qual-->
-        <script>
-//            you need a callback func that whose 'this' refers to the qual returned
-            function getQual(id){
-                getQualById(id, function(){
-                    alert(this.getInfo());
-                })
-            }
-        </script>
+        // for getting all quals
+        function getQuals(){
+            getAllQuals(function(){
 
-        <script>
+                var quals = this;
 
-            function getQuals(){
-                getAllQuals(function(){
+                var list = document.getElementById("list");
 
-                    var quals = this;
+                for(i = 0; i< quals.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(quals[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
 
-                    var list = document.getElementById("list");
+        // for getting quals by account
+        function getQualsByAc(id){
+            getQualsByAccount(id, function(){
 
-                    for(i = 0; i< quals.length; i++){
-                        var li = document.createElement("li");
-                        li.appendChild(document.createTextNode(quals[i].getInfo()));
-                        list.appendChild(li);
-                    }
-            })}
+                var quals = this;
 
-        </script>
-        <!--get qual END-->
+                var list = document.getElementById("list");
 
-    </head>
-    <body>
-        <div class="row">
-            <h1 class="col-md-12">WebService Test</h1>
-            <button type="button" class="btn btn-info" onclick="getQuals()" >Retrieve Accounts</button>
-        </div>
-        <div class="row">
-            <ul id="list" class="col-md-8">
+                for(i = 0; i< quals.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(quals[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+        // for getting quals by admin group
+        function getQualsByAG(id){
+            getQualsByAdminGroup(id, function(){
 
-            </ul>
-        </div>
+                var quals = this;
 
-        <div class="row">
-            <a href="login.html" class="btn btn-info">Go to Login</a>
-        </div>
-        <div class="row">
-            <a href="qual_add.html" class="btn btn-info">Add a Qual</a>
-        </div>
-    </body>
+                var list = document.getElementById("list");
+
+                for(i = 0; i< quals.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(quals[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+
+    </script>
+
+    <script>
+        // get Account by ID
+        function getAcByID(id){
+            getAccountById(id, function(){
+                alert(this.getInfo());
+            })
+        }
+
+        // get all Accounts
+        function getAccounts(){
+            getAllAccounts(function(){
+
+                var accs = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< accs.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(accs[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        //insert account
+        function insertAc(){
+            insertAccount(false, "9876", "rpat");
+        }
+
+        // get all admins
+        function getAdmins(){
+            getAllAdmins(function(){
+
+                var accs = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< accs.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(accs[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        // get all clients
+        function getClients(){
+            getAllClients(function(){
+
+                var accs = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< accs.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(accs[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        // for getting account by admin group
+        function getAccountsByAG(id){
+            getAccountsByAdminGroup(id, function(){
+
+                var acs = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< acs.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(acs[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+        // for getting all accounts by qual
+        function getAcByQual(id){
+            getAccountsByQual(id, function(){
+
+                var acs = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< acs.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(acs[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+    </script>
+
+    <script>
+        // get all Admin groups
+        function getAdminGroups(){
+            getAllAdminGroups(function(){
+
+                var ags = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< ags.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(ags[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        // get Admin groups by qual
+        function getAGsByQual(id){
+            getAdminGroupsByQual(id, function(){
+
+                var ags = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< ags.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(ags[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        // get Admin groups by account
+        function getAGsByAc(id){
+            getAdminGroupsByAccount(id, function(){
+
+                var ags = this;
+
+                var list = document.getElementById("list");
+
+                for(i = 0; i< ags.length; i++){
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(ags[i].getInfo()));
+                    list.appendChild(li);
+                }
+            })
+        }
+
+        // get admin group by ID
+        function getGroupByID(id){
+            getAdminGroupById(id, function(){
+                alert(this.getInfo());
+            })
+        }
+
+        //insert admin group
+        function insertGroup(){
+            insertAdminGroup("finance");
+        }
+
+    </script>
+
+</head>
+<body>
+<div class="row">
+    <h1 class="col-md-12">WebService Test</h1>
+    <button type="button" class="btn btn-info" onclick="getAGsByAc(2)" >Retrieve Accounts</button>
+</div>
+<div class="row">
+    <ul id="list" class="col-md-8">
+
+    </ul>
+</div>
+
+<div class="row">
+    <a href="login.html" class="btn btn-info">Go to Login</a>
+</div>
+<div class="row">
+    <a href="qual_add.html" class="btn btn-info">Add a Qual</a>
+</div>
+</body>
 </html>

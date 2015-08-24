@@ -43,6 +43,7 @@
 
                 for(i = 0; i< quals.length; i++){
                     var li = document.createElement("li");
+                    createImageBox()
                     li.appendChild(document.createTextNode(quals[i].getInfo()));
                     list.appendChild(li);
                 }
@@ -55,6 +56,46 @@
                 alert(this.getInfo());
             })
         }
+            })
+        }
+
+        function createImageBox(){
+            var div = $("#list").html(
+                '<div class="col-md-4 col-sm-6 portfolio-item">' +
+                      '<a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">' +
+                        '<div class="portfolio-hover">'+
+                            '<div class="portfolio-hover-content">' +
+                                '<i class="fa fa-plus fa-3x"></i>'+
+                            '</div>' +
+                        '</div>' +
+                        '<img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">' +
+                      '</a>' +
+                      '<div class="portfolio-caption">' +
+                        '<h4>Startup Framework</h4>' +
+                        '<p class="text-muted">Website Design</p>' +
+                      '</div>' +
+                '</div>'
+
+            );
+
+        }
+
+//        <div class="col-md-4 col-sm-6 portfolio-item">
+//        <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+//          <div class="portfolio-hover">
+//              <div class="portfolio-hover-content">
+//                  <i class="fa fa-plus fa-3x"></i>
+//              </div>
+//          </div>
+//        <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
+//        </a>
+//        <div class="portfolio-caption">
+//        <h4>Startup Framework</h4>
+//        <p class="text-muted">Website Design</p>
+//        </div>
+//        </div>
+
+
     </script>
 
     <![endif]-->
@@ -69,8 +110,8 @@
         <ul class="list-unstyled main-menu" id="ProjectCart">
 
             <!--Include your navigation here-->
-            <li class="text-right"><a href="#" id="nav-close">X</a></li>
-            <li><a href="#">Menu One <span class="icon"></span></a></li>
+            <li class="text-right"><a href="#" id="nav-close"> > </a></li>
+            
 
 
         </ul>
@@ -91,7 +132,7 @@
         </div>
         <div class="navbar-header pull-right">
             <a id="nav-expander" class="nav-expander fixed">
-                MENU &nbsp;<i class="fa fa-bars fa-lg white"></i>
+                PROJECT CART &nbsp;<i class="fa fa-bars fa-lg white"></i>
             </a>
         </div>
     </div>
@@ -99,6 +140,10 @@
 
 
     <script>
+
+
+
+
         function addToCart(m){
 
 
@@ -114,6 +159,7 @@
             a.appendChild(span);
 
             li.appendChild(a);
+            li.onclick = function() {this.parentNode.removeChild(this);}
             li.setAttribute("id", m); // added line
             ul.appendChild(li);
 
@@ -214,20 +260,6 @@
                             <ul id="list">
 
                             </ul>
-                            <div class="col-md-4 col-sm-6 portfolio-item">
-                                <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content">
-                                            <i class="fa fa-plus fa-3x"></i>
-                                        </div>
-                                    </div>
-                                    <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
-                                </a>
-                                <div class="portfolio-caption">
-                                    <h4>Startup Framework</h4>
-                                    <p class="text-muted">Website Design</p>
-                                </div>
-                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="clients">
 

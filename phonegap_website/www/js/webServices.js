@@ -1,5 +1,8 @@
 
 var url = "https://onlineportfolio.herokuapp.com/webapi";
+var _qual = "/qual";
+var _ac = "/account";
+var _ag = "/admin";
 
 function Qual(x){
     this.id = x.qualId;
@@ -36,65 +39,30 @@ function ProjectGroup(x){
     //TO DO
 }
 
+function Account(x){
+    this.accountId = x.accountId;
+    this.admin = x.admin;
+    this.pin = x.pin;
+    this.userName = x.userName;
 
-function GetAllAccounts(id, callbackFunction) {
-    var opAccount = "http://onlineportfolio.herokuapp.com/webapi/qual";
-    console.log("Accessing: " + opAccount);
-
-    var accounts = accessWS(opAccount);
-    var list = document.getElementById(id);
-
-    for(i = 0; i< accounts.length; i++){
-        list.appendChild(accounts[i]);
+    this.getInfo = function(){
+        return this.accountId + "\n" +
+                this.admin + "\n" +
+                this.pin + "\n" +
+                this.userName;
     }
 
 }
 
-function accessWS(url){
-    var items = [];
-    alert("hi");
-    $.ajax({
-        url: "https://onlineportfolio.herokuapp.com/webapi/qual/59",
-        type: 'GET',
-        dataType: 'json',
-        success: function(xhr){
-            var j = xhr[0];
-            var q = new Qual(j);
-            alert(q.getInfo());
-        },
-        error: function(){
-            alert("fail");
-        }
-    });
+function AdminGroup(x){
+    this.id = x.adminGroupId;
+    this.name = x.adminGroupName;
 
-    //.success(function () {alert("Success");})
-    //.error(function () {alert("Error Occurred"); items.push("<li id = ErrorCode>Error Occurred</li>");});
-    //.complete(function () {alert("Complete");});
-    console.log(items);
-    return items;
-}
-
-function test() {
-    var req = createRequest(); // defined above
-// Create the callback:
-    req.onreadystatechange = function() {
-        if (req.readyState != 4) return; // Not there yet
-        if (req.status != 200) {
-            // Handle request failure here...
-            //TODO what if request fails
-            return;
-        }
-        // Request successful, read the response
-        var resp = req.responseText;
-        var json = JSON.parse(resp);
-
-        var s = json;
-        // ... and use it as needed by your app.
+    this.getInfo = function(){
+        return this.id + "\n" + this.name;
     }
-
-    req.open("GET", url+"/qual", true);
-    req.send();
 }
+
 
 function createRequest() {
     var result = null;
@@ -113,8 +81,12 @@ function createRequest() {
     return result;
 }
 
+
+// === QUALS =======================================================
+
+
 function getQualById(id, callback){
-    var methodURL = url + "/qual/" + id;
+    var methodURL = url + _qual + id;
     var method = "GET";
 
     var req = createRequest();
@@ -171,7 +143,7 @@ function getProjectById(id, callback){
 }
 
 function getAllQuals(callback){
-    var methodURL = url + "/qual";
+    var methodURL = url + _qual;
     var method = "GET";
 
     var req = createRequest();
@@ -185,8 +157,75 @@ function getAllQuals(callback){
             }
             // Request successful, read the response
             var resp = req.responseText;
-            alert(resp);
-            var quals = new Array();
+            var quals = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                quals.push(new Qual(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(quals);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getQualsByAccount(acId, callback){
+    var methodURL = url + _qual + _ac + "/" + acId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var quals = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                quals.push(new Qual(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(quals);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getQualsByAdminGroup(agId, callback){
+    var methodURL = url + _qual + _ag + "/" + agId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var quals = [];
 
             var json = JSON.parse(resp);
 
@@ -239,8 +278,8 @@ function getAllProjectGroups(callback) {
 }
 
 function insertQual(clientName, problem, projName, relevance, solution,
-challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
-    var methodURL = url + "/qual";
+challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme, callback){
+    var methodURL = url + _qual;
     var method = "POST";
 
     var req = createRequest();
@@ -255,8 +294,11 @@ challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
+            var qual = new Qual(json);
 
-            var s = json;
+            if (typeof callback == 'function'){
+                callback.apply(qual.id);
+            }
 
         }
     }
@@ -281,7 +323,7 @@ challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme){
 }
 
 function deleteQual(id){
-    var methodURL = url + "/qual/" + id;
+    var methodURL = url + _qual + "/" + id;
     var method = "DELETE";
 
     var req = createRequest();
@@ -299,6 +341,569 @@ function deleteQual(id){
             alert(new Qual(json).getInfo);
 
             var s = json;
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function assignQualToAccount(acId, qId){
+    var methodURL = url + _qual + _ac + "/" + acId + "/" + qId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var qual = new Qual(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(qual.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"qualId": ' + qId + ','+
+        '"accountId": ' + acId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function assignQualToAdminGroup(agId, qId){
+    var methodURL = url + _qual + _ag + "/" + agId + "/" + qId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to admin group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var qual = new Qual(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(qual.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"qualId": ' + qId + ','+
+        '"adminGroupId": ' + agId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+
+// === ACCOUNTS ====================================================
+
+
+function getAccountById(id, callback){
+    var methodURL = url + _ac + "/" + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new Account(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAllAccounts(callback){
+    var methodURL = url + _ac;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var accs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                accs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(accs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAllAdmins(callback){
+    var methodURL = url + _ac + _ag;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting all admins");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var accs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                accs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(accs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAllClients(callback){
+    var methodURL = url + _ac + "/client";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var accs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                accs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(accs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function insertAccount(isAdmin, pin, userName){
+    var methodURL = url + _ac;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while creating account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ac = new Account(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ac.id);
+            }
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"admin": ' + isAdmin + ','+
+        '"pin": "' + pin + '",'+
+        '"userName": "' + userName + '"'+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function deleteAccount(id){
+    var methodURL = url + _ac + "/" + id;
+    var method = "DELETE";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while deleting the account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Account(json).getInfo);
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function assignAccountToAdminGroup(agId, acId){
+    var methodURL = url + _ac + _ag + "/" + agId + "/" + acId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning qual to admin group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ac = new Account(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ac.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"accountId": ' + acId + ','+
+        '"adminGroupId": ' + agId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function getAccountsByAdminGroup(agId, callback){
+    var methodURL = url + _ac + _ag + "/" + agId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var acs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                acs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(acs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function getAccountsByQual(qId, callback){
+    var methodURL = url + _ac + _qual + "/" + qId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var acs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                acs.push(new Account(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(acs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+
+// === ADMIN GROUPS =================================================
+
+
+function getAdminGroupById(id, callback){
+    var methodURL = url + _ag + "/" + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new AdminGroup(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAllAdminGroups(callback){
+    var methodURL = url + _ag;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while get all groups");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var ags = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                ags.push(new AdminGroup(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(ags);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+function insertAdminGroup(groupName){
+    var methodURL = url + _ag;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while creating group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ag = new AdminGroup(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ag.id);
+            }
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"adminGroupName": "' + groupName + '"'+
+        '}';
+    console.log(x);
+    req.send(x);
+}
+
+function deleteAdminGroup(id){
+    var methodURL = url + _ag + "/" + id;
+    var method = "DELETE";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while deleting the group");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Account(json).getInfo);
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAdminGroupsByQual(qId, callback){
+    var methodURL = url + _ag + _qual + "/" + qId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+
+            var ags = [];
+
+            for (i = 0; i < json.length; i++ ){
+                ags.push(new AdminGroup(json[i]));
+            }
+            if(typeof callback == 'function'){
+
+                callback.apply(ags);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function getAdminGroupsByAccount(acId, callback){
+    var methodURL = url + _ag + _ac + "/" + acId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while getting account");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+
+            var ags = [];
+
+            for (i = 0; i < json.length; i++ ){
+                ags.push(new AdminGroup(json[i]));
+            }
+            if(typeof callback == 'function'){
+
+                callback.apply(ags);
+            }
 
         }
     }

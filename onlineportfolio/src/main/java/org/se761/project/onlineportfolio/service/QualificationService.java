@@ -39,6 +39,14 @@ public class QualificationService {
 	}
 	
 	/**
+	 * Get all qualifications associated with a project group
+	 */
+	public List<Qualification> getAllQualificationsFromProjectGroup(int projectGroupId){
+		List<Qualification> quals = qualDatabase.getAllQualificationsForProjectGroup(projectGroupId);
+		return quals;
+	}
+	
+	/**
 	 * Adding a qualification 
 	 */
 	public void addQual(Qualification qual){
@@ -50,6 +58,14 @@ public class QualificationService {
 	 */
 	public Qualification addQualificationToAdminGroup(int adminGroupId, int qualId){
 		Qualification qualification = qualDatabase.addQualificationToAdminGroup(adminGroupId, qualId);
+		return qualification;
+	}
+	
+	/**
+	 * Add qualification against a project group
+	 */
+	public Qualification addQualificationToProjectGroup(int projectGroupId, int qualId){
+		Qualification qualification = qualDatabase.addQualificationToProjectGroup(projectGroupId, qualId);
 		return qualification;
 	}
 	

@@ -923,23 +923,26 @@ body.nav-expanded {
     font-weight: normal;
     line-height: 1;
     text-transform: none;
-    content: '\f105';
+    content: '\f147';
+    margin-right: 0px;
 }
 
 .main-menu li > a > span.icon {
-    float: right;
+    float: left;
     margin: 0.1em 1.7em -0.1em 0;
     opacity: 0;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    margin-right: 15px;
 
 }
 
 .main-menu li > a:hover > span.icon {
-    float: right;
+    float: left;
     margin: 0.1em 0.8em -0.1em 0;
+    margin-right: 15px;
     opacity: 1;
 }
 a.nav-expander {
@@ -957,7 +960,7 @@ a.nav-expander {
     text-transform: uppercase;
     top: 0;
     transition: right 0.3s ease-in-out 0s;
-    width: 130px;
+    width: AUTO;
     z-index: 12;
 
     transition: right 0.3s ease-in-out 0s;

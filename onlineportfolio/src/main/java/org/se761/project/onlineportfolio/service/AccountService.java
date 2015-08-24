@@ -69,6 +69,14 @@ public class AccountService {
 	}
 	
 	/**
+	 * Add existing account against project group
+	 */
+	public Account addAccountToProjectGroup(int projGroupId, int accountId){
+		Account account = accountDatabase.addAccountToProjectGroup(projGroupId, accountId);
+		return account;
+	}
+	
+	/**
 	 * Deletes an account 
 	 */
 	public Account removeAccount(int accountId){
@@ -76,6 +84,13 @@ public class AccountService {
 		return account;
 	}
 	
+	/**
+	 * Get all accounts associated with a project group
+	 */
+	public List<Account> getAllAccountsFromProjectGroup(int projGroupId){
+		List<Account> accounts = accountDatabase.getAllAccountsFromProjectGroup(projGroupId);
+		return accounts;
+	}
 	
 	
 	
