@@ -85,7 +85,7 @@ public class QualificationResource {
 	@GET
 	@Path("/project/{projectGroupId}")
 	public List<Qualification> getProjectGroupQualifications(@PathParam("projectGroupId") int projectGroupId){
-		return qualificationService.getAllQualificationsFromAdminGroup(projectGroupId);
+		return qualificationService.getAllQualificationsFromProjectGroup(projectGroupId);
 	}
 	
 	

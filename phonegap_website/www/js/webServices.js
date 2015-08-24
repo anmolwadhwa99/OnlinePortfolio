@@ -37,7 +37,17 @@ function Qual(x){
 }
 
 function ProjectGroup(x){
-    //TO DO
+    this.id = x.projGroupId;
+    this.projectGroupName = x.projectGroupName;
+    this.quals = x.quals;
+    this.accountsProj = x.accountsProj;
+
+    this.getInfo = function(){
+        return this.id + "\n" +
+            this.projectGroupName + "\n" +
+            this.quals + "\n" +
+            this.accountsProj;
+    };
 }
 
 function Account(x){
