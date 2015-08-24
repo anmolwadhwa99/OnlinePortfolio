@@ -46,5 +46,13 @@ public class ProjectGroupService {
 		ProjectGroup projGroup = projGroupDb.getProjectGroup(projGroupId);
 		return projGroup;
 	}
+	
+	/**
+	 * Edit project group
+	 */
+	public ProjectGroup editProjectGroupDetails(int projectGroupId, ProjectGroup newProjectGroup){
+		ProjectGroup projectGroup = projGroupDb.editProjectGroupDetails(projectGroupId, newProjectGroup);
+		return projectGroup;
+	}
 
 }
