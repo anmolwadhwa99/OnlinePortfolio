@@ -36,6 +36,7 @@
 
 
 </head>
+</head>
 
 <body id="page-top" class="index">
 
@@ -75,7 +76,7 @@
 
                 var projects = this;
 
-                var htmlStr = "";
+                var htmlStr = "<h1 id='heading'>Projects</h1>";
                 for(i = 0; i< projects.length; i++){
                     htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
@@ -89,6 +90,7 @@
                     </div></div>"
                 }
                 $("#projects").html(htmlStr);
+
             });
         }
 
@@ -98,7 +100,7 @@
 
                 var quals = this;
 
-                var htmlStr = "<h1 id='projects-heading'>Projects</h1>";
+                var htmlStr = "<h1 id='heading'>Projects</h1>";
                 for(i = 0; i< quals.length; i++){
                     htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
@@ -111,8 +113,9 @@
                     <h4>"+quals[i].projectName+"</h4> \
                     </div></div>"
                 }
+                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
                 $("#projects").html(htmlStr);
-                $("#projects-heading").html(projectName);
+                $("#heading").html(projectName);
 
             });
 
@@ -123,7 +126,7 @@
 
                 var quals = this;
 
-                var htmlStr = "<h1 id='projects-heading'>Projects</h1>";
+                var htmlStr = "<h1 id='heading'>Projects</h1>";
                 for(i = 0; i< quals.length; i++){
                     htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
@@ -137,7 +140,7 @@
                     </div></div>"
                 }
                 $("#clients").html(htmlStr);
-                $("#projects-heading").html(projectName);
+                $("#heading").html(projectName);
 
             });
 
@@ -176,8 +179,7 @@
         function getProjectforClient(id){
             getProjectsByClient(id,function(){
                 var projects = this;
-
-                var htmlStr = "<div><button type='submit' class='btn btn-xl' onclick='getClients()'>Back To Clients</button></div><br>";
+                var htmlStr = "";
                 for(i = 0; i< projects.length; i++){
                     htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
@@ -190,7 +192,7 @@
                     <h4>"+projects[i].projectGroupName+"</h4> \
                     </div></div>"
                 }
-
+                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
                 $("#clients").html(htmlStr);
 
 
@@ -306,11 +308,11 @@
     <!-- Services Section -->
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md-12" style="margin-bottom: 30px;">
                     <!-- Nav tabs --><div>
                     <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
 
-                        <li role="presentation" ><a href="#quals" aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
+                        <li role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
 
                         <li role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
 
