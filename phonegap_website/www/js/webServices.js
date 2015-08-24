@@ -3,6 +3,7 @@ var url = "https://onlineportfolio.herokuapp.com/webapi";
 var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
+var _pg = "/projectGroup";
 
 function Qual(x){
     this.id = x.qualId;
@@ -243,6 +244,43 @@ function getQualsByAdminGroup(agId, callback){
     req.open(method, methodURL, true);
     req.send();
 }
+
+
+function getProjectsByClient(cId, callback){
+    var methodURL = url + _pg + _ac + "/" + cId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var projects = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                projects.push(new ProjectGroup(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(projects);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
+
 
 function getAllProjectGroups(callback) {
     var methodURL = url + "/projectGroup";
