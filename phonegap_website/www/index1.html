@@ -177,8 +177,7 @@
         function getProjectforClient(id){
             getProjectsByClient(id,function(){
                 var projects = this;
-
-                var htmlStr = "<div><button type='submit' class='btn btn-xl' onclick='getClients()'>Back To Clients</button></div><br>";
+                var htmlStr = "";
                 for(i = 0; i< projects.length; i++){
                     htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
@@ -191,7 +190,7 @@
                     <h4>"+projects[i].projectGroupName+"</h4> \
                     </div></div>"
                 }
-
+                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
                 $("#clients").html(htmlStr);
 
 
@@ -307,7 +306,7 @@
     <!-- Services Section -->
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md-12" style="margin-bottom: 30px;">
                     <!-- Nav tabs --><div>
                     <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
 
