@@ -7,44 +7,50 @@ var _pg = "/projectGroup";
 var _proj = "/project";
 
 function Qual(x){
-    this.id = x.qualId;
-    this.active = x.active;
-    this.annonymous = x.annonymous;
-    this.challengesFaced = x.challengesFaced;
-    this.clientName = x.clientName;
-    this.industry = x.industry;
-    this.metaDataDeloitteServiceLine = x.metaDataDeloitteServiceLine;
-    this.metaDataIndustry = x.metaDataIndustry;
-    this.metaDataStatus = x.metaDataStatus;
-    this.outcomeStatement = x.outcomeStatement;
-    this.problemStatement = x.problemStatement;
+    this.qualId = x.qualId;
     this.projectName = x.projectName;
-    this.relevanceToClient = x.relevanceToClient;
-    this.serviceLine = x.serviceLine;
-    this.solution = x.solution;
+    this.clientName = x.clientName;
+    this.problemStatement = x.problemStatement;
+    this.challengesFaced = x.challengesFaced;
     this.solutionStatement = x.solutionStatement;
-    this.status = x.status;
+    this.relevanceToClient = x.relevanceToClient;
+    this.outcomeStatement = x.outcomeStatement;
     this.subtitle = x.subtitle;
+    this.isAnonymous = x.isAnonymous;
+    this.isActive = x.isActive;
+    this.primaryColour = x.primaryColour;
+    this.secondaryColour = x.secondaryColour;
+    this.accentColour = x.accentColour;
+    this.emailButton = x.emailButton;
+    this.websiteButton = x.websiteButton;
+    this.adminGroups = x.adminGroups;
+    this.industry = x.industry;
+    this.tags = x.tags;
+    this.status = x.status;
+    this.serviceLine = x.serviceLine;
 
     this.getInfo = function(){
-        return this.id + "\n" +
-        this.active + "\n" +
-        this.annonymous + "\n" +
-        this.challengesFaced + "\n" +
-        this.clientName + "\n" +
+        return this.qualId + "\n" +
+        this.projectName + "\n"  +
+        this.clientName +"\n"  +
+        this.problemStatement + "\n"  +
+        this.challengesFaced + "\n"  +
+        this.solutionStatement + "\n"  +
+        this.relevanceToClient + "\n"  +
+        this.outcomeStatement + "\n"  +
+        this.subtitle + "\n"  +
+        this.isAnonymous + "\n"  +
+        this.isActive + "\n" +
+        this.primaryColour + "\n" +
+        this.secondaryColour + "\n" +
+        this.accentColour + "\n" +
+        this.emailButton + "\n" +
+        this.websiteButton + "\n" +
+        this.adminGroups + "\n" +
         this.industry + "\n" +
-        this.metaDataDeloitteServiceLine + "\n" +
-        this.metaDataIndustry + "\n" +
-        this.metaDataStatus + "\n" +
-        this.outcomeStatement + "\n" +
-        this.problemStatement + "\n" +
-        this.projectName + "\n" +
-        this.relevanceToClient + "\n" +
-        this.serviceLine + "\n" +
-        this.solution + "\n" +
-        this.solutionStatement + "\n" +
+        this.tags + "\n" +
         this.status + "\n" +
-        this.subtitle;
+        this.serviceLine ;
     };
 }
 
@@ -276,9 +282,9 @@ function getQualsByAdminGroup(agId, callback){
 }
 
 function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
-, metaDataDeloitteServiceLine, metaDataIndustry, metaDataStatus, outcomeStatement
-, problemStatement, projectName, relevanceToClient, serviceLine, solution
-, solutionStatement, status, subtitle, callback){
+, tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
+, solutionStatement, status, subtitle, primaryColour, secondaryColour, accentColour
+, email, website, callback){
     var methodURL = url + _qual;
     var method = "POST";
 
@@ -306,14 +312,12 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
 
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
-        '"active": ' + isActive + ','+
-        '"anonymous": ' + isAnonymous + ','+
+        '"isActive": ' + isActive + ','+
+        '"isAnonymous": ' + isAnonymous + ','+
         '"challengesFaced": "' + challengesFaced + '",'+
         '"clientName": "' + clientName + '",'+
         '"industry": "' + industry + '",'+
-        '"metaDataDeloitteServiceLine": "' + metaDataDeloitteServiceLine + '",'+
-        '"metaDataIndustry": "' + metaDataIndustry + '",'+
-        '"metaDataStatus": "' + metaDataStatus + '",'+
+        '"tags": "' + tags + '",'+
         '"outcomeStatement": "' + outcomeStatement + '",'+
         '"problemStatement": "' + problemStatement + '",'+
         '"projectName": "' + projectName + '",'+
@@ -322,7 +326,12 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
         '"solution": "' + solution + '",'+
         '"solutionStatement": "' + solutionStatement + '",'+
         '"status": "' + status + '",'+
-        '"subtitle":"' + subtitle + '"'+
+        '"subtitle": "' + subtitle + '",'+
+        '"primaryColour": "' + primaryColour + '",'+
+        '"secondaryColour": "' + secondaryColour + '",'+
+        '"accentColour": "' + accentColour + '",'+
+        '"emailButton": "' + email + '",'+
+        '"websiteButton":"' + website + '"'+
     '}';
 
     //console.log(x);
