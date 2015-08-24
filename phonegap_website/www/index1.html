@@ -136,38 +136,32 @@
 
             var projGroupID;
 
-
-
-
             insertProjectGroup(projectName, function () {
-                var pgId = this; //gets the new project ID
+                projGroupID = this; //gets the new project ID
 
                 for(i = 0; i < qualsToAdd.length - 1; i++) {
                     var tempId = qualsToAdd.pop();
-                    assignQualToProjectGroup(pgId,tempId);
+                    assignQualToProjectGroup(projGroupID,tempId);
                 }
+                alert("Project ID= " + projGroupID + " has been created");
 
-                alert("Project ID= " + pgId + " has been created");
-                return;
-            })
-            
-            var clientID;
-            if ($('#existingClientSelect').is(':checked') == true) {
-                clientID = $("#clientDropdown").val();
-            } else if ($('#newClientSelect').is(':checked') == true) {
-                var accountName = $("#modalClientName").val();
-                insertAccount(false, accountName, "password", false, function () {
-                    clientID = this;
-                });
-            } else {
-                alert("Select a client!");
-            }
+                var clientID;
+                if ($('#existingClientSelect').is(':checked') == true) {
+                    clientID = $("#clientDropdown").val();
+                } else if ($('#newClientSelect').is(':checked') == true) {
+                    var accountName = $("#modalClientName").val();
+                    insertAccount(false, accountName, "password", false, function () {
+                        clientID = this;
+                    });
+                } else {
+                    alert("Select a client!");
+                }
 
             alert(projGroupID + " " + clientID);
 //        assignAccountToProjectGroup(projGroupID, clientID, function() {
 //            alert(this);
 //        });
-
+            })
 
         }
 
