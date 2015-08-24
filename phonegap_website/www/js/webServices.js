@@ -224,6 +224,40 @@ function getQualsByAccount(acId, callback){
     req.send();
 }
 
+function getQualsByProject(projectId, callback){
+    var methodURL = url + _qual  + "/project/" + projectId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var quals = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                quals.push(new Qual(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(quals);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
 function getQualsByAdminGroup(agId, callback){
     var methodURL = url + _qual + _ag + "/" + agId;
     var method = "GET";

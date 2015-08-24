@@ -81,17 +81,43 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart('Hi')'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' onclick='openQuals("+projects[i].id+")' alt=''> \
+                    <i class='fa fa-plus fa-3x' onclick='addToCart(\"Hi\")'></i></div></div> \
+                    <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' onclick='openQualsForProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+projects[i].projectGroupName+"</h4> \
                     </div></div>"
                 }
-
                 $("#projects").html(htmlStr);
             });
         }
+
+
+        function openQualsForProject(projectID, projectName) {
+            getQualsByProject(projectID, function(){
+
+                var quals = this;
+
+                var htmlStr = "";
+                for(i = 0; i< quals.length; i++){
+                    htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
+                    <a class='portfolio-link' data-toggle='modal'> \
+                    <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content'>\
+                    <i class='fa fa-plus fa-3x' onclick='addToCart('Hi')'></i></div></div> \
+                    <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' alt=''> \
+                    </a> \
+                    <div class='portfolio-caption'> \
+                    <h4>"+quals[i].clientName+"</h4> \
+                    </div></div>"
+                }
+                $("#projects").html(htmlStr);
+                $("#projects-heading").html(projectName);
+
+            });
+
+        }
+
         function getClients() {
             getAllClients(function () {
                 //alert('hi')
@@ -115,10 +141,11 @@
                     '<h4>'+clients[i].accountName+'</h4>' +
                     '</div>' +
                     '</div>';
+
                 }
 
                 $("#clients").html(htmlStr)
-            })
+            });
         }
 
         function getProjectforClient(id){
@@ -198,9 +225,7 @@
                 $(tab).addClass('active'); // add active class to clicked tab
                 getProjects();
             } else if (tab == "#clients") {
-                $('#projects').removeClass('active'); // remove active class from tabs
-                $('#quals').removeClass('active'); // remove active class from tabs
-                $(tab).addClass('active'); // add active class to clicked tab
+
             } else {
                 error("invalid tab");
             }
@@ -213,8 +238,9 @@
                 loadTab(target);
             });
             getProjects();
+
             getClients();
-            
+
             //Navigation Menu Slider
             $('#nav-expander').on('click',function(e){
                 e.preventDefault();
@@ -256,9 +282,9 @@
                     <!-- Nav tabs --><div>
                     <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
 
-                        <li role="presentation"><a href="#quals" aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
+                        <li role="presentation" ><a href="#quals" aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
 
-                        <li role="presentation" class="active"><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
+                        <li role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
 
                         <li role="presentation" ><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
 
@@ -266,8 +292,8 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-
-                        <div role="tabpanel" class="tab-pane active" class="tab-pane active" id="projects">
+                        <h1 id="projects-heading">Projects</h1>
+                        <div role="tabpanel" class="tab-pane active" id="projects">
 
                         </div>
 
@@ -276,6 +302,7 @@
 
                             </ul>
                         </div>
+
                         <div role="tabpanel"   class="tab-pane" id="clients" >
 
                             <!--<script>getClients();</script>-->
