@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -52,6 +53,12 @@ public class ProjectGroupResource {
 	public ProjectGroup deleteProjectGroup(@PathParam("projectGroupId") int projectGroupId){
 		return projectGroupService.deleteProjGroup(projectGroupId);
 		
+	}
+	
+	@PUT
+	@Path("/{projectGroupId}")
+	public ProjectGroup editProjectGroupDetails(@PathParam("projectGroupId") int projectGroupId, ProjectGroup projectGroup){
+		return projectGroupService.editProjectGroupDetails(projectGroupId, projectGroup);
 	}
 	
 	
