@@ -71,6 +71,8 @@
 
     <script>
 
+        var htmlClientProject = "";
+
         function getProjects(){
             getAllProjectGroups(function(){
 
@@ -82,7 +84,7 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' onclick='addToCart(\"Hi\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addProjectQualsToGroup(\""+projects[i].id+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' onclick='openQualsForProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
@@ -90,6 +92,19 @@
                     </div></div>"
                 }
                 $("#projects").html(htmlStr);
+
+            });
+        }
+
+        function addProjectQualsToGroup(projectID){
+
+            getQualsByProject(projectID, function(){
+
+                var quals = this;
+
+                for(i = 0; i< quals.length; i++) {
+                    addToCart(quals[i].projectName);
+                }
 
             });
         }
@@ -105,8 +120,8 @@
                     htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' onclick='addToCart( \""+quals[i].projectName+"\")'></i></div></div> \
+                    <div class='portfolio-hover-content'> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart(\""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
@@ -132,18 +147,23 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' onclick='addToCart(\""+quals[i].projectName+"\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart(\""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].projectName+"</h4> \
                     </div></div>"
                 }
+                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
                 $("#clients").html(htmlStr);
                 $("#heading").html(projectName);
 
             });
 
+        }
+
+        function openPrevClientProj(){
+            $("#clients").html(htmlClientProject);
         }
 
         function getClients() {
@@ -185,7 +205,7 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart('Hi')'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addProjectQualsToGroup(\""+projects[i].id+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' style='cursor: pointer;' onclick='openQualsForClientProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
@@ -193,6 +213,7 @@
                     </div></div>"
                 }
                 htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
+                htmlClientProject = htmlStr;
                 $("#clients").html(htmlStr);
 
 
@@ -255,7 +276,7 @@
                 $('#projects').removeClass('active'); // remove active class from tabs
                 $('#quals').removeClass('active'); // remove active class from tabs
                 $(tab).addClass('active'); // add active class to clicked tab
-
+                getClients();
             } else {
                 error("invalid tab");
             }
