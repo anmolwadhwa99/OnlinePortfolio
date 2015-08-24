@@ -127,7 +127,7 @@
             getProjectsByClient(id,function(){
                 var projects = this;
 
-                var htmlStr = "<button type='submit' class='btn btn-xl'>Back To Clients</button>";
+                var htmlStr = "<div><button type='submit' class='btn btn-xl' onclick='getClients()'>Back To Clients</button></div><br>";
                 for(i = 0; i< projects.length; i++){
                     htmlStr += "<div class='col-md-4 col-sm-6 portfolio-item'> \
                     <a class='portfolio-link' data-toggle='modal'> \
