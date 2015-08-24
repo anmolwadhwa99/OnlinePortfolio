@@ -57,7 +57,7 @@ public class AdminGroupResource {
 	 */
 	@DELETE
 	@Path("/{adminGroupId}")
-	public AdminGroup deleteAccount(@PathParam("adminGroupId") int adminGroupId){
+	public AdminGroup deleteAdminGroup(@PathParam("adminGroupId") int adminGroupId){
 		return adminGroupService.deleteAdminGroup(adminGroupId);
 	}
 	
