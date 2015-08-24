@@ -62,31 +62,36 @@
             var tags = document.getElementById("qual_tags").value;
             var serviceLine = document.getElementById("qual_service_line").value;
 
-            console.log(projName);
-            console.log(projSubTitle);
-            console.log(clientName);
-            console.log(isAnonymous);
-            console.log(anonymousName);
-            console.log(access);
-            console.log(problem);
-            console.log(challenges);
-            console.log(solution);
-            console.log(outcome);
-            console.log(relevance);
-            console.log(primaryColour);
-            console.log(secondaryColour);
-            console.log(accentColour);
-            console.log(clientLogo);
-            console.log(productServicesImage);
-            console.log(emailAction);
-            console.log(websiteAction);
-            console.log(industry);
-            console.log(tags);
-            console.log(serviceLine);
-//
-            // TODO add other missing fields to webservice function insertQual
-            // insertQual(clientName, problem, projName, relevance, solution,
-            //        challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
+//            console.log(projName);
+//            console.log(projSubTitle);
+//            console.log(clientName);
+//            console.log(isAnonymous);
+//            console.log(anonymousName);
+//            console.log(access);
+//            console.log(problem);
+//            console.log(challenges);
+//            console.log(solution);
+//            console.log(outcome);
+//            console.log(relevance);
+//            console.log(primaryColour);
+//            console.log(secondaryColour);
+//            console.log(accentColour);
+//            console.log(clientLogo);
+//            console.log(productServicesImage);
+//            console.log(emailAction);
+//            console.log(websiteAction);
+//            console.log(industry);
+//            console.log(tags);
+//            console.log(serviceLine);
+
+            // TODO remove unneeded columns - solutionStatement
+            insertQual('true', isAnonymous, challenges, clientName, industry
+                    , tags, outcome, problem, projName, relevance, serviceLine, solution
+                    , 'solutionStatement', access, projSubTitle, primaryColour, secondaryColour, accentColour
+                    , emailAction, websiteAction, function(){
+                        location.replace("index1.html");
+                    }
+            );
         }
     </script>
     <style>

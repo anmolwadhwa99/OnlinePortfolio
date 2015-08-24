@@ -42,7 +42,7 @@ public class ProjectGroupDatabase {
 	/**
 	 * Adding a project group to the database
 	 */
-	public void addProjectGroup(ProjectGroup projGroup){
+	public ProjectGroup addProjectGroup(ProjectGroup projGroup){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -50,6 +50,7 @@ public class ProjectGroupDatabase {
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
+		return projGroup;
 	}
 	
 	/**

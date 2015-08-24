@@ -11,8 +11,9 @@ public class ProjectGroupService {
 	/**
 	 * Get all project groups
 	 */
-	public void addProjectGroup(ProjectGroup projGroup){
-		projGroupDb.addProjectGroup(projGroup);
+	public ProjectGroup addProjectGroup(ProjectGroup projGroup){
+		ProjectGroup pg = projGroupDb.addProjectGroup(projGroup);
+		return pg;
 	}
 	
 	/**
