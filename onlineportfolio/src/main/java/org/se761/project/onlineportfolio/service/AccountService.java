@@ -92,6 +92,13 @@ public class AccountService {
 		return accounts;
 	}
 	
+	/**
+	 * Edit account details
+	 */
+	public Account editAccountDetails(int accountId, Account modifiedAccount){
+		Account account = accountDatabase.editAccountDetails(accountId, modifiedAccount);
+		return account;
+	}
 	
 	
 }
