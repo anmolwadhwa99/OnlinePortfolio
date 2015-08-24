@@ -5,7 +5,7 @@ function getQuals(){
     getAllQuals(function(){
 
         var quals = this;
-
+        alert(quals)
         var list = document.getElementById("list");
 
         for(i = 0; i< quals.length; i++){
@@ -17,6 +17,23 @@ function getQuals(){
 
 
     })}
+
+function getClients(){
+    getAllClients(function() {
+        //alert('hi')
+        var clients = this;
+        alert(clients);
+        var list = document.getElementById("client_list");
+
+        for (i = 0; i < clients.length; i++) {
+            alert(clients[i].getInfo());
+            var li = document.createElement("li");
+            createImageBox();
+            li.appendChild(document.createTextNode(clients[i].getInfo()));
+            list.appendChild(li);
+        }
+    })
+}
 
 function getProjects(){
     getAllQuals(function(){

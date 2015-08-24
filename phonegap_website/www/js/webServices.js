@@ -52,15 +52,17 @@ function ProjectGroup(x){
 
 function Account(x){
     this.accountId = x.accountId;
-    this.admin = x.admin;
-    this.pin = x.pin;
-    this.userName = x.userName;
+    this.accountName = x.accountName;
+    this.password = x.password;
+    this.isAdmin = x.isAdmin;
+    this.isSuperUser = x.isSuperUser;
 
     this.getInfo = function(){
         return this.accountId + "\n" +
-                this.admin + "\n" +
-                this.pin + "\n" +
-                this.userName;
+                this.accountName + "\n" +
+                this.password + "\n" +
+                this.isAdmin + "\n" +
+                this.isSuperUser;
     }
 
 }
