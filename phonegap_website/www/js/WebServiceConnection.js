@@ -19,21 +19,10 @@ function getQuals(){
     })}
 
 function getProjects(){
-    getAllQuals(function(){
-
-        var quals = this;
-
-        var list = document.getElementById("list");
-
-        for(i = 0; i< quals.length; i++){
-            var li = document.createElement("li");
-            createImageBox()
-            li.appendChild(document.createTextNode(quals[i].getInfo()));
-            list.appendChild(li);
-        }
-
-
-    })}
+    getAllProjectGroups(function(){
+        return this;
+    })
+}
 
 function getQualsForProject(id) {
     alert("right method");

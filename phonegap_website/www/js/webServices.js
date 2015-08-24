@@ -38,11 +38,12 @@ function Qual(x){
 
 function ProjectGroup(x){
     this.id = x.projGroupId;
-    this.projectGroupName = x.projectGroupName;
+    this.projectGroupName = x.projGroupName;
     this.quals = x.quals;
     this.accountsProj = x.accountsProj;
 
     this.getInfo = function(){
+
         return this.id + "\n" +
             this.projectGroupName + "\n" +
             this.quals + "\n" +
@@ -312,7 +313,7 @@ function getAllProjectGroups(callback) {
             var json = JSON.parse(resp);
 
             for (i = 0; i < json.length; i++ ){
-                projects.push(new Qual(json[i]));
+                projects.push(new ProjectGroup(json[i]));
             }
 
             if(typeof callback == 'function'){
