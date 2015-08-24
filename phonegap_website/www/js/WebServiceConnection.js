@@ -18,22 +18,22 @@ function getQuals(){
 
     })}
 
-function getClients(){
-    getAllClients(function() {
-        //alert('hi')
-        var clients = this;
-        alert(clients);
-        var list = document.getElementById("client_list");
-
-        for (i = 0; i < clients.length; i++) {
-            //alert(clients[i].getInfo().$2);
-            var li = document.createElement("li");
-            createClientBox(clients[i].getInfo().$2)
-            li.appendChild(document.createTextNode(clients[i].getInfo()));
-            list.appendChild(li);
-        }
-    })
-}
+//function getClients(){
+//    getAllClients(function() {
+//        //alert('hi')
+//        var clients = this;
+//        //alert(clients);
+//        var list = document.getElementById("client_list");
+//
+//        for (i = 0; i < clients.length; i++) {
+//            alert(clients[i]);
+//            var li = document.createElement("li");
+//            createClientBox(clients[i].getInfo().$2)
+//            li.appendChild(document.createTextNode(clients[i].getInfo()));
+//            list.appendChild(li);
+//        }
+//    })
+//}
 
 function getProjects(){
     getAllProjectGroups(function(){
