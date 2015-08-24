@@ -49,6 +49,12 @@
 
 
             })}
+        function getQualsForProject(id) {
+            alert("right method");
+            getQualById(id, function(){
+                alert(this.getInfo());
+            })
+        }
     </script>
 
     <![endif]-->
@@ -115,9 +121,6 @@
 
         $(document).ready(function(){
 
-
-            getQuals();
-
             //Navigation Menu Slider
             $('#nav-expander').on('click',function(e){
                 e.preventDefault();
@@ -183,7 +186,7 @@
                                             <a class="portfolio-link"> <i class="fa fa-plus fa-3x"  style="cursor: pointer;" onclick="addToCart('Hi')"></i></a>
                                         </div>
                                     </div>
-                                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                                <a href="#portfolioModal1" class="portfolio-link" onclick="getQualsForProject(1)">
                                     <img src="img/portfolio/roundicons.png" class="img-responsive" alt="">
                                 </a>
                                 <div class="portfolio-caption">
