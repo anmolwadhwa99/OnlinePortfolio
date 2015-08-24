@@ -176,10 +176,10 @@
                     <label for="qual_is_not_anonymous">Qual Anonymity: </label>
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-info active" onclick="optionalAnonName();">
-                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="N" checked="checked" />Named
+                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false" checked="checked" />Named
                         </label>
                         <label class="btn btn-warning" onclick="requireAnonName();">
-                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="Y" />Anonymous
+                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true" />Anonymous
                         </label>
                     </div>
                 </div>
@@ -239,10 +239,10 @@
                     <br/>
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-info active">
-                            <input type="radio" id="qual_private" name="qual_public_access" value="N" checked="checked" />Private
+                            <input type="radio" id="qual_private" name="qual_public_access" value="false" checked="checked" />Private
                         </label>
                         <label class="btn btn-warning">
-                            <input type="radio" id="qual_public" name="qual_public_access" value="Y" />Public
+                            <input type="radio" id="qual_public" name="qual_public_access" value="true" />Public
                         </label>
                     </div>
                 </div>
