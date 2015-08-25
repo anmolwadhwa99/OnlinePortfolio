@@ -1,6 +1,6 @@
 .filmstrip {
-    position: relative;
-    margin-bottom: 18px;
+    margin: auto;
+
     line-height: 1;
     overflow: hidden;
 }
