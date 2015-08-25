@@ -122,4 +122,10 @@ public class AccountResource {
 		return accountService.editAccountDetails(accountId, account);
 	}
 	
+	@GET
+	@Path("/verify/{password}")
+	public Account verifyAccount(@PathParam("password") String password){
+		return accountService.verifyAccount(password);
+	}
+	
 }
