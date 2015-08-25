@@ -95,6 +95,32 @@ function AdminGroup(x){
     }
 }
 
+function verifyAccount(pw,callback){
+    var methodURL = url + _ac + "/verify/" + pw;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new Account(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
 
 function createRequest() {
     var result = null;

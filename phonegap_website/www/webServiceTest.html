@@ -124,7 +124,15 @@
 
         //insert account
         function insertAc(){
-            insertAccount(false, "9876", "rpat", false);
+            insertAccount(false, "9876", "rpat", false, function(){
+                alert(this);
+            });
+        }
+
+        function verify(){
+            verifyAccount("pw", function(){
+                alert(this.getInfo());
+            })
         }
 
         // get all admins
@@ -212,6 +220,8 @@
                alert(this);
             });
         }
+
+
     </script>
 
     <script>
@@ -281,7 +291,7 @@
 <body>
 <div class="row">
     <h1 class="col-md-12">WebService Test</h1>
-    <button type="button" class="btn btn-info" onclick="insertAc()" >Retrieve Accounts</button>
+    <button type="button" class="btn btn-info" onclick="verify()" >Retrieve Accounts</button>
 </div>
 <div class="row">
     <ul id="list" class="col-md-8">
