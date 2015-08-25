@@ -139,30 +139,38 @@
             insertProjectGroup(projectName, function () {
                 projGroupID = this; //gets the new project ID
 
-                for(i = 0; i < qualsToAdd.length - 1; i++) {
-                    var tempId = qualsToAdd.pop();
-                    assignQualToProjectGroup(projGroupID,tempId);
-                }
-                alert("Project ID= " + projGroupID + " has been created");
+                for(i = 0; i < qualsToAdd.length; i++) {
+//                    alert("LENGTH: " + qualsToAdd.length);
+                    var tempId = qualsToAdd[i];
+//                    alert("Temp Is:  "+ tempId)
+                    assignQualToProjectGroup(pgId,tempId);
 
-                var clientID = 0;
-                if ($('#existingClientSelect').is(':checked') == true) {
-                    clientID = $("#clientDropdown").val();
-                } else if ($('#newClientSelect').is(':checked') == true) {
-                    var accountName = $("#modalClientName").val();
-                    insertAccount(false, accountName, "password", false, function () {
-                        clientID = this;
-                        alert(projGroupID + " " + clientID);
-                    });
-                } else {
-                    alert("Select a client!");
                 }
 
-//            alert(projGroupID + " " + clientID);
-//        assignAccountToProjectGroup(projGroupID, clientID, function() {
-//            alert(this);
-//        });
+                qualsToAdd.splice(0,qualsToAdd.length);
+
+                alert("Project ID= " + pgId + " has been created");
+                return;
             })
+            
+            var clientID;
+            if ($('#existingClientSelect').is(':checked') == true) {
+                clientID = $("#clientDropdown").val();
+            } else if ($('#newClientSelect').is(':checked') == true) {
+                var accountName = $("#modalClientName").val();
+                insertAccount(false, accountName, "password", false, function () {
+                    clientID = this;
+                });
+            } else {
+                alert("Select a client!");
+            }
+
+//
+////            alert(projGroupID + " " + clientID);
+////        assignAccountToProjectGroup(projGroupID, clientID, function() {
+////            alert(this);
+////        });
+//            })
 
         }
 
@@ -197,7 +205,7 @@
 
                 for(i = 0; i< quals.length; i++) {
 
-                    addToCart(quals[i].id, quals[i].projectName);
+                    addToCart(quals[i].qualId, quals[i].projectName);
                 }
 
             });
@@ -215,7 +223,7 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'> \
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].id+", \""+quals[i].projectName+"\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
@@ -241,7 +249,7 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].id+", \""+quals[i].projectName+"\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
@@ -272,13 +280,12 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].id+", \""+quals[i].projectName+"\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].projectName+"</h4> \
                     </div></div>"
-
                 }
 
                 $("#quals").html(htmlStr)
