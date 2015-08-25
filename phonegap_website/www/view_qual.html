@@ -122,21 +122,21 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="form-group" >
                         <label for="qual_project_name">Project Name: </label>
-                        <input id="qual_project_name" type="text" placeholder="Project Name" required autofocus>
+                        <input id="qual_project_name" type="text" placeholder="Project Name" required autofocus readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_client_name">Client Name: </label>
-                        <input id="qual_client_name" type="text" placeholder="Client Name" required >
+                        <input id="qual_client_name" type="text" placeholder="Client Name" required readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_project_sub" >Project Subtitle: </label>
-                        <input id="qual_project_sub" type="text" placeholder="Subtitle">
+                        <input id="qual_project_sub" type="text" placeholder="Subtitle" readonly>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@
                     <label for="qual_is_not_anonymous">Qual Anonymity: </label>
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-info active" onclick="optionalAnonName();">
-                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="N" checked="checked" />Named
+                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="N" checked="checked"/>Named
                         </label>
                         <label class="btn btn-warning" onclick="requireAnonName();">
                             <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="Y" />Anonymous
@@ -155,7 +155,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_anonymous_name">Anonymous Name: </label>
-                        <input id="qual_anonymous_name" type="text" class="form-control" placeholder="Anonymous Name" >
+                        <input id="qual_anonymous_name" type="text" class="form-control" readonly>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry" >
+                        <input id="qual_industry" type="text" class="form-control" readonly >
                     </div>
                 </div>
 
@@ -172,15 +172,15 @@
             <div class="row">
                 <div class="col-md-4">
                     <label for="qual_colour_primary">Primary Colour: </label>
-                    <input id="qual_colour_primary" type="color" class="form-control" value="#091D5D" >
+                    <input id="qual_colour_primary" type="color" class="form-control" value="#091D5D" readonly>
                 </div>
                 <div class="col-md-4">
                     <label for="qual_colour_secondary">Secondary Colour: </label>
-                    <input id="qual_colour_secondary" type="color" class="form-control" value="#DDD2B5" >
+                    <input id="qual_colour_secondary" type="color" class="form-control" value="#DDD2B5"  readonly>
                 </div>
                 <div class="col-md-4">
                     <label for="qual_colour_accent">Accent Colour: </label>
-                    <input id="qual_colour_accent" type="color" class="form-control" value="#9CD100" >
+                    <input id="qual_colour_accent" type="color" class="form-control" value="#9CD100" readonly>
                 </div>
             </div>
             <div class="row">
@@ -205,34 +205,34 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="qual_problems">Problem Statement: </label>
-                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement" required ></textarea>
+                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement" required readonly ></textarea>
             </div>
-                <div class="form-group" >
+                <div class="form-group" aria-readonly="true">
                 <label for="qual_challenges">Challenges Faced: </label>
-                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges" ></textarea>
+                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges" readonly></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_solution">Solution: </label>
-                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution" ></textarea>
+                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution" readonly></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_outcome">Outcome: </label>
-                <textarea id="qual_outcome" rows="3" class="form-control" placeholder="Outcome" ></textarea>
+                <textarea id="qual_outcome" rows="3" class="form-control" placeholder="Outcome" readonly></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_relevance">Relevance to Client: </label>
-                <textarea id="qual_relevance" rows="3" class="form-control" placeholder="Relevance to Client" ></textarea>
+                <textarea id="qual_relevance" rows="3" class="form-control" placeholder="Relevance to Client" readonly></textarea>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
                 <label for="qual_tags">Tags: </label>
-                <textarea id="qual_tags" rows="1" class="form-control" placeholder="Tag1, Tag2, Tag3...." required ></textarea>
+                <textarea id="qual_tags" rows="1" class="form-control" placeholder="Tag1, Tag2, Tag3...." required readonly></textarea>
         </div>
         <div class="col-md-6">
             <label for="qual_service_line">Service Line: </label>
-            <textarea id="qual_service_line" rows="1" class="form-control" placeholder="Service Line" required ></textarea>
+            <textarea id="qual_service_line" rows="1" class="form-control" placeholder="Service Line" required readonly></textarea>
         </div>
     </div> <br><br>
     <div class="row">
