@@ -30,6 +30,8 @@ public class HibernateTest {
 		qual.setProjectName("This is a project 3");
 		qual.setRelevanceToClient("This is relevant 3");
 		
+		qualService.addQual(qual);
+		
 		
 		
 		

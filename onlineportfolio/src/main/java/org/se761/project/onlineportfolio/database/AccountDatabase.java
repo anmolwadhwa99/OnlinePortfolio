@@ -13,6 +13,7 @@ import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
+import org.se761.project.onlineportfolio.model.Qualification;
 
 
 public class AccountDatabase {
@@ -261,5 +262,54 @@ public class AccountDatabase {
 		return accounts;
 	}
 	
+	/**
+	 * Edit account details
+	 */
+	public Account editAccountDetails(int accountId, Account editedAccount){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction(); 
+		
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
+		}
+		
+		account = editedAccount;
+		session.update(account);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		
+		return account;
+	}
+	
+	/**
+	 * Get account that has the same password as the parameter to this method 
+	 */
+	public Account verifyAccount(String password){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String getAllQuery = "FROM Account a";
+		Query query = session.createQuery(getAllQuery);
+
+		List<Account> accounts = query.list();
+		
+		if (accounts.size() == 0 || accounts == null){
+			throw new DatabaseRetrievalException("No accounts in the database");
+		}
+		
+		for(Account a : accounts){
+			if(a.getPassword().equals(password)){
+				return a;
+			}
+		}
+		throw new DatabaseRetrievalException("Cannot find account with the password that is given");
+		
+	}
 
 }

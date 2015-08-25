@@ -5,6 +5,7 @@
     <p><a href="webapi/qual">Quals</a>	
 	<p><a href="webapi/account">Accounts</a>
     <p><a href="webapi/admin">Admin Groups</a>
+    <p><a href="webapi/projectGroup">Project Groups</a>
 </body>
 </html>
 

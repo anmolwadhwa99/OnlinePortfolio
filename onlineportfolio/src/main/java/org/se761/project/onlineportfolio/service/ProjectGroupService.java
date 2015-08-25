@@ -11,8 +11,9 @@ public class ProjectGroupService {
 	/**
 	 * Get all project groups
 	 */
-	public void addProjectGroup(ProjectGroup projGroup){
-		projGroupDb.addProjectGroup(projGroup);
+	public ProjectGroup addProjectGroup(ProjectGroup projGroup){
+		ProjectGroup pg = projGroupDb.addProjectGroup(projGroup);
+		return pg;
 	}
 	
 	/**
@@ -45,6 +46,14 @@ public class ProjectGroupService {
 	public ProjectGroup getProjectGroup(int projGroupId){
 		ProjectGroup projGroup = projGroupDb.getProjectGroup(projGroupId);
 		return projGroup;
+	}
+	
+	/**
+	 * Edit project group
+	 */
+	public ProjectGroup editProjectGroupDetails(int projectGroupId, ProjectGroup newProjectGroup){
+		ProjectGroup projectGroup = projGroupDb.editProjectGroupDetails(projectGroupId, newProjectGroup);
+		return projectGroup;
 	}
 
 }

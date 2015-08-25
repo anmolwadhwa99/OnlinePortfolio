@@ -92,6 +92,21 @@ public class AccountService {
 		return accounts;
 	}
 	
+	/**
+	 * Edit account details
+	 */
+	public Account editAccountDetails(int accountId, Account modifiedAccount){
+		Account account = accountDatabase.editAccountDetails(accountId, modifiedAccount);
+		return account;
+	}
+	
+	/**
+	 * Get account details based on the password that is given
+	 */
+	public Account verifyAccount(String password){
+		Account account = accountDatabase.verifyAccount(password);
+		return account;
+	}
 	
 	
 }

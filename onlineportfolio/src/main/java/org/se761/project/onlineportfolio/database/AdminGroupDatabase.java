@@ -160,5 +160,31 @@ public class AdminGroupDatabase {
 		
 		return adminGroups;
 	}
+	
+	/**
+	 * Edit admin group
+	 */
+	
+	public AdminGroup editAdminGroupDetails(int adminGroupId, AdminGroup modifiedAdminGroup){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
+		
+		if (adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("AdminGroup with id: " + adminGroupId + " could not be found");
+		}
+		
+		adminGroup = modifiedAdminGroup;
+		session.update(adminGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		
+		return adminGroup;
+		
+	}
 
 }

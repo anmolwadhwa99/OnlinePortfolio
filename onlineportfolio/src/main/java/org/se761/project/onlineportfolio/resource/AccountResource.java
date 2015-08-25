@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -110,6 +111,21 @@ public class AccountResource {
 	@Path("/{accountId}")
 	public Account deleteAccount(@PathParam("accountId") int accountId){
 		return accountService.removeAccount(accountId);
+	}
+	
+	/**
+	 * Edit an account
+	 */
+	@PUT
+	@Path("/{accountId}")
+	public Account editAccountDetails(@PathParam("accountId") int accountId, Account account){
+		return accountService.editAccountDetails(accountId, account);
+	}
+	
+	@GET
+	@Path("/verify/{password}")
+	public Account verifyAccount(@PathParam("password") String password){
+		return accountService.verifyAccount(password);
 	}
 	
 }

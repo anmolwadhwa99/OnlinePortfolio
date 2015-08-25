@@ -77,6 +77,14 @@ public class QualificationService {
 		Qualification qual = qualDatabase.deleteQual(qualId);
 		return qual;
 	}
+	
+	/**
+	 * Edit a qualification
+	 */
+	public Qualification editQual(int qualId, Qualification qual){
+		Qualification modifiedQual = qualDatabase.editQualification(qualId, qual);
+		return modifiedQual;
+	}
 
 	
 

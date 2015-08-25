@@ -62,31 +62,36 @@
             var tags = document.getElementById("qual_tags").value;
             var serviceLine = document.getElementById("qual_service_line").value;
 
-            console.log(projName);
-            console.log(projSubTitle);
-            console.log(clientName);
-            console.log(isAnonymous);
-            console.log(anonymousName);
-            console.log(access);
-            console.log(problem);
-            console.log(challenges);
-            console.log(solution);
-            console.log(outcome);
-            console.log(relevance);
-            console.log(primaryColour);
-            console.log(secondaryColour);
-            console.log(accentColour);
-            console.log(clientLogo);
-            console.log(productServicesImage);
-            console.log(emailAction);
-            console.log(websiteAction);
-            console.log(industry);
-            console.log(tags);
-            console.log(serviceLine);
-//
-            // TODO add other missing fields to webservice function insertQual
-            // insertQual(clientName, problem, projName, relevance, solution,
-            //        challenges, mdIndustry, mdTag, mdStatus, mdServiceLine, mdColourScheme);
+//            console.log(projName);
+//            console.log(projSubTitle);
+//            console.log(clientName);
+//            console.log(isAnonymous);
+//            console.log(anonymousName);
+//            console.log(access);
+//            console.log(problem);
+//            console.log(challenges);
+//            console.log(solution);
+//            console.log(outcome);
+//            console.log(relevance);
+//            console.log(primaryColour);
+//            console.log(secondaryColour);
+//            console.log(accentColour);
+//            console.log(clientLogo);
+//            console.log(productServicesImage);
+//            console.log(emailAction);
+//            console.log(websiteAction);
+//            console.log(industry);
+//            console.log(tags);
+//            console.log(serviceLine);
+
+            // TODO remove unneeded columns - solutionStatement
+            insertQual('true', isAnonymous, challenges, clientName, industry
+                    , tags, outcome, problem, projName, relevance, serviceLine, solution
+                    , 'solutionStatement', access, projSubTitle, primaryColour, secondaryColour, accentColour
+                    , emailAction, websiteAction, function(){
+                        location.replace("index1.html");
+                    }
+            );
         }
     </script>
     <style>
@@ -176,10 +181,10 @@
                     <label for="qual_is_not_anonymous">Qual Anonymity: </label>
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-info active" onclick="optionalAnonName();">
-                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="N" checked="checked" />Named
+                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false" checked="checked" />Named
                         </label>
                         <label class="btn btn-warning" onclick="requireAnonName();">
-                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="Y" />Anonymous
+                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true" />Anonymous
                         </label>
                     </div>
                 </div>
@@ -239,10 +244,10 @@
                     <br/>
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-info active">
-                            <input type="radio" id="qual_private" name="qual_public_access" value="N" checked="checked" />Private
+                            <input type="radio" id="qual_private" name="qual_public_access" value="false" checked="checked" />Private
                         </label>
                         <label class="btn btn-warning">
-                            <input type="radio" id="qual_public" name="qual_public_access" value="Y" />Public
+                            <input type="radio" id="qual_public" name="qual_public_access" value="true" />Public
                         </label>
                     </div>
                 </div>
