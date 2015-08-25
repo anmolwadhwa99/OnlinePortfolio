@@ -604,7 +604,7 @@ function getAllClients(callback){
     req.send();
 }
 
-function insertAccount(isAdmin, acName, pw, isSuperUser){
+function insertAccount(isAdmin, acName, pw, isSuperUser, callback){
     var methodURL = url + _ac;
     var method = "POST";
 
@@ -623,7 +623,7 @@ function insertAccount(isAdmin, acName, pw, isSuperUser){
             var ac = new Account(json);
 
             if (typeof callback == 'function'){
-                callback.apply(ac.id);
+                callback.apply(ac.accountId);
             }
 
 
@@ -633,10 +633,10 @@ function insertAccount(isAdmin, acName, pw, isSuperUser){
 
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
-        '"admin": ' + isAdmin + ','+
-        '"accountName": ' + acName + ','+
+        '"isAdmin": ' + isAdmin + ','+
+        '"accountName": "' + acName + '",'+
         '"password": "' + pw + '",'+
-        '"superUser": ' + isSuperUser +
+        '"isSuperUser": ' + isSuperUser +
         '}';
 
 

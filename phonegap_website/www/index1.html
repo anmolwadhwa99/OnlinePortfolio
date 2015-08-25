@@ -145,19 +145,20 @@
                 }
                 alert("Project ID= " + projGroupID + " has been created");
 
-                var clientID;
+                var clientID = 0;
                 if ($('#existingClientSelect').is(':checked') == true) {
                     clientID = $("#clientDropdown").val();
                 } else if ($('#newClientSelect').is(':checked') == true) {
                     var accountName = $("#modalClientName").val();
                     insertAccount(false, accountName, "password", false, function () {
                         clientID = this;
+                        alert(projGroupID + " " + clientID);
                     });
                 } else {
                     alert("Select a client!");
                 }
 
-            alert(projGroupID + " " + clientID);
+//            alert(projGroupID + " " + clientID);
 //        assignAccountToProjectGroup(projGroupID, clientID, function() {
 //            alert(this);
 //        });
