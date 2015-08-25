@@ -286,5 +286,30 @@ public class AccountDatabase {
 		
 		return account;
 	}
+	
+	/**
+	 * Get account that has the same password as the parameter to this method 
+	 */
+	public Account verifyAccount(String password){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String getAllQuery = "FROM Account a";
+		Query query = session.createQuery(getAllQuery);
+
+		List<Account> accounts = query.list();
+		
+		if (accounts.size() == 0 || accounts == null){
+			throw new DatabaseRetrievalException("No accounts in the database");
+		}
+		
+		for(Account a : accounts){
+			if(a.getPassword().equals(password)){
+				return a;
+			}
+		}
+		throw new DatabaseRetrievalException("Cannot find account with the password that is given");
+		
+	}
 
 }
