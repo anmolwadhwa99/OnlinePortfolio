@@ -272,8 +272,8 @@
             getAllQuals(function(){
                 var quals = this;
 
-                var htmlStr = "<h1 id='heading'>All Quals</h1>";
-                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Add New Qual</button></div><br>";
+                var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
+                htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
 
                 for (i = 0; i < quals.length; i++) {
 //                    alert(clients[i].accountName);
