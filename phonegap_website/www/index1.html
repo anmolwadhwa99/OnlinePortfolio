@@ -147,10 +147,11 @@
                 var clientID;
                 if ($('#existingClientSelect').is(':checked') == true) {
                     clientID = $("#clientDropdown").val();
+                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
                 } else if ($('#newClientSelect').is(':checked') == true) {
                     var accountName = $("#modalClientName").val();
                     insertAccount(false, accountName, "password", false, function () {
-                        clientID = this;
+                        assignAccountToProjectGroup(projGroupID, this, function() {})
                     });
                 } else {
                     for (i = 0; i < qualsToAdd.length; i++) {
