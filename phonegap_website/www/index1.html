@@ -273,6 +273,7 @@
                 var quals = this;
 
                 var htmlStr = "<h1 id='heading'>All Quals</h1>";
+                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Add New Qual</button></div><br>";
 
                 for (i = 0; i < quals.length; i++) {
 //                    alert(clients[i].accountName);
@@ -287,7 +288,6 @@
                     <h4>"+quals[i].projectName+"</h4> \
                     </div></div>"
                 }
-
                 $("#quals").html(htmlStr)
 
             });
