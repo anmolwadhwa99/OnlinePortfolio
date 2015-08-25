@@ -139,10 +139,11 @@
             insertProjectGroup(projectName, function () {
                 projGroupID = this; //gets the new project ID
 
-                for(i = 0; i < qualsToAdd.length - 1; i++) {
-                    var tempId = qualsToAdd.pop();
-                    assignQualToProjectGroup(projGroupID,tempId);
+                for (i = 0; i < qualsToAdd.length; i++) {
+                    var tempId = qualsToAdd[i];
+                    assignQualToProjectGroup(projGroupID, tempId);
                 }
+                qualsToAdd.splice(0, qualsToAdd.length);
                 var clientID;
                 if ($('#existingClientSelect').is(':checked') == true) {
                     clientID = $("#clientDropdown").val();
@@ -152,16 +153,15 @@
                         clientID = this;
                     });
                 } else {
-                    alert("Select a client!");
+                    for (i = 0; i < qualsToAdd.length; i++) {
+                        var tempId = qualsToAdd[i];
+                        assignQualToProjectGroup(pgId, tempId);
+                    }
+                    return;
                 }
+            });
 
-            alert(projGroupID + " " + clientID);
-//        assignAccountToProjectGroup(projGroupID, clientID, function() {
-//            alert(this);
-//        });
-            })
-
-        }
+            };
 
         function getProjects(){
             getAllProjectGroups(function(){
@@ -194,7 +194,7 @@
 
                 for(i = 0; i< quals.length; i++) {
 
-                    addToCart(quals[i].id, quals[i].projectName);
+                    addToCart(quals[i].qualId, quals[i].projectName);
                 }
 
             });
@@ -212,7 +212,7 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'> \
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].id+", \""+quals[i].projectName+"\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
@@ -238,7 +238,7 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].id+", \""+quals[i].projectName+"\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
@@ -261,7 +261,8 @@
             getAllQuals(function(){
                 var quals = this;
 
-                var htmlStr = "<h1 id='heading'>All Quals</h1>";
+                var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
+                htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
 
                 for (i = 0; i < quals.length; i++) {
 //                    alert(clients[i].accountName);
@@ -269,15 +270,13 @@
                     <a class='portfolio-link' data-toggle='modal'> \
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].id+", \""+quals[i].projectName+"\")'></i></div></div> \
+                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
                     <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].projectName+"</h4> \
                     </div></div>"
-
                 }
-
                 $("#quals").html(htmlStr)
 
             });

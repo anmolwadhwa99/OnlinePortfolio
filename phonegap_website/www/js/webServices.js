@@ -95,6 +95,32 @@ function AdminGroup(x){
     }
 }
 
+function verifyAccount(pw,callback){
+    var methodURL = url + _ac + "/verify/" + pw;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new Account(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
 
 function createRequest() {
     var result = null;
@@ -118,7 +144,7 @@ function createRequest() {
 
 
 function getQualById(id, callback){
-    var methodURL = url + _qual + id;
+    var methodURL = url + _qual + "/" + id;
     var method = "GET";
 
     var req = createRequest();
@@ -604,7 +630,7 @@ function getAllClients(callback){
     req.send();
 }
 
-function insertAccount(isAdmin, acName, pw, isSuperUser){
+function insertAccount(isAdmin, acName, pw, isSuperUser, callback){
     var methodURL = url + _ac;
     var method = "POST";
 
@@ -623,7 +649,7 @@ function insertAccount(isAdmin, acName, pw, isSuperUser){
             var ac = new Account(json);
 
             if (typeof callback == 'function'){
-                callback.apply(ac.id);
+                callback.apply(ac.accountId);
             }
 
 
@@ -633,10 +659,10 @@ function insertAccount(isAdmin, acName, pw, isSuperUser){
 
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
-        '"admin": ' + isAdmin + ','+
-        '"accountName": ' + acName + ','+
+        '"isAdmin": ' + isAdmin + ','+
+        '"accountName": "' + acName + '",'+
         '"password": "' + pw + '",'+
-        '"superUser": ' + isSuperUser +
+        '"isSuperUser": ' + isSuperUser +
         '}';
 
 

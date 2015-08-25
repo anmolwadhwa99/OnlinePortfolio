@@ -100,5 +100,13 @@ public class AccountService {
 		return account;
 	}
 	
+	/**
+	 * Get account details based on the password that is given
+	 */
+	public Account verifyAccount(String password){
+		Account account = accountDatabase.verifyAccount(password);
+		return account;
+	}
+	
 	
 }
