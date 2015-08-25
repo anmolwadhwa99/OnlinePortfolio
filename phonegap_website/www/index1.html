@@ -137,7 +137,7 @@
             var projGroupID;
 
             insertProjectGroup(projectName, function () {
-                var pgId = this; //gets the new project ID
+                projGroupID = this; //gets the new project ID
 
                 for(i = 0; i < qualsToAdd.length; i++) {
 //                    alert("LENGTH: " + qualsToAdd.length);
@@ -165,11 +165,12 @@
                 alert("Select a client!");
             }
 
-//            alert(projGroupID + " " + clientID);
-//        assignAccountToProjectGroup(projGroupID, clientID, function() {
-//            alert(this);
-//        });
-
+//
+////            alert(projGroupID + " " + clientID);
+////        assignAccountToProjectGroup(projGroupID, clientID, function() {
+////            alert(this);
+////        });
+//            })
 
         }
 
