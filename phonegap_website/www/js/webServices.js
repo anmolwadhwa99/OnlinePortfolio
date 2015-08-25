@@ -144,7 +144,7 @@ function createRequest() {
 
 
 function getQualById(id, callback){
-    var methodURL = url + _qual + id;
+    var methodURL = url + _qual + "/" + id;
     var method = "GET";
 
     var req = createRequest();
