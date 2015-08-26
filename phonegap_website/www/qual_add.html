@@ -61,28 +61,6 @@
             var tags = document.getElementById("qual_tags").value;
             var serviceLine = document.getElementById("qual_service_line").value;
 
-//            console.log(projName);
-//            console.log(projSubTitle);
-//            console.log(clientName);
-//            console.log(isAnonymous);
-//            console.log(anonymousName);
-//            console.log(access);
-//            console.log(problem);
-//            console.log(challenges);
-//            console.log(solution);
-//            console.log(outcome);
-//            console.log(relevance);
-//            console.log(primaryColour);
-//            console.log(secondaryColour);
-//            console.log(accentColour);
-//            console.log(clientLogo);
-//            console.log(productServicesImage);
-//            console.log(emailAction);
-//            console.log(websiteAction);
-//            console.log(industry);
-//            console.log(tags);
-//            console.log(serviceLine);
-
             // TODO remove unneeded columns - solutionStatement
             insertQual('true', isAnonymous, challenges, clientName, industry
                     , tags, outcome, problem, projName, relevance, serviceLine, solution
@@ -150,14 +128,14 @@
     </script>
     <script type="application/javascript">
         $(document).ready(function(){
-            var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150);
-            primaryCW.color("#091D5D");
+            var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
+            primaryCW.input($("#qual_colour_primary")[0]);
 
-            var secondaryCW = Raphael.colorwheel($("#secondary_color_wheel .colorwheel"), 150);
-            secondaryCW.color("#DDD2B5");
+            var secondaryCW = Raphael.colorwheel($("#secondary_color_wheel .colorwheel"), 150, 256);
+            secondaryCW.input($("#qual_colour_secondary")[0]);
 
-            var accentCW = Raphael.colorwheel($("#accent_color_wheel .colorwheel"), 150);
-            accentCW.color("#9CD100");
+            var accentCW = Raphael.colorwheel($("#accent_color_wheel .colorwheel"), 150, 256);
+            accentCW.input($("#qual_colour_accent")[0]);
         });
     </script>
 </head>
@@ -254,17 +232,17 @@
             <div class="row">
                 <div id="primary_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_primary">Primary Colour: </label>
-                    <input id="qual_colour_primary" type="color" class="form-control" value="#091D5D" style="display: none;" >
+                    <input id="qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;" class="form-control" value="#091D5D" placeholder="#091D5D" >
                     <div class="colorwheel"></div>
                 </div>
                 <div id="secondary_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_secondary">Secondary Colour: </label>
-                    <input id="qual_colour_secondary" type="color" class="form-control" value="#DDD2B5" style="display: none;"  >
+                    <input id="qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;" class="form-control" value="#DDD2B5" placeholder="#DDD2B5" >
                     <div class="colorwheel"></div>
                 </div>
                 <div id="accent_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_accent">Accent Colour: </label>
-                    <input id="qual_colour_accent" type="color" class="form-control" value="#9CD100" style="display: none;"  >
+                    <input id="qual_colour_accent" type="text" maxlength="7" style="max-width: 100px;" class="form-control" value="#9CD100" placeholder="#9CD100" >
                     <div class="colorwheel"></div>
                 </div>
             </div>
