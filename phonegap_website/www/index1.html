@@ -40,7 +40,6 @@
 
 
 </head>
-</head>
 
 <body id="page-top" class="index">
 
@@ -214,7 +213,7 @@
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'> \
                     <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt='' onclick='viewQual("+quals[i].qualId+")'> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].projectName+"</h4> \
@@ -240,7 +239,7 @@
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
                     <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt='' onclick='viewQual("+quals[i].qualId+")'> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].projectName+"</h4> \
@@ -258,6 +257,11 @@
             $("#clients").html(htmlClientProject);
         }
 
+        function viewQual(qual_id){
+            sessionStorage.setItem("qual_id", qual_id);
+            location.replace("view_qual.html");
+        }
+
         function getQuals(){
             getAllQuals(function(){
                 var quals = this;
@@ -272,7 +276,7 @@
                     <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content'>\
                     <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt='' onclick='viewQual("+quals[i].qualId+")'> \
                     </a> \
                     <div class='portfolio-caption'> \
                     <h4>"+quals[i].projectName+"</h4> \

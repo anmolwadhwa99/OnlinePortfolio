@@ -79,8 +79,7 @@
     </style>
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
-           // var qual_id = sessionStorage.getItem("qual_id");
-            var qual_id = 1; // hardcoded qual_id for now, would retrieve from sessionStorage once website fully linked up
+            var qual_id = sessionStorage.getItem("qual_id");
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
 
