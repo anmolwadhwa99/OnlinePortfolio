@@ -28,6 +28,9 @@
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/webServices.js" ></script>
 
+    <script type="application/javascript" src="js/raphael-min.js"></script>
+    <script type="application/javascript" src="js/colorwheel.js"></script>
+
     <script>
         function addQual() {
             var projName = document.getElementById("qual_project_name").value;
@@ -145,6 +148,18 @@
             document.getElementById('qual_anonymous_name').required = false;
         }
     </script>
+    <script type="application/javascript">
+        $(document).ready(function(){
+            var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150);
+            primaryCW.color("#091D5D");
+
+            var secondaryCW = Raphael.colorwheel($("#secondary_color_wheel .colorwheel"), 150);
+            secondaryCW.color("#DDD2B5");
+
+            var accentCW = Raphael.colorwheel($("#accent_color_wheel .colorwheel"), 150);
+            accentCW.color("#9CD100");
+        });
+    </script>
 </head>
 
 <body style="padding:20px;">
@@ -237,17 +252,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div id="primary_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_primary">Primary Colour: </label>
-                    <input id="qual_colour_primary" type="color" class="form-control" value="#091D5D" >
+                    <input id="qual_colour_primary" type="color" class="form-control" value="#091D5D" style="display: none;" >
+                    <div class="colorwheel"></div>
                 </div>
-                <div class="col-md-4">
+                <div id="secondary_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_secondary">Secondary Colour: </label>
-                    <input id="qual_colour_secondary" type="color" class="form-control" value="#DDD2B5" >
+                    <input id="qual_colour_secondary" type="color" class="form-control" value="#DDD2B5" style="display: none;"  >
+                    <div class="colorwheel"></div>
                 </div>
-                <div class="col-md-4">
+                <div id="accent_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_accent">Accent Colour: </label>
-                    <input id="qual_colour_accent" type="color" class="form-control" value="#9CD100" >
+                    <input id="qual_colour_accent" type="color" class="form-control" value="#9CD100" style="display: none;"  >
+                    <div class="colorwheel"></div>
                 </div>
             </div>
             <div class="row">
