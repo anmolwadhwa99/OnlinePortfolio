@@ -173,70 +173,40 @@
 
             var htmlStr = "<h1 id='heading'>Projects</h1>";
 
-//            href="#portfolioModal1"
-//            htmlStr += '<div class="col-md-4 col-sm-6 portfolio-item">\
-//            <a  class="portfolio-link" data-toggle="modal">\
-//            <div class="portfolio-hover">\
-//            <div class="portfolio-hover-content viewIcon" onclick="alert(\'view\')">\
-//            <i class="fa fa-search-plus fa-3x"></i>\
-//            </div>\
-//            <div class="portfolio-hover-content addIcon">\
-//            <i class="fa fa-plus fa-3x"></i>\
-//            </div>\
-//            <div class="portfolio-hover-content editIcon" onclick="alert(\'hi\')">\
-//                        <i class="fa fa-pencil fa-3x"></i>\
-//            </div>\
-//            </div>\
-//            <img src="img/portfolio/roundicons.png" class="img-responsive" alt="">\
-//            </a>\
-//            <div class="portfolio-caption">\
-//            <h4>Round Icons</h4>\
-//            <p class="text-muted">Graphic Design</p>\
-//            </div>\
-//            </div>';
-//
-
-
-
-
-//            for(i = 0; i< projects.length; i++){
-//                htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-//                    <a class='portfolio-link' data-toggle='modal'> \
-//                    <div class='portfolio-hover'> \
-//                    <div class='portfolio-hover-content'>\
-//                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addProjectQualsToGroup(\""+projects[i].id+"\")'></i></div></div> \
-//                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' onclick='openQualsForProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
-//                    </a> \
-//                    <div class='portfolio-caption'> \
-//                    <h4>"+projects[i].projectGroupName+"</h4> \
-//                    </div></div>"
-//            }
-
             for(i = 0; i< projects.length; i++){
-                htmlStr += "\
-                <div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                        <div class='portfolio-hover'> \
-                            <div class='portfolio-hover-content viewIcon' onclick='openQualsForProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")'>\
-                                <i class='fa fa-search-plus fa-3x'></i>\
-                            </div>\
-                            <div class='portfolio-hover-content addIcon' onclick='addProjectQualsToGroup("+projects[i].id+")'>\
-                                <i class='fa fa-plus fa-3x'></i>\
-                            </div>\
-                            <div class='portfolio-hover-content editIcon' onclick='alert(\'still need to define this one\')'>\
-                                    <i class='fa fa-pencil fa-3x'></i>\
-                            </div>\
-                        </div> \
-                        <img src='img/portfolio/startup-framework.png' class='main-thumbnail'  alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                        <h4>"+projects[i].projectGroupName+"</h4> \
-                    </div>\
-                </div>"
+
+                htmlStr += addPortfolioItem(
+                        '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
+                        '\"addProjectQualsToGroup('+projects[i].id+')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        projects[i].projectGroupName
+                )
             }
             $("#projects").html(htmlStr);
 
         });
+    }
+
+    function addPortfolioItem(viewFunc, addFunc, editFunc, name){
+           return "<div class='col-md-3 col-sm-6 portfolio-item'> \
+                <a class='portfolio-link' data-toggle='modal'> \
+                    <div class='portfolio-hover'> \
+                        <div class='portfolio-hover-content viewIcon' onclick=" +viewFunc + ">\
+                            <i class='fa fa-search-plus fa-3x'></i>\
+                        </div>\
+                        <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                            <i class='fa fa-plus fa-3x'></i>\
+                        </div>\
+                        <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+                                <i class='fa fa-pencil fa-3x'></i>\
+                        </div>\
+                    </div> \
+                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail'  alt=''> \
+                </a> \
+                <div class='portfolio-caption'> \
+                    <h4>"+name+"</h4> \
+                </div>\
+            </div>"
     }
 
     function addProjectQualsToGroup(projectID){
