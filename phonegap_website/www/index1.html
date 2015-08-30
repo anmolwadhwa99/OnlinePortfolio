@@ -187,26 +187,28 @@
         });
     }
 
-    function addPortfolioItem(viewFunc, addFunc, editFunc, name){
-           return "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                        <div class='portfolio-hover-content viewIcon' onclick=" +viewFunc + ">\
-                            <i class='fa fa-search-plus fa-3x'></i>\
-                        </div>\
-                        <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
-                            <i class='fa fa-plus fa-3x'></i>\
-                        </div>\
-                        <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
-                                <i class='fa fa-pencil fa-3x'></i>\
-                        </div>\
-                    </div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail'  alt=''> \
-                </a> \
-                <div class='portfolio-caption'> \
-                    <h4>"+name+"</h4> \
-                </div>\
-            </div>"
+    function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients){
+        var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+
+        return "<div class='col-md-3 col-sm-6 portfolio-item'> \
+            <a class='portfolio-link' data-toggle='modal'> \
+                <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content viewIcon' onclick=" +viewFunc + ">\
+                        <i class='fa fa-search-plus fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                        <i class='fa fa-plus fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+                            <i class='fa fa-pencil fa-3x'></i>\
+                    </div>\
+                </div> \
+                <img src=" + image + " class='main-thumbnail'  alt=''> \
+            </a> \
+            <div class='portfolio-caption'> \
+                <h4>"+name+"</h4> \
+            </div>\
+        </div>"
     }
 
     function addProjectQualsToGroup(projectID){
@@ -231,16 +233,12 @@
 
             var htmlStr = "<h1 id='heading'>Projects</h1>";
             for(i = 0; i< quals.length; i++){
-                htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'> \
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt='' onclick='viewQual("+quals[i].qualId+")'> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+quals[i].projectName+"</h4> \
-                    </div></div>"
+                htmlStr += addPortfolioItem(
+                        '\"\"',
+                        '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        quals[i].projectName
+                );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
             $("#projects").html(htmlStr);
@@ -257,16 +255,12 @@
 
             var htmlStr = "<h1 id='heading'>Projects</h1>";
             for(i = 0; i< quals.length; i++){
-                htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt='' onclick='viewQual("+quals[i].qualId+")'> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+quals[i].projectName+"</h4> \
-                    </div></div>"
+                htmlStr += addPortfolioItem(
+                        '\"\"',
+                        '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        quals[i].projectName
+                );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
             $("#clients").html(htmlStr);
@@ -294,16 +288,12 @@
 
             for (i = 0; i < quals.length; i++) {
 //                    alert(clients[i].accountName);
-                htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' alt='' onclick='viewQual("+quals[i].qualId+")'> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+quals[i].projectName+"</h4> \
-                    </div></div>"
+                htmlStr += addPortfolioItem(
+                        '\"viewQual(' + quals[i].qualId + ')\"',
+                        '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        quals[i].projectName
+                );
             }
             $("#quals").html(htmlStr)
 
@@ -320,20 +310,13 @@
             var htmlStr = "";
             for (i = 0; i < clients.length; i++) {
 //                    alert(clients[i].accountName);
-                htmlStr += '<div class="col-md-3 col-sm-6 portfolio-item">'+
-
-                '<div class="portfolio-hover">' +
-                '<div class="portfolio-hover-content">' +
-                '</div>' +
-                '</div>' +
-                '<a href="#portfolioModal1" class="portfolio-link" onclick="getProjectforClient('+clients[i].accountId+')">' +
-                '<img src="img/portfolio/roundicons.png" class="main-thumbnail img-responsive" alt="">' +
-                '</a>' +
-                '<div class="portfolio-caption">' +
-                '<h4>'+clients[i].accountName+'</h4>' +
-                '</div>' +
-                '</div>';
-
+                htmlStr += addPortfolioItem(
+                        '\"getProjectforClient('+clients[i].accountId+')\"',
+                        '\"\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        clients[i].accountName,
+                        true
+                );
             }
 
             $("#clients").html(htmlStr)
@@ -345,16 +328,12 @@
             var projects = this;
             var htmlStr = "";
             for(i = 0; i< projects.length; i++){
-                htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addProjectQualsToGroup(\""+projects[i].id+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' onclick='openQualsForClientProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+projects[i].projectGroupName+"</h4> \
-                    </div></div>"
+                htmlStr += addPortfolioItem(
+                        '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
+                        '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        projects[i].projectGroupName
+                );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
             htmlClientProject = htmlStr;
