@@ -108,9 +108,43 @@
 </div><!-- /.modal -->
 <div class="navbar navbar-inverse navbar-fixed-top">
 
+    <div class="container-fluid">
+        <!--<div class="navbar-header">-->
+        <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
+        <!--</div>-->
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#" class="fa fa-plus fa-lg white"></a></li>
+                <li style="width: 15.5em"></li>
+                <!--<li><a href="#">sdgff</a></li>-->
+                <!--<li><a href="#">asdfg</a></li>-->
+                <!--<li><a href="#">sdfaf</a></li>-->
 
-    <div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
-        <div class="input-group col-md-6 col-sm-8 col-xs-8">
+            </ul>
+        </div>
+
+        <div class="collapse temp">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#" class="fa fa-plus fa-lg white"></a></li>
+                <li style="width: 19.5em"></li>
+                <!--<li><a href="#">agdsg</a></li>-->
+                <!--<li><a href="#">sddgs</a></li>-->
+                <!--<li><a href="#">saf</a></li>-->
+            </ul>
+        </div>
+
+
+        <div class="navbar-header pull-right" >
+
+            <a id="nav-expander" class="nav-expander fixed" data-toggle="collapse" data-target=".temp">
+                Qual Collection &nbsp;<i class="fa fa-bars fa-lg white"></i>
+            </a>
+
+        </div>
+        <!--</div>-->
+
+        <!--<div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">-->
+        <div class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
             <input type="text" class="form-control input-sm" placeholder="Search.." />
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-sm" type="button">
@@ -119,13 +153,13 @@
                     </span>
         </div>
     </div>
-    <div class="navbar-header pull-right" >
+    <!--<div class="navbar-header pull-right" >-->
 
-        <a id="nav-expander" class="nav-expander fixed">
-            PROJECT CART &nbsp;<i class="fa fa-bars fa-lg white"></i>
-        </a>
+    <!--<a id="nav-expander" class="nav-expander fixed">-->
+    <!--PROJECT CART &nbsp;<i class="fa fa-bars fa-lg white"></i>-->
+    <!--</a>-->
 
-    </div>
+    <!--</div>-->
 
 </div>
 
@@ -394,8 +428,6 @@
             loadTab(target);
         });
         getProjects();
-
-
 
         $('#createProjBtn').click(function(e){
             e.preventDefault();
