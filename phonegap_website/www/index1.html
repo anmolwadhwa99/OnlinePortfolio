@@ -156,7 +156,7 @@
 
         <div class="collapse temp">
             <ul id="hiddenNew" class="nav navbar-nav navbar-right">
-                <li id="hiddenSpace" style="width: 19.5em"></li>
+                <li id="hiddenSpace" style="width: 12em"></li>
             </ul>
         </div>
 
@@ -495,13 +495,15 @@
         var vnSpace =  $('#space');
         var hnSpace = $('#hiddenSpace');
 
-        str = '<li class="dropdown active">\
-        <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
-        <ul class="dropdown-menu">\
-        <li><a href="qual_add.html">New Qual</a></li>\
-        <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>\
-        <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
-        </ul>\
+        str = '\
+        <li><a href="index.html">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>\
+        <li class="dropdown active">\
+            <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
+            <ul class="dropdown-menu">\
+                <li><a href="qual_add.html">New Qual</a></li>\
+                <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>\
+                <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
+            </ul>\
         </li>';
 
 
