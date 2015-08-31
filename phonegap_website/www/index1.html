@@ -112,28 +112,6 @@
         <!--<div class="navbar-header">-->
         <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
         <!--</div>-->
-        <div>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#" class="fa fa-plus fa-lg white"></a></li>
-                <li style="width: 15.5em"></li>
-                <!--<li><a href="#">sdgff</a></li>-->
-                <!--<li><a href="#">asdfg</a></li>-->
-                <!--<li><a href="#">sdfaf</a></li>-->
-
-            </ul>
-        </div>
-
-        <div class="collapse temp">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#" class="fa fa-plus fa-lg white"></a></li>
-                <li style="width: 19.5em"></li>
-                <!--<li><a href="#">agdsg</a></li>-->
-                <!--<li><a href="#">sddgs</a></li>-->
-                <!--<li><a href="#">saf</a></li>-->
-            </ul>
-        </div>
-
-
         <div class="navbar-header pull-right" >
 
             <a id="nav-expander" class="nav-expander fixed" data-toggle="collapse" data-target=".temp">
@@ -141,9 +119,20 @@
             </a>
 
         </div>
-        <!--</div>-->
 
-        <!--<div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">-->
+
+        <div>
+            <ul id="visibleNew" class="nav navbar-nav navbar-right">
+                <li id="space" style="width: 15.5em"></li>
+            </ul>
+        </div>
+
+        <div class="collapse temp">
+            <ul id="hiddenNew" class="nav navbar-nav navbar-right">
+                <li id="hiddenSpace" style="width: 19.5em"></li>
+            </ul>
+        </div>
+
         <div class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
             <input type="text" class="form-control input-sm" placeholder="Search.." />
                     <span class="input-group-btn">
@@ -152,6 +141,12 @@
                         </button>
                     </span>
         </div>
+
+
+        <!--</div>-->
+
+        <!--<div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">-->
+
     </div>
     <!--<div class="navbar-header pull-right" >-->
 
@@ -439,6 +434,24 @@
             createProjectGroup(projName);
 
         });
+
+        var vnSpace =  $('#space');
+        var hnSpace = $('#hiddenSpace');
+
+        str = '<li class="dropdown active">\
+        <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
+        <ul class="dropdown-menu">\
+        <li><a href="#">New Qual</a></li>\
+        <li><a href="#">New Project</a></li>\
+        <li><a href="#">New Client</a></li>\
+        </ul>\
+        </li>';
+
+
+        vnSpace.before(str);
+        hnSpace.before(str);
+
+
 
         $(window).on('shown.bs.modal', function() {
 
