@@ -106,6 +106,33 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="createClientModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create Client</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="createClientForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="modalClientName">Client Name</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="clientName" value=""/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <div class="navbar navbar-inverse navbar-fixed-top">
 
     <div class="container-fluid">
@@ -161,11 +188,13 @@
 <script>
 
     var htmlClientProject = "";
-    var qualsToAdd = new Array();
+    var qualsToAdd = [];
+    var projGroupID;
+    var clientID;
 
     function createProjectGroup(projectName) {
 
-        var projGroupID;
+
 
         insertProjectGroup(projectName, function () {
             projGroupID = this; //gets the new project ID
@@ -193,7 +222,7 @@
             }
         });
 
-    };
+    }
 
     function getProjects(){
         getAllProjectGroups(function(){
@@ -213,6 +242,14 @@
             }
             $("#projects").html(htmlStr);
 
+        });
+    }
+
+    function createClient(clientName){
+//        isAdmin, acName, pw, isSuperUser, callback
+        insertAccount(false, clientName, 'qwerty', false, function(){
+            clientID = this;
+            loadTab('#clients');
         });
     }
 
@@ -253,7 +290,6 @@
 
         });
     }
-
 
     function openQualsForProject(projectID, projectName) {
         getQualsByProject(projectID, function(){
@@ -435,6 +471,19 @@
 
         });
 
+        $('#createClientBtn').click(function(e){
+            e.preventDefault();
+            var clientName = $("#clientName").val();
+            $("#clientName").val("");
+
+            $('#createClientModal').modal('hide');
+
+            createClient(clientName);
+
+        });
+
+
+
         var vnSpace =  $('#space');
         var hnSpace = $('#hiddenSpace');
 
@@ -443,7 +492,7 @@
         <ul class="dropdown-menu">\
         <li><a href="qual_add.html">New Qual</a></li>\
         <li><a href="#">New Project</a></li>\
-        <li><a href="#">New Client</a></li>\
+        <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
         </ul>\
         </li>';
 
