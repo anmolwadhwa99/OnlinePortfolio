@@ -189,39 +189,44 @@
 
     var htmlClientProject = "";
     var qualsToAdd = [];
-    var projGroupID;
-    var clientID;
+    var projGroupID = -1;
+    var projName = "";
+
 
     function createProjectGroup(projectName) {
 
+        if (projGroupID == -1){
 
+            insertProjectGroup(projectName, function () {
+                projGroupID = this; //gets the new project ID
 
-        insertProjectGroup(projectName, function () {
-            projGroupID = this; //gets the new project ID
-
-            for (i = 0; i < qualsToAdd.length; i++) {
-                var tempId = qualsToAdd[i];
-                assignQualToProjectGroup(projGroupID, tempId);
-            }
-            qualsToAdd.splice(0, qualsToAdd.length);
-            var clientID;
-            if ($('#existingClientSelect').is(':checked') == true) {
-                clientID = $("#clientDropdown").val();
-                assignAccountToProjectGroup(projGroupID, clientID, function() {})
-            } else if ($('#newClientSelect').is(':checked') == true) {
-                var accountName = $("#modalClientName").val();
-                insertAccount(false, accountName, "password", false, function () {
-                    assignAccountToProjectGroup(projGroupID, this, function() {})
-                });
-            } else {
-                for (i = 0; i < qualsToAdd.length; i++) {
-                    var tempId = qualsToAdd[i];
-                    assignQualToProjectGroup(projGroupID, tempId);
+                linkQualsAndProject();
+                var clientID;
+                if ($('#existingClientSelect').is(':checked') == true) {
+                    clientID = $("#clientDropdown").val();
+                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
+                } else if ($('#newClientSelect').is(':checked') == true) {
+                    var accountName = $("#modalClientName").val();
+                    insertAccount(false, accountName, "password", false, function () {
+                        assignAccountToProjectGroup(projGroupID, this, function() {})
+                    });
+                } else {
+                    linkQualsAndProject();
                 }
-                return;
-            }
-        });
+            });
+        }else{
+            alert("proj id = "+projGroupID);
+            linkQualsAndProject();
+        }
 
+    }
+
+    function linkQualsAndProject(){
+        for (i = 0; i < qualsToAdd.length; i++) {
+            var tempId = qualsToAdd[i];
+            assignQualToProjectGroup(projGroupID, tempId);
+        }
+        qualsToAdd.splice(0, qualsToAdd.length);
     }
 
     function getProjects(){
@@ -246,9 +251,7 @@
     }
 
     function createClient(clientName){
-//        isAdmin, acName, pw, isSuperUser, callback
         insertAccount(false, clientName, 'qwerty', false, function(){
-            clientID = this;
             loadTab('#clients');
         });
     }
@@ -462,6 +465,7 @@
 
         $('#createProjBtn').click(function(e){
             e.preventDefault();
+
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
 
@@ -491,7 +495,7 @@
         <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
         <ul class="dropdown-menu">\
         <li><a href="qual_add.html">New Qual</a></li>\
-        <li><a href="#">New Project</a></li>\
+        <li><a href="#" data-toggle="modal" data-target="#createProjModal">New Project</a></li>\
         <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
         </ul>\
         </li>';
