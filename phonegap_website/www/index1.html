@@ -455,6 +455,10 @@
         }
     }
 
+    function resetProjID(){
+        projGroupID = -1;
+    }
+
     $(document).ready(function(){
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -495,7 +499,7 @@
         <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
         <ul class="dropdown-menu">\
         <li><a href="qual_add.html">New Qual</a></li>\
-        <li><a href="#" data-toggle="modal" data-target="#createProjModal">New Project</a></li>\
+        <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>\
         <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
         </ul>\
         </li>';
