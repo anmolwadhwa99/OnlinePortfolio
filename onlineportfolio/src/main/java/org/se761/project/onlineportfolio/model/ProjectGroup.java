@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,15 @@ public class ProjectGroup {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int projGroupId; 
 	private String projGroupName;
+	@Column(columnDefinition="TEXT")
+	private String primaryColour;
+	@Column(columnDefinition="TEXT")
+	private String secondaryColour;
+	@Column(columnDefinition="TEXT")
+	private String accentColour;
 	
+
+
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "projGroups", cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Qualification> quals = new ArrayList<Qualification>();
@@ -71,5 +80,31 @@ public class ProjectGroup {
 	public void setAccounts(List<Account> accountsProj) {
 		this.accountsProj = accountsProj;
 	}
+	
+	public String getPrimaryColour() {
+		return primaryColour;
+	}
+
+	public void setPrimaryColour(String primaryColour) {
+		this.primaryColour = primaryColour;
+	}
+
+	public String getSecondaryColour() {
+		return secondaryColour;
+	}
+
+	public void setSecondaryColour(String secondaryColour) {
+		this.secondaryColour = secondaryColour;
+	}
+
+	public String getAccentColour() {
+		return accentColour;
+	}
+
+	public void setAccentColour(String accentColour) {
+		this.accentColour = accentColour;
+	}
+
+
 	
 }
