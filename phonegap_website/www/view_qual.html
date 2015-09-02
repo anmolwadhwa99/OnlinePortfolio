@@ -87,12 +87,12 @@
                 // Retrieves the qual project name using javascript
                 document.getElementById("qual_project_name").value = qual.projectName;
                 document.getElementById("qual_client_name").value = qual.clientName;
-                document.getElementById("qual_project_sub").value = (qual.subtitle)? qual.subtitle:document.getElementById("qual_project_sub").style.display = 'none';
-                document.getElementById("qual_problems").value = (qual.problemStatement)? qual.problemStatement:document.getElementById("qual_problems").style.display='none';
-                document.getElementById("qual_challenges").value = (qual.challengesFaced)? qual.challengesFaced:document.getElementById("qual_challenges").style.display='none';
-                document.getElementById("qual_solution").value = (qual.solutionStatement)? qual.solutionStatement : document.getElementById("qual_solution").style.display = 'none';
-                document.getElementById("qual_relevance").value = (qual.relevanceToClient)? qual.relevanceToClient:document.getElementById("qual_relevance").style.display='none';
-                document.getElementById("qual_outcome").value = (qual.outcomeStatement)? qual.outcomeStatement:document.getElementById("qual_outcome").style.display='none';
+                document.getElementById("qual_project_sub").value = (qual.subtitle)? qual.subtitle:document.getElementById("span_qual_project_sub").style.display = 'none';
+                document.getElementById("qual_problems").value = (qual.problemStatement)? qual.problemStatement:document.getElementById("span_qual_problems").style.display='none';
+                document.getElementById("qual_challenges").value = (qual.challengesFaced)? qual.challengesFaced:document.getElementById("span_qual_challenges").style.display='none';
+                document.getElementById("qual_solution").value = (qual.solutionStatement)? qual.solutionStatement : document.getElementById("span_qual_solution").style.display = 'none';
+                document.getElementById("qual_relevance").value = (qual.relevanceToClient)? qual.relevanceToClient:document.getElementById("span_qual_relevance").style.display='none';
+                document.getElementById("qual_outcome").value = (qual.outcomeStatement)? qual.outcomeStatement:document.getElementById("span_qual_outcome").style.display='none';
                 document.getElementById("qual_colour_primary").value = "#00FF00";
                 document.getElementById("qual_colour_secondary").value = "#FF0000";
                 document.getElementById("qual_colour_accent").value = "#FFFF00";
@@ -102,10 +102,9 @@
 
                 document.getElementById("qual_email").value = (qual.emailButton)? qual.emailButton : document.getElementById("qual_email").style.display = 'none';
                 document.getElementById("qual_website").value = (qual.websiteButton)? qual.websiteButton : document.getElementById("qual_website").style.display = 'none';
-
-                document.getElementById("qual_industry").value = (qual.industry)? qual.industry: document.getElementById("qual_industry").style.display='none';
-                document.getElementById("qual_tags").value = (qual.tags)? qual.tags:document.getElementById("qual_tags").style.display='none';//qual.tags;
-                document.getElementById("qual_service_line").value = (qual.serviceLine)? qual.serviceLine: document.getElementById("qual_service_line").style.display='none';
+                document.getElementById("qual_industry").value = (qual.industry)? qual.industry: document.getElementById("span_qual_industry").style.display='none';
+                document.getElementById("qual_tags").value = (qual.tags)? qual.tags:document.getElementById("span_qual_tags").style.display='none';//qual.tags;
+                document.getElementById("qual_service_line").value = (qual.serviceLine)? qual.serviceLine: document.getElementById("span_qual_service_line").style.display='none';
             });
         });
 
@@ -148,8 +147,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group" >
-                        <label for="qual_project_sub" >Project Subtitle: </label>
-                        <input id="qual_project_sub" class="form-control" type="text" placeholder="Subtitle" readonly>
+                        <span id="span_qual_project_sub">
+                            <label for="qual_project_sub" >Project Subtitle: </label>
+                            <input id="qual_project_sub" class="form-control" type="text" placeholder="Subtitle" readonly>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -184,40 +185,55 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" >
+                <span id="span_qual_problems">
                 <label for="qual_problems">Problem Statement: </label>
                 <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement" required readonly ></textarea>
+                </span>
             </div>
             <div class="form-group" aria-readonly="true" >
+                <span id="span_qual_challenges">
                 <label for="qual_challenges">Challenges Faced: </label>
                 <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges" readonly></textarea>
+                </span>
             </div>
             <div class="form-group" >
+                <span id="span_qual_solution">
                 <label for="qual_solution">Solution: </label>
                 <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution" readonly></textarea>
+                </span>
             </div>
             <div class="form-group" >
+                <span id="span_qual_outcome">
                 <label for="qual_outcome">Outcome: </label>
                 <textarea id="qual_outcome" rows="3" class="form-control" placeholder="Outcome" readonly></textarea>
+                </span>
             </div>
             <div class="form-group" >
-                <label for="qual_relevance">Relevance to Client: </label>
-                <textarea id="qual_relevance" rows="3" class="form-control" placeholder="Relevance to Client" readonly></textarea>
+                    <span id="span_qual_relevance">
+                    <label for="qual_relevance">Relevance to Client: </label>
+                    <textarea id="qual_relevance" rows="3" class="form-control" placeholder="Relevance to Client" readonly></textarea>
+                    </span>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6" >
+            <span id="span_qual_tags">
                 <label for="qual_tags">Tags: </label>
                 <textarea id="qual_tags" rows="1" class="form-control" placeholder="Tag1, Tag2, Tag3...." readonly></textarea>
+            </span>
         </div>
         <div class="col-md-6" >
+            <span id="span_qual_service_line">
             <label for="qual_service_line">Service Line: </label>
             <textarea id="qual_service_line" rows="1" class="form-control" placeholder="Service Line" readonly></textarea>
+        </span>
         </div>
     </div> <br><br>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
+
                 <button id="qual_email" type="button" class="btn btn-block btn-success">Email</button>
                 <!--<input id="qual_email" type="email" class="form-control" placeholder="Email" >-->
             </div>
