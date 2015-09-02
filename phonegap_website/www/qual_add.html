@@ -26,10 +26,15 @@
 
     <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
-    <script src="js/webServices.js" ></script>
+    <script src="js/webServices.js"></script>
 
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
+
+    <script src="js/jquery.ui.widget.js" type="text/javascript"></script>
+    <script src="js/jquery.iframe-transport.js" type="text/javascript"></script>
+    <script src="js/jquery.fileupload.js" type="text/javascript"></script>
+    <script src="js/jquery.cloudinary.js" type="text/javascript"></script>
 
     <script>
         function addQual() {
@@ -65,31 +70,39 @@
             insertQual('true', isAnonymous, challenges, clientName, industry
                     , tags, outcome, problem, projName, relevance, serviceLine, solution
                     , 'solutionStatement', access, projSubTitle, primaryColour, secondaryColour, accentColour
-                    , emailAction, websiteAction, function(){
+                    , emailAction, websiteAction, function () {
                         location.replace("index1.html");
                     }
             );
         }
     </script>
     <style>
-        .image-upload{
+        .image-upload {
             height: 10em;
             position: relative;
         }
-        .image-upload img{
+
+        .image-upload img {
             margin: 0;
             position: absolute;
             top: 100%;
         }
+
         @media all
-            and (max-width: 991px)
-        {
-            .image-upload img{
-                top:0%;
+        and (max-width: 991px) {
+            .image-upload img {
+                top: 0%;
+            }
+            .prod_serv_progress {
+                margin-top: 5px !important;
             }
         }
-        .image-upload > input
-        {
+
+        .prod_serv_progress {
+            margin-top: -25px;
+        }
+
+        .image-upload > input {
             display: none;
         }
 
@@ -98,7 +111,7 @@
             cursor: hand;
         }
 
-        .fill{
+        .fill {
             zoom: 2;
 
             display: block;
@@ -110,24 +123,32 @@
             width: auto;
             max-width: 100%;
         }
-        .back_button > input{
+
+        .back_button > input {
             display: none;
         }
-        .back_button_img{
+
+        .back_button_img {
             max-width: 20px;
             zoom: 2;
         }
+
+        .progress-value {
+            position:absolute;
+            right:0;
+            left:0;
+        }
     </style>
     <script type="application/javascript">
-        function requireAnonName(){
+        function requireAnonName() {
             document.getElementById('qual_anonymous_name').required = true;
         }
-        function optionalAnonName(){
+        function optionalAnonName() {
             document.getElementById('qual_anonymous_name').required = false;
         }
     </script>
     <script type="application/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
             primaryCW.input($("#qual_colour_primary")[0]);
 
@@ -145,20 +166,31 @@
     <div style="padding-top: 10px;padding-left: 10px;">
         <div class="back_button pull-left">
             <label for="qual_back">
-                <img src="imgs/back.png" class="hand_interact back_button_img" alt="Back to Main" />
+                <img src="imgs/back.png" class="hand_interact back_button_img" alt="Back to Main"/>
             </label>
-            <input id="qual_back" class="hand_interact" type="button" onclick="location.replace('index1.html');" >
+            <input id="qual_back" class="hand_interact" type="button" onclick="location.replace('index1.html');">
         </div>
     </div>
 </div>
 <form id="qual_add_form" action="javascript:addQual();" class="container-fluid" style="padding-top: 50px;">
     <div class="row">
         <div class="col-md-6">
-            <div class="image-upload">
-                <label for="qual_product_service_img">
-                    <img class="img-rounded hand_interact fill" src="imgs/download.png" />
-                </label>
-                <input id="qual_product_service_img" class="hand_interact" type="file" accept="image/*" >
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row prod_serv_image-upload image-upload">
+                        <label for="qual_product_service_img"> <!-- element with this id only exists after document loads -->
+                            <img id="prod_serv_img" class="img-rounded hand_interact fill" src="imgs/download.png"/>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="progress prod_serv_progress">
+                            <div class="progress-bar progress-bar-success active progress-bar-striped prod_serv_progress-bar" role="progressbar"
+                                 aria-valuemin="0" aria-valuemax="100" >
+                                <span id="prod_serv_progress-value" class="progress-value" style="color: #000;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -166,18 +198,20 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_project_name">Project Name: </label>
-                        <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name" required autofocus>
+                        <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name"
+                               required autofocus>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_client_name">Client Name: </label>
-                        <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name" required >
+                        <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name"
+                               required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="qual_project_sub" >Project Subtitle: </label>
+                        <label for="qual_project_sub">Project Subtitle: </label>
                         <input id="qual_project_sub" type="text" class="form-control" placeholder="Subtitle">
                     </div>
                 </div>
@@ -185,19 +219,21 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="qual_is_not_anonymous">Qual Anonymity: </label>
+
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-info active" onclick="optionalAnonName();">
-                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false" checked="checked" />Named
+                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false"
+                                   checked="checked"/>Named
                         </label>
                         <label class="btn btn-warning" onclick="requireAnonName();">
-                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true" />Anonymous
+                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true"/>Anonymous
                         </label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_anonymous_name">Anonymous Name: </label>
-                        <input id="qual_anonymous_name" type="text" class="form-control" placeholder="Anonymous Name" >
+                        <input id="qual_anonymous_name" type="text" class="form-control" placeholder="Anonymous Name">
                     </div>
                 </div>
             </div>
@@ -205,13 +241,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_email">Email Action: </label>
-                        <input id="qual_email" type="email" class="form-control" placeholder="Email" >
+                        <input id="qual_email" type="email" class="form-control" placeholder="Email">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_website">Website Action: </label>
-                        <input id="qual_website" type="url" class="form-control" placeholder="Website" >
+                        <input id="qual_website" type="url" class="form-control" placeholder="Website">
                     </div>
                 </div>
             </div>
@@ -219,30 +255,36 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry" >
+                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_client_logo">Client Logo: </label>
-                        <input id="qual_client_logo" type="file" class="form-control" accept="image/*" >
+                        <input id="qual_client_logo" type="file" class="form-control" accept="image/*">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div id="primary_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_primary">Primary Colour: </label>
-                    <input id="qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;" class="form-control" value="#091D5D" placeholder="#091D5D" >
+                    <input id="qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
+                           class="form-control" value="#091D5D" placeholder="#091D5D">
+
                     <div class="colorwheel"></div>
                 </div>
                 <div id="secondary_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_secondary">Secondary Colour: </label>
-                    <input id="qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;" class="form-control" value="#DDD2B5" placeholder="#DDD2B5" >
+                    <input id="qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
+                           class="form-control" value="#DDD2B5" placeholder="#DDD2B5">
+
                     <div class="colorwheel"></div>
                 </div>
                 <div id="accent_color_wheel" class="col-md-4 col-xs-8">
                     <label for="qual_colour_accent">Accent Colour: </label>
-                    <input id="qual_colour_accent" type="text" maxlength="7" style="max-width: 100px;" class="form-control" value="#9CD100" placeholder="#9CD100" >
+                    <input id="qual_colour_accent" type="text" maxlength="7" style="max-width: 100px;"
+                           class="form-control" value="#9CD100" placeholder="#9CD100">
+
                     <div class="colorwheel"></div>
                 </div>
             </div>
@@ -251,12 +293,14 @@
                     <br/>
                     <label for="qual_private">Qual Accesscibility: </label>
                     <br/>
+
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-info active">
-                            <input type="radio" id="qual_private" name="qual_public_access" value="false" checked="checked" />Private
+                            <input type="radio" id="qual_private" name="qual_public_access" value="false"
+                                   checked="checked"/>Private
                         </label>
                         <label class="btn btn-warning">
-                            <input type="radio" id="qual_public" name="qual_public_access" value="true" />Public
+                            <input type="radio" id="qual_public" name="qual_public_access" value="true"/>Public
                         </label>
                     </div>
                 </div>
@@ -264,53 +308,93 @@
         </div>
     </div>
     <br/>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="qual_problems">Problem Statement: </label>
-                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement" required ></textarea>
+                <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement"
+                          required></textarea>
             </div>
-                <div class="form-group">
+            <div class="form-group">
                 <label for="qual_challenges">Challenges Faced: </label>
-                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges" ></textarea>
+                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges"></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_solution">Solution: </label>
-                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution" ></textarea>
+                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution"></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_outcome">Outcome: </label>
-                <textarea id="qual_outcome" rows="3" class="form-control" placeholder="Outcome" ></textarea>
+                <textarea id="qual_outcome" rows="3" class="form-control" placeholder="Outcome"></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_relevance">Relevance to Client: </label>
-                <textarea id="qual_relevance" rows="3" class="form-control" placeholder="Relevance to Client" ></textarea>
+                <textarea id="qual_relevance" rows="3" class="form-control"
+                          placeholder="Relevance to Client"></textarea>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-                <label for="qual_tags">Tags: </label>
-                <textarea id="qual_tags" rows="1" class="form-control" placeholder="Tag1, Tag2, Tag3...." required ></textarea>
+            <label for="qual_tags">Tags: </label>
+            <textarea id="qual_tags" rows="1" class="form-control" placeholder="Tag1, Tag2, Tag3...."
+                      required></textarea>
         </div>
         <div class="col-md-6">
             <label for="qual_service_line">Service Line: </label>
-            <textarea id="qual_service_line" rows="1" class="form-control" placeholder="Service Line" required ></textarea>
+            <textarea id="qual_service_line" rows="1" class="form-control" placeholder="Service Line"
+                      required></textarea>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <br/>
-            <button type="submit" class="btn btn-block btn-success" ><span class="glyphicon glyphicon-floppy-disk"></span> Submit</button>
+            <button type="submit" class="btn btn-block btn-success"><span
+                    class="glyphicon glyphicon-floppy-disk"></span> Submit
+            </button>
         </div>
         <div class="col-md-6">
             <br/>
-            <button type="reset" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-repeat"></span> Reset</button>
+            <button type="reset" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-repeat"></span> Reset
+            </button>
         </div>
     </div>
 </form>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
+<script type="text/javascript">
+    // Setting configs
+    $.cloudinary.config({cloud_name: 'onlineportfolio', api_key: '699754899746833'});
+    $('.prod_serv_progress').hide();
+    // Adding input to correct location
+    $('.prod_serv_image-upload').append($.cloudinary.unsigned_upload_tag(
+                    "ug21hs7g",
+                    {cloud_name: 'onlineportfolio'},
+                    {multiple: false},
+                    // With specified id
+                    "qual_product_service_img")
+            // Binding events
+    ).bind('cloudinarystart', function (e, data) {
+                $('.prod_serv_progress').show();
+            }
+    ).bind('cloudinarydone', function (e, data) {
+                console.log(data.result.secure_url);
+                $('.prod_serv_progress-bar').removeClass('active');
+                $('#prod_serv_progress-value').text("Upload Complete");
+                $('#prod_serv_img').attr('src', data.result.url);
+            }
+    ).bind('cloudinaryprogress', function (e, data) {
+                $('.prod_serv_progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
+                $('#prod_serv_progress-value').text(Math.round((data.loaded * 100.0) / data.total) + '%');
+            }
+    ).bind('cloudinaryfail', function (e, data) {
+                $('#prod_serv_progress-value').text("Upload Failed");
+                console.log(e);
+                console.log(data);
+            }
+    );
+</script>
 </body>
 </html>
