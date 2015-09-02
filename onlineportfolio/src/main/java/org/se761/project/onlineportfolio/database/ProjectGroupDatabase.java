@@ -67,7 +67,8 @@ public class ProjectGroupDatabase {
 			throw new DatabaseRetrievalException("Project group with id " + projGroupId + " could not be found.");
 		}
 		
-		session.delete(projGroup);
+		projGroup.setActive(false);
+		session.saveOrUpdate(projGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

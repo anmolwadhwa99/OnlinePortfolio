@@ -29,11 +29,11 @@ public class Qualification {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int qualId;
-	private String projectName;
-	private String clientName;
+	private String projectName; //mandatory
+	private String clientName; //mandatory
 	
 	@Column(columnDefinition="TEXT")
-	private String problemStatement;
+	private String problemStatement; //mandatory
 	
 	@Column(columnDefinition="TEXT")
 	private String challengesFaced;
@@ -50,23 +50,27 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String subtitle;
 	
-	private boolean isAnonymous;
+	private boolean isAnonymous; //if true need to ensure that client name isnt mentioned anywhere else
 	
-	private boolean isActive;
+	private String anonymousName; //mandatory if isAnonymous = true
 	
-	@Column(columnDefinition="TEXT")
-	private String primaryColour;
-	@Column(columnDefinition="TEXT")
-	private String secondaryColour;
-	@Column(columnDefinition="TEXT")
-	private String accentColour;
+	private boolean isActive = true; //default is true
+	
 	
 	private String emailButton;
 	private String websiteButton;
+	private String industry; //e.g. Financial Services, Education, etc.
 	
+	@Column(columnDefinition="TEXT")
+	private String tags;
 	
+	private String status; //either "open" or "confidential"
+	private String serviceLine; //e.g. auditing, consulting, etc
+	private String metaDataColourScheme;
 
-	
+	//TODO
+	//client logo
+	//product services image	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Own", joinColumns = { 
@@ -82,38 +86,21 @@ public class Qualification {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ProjectGroup> projGroups = new ArrayList<ProjectGroup>();
 	
-	private String industry; //e.g. Financial Services, Education, etc.
 	
-	@Column(columnDefinition="TEXT")
-	private String tags;
-	
-	private String status; //either "open" or "confidential"
-	private String serviceLine; //e.g. auditing, consulting, etc
-	private String metaDataColourScheme;
-	
-	
-	//TODO
-	//Client Logo
-	//Product service image
-
-	
-
-
-
-
 	public Qualification(){
 		
 	}
 	
+
+
 	public Qualification(int qualId, String projectName, String clientName,
 			String problemStatement, String challengesFaced,
 			String solutionStatement, String relevanceToClient,
 			String outcomeStatement, String subtitle, boolean isAnonymous,
-			boolean isActive, String primaryColour, String secondaryColour,
-			String accentColour, String emailButton, String clientLogo, 
-			List<AdminGroup> adminGroups,
-			String industry, String tags, String status,
-			String serviceLine, String metaDataColourScheme) {
+			String anonymousName, boolean isActive, String emailButton,
+			String websiteButton, List<AdminGroup> adminGroups,
+			List<ProjectGroup> projGroups, String industry, String tags,
+			String status, String serviceLine, String metaDataColourScheme) {
 		super();
 		this.qualId = qualId;
 		this.projectName = projectName;
@@ -125,19 +112,19 @@ public class Qualification {
 		this.outcomeStatement = outcomeStatement;
 		this.subtitle = subtitle;
 		this.isAnonymous = isAnonymous;
+		this.anonymousName = anonymousName;
 		this.isActive = isActive;
-		this.primaryColour = primaryColour;
-		this.secondaryColour = secondaryColour;
-		this.accentColour = accentColour;
 		this.emailButton = emailButton;
-		this.websiteButton = clientLogo;
+		this.websiteButton = websiteButton;
 		this.adminGroups = adminGroups;
+		this.projGroups = projGroups;
 		this.industry = industry;
 		this.tags = tags;
 		this.status = status;
 		this.serviceLine = serviceLine;
 		this.metaDataColourScheme = metaDataColourScheme;
 	}
+
 
 
 	@XmlTransient
@@ -318,37 +305,6 @@ public class Qualification {
 		this.isActive = isActive;
 	}
 
-
-	public String getPrimaryColour() {
-		return primaryColour;
-	}
-
-
-	public void setPrimaryColour(String primaryColour) {
-		this.primaryColour = primaryColour;
-	}
-
-
-	public String getSecondaryColour() {
-		return secondaryColour;
-	}
-
-
-	public void setSecondaryColour(String secondaryColour) {
-		this.secondaryColour = secondaryColour;
-	}
-
-
-	public String getAccentColour() {
-		return accentColour;
-	}
-
-
-	public void setAccentColour(String accentColour) {
-		this.accentColour = accentColour;
-	}
-
-
 	public String getEmailButton() {
 		return emailButton;
 	}
@@ -406,6 +362,14 @@ public class Qualification {
 
 	public void setServiceLine(String serviceLine) {
 		this.serviceLine = serviceLine;
+	}
+	
+	public String getAnonymousName() {
+		return anonymousName;
+	}
+
+	public void setAnonymousName(String anonymousName) {
+		this.anonymousName = anonymousName;
 	}
 
 

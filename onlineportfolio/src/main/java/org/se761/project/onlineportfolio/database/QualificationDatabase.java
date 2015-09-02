@@ -112,7 +112,8 @@ public class QualificationDatabase {
 			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found.");
 		}
 		
-		session.delete(qual);
+		qual.setActive(false);
+		session.saveOrUpdate(qual);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

@@ -40,7 +40,6 @@
 
 
 </head>
-</head>
 
 <body id="page-top" class="index">
 
@@ -100,401 +99,547 @@
                     </div>
                 </form>
             </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="createProjBtn">Create</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createProjBtn">Create</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="createClientModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create Client</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="createClientForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="modalClientName">Client Name</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="clientName" value=""/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="container-fluid">
+        <!--<div class="navbar-header">-->
+        <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
+        <!--</div>-->
+        <div class="navbar-header pull-right" >
+
+            <a id="nav-expander" class="nav-expander fixed" data-toggle="collapse" data-target=".temp">
+                Qual Collection &nbsp;<i class="fa fa-bars fa-lg white"></i>
+            </a>
+
+        </div>
 
 
-        <div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
-            <div class="input-group col-md-6 col-sm-8 col-xs-8">
-                <input type="text" class="form-control input-sm" placeholder="Search.." />
+        <div>
+            <ul id="visibleNew" class="nav navbar-nav navbar-right">
+                <li id="space" style="width: 15.5em"></li>
+            </ul>
+        </div>
+
+        <div class="collapse temp">
+            <ul id="hiddenNew" class="nav navbar-nav navbar-right">
+                <li id="hiddenSpace" style="width: 12em"></li>
+            </ul>
+        </div>
+
+        <div class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
+            <input type="text" class="form-control input-sm" placeholder="Search.." />
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-sm" type="button">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
-            </div>
         </div>
-        <div class="navbar-header pull-right">
-            <a id="nav-expander" class="nav-expander fixed">
-                PROJECT CART &nbsp;<i class="fa fa-bars fa-lg white"></i>
-            </a>
-        </div>
+
+
+        <!--</div>-->
+
+        <!--<div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">-->
+
     </div>
+    <!--<div class="navbar-header pull-right" >-->
 
-    <script>
+    <!--<a id="nav-expander" class="nav-expander fixed">-->
+    <!--PROJECT CART &nbsp;<i class="fa fa-bars fa-lg white"></i>-->
+    <!--</a>-->
 
-        var htmlClientProject = "";
-        var qualsToAdd = new Array();
+    <!--</div>-->
 
-        function createProjectGroup(projectName) {
+</div>
 
-            var projGroupID;
+<script>
+
+    var htmlClientProject = "";
+    var qualsToAdd = [];
+    var projGroupID = -1;
+    var projName = "";
+
+
+    function createProjectGroup(projectName) {
+
+        if (projGroupID == -1){
 
             insertProjectGroup(projectName, function () {
                 projGroupID = this; //gets the new project ID
 
-                for (i = 0; i < qualsToAdd.length; i++) {
-                    var tempId = qualsToAdd[i];
-                    assignQualToProjectGroup(projGroupID, tempId);
-                }
-                qualsToAdd.splice(0, qualsToAdd.length);
+                linkQualsAndProject();
                 var clientID;
                 if ($('#existingClientSelect').is(':checked') == true) {
                     clientID = $("#clientDropdown").val();
+                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
                 } else if ($('#newClientSelect').is(':checked') == true) {
                     var accountName = $("#modalClientName").val();
                     insertAccount(false, accountName, "password", false, function () {
-                        clientID = this;
+                        assignAccountToProjectGroup(projGroupID, this, function() {})
                     });
                 } else {
-                    for (i = 0; i < qualsToAdd.length; i++) {
-                        var tempId = qualsToAdd[i];
-                        assignQualToProjectGroup(projGroupID, tempId);
-                    }
-                    return;
+                    linkQualsAndProject();
                 }
             });
-
-            };
-
-        function getProjects(){
-            getAllProjectGroups(function(){
-
-                var projects = this;
-
-                var htmlStr = "<h1 id='heading'>Projects</h1>";
-                for(i = 0; i< projects.length; i++){
-                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addProjectQualsToGroup(\""+projects[i].id+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' onclick='openQualsForProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+projects[i].projectGroupName+"</h4> \
-                    </div></div>"
-                }
-                $("#projects").html(htmlStr);
-
-            });
+        }else{
+            alert("proj id = "+projGroupID);
+            linkQualsAndProject();
         }
 
-        function addProjectQualsToGroup(projectID){
+    }
 
-            getQualsByProject(projectID, function(){
-
-                var quals = this;
-
-                for(i = 0; i< quals.length; i++) {
-
-                    addToCart(quals[i].qualId, quals[i].projectName);
-                }
-
-            });
+    function linkQualsAndProject(){
+        for (i = 0; i < qualsToAdd.length; i++) {
+            var tempId = qualsToAdd[i];
+            assignQualToProjectGroup(projGroupID, tempId);
         }
+        qualsToAdd.splice(0, qualsToAdd.length);
+    }
 
+    function getProjects(){
+        getAllProjectGroups(function(){
 
-        function openQualsForProject(projectID, projectName) {
-            getQualsByProject(projectID, function(){
+            var projects = this;
 
-                var quals = this;
+            var htmlStr = "<h1 id='heading'>Projects</h1>";
 
-                var htmlStr = "<h1 id='heading'>Projects</h1>";
-                for(i = 0; i< quals.length; i++){
-                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a  class=\"portfolio-link\" data-toggle='modal'>\
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'> \
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img href=\"#portfolioModal4\" data-toggle='modal' src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+quals[i].projectName+"</h4> \
-                    </div></div>"
-                }
-                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
-                $("#projects").html(htmlStr);
-                $("#heading").html(projectName);
+            for(i = 0; i< projects.length; i++){
 
-            });
-
-        }
-
-        function openQualsForClientProject(projectID, projectName) {
-            getQualsByProject(projectID, function(){
-
-                var quals = this;
-
-                var htmlStr = "<h1 id='heading'>Projects</h1>";
-                for(i = 0; i< quals.length; i++){
-                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img  href=\"#portfolioModal4\" data-toggle='modal' src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+quals[i].projectName+"</h4> \
-                    </div></div>"
-                }
-                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
-                $("#clients").html(htmlStr);
-                $("#heading").html(projectName);
-
-            });
-
-        }
-
-        function openPrevClientProj(){
-            $("#clients").html(htmlClientProject);
-        }
-
-        function getQuals(){
-            getAllQuals(function(){
-                var quals = this;
-
-                var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
-                htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
-
-                for (i = 0; i < quals.length; i++) {
-//                    alert(clients[i].accountName);
-                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addToCart("+quals[i].qualId+", \""+quals[i].projectName+"\")'></i></div></div> \
-                    <img  href=\"#portfolioModal4\" data-toggle='modal' src='img/portfolio/startup-framework.png' class='main-thumbnail' alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+quals[i].projectName+"</h4> \
-                    </div></div>"
-                }
-                $("#quals").html(htmlStr)
-
-            });
-        }
-
-        function getClients() {
-            getAllClients(function () {
-                //alert('hi')
-                var clients = this;
-                //alert(clients);
-                var list = document.getElementById("client_list");
-
-                var htmlStr = "";
-                for (i = 0; i < clients.length; i++) {
-//                    alert(clients[i].accountName);
-                    htmlStr += '<div class="col-md-3 col-sm-6 portfolio-item">'+
-
-                    '<div class="portfolio-hover">' +
-                    '<div class="portfolio-hover-content">' +
-                    '</div>' +
-                    '</div>' +
-                    '<a href="#portfolioModal1" class="portfolio-link" onclick="getProjectforClient('+clients[i].accountId+')">' +
-                    '<img src="img/portfolio/roundicons.png" class="main-thumbnail img-responsive" alt="">' +
-                    '</a>' +
-                    '<div class="portfolio-caption">' +
-                    '<h4>'+clients[i].accountName+'</h4>' +
-                    '</div>' +
-                    '</div>';
-
-                }
-
-                $("#clients").html(htmlStr)
-            });
-        }
-
-        function getProjectforClient(id){
-            getProjectsByClient(id,function(){
-                var projects = this;
-                var htmlStr = "";
-                for(i = 0; i< projects.length; i++){
-                    htmlStr += "<div class='col-md-3 col-sm-6 portfolio-item'> \
-                    <a class='portfolio-link' data-toggle='modal'> \
-                    <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content'>\
-                    <i class='fa fa-plus fa-3x' style='cursor: pointer;' onclick='addProjectQualsToGroup(\""+projects[i].id+"\")'></i></div></div> \
-                    <img src='img/portfolio/startup-framework.png' class='main-thumbnail' onclick='openQualsForClientProject("+projects[i].id+", \""+projects[i].projectGroupName+"\")' alt=''> \
-                    </a> \
-                    <div class='portfolio-caption'> \
-                    <h4>"+projects[i].projectGroupName+"</h4> \
-                    </div></div>"
-                }
-                htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
-                htmlClientProject = htmlStr;
-                $("#clients").html(htmlStr);
-
-
-            })
-
-        }
-
-        function addToCart(qID, m){
-
-            qualsToAdd.push(qID);
-            var ul = document.getElementById("ProjectCart");
-            var li = document.createElement("li");
-            var a = document.createElement("a");
-            a.setAttribute("href", "#");
-
-            var span = document.createElement("span");
-            span.setAttribute("class","icon");
-
-            a.appendChild(document.createTextNode(m));
-            a.appendChild(span);
-
-            li.appendChild(a);
-            li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
-            li.setAttribute("id", m); // added line
-            ul.appendChild(li);
-
-        }
-
-        function loadTab(tab) {
-
-            if (tab == "#quals") {
-                $('#clients').removeClass('active'); // remove active class from tabs
-                $('#projects').removeClass('active'); // remove active class from tabs
-                $(tab).addClass('active');
-                getQuals()
-            } else if (tab == "#projects") {
-                $('#clients').removeClass('active'); // remove active class from tabs
-                $('#quals').removeClass('active'); // remove active class from tabs
-                $(tab).addClass('active'); // add active class to clicked tab
-                getProjects();
-            } else if (tab == "#clients") {
-                $('#projects').removeClass('active'); // remove active class from tabs
-                $('#quals').removeClass('active'); // remove active class from tabs
-                $(tab).addClass('active'); // add active class to clicked tab
-                getClients();
-            } else {
-                error("invalid tab");
+                htmlStr += addPortfolioItem(
+                        '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
+                        '\"addProjectQualsToGroup('+projects[i].id+')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        projects[i].projectGroupName
+                )
             }
-        }
+            $("#projects").html(htmlStr);
 
-        $(document).ready(function(){
+        });
+    }
 
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                var target = $(e.target).attr("href") // activated tab
-                loadTab(target);
-            });
+    function createClient(clientName){
+        insertAccount(false, clientName, 'qwerty', false, function(){
+            loadTab('#clients');
+        });
+    }
+
+    function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients){
+        var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+
+        return "<div class='col-md-3 col-sm-6 portfolio-item'> \
+            <a href='#viewQualModal' class='portfolio-link' data-toggle='modal'> \
+                <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content viewIcon' onclick=" +viewFunc + ">\
+                        <i class='fa fa-search-plus fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                        <i class='fa fa-plus fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+                            <i class='fa fa-pencil fa-3x'></i>\
+                    </div>\
+                </div> \
+                <img src=" + image + " class='main-thumbnail'  alt=''> \
+            </a> \
+            <div class='portfolio-caption'> \
+                <h4>"+name+"</h4> \
+            </div>\
+        </div>"
+    }
+
+    function addProjectQualsToGroup(projectID){
+
+        getQualsByProject(projectID, function(){
+
+            var quals = this;
+
+            for(i = 0; i< quals.length; i++) {
+
+                addToCart(quals[i].qualId, quals[i].projectName);
+            }
+
+        });
+    }
+
+    function openQualsForProject(projectID, projectName) {
+        getQualsByProject(projectID, function(){
+
+            var quals = this;
+
+            var htmlStr = "<h1 id='heading'>Projects</h1>";
+            for(i = 0; i< quals.length; i++){
+                htmlStr += addPortfolioItem(
+                        '\"\"',
+                        '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        quals[i].projectName
+                );
+            }
+            htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
+            $("#projects").html(htmlStr);
+            $("#heading").html(projectName);
+
+        });
+
+    }
+
+    function openQualsForClientProject(projectID, projectName) {
+        getQualsByProject(projectID, function(){
+
+            var quals = this;
+
+            var htmlStr = "<h1 id='heading'>Projects</h1>";
+            for(i = 0; i< quals.length; i++){
+                htmlStr += addPortfolioItem(
+                        '\"\"',
+                        '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        quals[i].projectName
+                );
+            }
+            htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
+            $("#clients").html(htmlStr);
+            $("#heading").html(projectName);
+
+        });
+
+    }
+
+    function openPrevClientProj(){
+        $("#clients").html(htmlClientProject);
+    }
+
+    function viewQual(qual_id){
+        sessionStorage.setItem("qual_id", qual_id);
+        location.href="#viewQualModal";
+    }
+
+    function getQuals(){
+        getAllQuals(function(){
+            var quals = this;
+
+            var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
+            htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
+
+            for (i = 0; i < quals.length; i++) {
+//                    alert(clients[i].accountName);
+                htmlStr += addPortfolioItem(
+                        '\"viewQual(' + quals[i].qualId + ')\"',
+                        '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        quals[i].projectName
+                );
+            }
+            $("#quals").html(htmlStr)
+
+        });
+    }
+
+    function getClients() {
+        getAllClients(function () {
+            //alert('hi')
+            var clients = this;
+            //alert(clients);
+            var list = document.getElementById("client_list");
+
+            var htmlStr = "";
+            for (i = 0; i < clients.length; i++) {
+//                    alert(clients[i].accountName);
+                htmlStr += addPortfolioItem(
+                        '\"getProjectforClient('+clients[i].accountId+')\"',
+                        '\"\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        clients[i].accountName,
+                        true
+                );
+            }
+
+            $("#clients").html(htmlStr)
+        });
+    }
+
+    function getProjectforClient(id){
+        getProjectsByClient(id,function(){
+            var projects = this;
+            var htmlStr = "";
+            for(i = 0; i< projects.length; i++){
+                htmlStr += addPortfolioItem(
+                        '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
+                        '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
+                        '\"alert(\'still need to define this one\')\"',
+                        projects[i].projectGroupName
+                );
+            }
+            htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
+            htmlClientProject = htmlStr;
+            $("#clients").html(htmlStr);
+
+
+        })
+
+    }
+
+    function addToCart(qID, m){
+
+        qualsToAdd.push(qID);
+        var ul = document.getElementById("ProjectCart");
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.setAttribute("href", "#");
+
+        var span = document.createElement("span");
+        span.setAttribute("class","icon");
+
+        a.appendChild(document.createTextNode(m));
+        a.appendChild(span);
+
+        li.appendChild(a);
+        li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
+        li.setAttribute("id", m); // added line
+        ul.appendChild(li);
+
+    }
+
+    function loadTab(tab) {
+
+        if (tab == "#quals") {
+            $('#clients').removeClass('active'); // remove active class from tabs
+            $('#projects').removeClass('active'); // remove active class from tabs
+            $(tab).addClass('active');
+            getQuals()
+        } else if (tab == "#projects") {
+            $('#clients').removeClass('active'); // remove active class from tabs
+            $('#quals').removeClass('active'); // remove active class from tabs
+            $(tab).addClass('active'); // add active class to clicked tab
             getProjects();
+        } else if (tab == "#clients") {
+            $('#projects').removeClass('active'); // remove active class from tabs
+            $('#quals').removeClass('active'); // remove active class from tabs
+            $(tab).addClass('active'); // add active class to clicked tab
+            getClients();
+        } else {
+            error("invalid tab");
+        }
+    }
 
+    function resetProjID(){
+        projGroupID = -1;
+    }
 
+    $(document).ready(function(){
 
-            $('#createProjBtn').click(function(e){
-                e.preventDefault();
-                var projName = $('#projName').val();
-                var clientName = $("#clientName").val();
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("href") // activated tab
+            loadTab(target);
+        });
+        getProjects();
 
-                $('#createProjModal').modal('hide');
+        $('#createProjBtn').click(function(e){
+            e.preventDefault();
 
-                createProjectGroup(projName);
+            var projName = $('#projName').val();
+            var clientName = $("#clientName").val();
 
-            });
+            $('#createProjModal').modal('hide');
 
-            $(window).on('shown.bs.modal', function() {
+            createProjectGroup(projName);
 
-                    getAllClients(function () {
-                        var clients = this;
-                        var htmlStr = "";
-                        for(i = 0; i < clients.length; i++) {
-                            htmlStr += "<option value='" + clients[i].accountId + "'>" + clients[i].accountName + "</option>";
-                        }
+        });
 
-                        var res = $.map(clients, function (item) {
-                            return {
-                                id: item.accountId,
-                                text: item.accountName
-                            };
-                        })
+        $('#createClientBtn').click(function(e){
+            e.preventDefault();
+            var clientName = $("#clientName").val();
+            $("#clientName").val("");
 
-                        $("#clientDropdown").select2({data: res});
-                    });
+            $('#createClientModal').modal('hide');
 
-            });
-
-                //Navigation Menu Slider
-            $('#nav-expander').on('click',function(e){
-                e.preventDefault();
-                $('body').toggleClass('nav-expanded');
-            });
-            $('#nav-close').on('click',function(e){
-                e.preventDefault();
-                $('body').removeClass('nav-expanded');
-            });
-
-            // Initialize navgoco with default options
-            $(".main-menu").navgoco({
-                caret: '<span class="caret"></span>',
-                accordion: false,
-                openClass: 'open',
-                save: true,
-                cookie: {
-                    name: 'navgoco',
-                    expires: false,
-                    path: '/'
-                },
-                slide: {
-                    duration: 300,
-                    easing: 'swing'
-                }
-            });
+            createClient(clientName);
 
         });
 
 
-    </script>
 
-    <section id="portfolio1" class="bg-light-gray" style="padding: 0px; padding-top: 22px">
-        <div class="container" style="margin: 0px; padding: 0px; width: inherit;">
-    <!-- Services Section -->
-            <div class="row">
+        var vnSpace =  $('#space');
+        var hnSpace = $('#hiddenSpace');
 
-                <div class="col-md-12" style="margin-bottom: 30px;">
-                    <!-- Nav tabs --><div>
-                    <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
+        str = '\
+        <li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>\
+        <li class="dropdown active">\
+            <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
+            <ul class="dropdown-menu">\
+                <li><a href="qual_add.html">New Qual</a></li>\
+                <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>\
+                <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
+            </ul>\
+        </li>';
 
-                        <li role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
 
-                        <li role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
+        vnSpace.before(str);
+        hnSpace.before(str);
 
-                        <li role="presentation" ><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
 
-                    </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
+        $(window).on('shown.bs.modal', function() {
 
-                        <div role="tabpanel" class="tab-pane active" id="projects">
+            getAllClients(function () {
+                var clients = this;
+                var htmlStr = "";
+                for(i = 0; i < clients.length; i++) {
+                    htmlStr += "<option value='" + clients[i].accountId + "'>" + clients[i].accountName + "</option>";
+                }
 
-                        </div>
+                var res = $.map(clients, function (item) {
+                    return {
+                        id: item.accountId,
+                        text: item.accountName
+                    };
+                })
 
-                        <div role="tabpanel" class="tab-pane" id="quals">
+                $("#clientDropdown").select2({data: res});
+            });
 
-                        </div>
+        });
 
-                        <div role="tabpanel"   class="tab-pane" id="clients" >
+        //Navigation Menu Slider
+        $('#nav-expander').on('click',function(e){
+            e.preventDefault();
+            $('body').toggleClass('nav-expanded');
+        });
+        $('#nav-close').on('click',function(e){
+            e.preventDefault();
+            $('body').removeClass('nav-expanded');
+        });
 
-                            <!--<script>getClients();</script>-->
+        // Initialize navgoco with default options
+        $(".main-menu").navgoco({
+            caret: '<span class="caret"></span>',
+            accordion: false,
+            openClass: 'open',
+            save: true,
+            cookie: {
+                name: 'navgoco',
+                expires: false,
+                path: '/'
+            },
+            slide: {
+                duration: 300,
+                easing: 'swing'
+            }
+        });
 
-                        </div>
+    });
+
+
+</script>
+
+<section id="portfolio" class="bg-light-gray" style="padding: 0px; padding-top: 22px">
+    <div class="container" style="margin: 0px; padding: 0px; width: inherit;">
+        <!-- Services Section -->
+
+        <div class="row">
+
+            <div class="col-md-12" style="margin-bottom: 30px;">
+
+                <!-- Nav tabs --><div>
+                <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
+
+                    <li role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
+
+                    <li role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
+
+                    <li role="presentation" ><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
+
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+
+                    <div role="tabpanel" class="tab-pane active" id="projects">
+
                     </div>
 
+                    <div role="tabpanel" class="tab-pane" id="quals">
+
+                    </div>
+
+                    <div role="tabpanel"   class="tab-pane" id="clients" >
+
+                        <!--<script>getClients();</script>-->
+
+                    </div>
                 </div>
+
+            </div>
             </div>
 
         </div></div></section>
 
-<div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <span class="copyright">Copyright &copy; Your Website 2014</span>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li><a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li><a href="#">Privacy Policy</a>
+                    </li>
+                    <li><a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Portfolio Modals -->
+<!-- Use the modals below to showcase details about your portfolio projects! -->
+
+<!-- Modal For View Qual page -->
+<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-content">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
@@ -509,9 +654,15 @@
                         <!-- Project Details Go Here -->
                         <h2>Project Name</h2>
                         <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                        <img class="img-responsive img-centered" src="img/portfolio/golden-preview.png" alt="">
-                        <p>Start Bootstrap's Agency theme is based on Golden, a free PSD website template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. Golden is a modern and clean one page web template that was made exclusively for Best PSD Freebies. This template has a great portfolio, timeline, and meet your team sections that can be easily modified to fit your needs.</p>
-                        <p>You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/golden-free-one-page-web-template/">FreebiesXpress.com</a>.</p>
+                        <img class="img-responsive img-centered" src="img/portfolio/roundicons-free.png" alt="">
+                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                        <p>
+                            <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>
+                        <ul class="list-inline">
+                            <li>Date: July 2014</li>
+                            <li>Client: Round Icons</li>
+                            <li>Category: Graphic Design</li>
+                        </ul>
                         <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
                     </div>
                 </div>
@@ -520,85 +671,21 @@
     </div>
 </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; Your Website 2014</span>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline quicklinks">
-                        <li><a href="#">Privacy Policy</a>
-                        </li>
-                        <li><a href="#">Terms of Use</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    <!-- Portfolio Modals -->
-    <!-- Use the modals below to showcase details about your portfolio projects! -->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
 
-    <!-- Portfolio Modal 1 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here -->
-                            <h2>Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-responsive img-centered" src="img/portfolio/roundicons-free.png" alt="">
-                            <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                            <p>
-                                <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>
-                            <ul class="list-inline">
-                                <li>Date: July 2014</li>
-                                <li>Client: Round Icons</li>
-                                <li>Category: Graphic Design</li>
-                            </ul>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpAnimatedHeader.js"></script>
 
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="js/classie.js"></script>
-    <script src="js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/agency.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/agency.js"></script>
 
 
 </body>
