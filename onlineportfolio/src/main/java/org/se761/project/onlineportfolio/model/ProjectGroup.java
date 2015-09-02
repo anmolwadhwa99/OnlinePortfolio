@@ -33,7 +33,7 @@ public class ProjectGroup {
 	@Column(columnDefinition="TEXT")
 	private String accentColour;
 	
-
+	private boolean isActive = true; //be  default
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "projGroups", cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
@@ -45,6 +45,15 @@ public class ProjectGroup {
 			inverseJoinColumns = { @JoinColumn(name = "account_id") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Account> accountsProj = new ArrayList<Account>();
+
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 	public int getProjGroupId() {
 		return projGroupId;

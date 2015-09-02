@@ -54,8 +54,6 @@ public class Account {
 	}
 	
 	
-
-
 	public boolean isActive() {
 		return isActive;
 	}
@@ -133,6 +131,5 @@ public class Account {
 	public void setProjGroups(List<ProjectGroup> projGroups) {
 		this.projGroups = projGroups;
 	}
-	
-	
+		
 }
