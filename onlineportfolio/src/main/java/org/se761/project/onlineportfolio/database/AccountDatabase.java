@@ -172,7 +172,7 @@ public class AccountDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId  + " could not be found");
 		}
 
-		projectGroup.getAccounts().add(account);
+		projectGroup.getAccountsProj().add(account);
 		account.getProjGroups().add(projectGroup);
 		session.save(account);
 		session.save(projectGroup);
@@ -254,7 +254,7 @@ public class AccountDatabase {
 			throw new DatabaseRetrievalException("Project group with id " +projGroupId + " could not be found, so unable to retrieve all accounts");
 		}
 		
-		List<Account> accounts = projGroup.getAccounts();
+		List<Account> accounts = projGroup.getAccountsProj();
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
