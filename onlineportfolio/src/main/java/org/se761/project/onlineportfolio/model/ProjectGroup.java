@@ -45,42 +45,23 @@ public class ProjectGroup {
 			inverseJoinColumns = { @JoinColumn(name = "account_id") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Account> accountsProj = new ArrayList<Account>();
-	
-	
+
 	public int getProjGroupId() {
 		return projGroupId;
 	}
-	
+
 	public void setProjGroupId(int projGroupId) {
 		this.projGroupId = projGroupId;
 	}
-	
+
 	public String getProjGroupName() {
 		return projGroupName;
 	}
-	
+
 	public void setProjGroupName(String projGroupName) {
 		this.projGroupName = projGroupName;
 	}
-	
-	@XmlTransient
-	public List<Qualification> getQuals() {
-		return quals;
-	}
 
-	public void setQuals(List<Qualification> quals) {
-		this.quals = quals;
-	}
-	
-	@XmlTransient
-	public List<Account> getAccounts() {
-		return accountsProj;
-	}
-
-	public void setAccounts(List<Account> accountsProj) {
-		this.accountsProj = accountsProj;
-	}
-	
 	public String getPrimaryColour() {
 		return primaryColour;
 	}
@@ -104,7 +85,23 @@ public class ProjectGroup {
 	public void setAccentColour(String accentColour) {
 		this.accentColour = accentColour;
 	}
+	
+	@XmlTransient
+	public List<Qualification> getQuals() {
+		return quals;
+	}
 
+	public void setQuals(List<Qualification> quals) {
+		this.quals = quals;
+	}
+	
+	@XmlTransient
+	public List<Account> getAccountsProj() {
+		return accountsProj;
+	}
 
+	public void setAccountsProj(List<Account> accountsProj) {
+		this.accountsProj = accountsProj;
+	}
 	
 }
