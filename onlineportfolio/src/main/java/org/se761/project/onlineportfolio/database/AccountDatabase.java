@@ -144,7 +144,8 @@ public class AccountDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found.");
 		}
 		
-		session.delete(account);
+		account.setActive(false);
+		session.saveOrUpdate(account);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
