@@ -79,8 +79,7 @@
     </style>
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
-//            var qual_id = sessionStorage.getItem("qual_id");
-            var qual_id = "1";
+            var qual_id = sessionStorage.getItem("qual_id");
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
 
@@ -114,16 +113,6 @@
 </head>
 
 <body style="padding:20px;">
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div style="padding-top: 10px;padding-left: 10px;">
-        <div class="back_button pull-left">
-            <label for="qual_back">
-                <img src="imgs/back.png" class="hand_interact back_button_img" alt="Back to Main" />
-            </label>
-            <input id="qual_back" class="hand_interact" type="button" onclick="location.replace('index1.html');" >
-        </div>
-    </div>
-</div>
 <div id="qual_add_form" class="container-fluid" style="padding-top: 50px;">
     <div class="row">
         <div class="col-md-6">

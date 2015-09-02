@@ -347,7 +347,12 @@
     function viewQual(qual_id){
         sessionStorage.setItem("qual_id", qual_id);
         location.href="#viewQualModal";
+        $('#viewQualiFrame').attr('src', 'view_qual.html');
     }
+
+    $('#viewQualModal').on('hidden.bs.modal', function () {
+        $('#viewQualiFrame').attr('src', '');
+    });
 
     function getQuals(){
         getAllQuals(function(){
@@ -639,13 +644,15 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-md-12">
                     <div class="modal-body">
                         <!-- Project Details Go Here -->
                         <h2>Project Name</h2>
-                        <iframe id="viewQualiFrame" src="view_qual.html" height="1000" width="800"></iframe>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe id="viewQualiFrame" src="" class="embed-responsive-item" height="100%" width="100%" frameborder="0" ></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
