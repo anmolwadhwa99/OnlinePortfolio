@@ -26,7 +26,7 @@ public class Account {
 	private String password;
 	private boolean isAdmin;
 	private boolean isSuperUser;
-
+	private boolean isActive = true; //is true by default
 	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts", cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
@@ -51,6 +51,18 @@ public class Account {
 		this.isAdmin = isAdmin;
 		this.isSuperUser = isSuperUser;
 		this.adminGroup = adminGroup;
+	}
+	
+	
+
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 
