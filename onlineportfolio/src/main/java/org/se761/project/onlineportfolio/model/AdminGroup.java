@@ -28,6 +28,7 @@ public class AdminGroup {
 	private int adminGroupId;
 	
 	private String adminGroupName;
+	private boolean isActive = true; //be default
 	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -50,6 +51,16 @@ public class AdminGroup {
 		super();
 		this.adminGroupId = adminGroupId;
 		this.adminGroupName = adminGroupName;
+	}
+	
+	
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@XmlTransient
