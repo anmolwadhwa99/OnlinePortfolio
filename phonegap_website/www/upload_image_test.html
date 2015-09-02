@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Upload Image Test</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/webServices.js" ></script>
+
+    <script src="js/jquery.ui.widget.js" type="text/javascript"></script>
+    <script src="js/jquery.iframe-transport.js" type="text/javascript"></script>
+    <script src="js/jquery.fileupload.js" type="text/javascript"></script>
+    <script src="js/jquery.cloudinary.js" type="text/javascript"></script>
+
+    <link href="css/dropzone.css" rel="stylesheet">
+
+    <style type="text/css">
+        .image-upload{
+            height: 10em;
+            position: relative;
+        }
+        .image-upload img{
+            margin: 0;
+            position: absolute;
+            top: 100%;
+        }
+        .image-upload > input
+        {
+            display: none;
+        }
+
+        .fill{
+            zoom: 2;
+
+            display: block;
+            margin: auto;
+
+            height: auto;
+            max-height: 100%;
+
+            width: auto;
+            max-width: 100%;
+        }
+
+        .hand_interact {
+            cursor: pointer;
+            cursor: hand;
+        }
+    </style>
+
+</head>
+<body>
+<form id="qual_add_form" class="container-fluid upload_form" style="padding-top: 50px;">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="image-upload">
+                <label for="qual_product_service_img">
+                    <img class="img-rounded hand_interact fill" src="imgs/download.png" />
+                </label>
+                <div class="progress" >
+                    <div class="progress-bar progress-bar-success" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    // Setting configs
+    $.cloudinary.config({ cloud_name: 'onlineportfolio', api_key: '699754899746833'});
+    $('.progress').hide();
+    // Adding input to correct location
+    $('.image-upload').append($.cloudinary.unsigned_upload_tag(
+        "ug21hs7g",
+        { cloud_name: 'onlineportfolio' },
+        { multiple: false },
+        // With specified id
+        "qual_product_service_img")
+    // Binding events
+    ).bind('cloudinarystart', function(e, data) {
+                $('.progress').show();
+    }).bind('cloudinarydone', function(e, data) {
+        console.log(data.result.secure_url);
+    }).bind('cloudinaryprogress', function(e, data) {
+        $('.progress-bar').css('width',
+            Math.round((data.loaded * 100.0) / data.total) + '%');
+
+    }).bind('cloudinaryfail', function(e, data){
+                console.log(e);
+                console.log(data);
+    });
+</script>
+</body>
+</html>
