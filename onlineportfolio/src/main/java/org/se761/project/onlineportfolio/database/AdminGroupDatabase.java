@@ -109,7 +109,8 @@ public class AdminGroupDatabase {
 			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found.");
 		}
 
-		session.delete(adminGroup);
+		adminGroup.setActive(false);
+		session.saveOrUpdate(adminGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
