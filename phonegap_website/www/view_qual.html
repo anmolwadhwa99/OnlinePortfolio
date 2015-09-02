@@ -79,16 +79,18 @@
     </style>
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
-            var qual_id = sessionStorage.getItem("qual_id");
+//            var qual_id = sessionStorage.getItem("qual_id");
+            var qual_id = "1";
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
 
                 // Retrieves the qual project name using javascript
                 document.getElementById("qual_project_name").value = qual.projectName;
                 document.getElementById("qual_client_name").value = qual.clientName;
+                document.getElementById("qual_project_sub").value = qual.subtitle;
                 document.getElementById("qual_problems").value = qual.problemStatement;
                 document.getElementById("qual_challenges").value = qual.challengesFaced;
-                document.getElementById("qual_solution").value = qual.solutionStatement;
+                document.getElementById("qual_solution").value = (qual.solutionStatement)? qual.solutionStatement : document.getElementById("qual_solution").style.display = 'none';
                 document.getElementById("qual_relevance").value = qual.relevanceToClient;
                 document.getElementById("qual_outcome").value = qual.outcomeStatement;
                 document.getElementById("qual_project_sub").value = qual.subtitle;
@@ -100,14 +102,16 @@
                 //document.getElementById("qual_client_logo").value = "Logo";
                 //document.getElementById("qual_product_service_img").value = "product Service Image";
 
-                document.getElementById("qual_email").value = qual.emailButton;
-                document.getElementById("qual_website").value = qual.websiteButton;
+                document.getElementById("qual_email").value = (qual.emailButton)? qual.emailButton : document.getElementById("qual_email").style.display = 'none';
+                document.getElementById("qual_website").value = (qual.websiteButton)? qual.websiteButton : document.getElementById("qual_website").style.display = 'none';
 
                 document.getElementById("qual_industry").value = qual.industry;
                 document.getElementById("qual_tags").value = "Tag1, Tag2";//qual.tags;
                 document.getElementById("qual_service_line").value = qual.serviceLine;
             });
         });
+
+
     </script>
 
 </head>
