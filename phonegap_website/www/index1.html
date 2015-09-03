@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Deloitte New Zealand </title>
+
+    <link rel=" shortcut icon" href="imgs/favicon.ico">
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -345,7 +347,12 @@
     function viewQual(qual_id){
         sessionStorage.setItem("qual_id", qual_id);
         location.href="#viewQualModal";
+        $('#viewQualiFrame').attr('src', 'view_qual.html');
     }
+
+    $('#viewQualModal').on('hidden.bs.modal', function () {
+        $('#viewQualiFrame').attr('src', '');
+    });
 
     function getQuals(){
         getAllQuals(function(){
@@ -611,19 +618,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <span class="copyright">Copyright &copy; Your Website 2014</span>
+                <span class="copyright">Copyright &copy; Deloitte 2015 </span>
             </div>
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <ul class="list-inline quicklinks">
                     <li><a href="#">Privacy Policy</a>
                     </li>
@@ -647,23 +644,15 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-md-12">
                     <div class="modal-body">
                         <!-- Project Details Go Here -->
                         <h2>Project Name</h2>
-                        <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                        <img class="img-responsive img-centered" src="img/portfolio/roundicons-free.png" alt="">
-                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                        <p>
-                            <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.</p>
-                        <ul class="list-inline">
-                            <li>Date: July 2014</li>
-                            <li>Client: Round Icons</li>
-                            <li>Category: Graphic Design</li>
-                        </ul>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe id="viewQualiFrame" src="" class="embed-responsive-item" height="100%" width="100%" frameborder="0" ></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
