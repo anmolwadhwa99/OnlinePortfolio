@@ -114,7 +114,7 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 }
 
-#scroller {
+#scroller  {
     position: relative;
 }
 #scroller .innerScrollArea {
@@ -125,12 +125,12 @@ h1 {
     top: 0;
     bottom: 0;
 }
-#scroller ul {
+#scroller .slides {
     padding: 0;
     margin: 0;
     position: relative;
 }
-#scroller li {
+#scroller .slides {
     padding: 0;
     margin: 0;
     list-style-type: none;
