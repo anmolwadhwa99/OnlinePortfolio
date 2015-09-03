@@ -1,6 +1,5 @@
 .filmstrip {
     margin: auto;
-
     line-height: 1;
     overflow: hidden;
 }
@@ -12,7 +11,7 @@
 }
 .filmstrip-thumbs {
     text-align: center;
-    overflow: show;
+    overflow: hidden;
     width: 100%;
     position: relative;
     white-space: nowrap;

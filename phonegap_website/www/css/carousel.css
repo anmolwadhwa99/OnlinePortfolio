@@ -39,6 +39,7 @@
     z-index: 10;
 }
 
+
 /* Declare heights because of positioning of img element */
 .carousel .item {
     height: 400px;
@@ -88,3 +89,11 @@
 .filmstrip {
     width: 466px;
 }
+/*.filmstrip-thumbs {*/
+    /*text-align: center;*/
+    /*overflow: show;*/
+    /*width: 100%;*/
+    /*position: relative;*/
+    /*white-space: nowrap;*/
+    /*font-size: 0;*/
+/*}*/
