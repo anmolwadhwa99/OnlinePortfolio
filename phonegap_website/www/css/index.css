@@ -113,3 +113,26 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+#scroller {
+    position: relative;
+}
+#scroller .innerScrollArea {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+#scroller ul {
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+#scroller li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    position: absolute;
+}
