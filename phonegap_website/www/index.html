@@ -176,44 +176,48 @@
 
     <section class="slider">
         <div class="flexslider carousel">
-            <ul class="slides">
-                <li>
-                    <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_lemon.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_donut.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_caramel.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_lemon.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_donut.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_caramel.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_lemon.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_donut.jpg" />
-                </li>
-                <li>
-                    <img src="images/kitchen_adventurer_caramel.jpg" />
-                </li>
-            </ul>
+            <div id="scroller" style="width: 550px; height: 400px; margin: 0 auto;">
+                <div class="innerScrollArea">
+                    <ul class="slides">
+                        <li>
+                            <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_lemon.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_donut.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_caramel.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_lemon.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_donut.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_caramel.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_lemon.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_donut.jpg" />
+                        </li>
+                        <li>
+                            <img src="images/kitchen_adventurer_caramel.jpg" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 </div>
@@ -226,9 +230,6 @@
 <script defer src="filmStripSlider/jquery.flexslider.js"></script>
 
 <script type="text/javascript">
-    $(function(){
-        SyntaxHighlighter.all();
-    });
     $(window).load(function(){
         $('.flexslider').flexslider({
             animation: "slide",
@@ -243,7 +244,8 @@
 
 
 
-<!--fileStrip========================================== -->
+<!--filmStrip========================================== -->
+
 <div class="container">
     <form id="signin_form" action="javascript:signin();" class="form-signin">
         <h2 class="form-signin-heading">Please enter your password</h2>
