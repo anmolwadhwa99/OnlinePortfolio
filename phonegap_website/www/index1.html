@@ -261,11 +261,11 @@
     function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients){
         var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
-        var viewFunction = '';
-        if(viewFunc == '\"\"'){
-            viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\"'
-        }else {
-            viewFunction = '\' onclick =' + viewFunc + '\"';
+        var viewFunction = "";
+        if(isNumeric(viewFunc)) {
+            viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+        }else{
+            viewFunction = '\' onclick =' +viewFunc + '\"';
         }
         return "<div class='col-md-3 col-sm-6 portfolio-item'> \
               <a href='#' class='portfolio-link' data-toggle='modal'> \
@@ -286,6 +286,10 @@
                 <h4>"+name+"</h4> \
             </div>\
         </div>"
+    }
+
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
     function addProjectQualsToGroup(projectID){
@@ -310,7 +314,7 @@
             var htmlStr = "<h1 id='heading'>Projects</h1>";
             for(i = 0; i< quals.length; i++){
                 htmlStr += addPortfolioItem(
-                        '\"\"',
+                        quals[i].qualId,
                         '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
                         '\"alert(\'still need to define this one\')\"',
                         quals[i].projectName
@@ -332,7 +336,7 @@
             var htmlStr = "<h1 id='heading'>Projects</h1>";
             for(i = 0; i< quals.length; i++){
                 htmlStr += addPortfolioItem(
-                        '\"\"',
+                        quals[i].qualId,
                         '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
                         '\"alert(\'still need to define this one\')\"',
                         quals[i].projectName
@@ -351,6 +355,7 @@
     }
 
     function viewQual(qual_id){
+        console.log(qual_id);
         sessionStorage.setItem("qual_id", qual_id);
         location.href="#viewQualModal";
         $('#viewQualiFrame').attr('src', 'view_qual.html');
@@ -370,7 +375,7 @@
             for (i = 0; i < quals.length; i++) {
 //                    alert(clients[i].accountName);
                 htmlStr += addPortfolioItem(
-                        '\"\"',
+                        quals[i].qualId,
                         '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
                         '\"alert(\'still need to define this one\')\"',
                         quals[i].projectName
