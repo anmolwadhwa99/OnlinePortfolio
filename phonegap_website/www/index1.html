@@ -430,6 +430,42 @@
                             <p>"+qual.problemStatement+"</p>\
                         </div>";
 
+            if(qual.challengesFaced != null){
+                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Challenges Faced:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>"+qual.challengesFaced+"</p>\
+                        </div>";
+            }
+
+            if(qual.solutionStatement != null){
+                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Solution:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>"+qual.solutionStatement+"</p>\
+                        </div>";
+            }
+
+            if(qual.outcomeStatement != null){
+                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Outcome:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>"+qual.outcomeStatement+"</p>\
+                        </div>";
+            }
+
+            if(qual.relevanceToClient != null){
+                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Relevance to Client:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>"+qual.relevanceToClient+"</p>\
+                        </div>";
+            }
+
 
 
             htmlStr += "</div>";
