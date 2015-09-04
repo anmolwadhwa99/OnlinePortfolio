@@ -373,24 +373,55 @@
             </div> \
             <div class='col-md-6'> \
                 <div class='row'> \
-                    <div class='col-md-3'> \
+                    <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>Client Name:</h4> \
                     </div>\
-                    <div class='col-md-9'> \
+                    <div class='col-md-9 col-xs-6'> \
                         <p>"+clientName+"</p>\
                     </div>";
 
 
             if(qual.subtitle != null){
-                htmlStr += "<div class='col-md-3'> \
+                htmlStr += "<div class='col-md-3 col-xs-6'> \
                                 <h4 class='subheading'>Subtitle:</h4> \
                             </div>\
-                            <div class='col-md-9'> \
+                            <div class='col-md-9 col-xs-6'> \
                                 <p>"+qual.subtitle+"</p>\
-                            </div>\
-                            </div>\
-                            </div>";
+                            </div>"
             }
+
+            if(qual.industry != null){
+                htmlStr += "<div class='col-md-3 col-xs-6'> \
+                                <h4 class='subheading'>Industry:</h4> \
+                            </div>\
+                            <div class='col-md-9 col-xs-6'> \
+                                <p>"+qual.industry+"</p>\
+                            </div>"
+            }
+
+            if(qual.serviceLine != null){
+                htmlStr += "<div class='col-md-3 col-xs-6'> \
+                                <h4 class='subheading'>Service Line:</h4> \
+                            </div>\
+                            <div class='col-md-9 col-xs-6'> \
+                                <p>"+qual.serviceLine+"</p>\
+                            </div>"
+            }
+
+            if(qual.emailButton != null){
+                htmlStr += "<div class='col-md-3'> \
+                                <img class='email_btn' src='imgs/email.png' /> \
+                            </div>"
+            }
+
+            if(qual.websiteButton != null){
+                htmlStr += "<div class='col-md-3'> \
+                                <img class='website_btn' src='imgs/website.png' href='"+qual.websiteButton+"'/> \
+                            </div>"
+            }
+
+            htmlStr += "</div>\
+                </div>";
 
             htmlStr += "</div>";
 
