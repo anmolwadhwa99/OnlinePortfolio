@@ -66,7 +66,7 @@ public class Qualification {
 	
 	private String status; //either "open" or "confidential"
 	private String serviceLine; //e.g. auditing, consulting, etc
-	private String metaDataColourScheme;
+
 
 	//TODO
 	//client logo
@@ -100,7 +100,7 @@ public class Qualification {
 			String anonymousName, boolean isActive, String emailButton,
 			String websiteButton, List<AdminGroup> adminGroups,
 			List<ProjectGroup> projGroups, String industry, String tags,
-			String status, String serviceLine, String metaDataColourScheme) {
+			String status, String serviceLine) {
 		super();
 		this.qualId = qualId;
 		this.projectName = projectName;
@@ -122,7 +122,7 @@ public class Qualification {
 		this.tags = tags;
 		this.status = status;
 		this.serviceLine = serviceLine;
-		this.metaDataColourScheme = metaDataColourScheme;
+
 	}
 
 
@@ -247,14 +247,7 @@ public class Qualification {
 	}
 
 
-	public String getMetaDataColourScheme() {
-		return metaDataColourScheme;
-	}
 
-
-	public void setMetaDataColourScheme(String metaDataColourScheme) {
-		this.metaDataColourScheme = metaDataColourScheme;
-	}
 	
 	public String getSolutionStatement() {
 		return solutionStatement;
