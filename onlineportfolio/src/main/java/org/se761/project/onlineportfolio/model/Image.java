@@ -27,7 +27,7 @@ public class Image {
 	private String imageUrl;
 	private ImageType imageType;
 	private String imageName;
-	
+	private boolean isActive = true; //by default
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "qualImages")
 	@Fetch(value = FetchMode.SUBSELECT)
@@ -89,9 +89,13 @@ public class Image {
 	public void setQuals(List<Qualification> quals) {
 		this.quals = quals;
 	}
-	
-	
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 	
 }
-
-
