@@ -3,6 +3,7 @@ package org.se761.project.onlineportfolio.resource;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -63,6 +64,22 @@ public class ImageResource {
 		return imageService.getImage(imageId);
 	}
 	
+	/**
+	 * Delete an image
+	 */
+	@DELETE
+	@Path("/{imageId}")
+	public Image deleteImage(@PathParam("imageId") int imageId){
+		return imageService.deleteImage(imageId);
+	}
 	
+	/**
+	 * Add an existing image against a qualification
+	 */
+	@POST
+	@Path("/qual/{imageId}/{qualId}")
+	public Image addImageToQualification(@PathParam("imageId") int imageId, @PathParam("qualId") int qualId){
+		return imageService.addImageToQualification(imageId, qualId);
+	}
 	
 }
