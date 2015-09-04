@@ -359,6 +359,7 @@
         getQualById(qual_id, function(){
             var qual = this;
 
+
             var clientName = "";
             if(qual.isAnonymous){
                 clientName = qual.anonymousName;
@@ -405,6 +406,15 @@
                             </div>\
                             <div class='col-md-9 col-xs-6'> \
                                 <p>"+qual.serviceLine+"</p>\
+                            </div>"
+            }
+
+            if(qual.status != null){
+                htmlStr += "<div class='col-md-3 col-xs-6'> \
+                                <h4 class='subheading'>Status:</h4> \
+                            </div>\
+                            <div class='col-md-9 col-xs-6'> \
+                                <p style=\"text-transform: capitalize\">"+qual.status+"</p>\
                             </div>"
             }
 
@@ -468,7 +478,9 @@
 
 
 
-            htmlStr += "</div>";
+
+            htmlStr += "<button type='button' class='btn btn-lg' data-dismiss='modal'>" +
+            "<i class='fa fa-times'></i> Close Qual</button></div>";
 
             $('#modal_body').html(htmlStr);
         });
