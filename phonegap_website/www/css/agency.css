@@ -145,6 +145,10 @@ fieldset[disabled] .btn-primary.active {
     background-image: none;
 }
 
+.h4 .subheading {
+    text-transform: none;
+}
+
 .btn-xl.disabled,
 .btn-xl[disabled],
 fieldset[disabled] .btn-xl,
@@ -384,6 +388,16 @@ section h3.section-subheading {
 #portfolio .portfolio-item .portfolio-caption h4 {
     margin: 0;
     text-transform: none;
+}
+
+.modal-body h4 {
+    text-transform: none;
+}
+
+.modal-body p {
+    padding-top: 7px;
+    padding-bottom: 8px;
+    text-align: left;
 }
 
 #portfolio .portfolio-item .portfolio-caption p {

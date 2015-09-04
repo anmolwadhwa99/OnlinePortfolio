@@ -358,8 +358,23 @@
         var htmlStr = "";
         getQualById(qual_id, function(){
             var qual = this;
-            htmlStr += "<h2 id='heading'>"+qual.projectName+"</h2>"
-
+            htmlStr += "<h2 id='heading'>"+qual.projectName+"</h2> \
+            <div class='col-md-6'> \
+                <div class='image-upload'> \
+                    <img id='qual_product_service_img' class='img-rounded fill' src='imgs/noPreview.png' /> \
+                </div> \
+            </div> \
+            <div class='col-md-6'> \
+                <div class='row'> \
+                    <div class='col-md-3'> \
+                        <h4 class='subheading'>Client Name:</h4> \
+                    </div>\
+                    <div class='col-md-9'> \
+                        <p>"+qual.clientName+"</p>\
+                    </div>\
+                </div>\
+            </div>"
+            $('#modal_body').html(htmlStr);
         });
         //console.log(qual_id);
         //sessionStorage.setItem("qual_id", qual_id);
