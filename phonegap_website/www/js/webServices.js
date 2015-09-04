@@ -17,6 +17,7 @@ function Qual(x){
     this.outcomeStatement = x.outcomeStatement;
     this.subtitle = x.subtitle;
     this.isAnonymous = x.isAnonymous;
+    this.anonymousName = x.anonymousName;
     this.isActive = x.isActive;
     this.primaryColour = x.primaryColour;
     this.secondaryColour = x.secondaryColour;

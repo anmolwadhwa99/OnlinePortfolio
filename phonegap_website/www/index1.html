@@ -358,6 +358,13 @@
         var htmlStr = "";
         getQualById(qual_id, function(){
             var qual = this;
+
+            var clientName = "";
+            if(qual.isAnonymous){
+                clientName = qual.anonymousName;
+            }else{
+                clientName = qual.clientName;
+            }
             htmlStr += "<h2 id='heading'>"+qual.projectName+"</h2> \
             <div class='col-md-6'> \
                 <div class='image-upload'> \
@@ -370,7 +377,7 @@
                         <h4 class='subheading'>Client Name:</h4> \
                     </div>\
                     <div class='col-md-9'> \
-                        <p>"+qual.clientName+"</p>\
+                        <p>"+clientName+"</p>\
                     </div>\
                 </div>\
             </div>"
