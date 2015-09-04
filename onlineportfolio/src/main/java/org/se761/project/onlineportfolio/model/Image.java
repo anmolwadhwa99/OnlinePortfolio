@@ -25,6 +25,10 @@ public class Image {
 		this.imageType = imageType;
 		this.imageName = imageName;
 	}
+	
+	public Image(){
+		
+	}
 
 	public int getImageId() {
 		return imageId;
