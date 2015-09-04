@@ -161,7 +161,9 @@ public class ImageDatabase {
 				returnImages.add(i);
 			}
 		}
-		
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
 		return returnImages;
 	}
 	
@@ -181,7 +183,9 @@ public class ImageDatabase {
 				returnImages.add(i);
 			}
 		}
-		
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
 		return returnImages;
 	}
 }
