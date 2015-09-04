@@ -50,6 +50,7 @@ public class ImageResource {
 	/**
 	 * Get all project images stored in the database
 	 */
+	@GET
 	@Path("/project")
 	public List<Image> getAllProjectImages(){
 		return imageService.getAllProjectImages();
