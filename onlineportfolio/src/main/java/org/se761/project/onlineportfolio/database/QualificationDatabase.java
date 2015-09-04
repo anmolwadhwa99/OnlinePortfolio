@@ -2,17 +2,14 @@ package org.se761.project.onlineportfolio.database;
 
 import java.util.List;
 
-
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
-import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.model.Image;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
 
@@ -258,6 +255,28 @@ public class QualificationDatabase {
 		return modifiedQual;
 		
 	}
+	
+	/**
+	 * Get all images that are associated with a qualification
+	 */
+	public List<Image> getAllImages(int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to find qualification with id " + qualId + " so unable to retrieve images");
+		}
+		
+		List<Image> images = qual.getQualImages();
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return images;
+	}	
+	
 	
 	
 	
