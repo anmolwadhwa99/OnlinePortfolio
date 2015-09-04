@@ -229,7 +229,7 @@
             }
           }
 
-          // CONTROLSCONTAINER:
+          // CONTROLS CONTAINER:
           (slider.controlsContainer) ? $(slider.controlsContainer).append(slider.controlNavScaffold) : slider.append(slider.controlNavScaffold);
           methods.controlNav.set();
 
