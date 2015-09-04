@@ -180,21 +180,25 @@
     <script type="application/javascript">
         $(document).ready(function(){
             // TODO retrieve collection of product service images
-            var prodServs = {'racing':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441229531/racing_pdeswd.jpg',
+            var prodServs = {
+                'None':'',
+                'racing':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441229531/racing_pdeswd.jpg',
                 'computers':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441345050/computers_umjyqf.jpg',
                 'phones_election':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441345063/phones_election_thx8um.png'};
             // public_id : image_url
             $.each(prodServs, function(i, val){
-                $('#ddExistingProdServ').append('<li onmousedown=\"SelectProdServ(\''+val+'\')\" >' + i + '</li>');
+                $('#ddExistingProdServ').append('<option value="'+val+'" >' + i + '</option>');
             });
 
             // TODO retrieve collection of logo images
-            var logos = {'bic':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441348290/bic_logo.gif',
+            var logos = {
+                'None':'',
+                'bic':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441348290/bic_logo.gif',
                 'scholastic':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441348290/scholastic_logo.png',
                 'deloitte':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441172871/download_ygoapb.png'};
             // public_id : image_url
             $.each(logos, function(i, val){
-                $('#ddExistingLogo').append('<li onmousedown=\"SelectLogo(\''+val+'\')\" >' + i + '</li>');
+                $('#ddExistingLogo').append('<option value="'+val+'" >' + i + '</option>');
             });
         });
         function SelectProdServ(url) {
@@ -237,13 +241,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="dropdown" >
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >Select Existing Product Service Image
-                                <span class="caret"></span></button>
-                            <ul id="ddExistingProdServ" class="dropdown-menu">
-
-                            </ul>
-                        </div>
+                        <select style="margin-top: 40%" id="ddExistingProdServ" onchange="SelectProdServ(this.value)"  class="form-control" >
+                        </select>
                     </div>
                 </div>
             </div>
@@ -328,13 +327,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="dropdown" >
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >Select Existing Client Logos
-                                <span class="caret"></span></button>
-                            <ul id="ddExistingLogo" class="dropdown-menu">
-
-                            </ul>
-                        </div>
+                        <select id="ddExistingLogo" onchange="SelectLogo(this.value)"  class="form-control" >
+                        </select>
                     </div>
                 </div>
             </div>
