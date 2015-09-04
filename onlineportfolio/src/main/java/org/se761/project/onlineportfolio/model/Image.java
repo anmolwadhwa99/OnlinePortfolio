@@ -1,11 +1,21 @@
 package org.se761.project.onlineportfolio.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @XmlRootElement
@@ -17,6 +27,11 @@ public class Image {
 	private String imageUrl;
 	private ImageType imageType;
 	private String imageName;
+	
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "qualImages")
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Qualification> quals = new ArrayList<Qualification>();
 	
 	public Image(int imageId, String imageUrl, ImageType imageType,
 			String imageName) {
@@ -65,6 +80,17 @@ public class Image {
 	public enum ImageType{
 		CLIENT, PROJECT;
 	}
+
+	@XmlTransient
+	public List<Qualification> getQuals() {
+		return quals;
+	}
+
+	public void setQuals(List<Qualification> quals) {
+		this.quals = quals;
+	}
+	
+	
 	
 }
 
