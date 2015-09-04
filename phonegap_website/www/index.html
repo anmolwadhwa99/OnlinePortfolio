@@ -40,20 +40,33 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/webServices.js"></script>
 
-
-
     <script type="application/javascript">
+        $(document).ready(function (){
+            var saved = window.localStorage.getItem('onlinePortfolioPass');
+            if(saved !== null){
+                $('#cbRemember').prop('checked', true);
+                $('input[name=signin_password]').val(saved);
+            }
+        });
+
         function signin(){
             var password = $('input[name=signin_password]').val();
 
             verifyAccount(password, function() {
+                if($('#cbRemember').is(':checked')){
+                    window.localStorage.setItem('onlinePortfolioPass',password);
+                }
+                else{
+                    window.localStorage.removeItem('onlinePortfolioPass');
+                }
+
                 var account = this;
 
                 sessionStorage.setItem("account_id", account.accountId);
 
                 location.replace("index1.html");
             });
-        }
+        };
     </script>
 
     <style type="text/css">
@@ -202,7 +215,7 @@
         <input type="password" id="inputPassword" name="signin_password" class="form-control" placeholder="Password" required autofocus>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" id="cbRemember" value="remember-me"> Remember me
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
