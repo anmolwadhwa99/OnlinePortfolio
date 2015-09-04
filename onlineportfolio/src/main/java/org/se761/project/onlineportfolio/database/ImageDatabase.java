@@ -1,0 +1,66 @@
+package org.se761.project.onlineportfolio.database;
+
+import org.eclipse.persistence.exceptions.i18n.DatabaseExceptionResource;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.model.Image;
+
+public class ImageDatabase {
+	private SessionFactory sessionFactory;
+	private Session session;
+	
+	public ImageDatabase(){
+		
+	}
+	
+	/**
+	 * Opens the current session
+	 */
+	public void openSessionFactory(){
+		Configuration c = new Configuration().configure();
+		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
+				applySettings(c.getProperties());
+
+		sessionFactory = c.buildSessionFactory(builder.build());
+	}
+	
+	/**
+	 * Closing the current session
+	 */
+	public void closeSessionFactory(){
+		sessionFactory.close();
+
+	}
+	
+	public Image addImage(Image image){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(image);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return image;
+	}
+	
+	public Image getImage(int imageId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Image image = (Image) session.get(Image.class, imageId);
+		
+		if(image == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to retrieve image with id " + imageId);
+		}
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return image;
+	}
+	
+	
+}
