@@ -20,8 +20,6 @@
     <link href="css/carousel.css" rel="stylesheet">
 
     <!-- filmStrip -->
-
-    <link rel="stylesheet" href="css/demo.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="filmStripSlider/flexslider.css" type="text/css" media="screen" />
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
@@ -58,51 +56,19 @@
         }
     </script>
 
-
+    <style type="text/css">
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #f5f5f5;
+        }
+    </style>
 
 </head>
 
 <body>
-<!-- NAVBAR================================================== -->
-<div class="navbar-wrapper">
-    <div class="container">
-        <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                            aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Project name</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
-
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
     <section class="slider">
@@ -223,8 +189,15 @@
 <!--filmStrip========================================== -->
 
 <div class="container">
+    <div class="jumbotron">
+        <h1 align="center">Online Portfolio</h1>
+        <p align="center">View any of our public projects above</p>
+        <p align="center">Or enter the password you were supplied with to view your private projects</p>
+    </div>
+</div>
+
+<div class="container">
     <form id="signin_form" action="javascript:signin();" class="form-signin">
-        <h2 class="form-signin-heading">Please enter your password</h2>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="signin_password" class="form-control" placeholder="Password" required autofocus>
         <div class="checkbox">
@@ -234,13 +207,13 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2015 Deloitte New Zealand &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
 </div>
 <!-- /container -->
-
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2015 Deloitte New Zealand &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </div>
+</footer>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
