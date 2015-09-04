@@ -362,7 +362,7 @@
             var clientName = "";
             if(qual.isAnonymous){
                 clientName = qual.anonymousName;
-            }else{
+            }else {
                 clientName = qual.clientName;
             }
             htmlStr += "<h2 id='heading'>"+qual.projectName+"</h2> \
@@ -378,9 +378,22 @@
                     </div>\
                     <div class='col-md-9'> \
                         <p>"+clientName+"</p>\
-                    </div>\
-                </div>\
-            </div>"
+                    </div>";
+
+
+            if(qual.subtitle != null){
+                htmlStr += "<div class='col-md-3'> \
+                                <h4 class='subheading'>Subtitle:</h4> \
+                            </div>\
+                            <div class='col-md-9'> \
+                                <p>"+qual.subtitle+"</p>\
+                            </div>\
+                            </div>\
+                            </div>";
+            }
+
+            htmlStr += "</div>";
+
             $('#modal_body').html(htmlStr);
         });
         //console.log(qual_id);

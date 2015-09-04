@@ -390,15 +390,6 @@ section h3.section-subheading {
     text-transform: none;
 }
 
-.modal-body h4 {
-    text-transform: none;
-}
-
-.modal-body p {
-    padding-top: 7px;
-    padding-bottom: 8px;
-    text-align: left;
-}
 
 #portfolio .portfolio-item .portfolio-caption p {
     margin: 0;
@@ -775,7 +766,7 @@ ul.social-buttons li a:active {
 }
 
 .portfolio-modal .modal-content p {
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 
 .portfolio-modal .modal-content p.item-intro {
@@ -1023,4 +1014,16 @@ a.nav-expander.fixed {
 
 .nav-expanded a.nav-expander.fixed {
     right: 20em;
+}
+
+.modal-body h4 {
+    text-transform: none;
+    text-align: left;
+}
+
+.modal-body p {
+    padding-top: 7px;
+    padding-bottom: 8px;
+    text-align: left;
+    margin-bottom: 5px;
 }
