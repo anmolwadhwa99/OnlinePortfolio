@@ -1,5 +1,6 @@
 package org.se761.project.onlineportfolio.database;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -10,16 +11,17 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Image;
+import org.se761.project.onlineportfolio.model.Image.ImageType;
 import org.se761.project.onlineportfolio.model.Qualification;
 
 public class ImageDatabase {
 	private SessionFactory sessionFactory;
 	private Session session;
-	
+
 	public ImageDatabase(){
-		
+
 	}
-	
+
 	/**
 	 * Opens the current session
 	 */
@@ -30,7 +32,7 @@ public class ImageDatabase {
 
 		sessionFactory = c.buildSessionFactory(builder.build());
 	}
-	
+
 	/**
 	 * Closing the current session
 	 */
@@ -38,7 +40,7 @@ public class ImageDatabase {
 		sessionFactory.close();
 
 	}
-	
+
 	/**
 	 * Add an image
 	 */
@@ -52,7 +54,7 @@ public class ImageDatabase {
 		closeSessionFactory();
 		return image;
 	}
-	
+
 	/**
 	 * Retrieve an image
 	 */
@@ -61,7 +63,7 @@ public class ImageDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Image image = (Image) session.get(Image.class, imageId);
-		
+
 		if(image == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Unable to retrieve image with id " + imageId);
@@ -71,7 +73,7 @@ public class ImageDatabase {
 		closeSessionFactory();
 		return image;
 	}
-	
+
 	/**
 	 * Retrieve all images from the database
 	 */
@@ -81,7 +83,7 @@ public class ImageDatabase {
 		session.beginTransaction();
 		String getAllQuery = "From Image i";
 		List<Image> images = session.createQuery(getAllQuery).list();
-		
+
 		if(images == null){
 			images = Collections.<Image> emptyList();
 		}
@@ -90,7 +92,7 @@ public class ImageDatabase {
 		closeSessionFactory();
 		return images;
 	}
-	
+
 	/**
 	 * Link an image to a qualification
 	 */
@@ -99,19 +101,19 @@ public class ImageDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Image image = (Image) session.get(Image.class, imageId);
-		
+
 		if(image == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Unable to find image with id " +imageId + " so unable to add to Qualification");
 		}
-		
+
 		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
+
 		if(qual == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Unable to find qualification with id " + qualId + " so unable to add image");
 		}
-		
+
 		image.getQuals().add(qual);
 		qual.getQualImages().add(image);
 		session.saveOrUpdate(qual);
@@ -121,7 +123,7 @@ public class ImageDatabase {
 		closeSessionFactory();
 		return image;
 	}
-	
+
 	/**
 	 * Make an image inactive (like delete)
 	 */
@@ -130,7 +132,7 @@ public class ImageDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Image image = (Image) session.get(Image.class, imageId);
-		
+
 		if(image == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Unable to find image with id " +imageId + " so unable to delete image");
@@ -143,4 +145,43 @@ public class ImageDatabase {
 		return image;
 	}
 	
+	/**
+	 * Get all images that are a client logo
+	 */
+	public List<Image> getAllClientImages(){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String getAllQuery = "From Image i";
+		List<Image> images = session.createQuery(getAllQuery).list();
+		List<Image> returnImages = new ArrayList<Image>();
+
+		for(Image i : images){
+			if(i.getImageType() == ImageType.CLIENT){
+				returnImages.add(i);
+			}
+		}
+		
+		return returnImages;
+	}
+	
+	/**
+	 * Get all images that are associated with a project
+	 */
+	public List<Image> getAllProjectImages(){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String getAllQuery = "From Image i";
+		List<Image> images = session.createQuery(getAllQuery).list();
+		List<Image> returnImages = new ArrayList<Image>();
+
+		for(Image i : images){
+			if(i.getImageType() == ImageType.PROJECT){
+				returnImages.add(i);
+			}
+		}
+		
+		return returnImages;
+	}
 }
