@@ -3,8 +3,7 @@ package org.se761.project.onlineportfolio.service;
 import java.util.List;
 
 import org.se761.project.onlineportfolio.database.QualificationDatabase;
-import org.se761.project.onlineportfolio.model.Account;
-import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.model.Image;
 import org.se761.project.onlineportfolio.model.Qualification;
 
 
@@ -86,8 +85,12 @@ public class QualificationService {
 		return modifiedQual;
 	}
 
-	
-
+	/**
+	 * Get all images associated with a qual
+	 */
+	public List<Image> getAllImagesFromQual(int qualId){
+		return qualDatabase.getAllImages(qualId);
+	}
 
 
 }

@@ -12,8 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.se761.project.onlineportfolio.model.Account;
-import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.model.Image;
 import org.se761.project.onlineportfolio.model.Qualification;
 import org.se761.project.onlineportfolio.service.QualificationService;
 
@@ -109,6 +108,12 @@ public class QualificationResource {
 		return qualificationService.editQual(qualificationId, qual);
 	}
 	
-	
-	
+	/**
+	 * Get all images associated with a qualification
+	 */
+	@GET
+	@Path("/image/{qualId}")
+	public List<Image> getAllImageFromQual(@PathParam("qualId") int qualId){
+		return qualificationService.getAllImagesFromQual(qualId);
+	}
 }
