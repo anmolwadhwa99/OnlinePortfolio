@@ -10,6 +10,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.model.Image;
+import org.se761.project.onlineportfolio.model.Qualification;
 
 public class ImageDatabase {
 	private SessionFactory sessionFactory;
@@ -90,5 +91,56 @@ public class ImageDatabase {
 		return images;
 	}
 	
+	/**
+	 * Link an image to a qualification
+	 */
+	public Image addImageToQualification(int imageId, int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Image image = (Image) session.get(Image.class, imageId);
+		
+		if(image == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to find image with id " +imageId + " so unable to add to Qualification");
+		}
+		
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to find qualification with id " + qualId + " so unable to add image");
+		}
+		
+		image.getQuals().add(qual);
+		qual.getQualImages().add(image);
+		session.saveOrUpdate(qual);
+		session.saveOrUpdate(image);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return image;
+	}
+	
+	/**
+	 * Make an image inactive (like delete)
+	 */
+	public Image deleteImage(int imageId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Image image = (Image) session.get(Image.class, imageId);
+		
+		if(image == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to find image with id " +imageId + " so unable to delete image");
+		}
+		image.setActive(false);
+		session.saveOrUpdate(image);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return image;
+	}
 	
 }
