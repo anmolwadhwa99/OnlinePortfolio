@@ -38,6 +38,9 @@ public class ImageDatabase {
 
 	}
 	
+	/**
+	 * Add an image
+	 */
 	public Image addImage(Image image){
 		openSessionFactory();
 		session = sessionFactory.openSession();
@@ -49,6 +52,9 @@ public class ImageDatabase {
 		return image;
 	}
 	
+	/**
+	 * Retrieve an image
+	 */
 	public Image getImage(int imageId){
 		openSessionFactory();
 		session = sessionFactory.openSession();
@@ -65,6 +71,9 @@ public class ImageDatabase {
 		return image;
 	}
 	
+	/**
+	 * Retrieve all images from the database
+	 */
 	public List<Image> getAllImages(){
 		openSessionFactory();
 		session = sessionFactory.openSession();
