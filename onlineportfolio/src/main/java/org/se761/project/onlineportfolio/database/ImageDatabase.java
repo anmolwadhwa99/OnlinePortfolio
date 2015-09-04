@@ -1,6 +1,9 @@
 package org.se761.project.onlineportfolio.database;
 
-import org.eclipse.persistence.exceptions.i18n.DatabaseExceptionResource;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -60,6 +63,22 @@ public class ImageDatabase {
 		session.close();
 		closeSessionFactory();
 		return image;
+	}
+	
+	public List<Image> getAllImages(){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String getAllQuery = "From Image i";
+		List<Image> images = session.createQuery(getAllQuery).list();
+		
+		if(images == null){
+			images = Collections.<Image> emptyList();
+		}
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return images;
 	}
 	
 	
