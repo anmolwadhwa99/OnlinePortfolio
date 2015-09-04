@@ -355,10 +355,16 @@
     }
 
     function viewQual(qual_id){
-        console.log(qual_id);
-        sessionStorage.setItem("qual_id", qual_id);
-        location.href="#viewQualModal";
-        $('#viewQualiFrame').attr('src', 'view_qual.html');
+        var htmlStr = "";
+        getQualById(qual_id, function(){
+            var qual = this;
+            htmlStr += "<h2 id='heading'>"+qual.projectName+"</h2>"
+
+        });
+        //console.log(qual_id);
+        //sessionStorage.setItem("qual_id", qual_id);
+        //location.href="#viewQualModal";
+        //$('#viewQualiFrame').attr('src', 'view_qual.html');
     }
 
     $('#viewQualModal').on('hidden.bs.modal', function () {
@@ -658,12 +664,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="modal-body">
+                    <div class="modal-body" id="modal_body">
                         <!-- Project Details Go Here -->
-                        <h2>Project Name</h2>
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe id="viewQualiFrame" src="" class="embed-responsive-item" height="100%" width="100%" frameborder="0" ></iframe>
-                        </div>
+
                     </div>
                 </div>
             </div>
