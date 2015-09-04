@@ -1033,6 +1033,10 @@ a.nav-expander.fixed {
     text-align: left;
 }
 
+.modal-body .subheading2 {
+    margin-bottom: 0px;
+}
+
 .modal-body p {
     padding-top: 7px;
     padding-bottom: 8px;
