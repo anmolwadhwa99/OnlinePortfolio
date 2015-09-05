@@ -219,66 +219,27 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="qual_project_name">Project Name: </label>
-                        <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name"
-                               required autofocus>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="qual_client_name">Client Name: </label>
-                        <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name"
-                               required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="qual_project_sub">Project Subtitle: </label>
-                        <input id="qual_project_sub" type="text" class="form-control" placeholder="Subtitle">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="qual_is_not_anonymous">Qual Anonymity: </label>
-
-                    <div class="btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-info active" onclick="optionalAnonName();">
-                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false"
-                                   checked="checked"/>Named
-                        </label>
-                        <label class="btn btn-warning" onclick="requireAnonName();">
-                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true"/>Anonymous
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="qual_anonymous_name">Anonymous Name: </label>
-                        <input id="qual_anonymous_name" type="text" class="form-control" placeholder="Anonymous Name">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="qual_email">Email Action: </label>
-                        <input id="qual_email" type="email" class="form-control" placeholder="Email">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="qual_website">Website Action: </label>
-                        <input id="qual_website" type="url" class="form-control" placeholder="Website">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="qual_project_name">Project Name: </label>
+                                <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name"
+                                       required autofocus>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="qual_project_sub">Project Subtitle: </label>
+                                <input id="qual_project_sub" type="text" class="form-control" placeholder="Subtitle">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="qual_client_name">Client Name: </label>
+                                <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name"
+                                       required>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -317,6 +278,50 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="qual_anonymous_name">Anonymous Name: </label>
+                        <input id="qual_anonymous_name" type="text" class="form-control" placeholder="Anonymous Name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="qual_is_not_anonymous">Qual Anonymity: </label>
+
+                    <div class="btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-info active" onclick="optionalAnonName();">
+                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false"
+                                   checked="checked"/>Named
+                        </label>
+                        <label class="btn btn-warning" onclick="requireAnonName();">
+                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true"/>Anonymous
+                        </label>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="qual_email">Email Action: </label>
+                        <input id="qual_email" type="email" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="qual_website">Website Action: </label>
+                        <input id="qual_website" type="url" class="form-control" placeholder="Website">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="qual_industry">Industry: </label>
+                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
                     </div>
                 </div>
             </div>
