@@ -17,56 +17,67 @@ function Qual(x){
     this.outcomeStatement = x.outcomeStatement;
     this.subtitle = x.subtitle;
     this.isAnonymous = x.isAnonymous;
-    this.anonymousName = x.anonymousName;
+    //this.anonymousName = x.anonymousName;
     this.isActive = x.isActive;
-    this.primaryColour = x.primaryColour;
-    this.secondaryColour = x.secondaryColour;
-    this.accentColour = x.accentColour;
+    //this.primaryColour = x.primaryColour;
+    //this.secondaryColour = x.secondaryColour;
+    //this.accentColour = x.accentColour;
     this.emailButton = x.emailButton;
     this.websiteButton = x.websiteButton;
-    this.adminGroups = x.adminGroups;
+    //this.adminGroups = x.adminGroups;
     this.industry = x.industry;
     this.tags = x.tags;
     this.status = x.status;
     this.serviceLine = x.serviceLine;
+    this.solution = x.solution;
+
 
     this.getInfo = function(){
         return this.qualId + "\n" +
-        this.projectName + "\n"  +
-        this.clientName +"\n"  +
-        this.problemStatement + "\n"  +
-        this.challengesFaced + "\n"  +
-        this.solutionStatement + "\n"  +
-        this.relevanceToClient + "\n"  +
-        this.outcomeStatement + "\n"  +
-        this.subtitle + "\n"  +
-        this.isAnonymous + "\n"  +
-        this.isActive + "\n" +
-        this.primaryColour + "\n" +
-        this.secondaryColour + "\n" +
-        this.accentColour + "\n" +
-        this.emailButton + "\n" +
-        this.websiteButton + "\n" +
-        this.adminGroups + "\n" +
-        this.industry + "\n" +
-        this.tags + "\n" +
-        this.status + "\n" +
-        this.serviceLine ;
+            this.projectName + "\n"  +
+            this.clientName +"\n"  +
+            this.problemStatement + "\n"  +
+            this.challengesFaced + "\n"  +
+            this.solutionStatement + "\n"  +
+            this.relevanceToClient + "\n"  +
+            this.outcomeStatement + "\n"  +
+            this.subtitle + "\n"  +
+                //this.isAnonymous + "\n"  +
+            this.isActive + "\n" +
+                //this.primaryColour + "\n" +
+                //this.secondaryColour + "\n" +
+                //this.accentColour + "\n" +
+            this.emailButton + "\n" +
+            this.websiteButton + "\n" +
+            this.adminGroups + "\n" +
+            this.industry + "\n" +
+            this.tags + "\n" +
+            this.status + "\n"+
+            this.solution + "\n" +
+            this.serviceLine ;
     };
 }
 
 function ProjectGroup(x){
     this.id = x.projGroupId;
     this.projectGroupName = x.projGroupName;
-    this.quals = x.quals;
-    this.accountsProj = x.accountsProj;
+    this.primaryColour = x.primaryColour;
+    this.secondaryColour = x.secondaryColour;
+    this.accentColour = x.accentColour;
+    this.isActive = x.isActive;
+    //this.quals = x.quals;
+    //this.accountsProj = x.accountsProj;
 
     this.getInfo = function(){
 
         return this.id + "\n" +
             this.projectGroupName + "\n" +
-            this.quals + "\n" +
-            this.accountsProj;
+            this.primaryColour+ "\n" +
+            this.secondaryColour + "\n" +
+            this.accentColour + "\n" +
+            this.isActive;
+        //this.quals + "\n" +
+        //this.accountsProj;
     };
 }
 
@@ -76,13 +87,14 @@ function Account(x){
     this.password = x.password;
     this.isAdmin = x.admin;
     this.isSuperUser = x.superUser;
+    this.isActive = x.isActive;
 
     this.getInfo = function(){
         return this.accountId + "\n" +
-                this.accountName + "\n" +
-                this.password + "\n" +
-                this.isAdmin + "\n" +
-                this.isSuperUser;
+            this.accountName + "\n" +
+            this.password + "\n" +
+            this.isAdmin + "\n" +
+            this.isSuperUser;
     }
 
 }
@@ -90,9 +102,26 @@ function Account(x){
 function AdminGroup(x){
     this.id = x.adminGroupId;
     this.name = x.adminGroupName;
+    this.isActive = x.isActive;
 
     this.getInfo = function(){
         return this.id + "\n" + this.name;
+    }
+}
+
+function Image(x){
+    this.active = x.active;
+    this.imageId = x.imageId;
+    this.imageName = x.imageName;
+    this.imageType = x.imageType;
+    this.imageUrl = x.imageUrl;
+
+    this.getInfo = function(){
+        return this.active + "\n" +
+            this.imageId + "\n" +
+            this.imageName + "\n" +
+            this.imageType + "\n" +
+            this.imageUrl;
     }
 }
 
@@ -309,9 +338,9 @@ function getQualsByAdminGroup(agId, callback){
 }
 
 function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
-, tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
-, solutionStatement, status, subtitle, primaryColour, secondaryColour, accentColour
-, email, website, callback){
+    , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
+    , solutionStatement, status, subtitle, primaryColour, secondaryColour, accentColour
+    , email, website, callback){
     var methodURL = url + _qual;
     var method = "POST";
 
@@ -359,7 +388,7 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
         '"accentColour": "' + accentColour + '",'+
         '"emailButton": "' + email + '",'+
         '"websiteButton":"' + website + '"'+
-    '}';
+        '}';
 
     //console.log(x);
     req.send(x);
