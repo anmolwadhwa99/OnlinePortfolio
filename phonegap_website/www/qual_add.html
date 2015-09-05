@@ -26,15 +26,15 @@
 
     <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
-    <script src="js/webServices.js"></script>
 
-    <script type="application/javascript" src="js/raphael-min.js"></script>
-    <script type="application/javascript" src="js/colorwheel.js"></script>
+    <script src="js/webServices.js"></script>
 
     <script src="js/jquery.ui.widget.js" type="text/javascript"></script>
     <script src="js/jquery.iframe-transport.js" type="text/javascript"></script>
     <script src="js/jquery.fileupload.js" type="text/javascript"></script>
     <script src="js/jquery.cloudinary.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 
     <script>
         function addQual() {
@@ -92,38 +92,6 @@
         }
     </script>
     <style>
-        .image-upload {
-            height: 10em;
-            position: relative;
-        }
-
-        .image-upload img {
-            margin: 0;
-            position: absolute;
-            top: 100%;
-        }
-
-        @media all
-        and (max-width: 991px) {
-            .image-upload img {
-                top: 0%;
-            }
-            .prod_serv_progress {
-                margin-top: 5px !important;
-            }
-        }
-
-        .prod_serv_progress {
-            margin-top: -25px;
-        }
-
-        .image-upload > input {
-            display: none;
-        }
-        .client_logo_image-upload > input{
-            display: none;
-        }
-
         .hand_interact {
             cursor: pointer;
             cursor: hand;
@@ -209,22 +177,38 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="row prod_serv_image-upload image-upload">
-                        <label for="qual_product_service_img"> <!-- element with this id only exists after document loads -->
-                            <img id="prod_serv_img" class="img-rounded hand_interact fill" src="imgs/download.png"/>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="progress prod_serv_progress">
-                            <div class="progress-bar progress-bar-success active progress-bar-striped prod_serv_progress-bar" role="progressbar"
-                                 aria-valuemin="0" aria-valuemax="100" >
-                                <span id="prod_serv_progress-value" class="progress-value" style="color: #000;"></span>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div class="img-responsive">
+                                <img id="prod_serv_img" class="img-rounded fill" src="imgs/noPreview.png"/>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <select style="margin-top: 40%" id="ddExistingProdServ" onchange="SelectProdServ(this.value)"  class="form-control" >
-                        </select>
+                        <div class="col-md-12">
+                            <br/>
+                            <select id="ddExistingProdServ" onchange="SelectProdServ(this.value)"  class="form-control" >
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="prod_serv_image-upload">
+                                <label for="qual_product_service_img"> <!-- element with this id only exists after document loads -->
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br/>
+                        <div class="col-md-12">
+                            <div class="progress prod_serv_progress">
+                                <div class="progress-bar progress-bar-success active progress-bar-striped prod_serv_progress-bar" role="progressbar"
+                                     aria-valuemin="0" aria-valuemax="100" >
+                                    <span id="prod_serv_progress-value" class="progress-value" style="color: #000;"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -295,22 +279,41 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="row client_logo_image-upload">
-                        <label for="qual_client_logo"> <!-- element with this id only exists after document loads -->
-                            <img id="client_logo_img" class="img-rounded hand_interact fill" src="imgs/download.png"/>
-                        </label>
-                    </div>
                     <div class="row">
-                        <div class="progress client_logo_progress">
-                            <div class="progress-bar progress-bar-success active progress-bar-striped client_logo_progress-bar" role="progressbar"
-                                 aria-valuemin="0" aria-valuemax="100" >
-                                <span id="client_logo_progress-value" class="progress-value" style="color: #000;"></span>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="img-responsive">
+                                        <img id="client_logo_img" class="img-rounded fill" src="imgs/noPreview.png"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <br/>
+                                    <select id="ddExistingLogo" onchange="SelectLogo(this.value)"  class="form-control" >
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="client_logo_image-upload">
+                                        <label for="qual_client_logo"> <!-- element with this id only exists after document loads --></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <br/>
+                                <div class="col-md-12">
+                                    <div class="progress client_logo_progress">
+                                        <div class="progress-bar progress-bar-success active progress-bar-striped client_logo_progress-bar" role="progressbar"
+                                             aria-valuemin="0" aria-valuemax="100" >
+                                            <span id="client_logo_progress-value" class="progress-value" style="color: #000;"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <select id="ddExistingLogo" onchange="SelectLogo(this.value)"  class="form-control" >
-                        </select>
                     </div>
                 </div>
             </div>
@@ -448,6 +451,19 @@
                 console.log(data);
             }
     );
+
+    $('#qual_product_service_img').filestyle({
+        buttonText: "Upload Product Service Image",
+        iconName: "glyphicon glyphicon-cloud-upload",
+        input: false,
+        badge: false
+    });
+    $('#qual_client_logo').filestyle({
+        buttonText: "Upload Client Logo Image",
+        iconName: "glyphicon glyphicon-cloud-upload",
+        input: false,
+        badge: false
+    });
 </script>
 </body>
 </html>
