@@ -167,28 +167,22 @@
     </script>
     <script type="application/javascript">
         $(document).ready(function(){
-            // TODO retrieve collection of product service images
-            var prodServs = {
-                'None':'',
-                'racing':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441229531/racing_pdeswd.jpg',
-                'computers':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441345050/computers_umjyqf.jpg',
-                'phones_election':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441345063/phones_election_thx8um.png'};
-            // public_id : image_url
-            $.each(prodServs, function(i, val){
-                $('#ddExistingProdServ').append('<option value="'+val+'" >' + i + '</option>');
+
+            getAllProjectImages(function () {
+                var prodServs = this;
+                $.each(prodServs, function(i, val){
+                    $('#ddExistingProdServ').append('<option value="'+val.imageUrl+'" >' + val.imageName + '</option>');
+                });
             });
 
-            // TODO retrieve collection of logo images
-            var logos = {
-                'None':'',
-                'bic':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441348290/bic_logo.gif',
-                'scholastic':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441348290/scholastic_logo.png',
-                'deloitte':'http://res.cloudinary.com/onlineportfolio/image/upload/v1441172871/download_ygoapb.png'};
-            // public_id : image_url
-            $.each(logos, function(i, val){
-                $('#ddExistingLogo').append('<option value="'+val+'" >' + i + '</option>');
+            getAllClientImages(function (){
+                var logos = this;
+                $.each(logos, function(i, val){
+                    $('#ddExistingLogo').append('<option value="'+val.imageUrl+'" >' + val.imageName + '</option>');
+                });
             });
         });
+
         function SelectProdServ(url) {
             $('#prod_serv_img').attr('src', url);
         };
