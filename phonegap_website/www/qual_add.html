@@ -36,6 +36,9 @@
 
     <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 
+    <link href="css/select2.min.css" rel="stylesheet">
+    <script src="js/select2.min.js"></script>
+
     <script>
         function addQual() {
             var projName = $("#qual_project_name").val();
@@ -125,6 +128,7 @@
             left:0;
         }
     </style>
+
     <script type="application/javascript">
         function requireAnonName() {
             document.getElementById('qual_anonymous_name').required = true;
@@ -136,8 +140,14 @@
     <script type="application/javascript">
         $(document).ready(function(){
 
+            $('#ddExistingProdServ').select2();
+            $('#ddExistingLogo').select2();
+
             $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
             $('#ddExistingLogo').append('<option value=\"imgs/noPreview.png\" >' + 'No Logo (No image will be displayed)' + '</option>');
+
+            $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
+            $('#ddExistingLogo').val("imgs/noPreview.png").trigger("change");
 
             getAllProjectImages(function () {
                 var prodServs = this;
