@@ -1528,3 +1528,38 @@ function deleteImage(id){
     req.send();
 
 }
+
+function assignImageToQual(iId, qId, callback){
+    var methodURL = url + _img + _qual + "/" + iId + "/" + qId;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while assigning image to qual");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var img = new Image(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(img.id);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"imageId": ' + iId + ','+
+        '"qualId": ' + qId + ''+
+        '}';
+    console.log(x);
+    req.send(x);
+}
