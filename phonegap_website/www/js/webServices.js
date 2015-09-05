@@ -348,7 +348,7 @@ function getImagesForQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
+                alert("An error occurred while getting images");
                 return;
             }
             // Request successful, read the response
