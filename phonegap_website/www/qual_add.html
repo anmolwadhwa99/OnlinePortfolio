@@ -52,8 +52,8 @@
             var outcome = $("#qual_outcome").val();
             var relevance = $("#qual_relevance").val();
 
-            var clientLogo = $("#client_logo_img").attr('src');
-            var productServicesImage = $("#prod_serv_img").attr('src');
+            var clientLogo = globalClientLogoID;
+            var productServicesImage = globalProdServID;
 
             var emailAction = $("#qual_email").val();
             var websiteAction = $("#qual_website").val();
@@ -156,11 +156,10 @@
 
         function SelectProdServ(url) {
             $('#prod_serv_img').attr('src', url);
-        };
-
+        }
         function SelectLogo(url) {
             $('#client_logo_img').attr('src', url);
-        };
+        }
     </script>
 </head>
 
@@ -417,7 +416,15 @@
                 $('.prod_serv_progress').show();
             }
     ).bind('cloudinarydone', function (e, data) {
-                console.log(data.result.secure_url);
+                console.log(data);
+                insertImage(true, data.result.public_id, 'PROJECT', data.result.url, function(){
+                    var img = this;
+                    globalProdServID = img.imageId; // IMPLICIT Global Variable, to be used for assigning once qual submitted
+                });
+
+                $('#ddExistingProdServ').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
+                $('#ddExistingProdServ').val(data.result.url); // Making new addition the selected option
+
                 $('.prod_serv_progress-bar').removeClass('active');
                 $('#prod_serv_progress-value').text("Upload Complete");
                 $('#prod_serv_img').attr('src', data.result.url);
@@ -443,7 +450,15 @@
                 $('.client_logo_progress').show();
             }
     ).bind('cloudinarydone', function (e, data) {
-                console.log(data.result.secure_url);
+
+                insertImage(true, data.result.public_id, 'CLIENT', data.result.url, function(){
+                    var img = this;
+                    globalClientLogoID = img.imageId; // IMPLICIT Global Variable, to be used for assigning once qual submitted
+                });
+
+                $('#ddExistingLogo').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
+                $('#ddExistingLogo').val(data.result.url); // Making new addition the selected option
+
                 $('.client_logo_progress-bar').removeClass('active');
                 $('#client_logo_progress-value').text("Upload Complete");
                 $('#client_logo_img').attr('src', data.result.url);
