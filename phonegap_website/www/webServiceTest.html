@@ -42,6 +42,18 @@
             })
         }
 
+        function editQual(){
+            getQualById(3, function(){
+                alert("init = " + this.getInfo());
+                updateQual(3, "isActive", "isAnonymous", "challengesFaced", "clientName", "industry"
+                        , "tags" , "outcomeStatement", "problemStatement", "projectName", "relevanceToClient", "serviceLine", "solution"
+                        , "solutionStatement", "status", "subtitle", "email", "website", function(){
+                            alert("new = " + this.getInfo());
+                })
+            });
+
+        }
+
         // for getting all quals
         function getQuals(){
             getAllQuals(function(){
@@ -222,6 +234,7 @@
         }
 
 
+
     </script>
 
     <script>
@@ -287,11 +300,18 @@
 
     </script>
 
+    <script>
+        function addImage(){
+            insertImage(false, "tazTest", "CLIENT", "https://www.facebook.com", function(){
+                alert(this);
+            })
+        }
+    </script>
 </head>
 <body>
 <div class="row">
     <h1 class="col-md-12">WebService Test</h1>
-    <button type="button" class="btn btn-info" onclick="getQual(1)" >Retrieve Accounts</button>
+    <button type="button" class="btn btn-info" onclick="addImage()" >Retrieve Accounts</button>
 </div>
 <div class="row">
     <ul id="list" class="col-md-8">

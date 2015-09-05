@@ -5,6 +5,7 @@ var _ac = "/account";
 var _ag = "/admin";
 var _pg = "/projectGroup";
 var _proj = "/project";
+var _img = "/image";
 
 function Qual(x){
     this.qualId = x.qualId;
@@ -337,10 +338,43 @@ function getQualsByAdminGroup(agId, callback){
     req.send();
 }
 
+function getImagesForQual(qId, callback){
+    var methodURL = url + _qual + _img + "/" + qId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while sending");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var imgs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                imgs.push(new Image(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(imgs);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
 function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
     , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
-    , solutionStatement, status, subtitle, primaryColour, secondaryColour, accentColour
-    , email, website, callback){
+    , solutionStatement, status, subtitle, email, website, callback){
     var methodURL = url + _qual;
     var method = "POST";
 
@@ -383,9 +417,6 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
         '"solutionStatement": "' + solutionStatement + '",'+
         '"status": "' + status + '",'+
         '"subtitle": "' + subtitle + '",'+
-        '"primaryColour": "' + primaryColour + '",'+
-        '"secondaryColour": "' + secondaryColour + '",'+
-        '"accentColour": "' + accentColour + '",'+
         '"emailButton": "' + email + '",'+
         '"websiteButton":"' + website + '"'+
         '}';
@@ -417,6 +448,58 @@ function deleteQual(id){
         }
     }
     req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, industry
+    , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
+    , solutionStatement, status, subtitle, email, website, callback){
+    var methodURL = url + _qual + "/" + id;
+    var method = "PUT";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while updating");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var q = new Qual(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(q);
+            }
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"isActive": ' + isActive + ','+
+        '"isAnonymous": ' + isAnonymous + ','+
+        '"challengesFaced": "' + challengesFaced + '",'+
+        '"clientName": "' + clientName + '",'+
+        '"industry": "' + industry + '",'+
+        '"tags": "' + tags + '",'+
+        '"outcomeStatement": "' + outcomeStatement + '",'+
+        '"problemStatement": "' + problemStatement + '",'+
+        '"projectName": "' + projectName + '",'+
+        '"relevanceToClient": "' + relevanceToClient + '",'+
+        '"serviceLine": "' + serviceLine + '",'+
+        '"solution": "' + solution + '",'+
+        '"solutionStatement": "' + solutionStatement + '",'+
+        '"status": "' + status + '",'+
+        '"subtitle": "' + subtitle + '",'+
+        '"emailButton": "' + email + '",'+
+        '"websiteButton":"' + website + '"'+
+        '}';
     req.send();
 
 }
@@ -1248,4 +1331,47 @@ function deleteProjectGroup(id){
     req.open(method, methodURL, true);
     req.send();
 
+}
+
+// === IMAGES ======================================================
+function insertImage(isActive, imageName, imageType, imageUrl , callback){
+    var methodURL = url + _img;
+    var method = "POST";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while creating image");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var img = new Image(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(img.imageId);
+            }
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        //"active": false,
+        //"imageName": "Trial",
+        //"imageType": "CLIENT",
+        //"imageUrl": "http://www.google.co.nz"
+        '"active": "' + isActive + '",'+
+        '"imageName": "' + imageName + '",'+
+        '"imageType": "' + imageType + '",'+
+        '"imageUrl": "' + imageUrl + '"'+
+        '}';
+    console.log(x);
+    req.send(x);
 }
