@@ -136,6 +136,9 @@
     <script type="application/javascript">
         $(document).ready(function(){
 
+            $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image' + '</option>');
+            $('#ddExistingLogo').append('<option value=\"imgs/noPreview.png\" >' + 'No Logo' + '</option>');
+
             getAllProjectImages(function () {
                 var prodServs = this;
                 $.each(prodServs, function(i, val){
