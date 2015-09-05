@@ -1470,3 +1470,36 @@ function getAllClientImages(callback) {
     req.open(method, methodURL, true);
     req.send();
 }
+
+function getAllProjectImages(callback) {
+    var methodURL = url + _img + "/project";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while retrieving all project images");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var imgs = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                imgs.push(new Image(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(imgs);
+            }
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
