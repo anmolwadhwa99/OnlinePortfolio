@@ -1503,3 +1503,28 @@ function getAllProjectImages(callback) {
     req.open(method, methodURL, true);
     req.send();
 }
+
+function deleteImage(id){
+    var methodURL = url + _img + "/" + id;
+    var method = "DELETE";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while deleting the image");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Image(json).getInfo());
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
