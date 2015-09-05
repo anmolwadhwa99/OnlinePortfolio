@@ -1375,3 +1375,32 @@ function insertImage(isActive, imageName, imageType, imageUrl , callback){
     console.log(x);
     req.send(x);
 }
+
+function getImageById(id, callback){
+
+    var methodURL = url + _img +"/" + id;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert("An error occurred while retrieving image");
+                return;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            if(typeof callback == 'function'){
+
+                callback.apply(new Image(json));
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}

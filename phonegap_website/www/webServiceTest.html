@@ -306,12 +306,18 @@
                 alert(this);
             })
         }
+
+        function getImage(){
+            getImageById(2, function(){
+                alert(this.getInfo());
+            })
+        }
     </script>
 </head>
 <body>
 <div class="row">
     <h1 class="col-md-12">WebService Test</h1>
-    <button type="button" class="btn btn-info" onclick="addImage()" >Retrieve Accounts</button>
+    <button type="button" class="btn btn-info" onclick="getImage()" >Retrieve Accounts</button>
 </div>
 <div class="row">
     <ul id="list" class="col-md-8">
