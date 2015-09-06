@@ -134,20 +134,10 @@ public class Qualification {
 
 
 
-	@XmlTransient
-	public List<ProjectGroup> getProjGroups() {
-		return projGroups;
-	}
-
-
-	public void setProjGroups(List<ProjectGroup> projGroups) {
-		this.projGroups = projGroups;
-	}
-
-
 	public int getQualId() {
 		return qualId;
 	}
+
 
 
 	public void setQualId(int qualId) {
@@ -155,9 +145,11 @@ public class Qualification {
 	}
 
 
+
 	public String getProjectName() {
 		return projectName;
 	}
+
 
 
 	public void setProjectName(String projectName) {
@@ -165,9 +157,11 @@ public class Qualification {
 	}
 
 
+
 	public String getClientName() {
 		return clientName;
 	}
+
 
 
 	public void setClientName(String clientName) {
@@ -175,9 +169,11 @@ public class Qualification {
 	}
 
 
+
 	public String getProblemStatement() {
 		return problemStatement;
 	}
+
 
 
 	public void setProblemStatement(String problemStatement) {
@@ -185,9 +181,11 @@ public class Qualification {
 	}
 
 
+
 	public String getChallengesFaced() {
 		return challengesFaced;
 	}
+
 
 
 	public void setChallengesFaced(String challengesFaced) {
@@ -195,70 +193,11 @@ public class Qualification {
 	}
 
 
-	public String getSolution() {
-		return solutionStatement;
-	}
 
-
-	public void setSolution(String solution) {
-		this.solutionStatement = solution;
-	}
-
-
-	public String getRelevanceToClient() {
-		return relevanceToClient;
-	}
-
-
-	public void setRelevanceToClient(String relevanceToClient) {
-		this.relevanceToClient = relevanceToClient;
-	}
-
-	@XmlTransient
-	public List<AdminGroup> getAdminGroups() {
-		return adminGroups;
-	}
-
-
-	public void setAdminGroups(List<AdminGroup> adminGroups) {
-		this.adminGroups = adminGroups;
-	}
-
-	public String getMetaDataIndustry() {
-		return industry;
-	}
-
-
-	public void setMetaDataIndustry(String metaDataIndustry) {
-		this.industry = metaDataIndustry;
-	}
-
-
-	public String getMetaDataStatus() {
-		return status;
-	}
-
-
-	public void setMetaDataStatus(String metaDataStatus) {
-		this.status = metaDataStatus;
-	}
-
-
-	public String getMetaDataDeloitteServiceLine() {
-		return serviceLine;
-	}
-
-
-	public void setMetaDataDeloitteServiceLine(String metaDataDeloitteServiceLine) {
-		this.serviceLine = metaDataDeloitteServiceLine;
-	}
-
-
-
-	
 	public String getSolutionStatement() {
 		return solutionStatement;
 	}
+
 
 
 	public void setSolutionStatement(String solutionStatement) {
@@ -266,9 +205,23 @@ public class Qualification {
 	}
 
 
+
+	public String getRelevanceToClient() {
+		return relevanceToClient;
+	}
+
+
+
+	public void setRelevanceToClient(String relevanceToClient) {
+		this.relevanceToClient = relevanceToClient;
+	}
+
+
+
 	public String getOutcomeStatement() {
 		return outcomeStatement;
 	}
+
 
 
 	public void setOutcomeStatement(String outcomeStatement) {
@@ -276,9 +229,11 @@ public class Qualification {
 	}
 
 
+
 	public String getSubtitle() {
 		return subtitle;
 	}
+
 
 
 	public void setSubtitle(String subtitle) {
@@ -286,9 +241,11 @@ public class Qualification {
 	}
 
 
+
 	public boolean isAnonymous() {
 		return isAnonymous;
 	}
+
 
 
 	public void setAnonymous(boolean isAnonymous) {
@@ -296,18 +253,35 @@ public class Qualification {
 	}
 
 
+
+	public String getAnonymousName() {
+		return anonymousName;
+	}
+
+
+
+	public void setAnonymousName(String anonymousName) {
+		this.anonymousName = anonymousName;
+	}
+
+
+
 	public boolean isActive() {
 		return isActive;
 	}
+
 
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
+
+
 	public String getEmailButton() {
 		return emailButton;
 	}
+
 
 
 	public void setEmailButton(String emailButton) {
@@ -315,9 +289,11 @@ public class Qualification {
 	}
 
 
+
 	public String getWebsiteButton() {
 		return websiteButton;
 	}
+
 
 
 	public void setWebsiteButton(String websiteButton) {
@@ -325,9 +301,11 @@ public class Qualification {
 	}
 
 
+
 	public String getIndustry() {
 		return industry;
 	}
+
 
 
 	public void setIndustry(String industry) {
@@ -335,9 +313,11 @@ public class Qualification {
 	}
 
 
+
 	public String getTags() {
 		return tags;
 	}
+
 
 
 	public void setTags(String tags) {
@@ -345,9 +325,11 @@ public class Qualification {
 	}
 
 
+
 	public String getStatus() {
 		return status;
 	}
+
 
 
 	public void setStatus(String status) {
@@ -355,22 +337,41 @@ public class Qualification {
 	}
 
 
+
 	public String getServiceLine() {
 		return serviceLine;
 	}
 
 
+
 	public void setServiceLine(String serviceLine) {
 		this.serviceLine = serviceLine;
 	}
-	
-	public String getAnonymousName() {
-		return anonymousName;
+
+
+	@XmlTransient
+	public List<AdminGroup> getAdminGroups() {
+		return adminGroups;
 	}
 
-	public void setAnonymousName(String anonymousName) {
-		this.anonymousName = anonymousName;
+
+
+	public void setAdminGroups(List<AdminGroup> adminGroups) {
+		this.adminGroups = adminGroups;
 	}
+
+
+	@XmlTransient
+	public List<ProjectGroup> getProjGroups() {
+		return projGroups;
+	}
+
+
+
+	public void setProjGroups(List<ProjectGroup> projGroups) {
+		this.projGroups = projGroups;
+	}
+
 
 	@XmlTransient
 	public List<Image> getQualImages() {
@@ -384,6 +385,4 @@ public class Qualification {
 	}
 
 
-
-		
 }
