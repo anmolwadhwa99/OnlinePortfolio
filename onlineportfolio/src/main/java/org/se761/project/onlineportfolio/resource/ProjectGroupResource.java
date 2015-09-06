@@ -56,9 +56,8 @@ public class ProjectGroupResource {
 	}
 	
 	@PUT
-	@Path("/{projectGroupId}")
-	public ProjectGroup editProjectGroupDetails(@PathParam("projectGroupId") int projectGroupId, ProjectGroup projectGroup){
-		return projectGroupService.editProjectGroupDetails(projectGroupId, projectGroup);
+	public ProjectGroup editProjectGroupDetails(ProjectGroup projectGroup){
+		return projectGroupService.editProjectGroupDetails(projectGroup);
 	}
 	
 	

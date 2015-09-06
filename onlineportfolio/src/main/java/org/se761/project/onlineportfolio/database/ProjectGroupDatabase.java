@@ -141,26 +141,18 @@ public class ProjectGroupDatabase {
 	/**
 	 * Edit a project group
 	 */
-	public ProjectGroup editProjectGroupDetails(int projectGroupId, ProjectGroup newProjectGroup){
+	public ProjectGroup editProjectGroupDetails(ProjectGroup newProjectGroup){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction(); 
 		
-		ProjectGroup projectGroup = (ProjectGroup) session.get(ProjectGroup.class, projectGroupId);
-		
-		if(projectGroup == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Project Group with id " + projectGroupId + " could not be found");
-		}
-		
-		projectGroup = newProjectGroup;
-		session.update(projectGroup);
+		session.saveOrUpdate(newProjectGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		
 		
-		return projectGroup;
+		return newProjectGroup;
 		
 	}
 	

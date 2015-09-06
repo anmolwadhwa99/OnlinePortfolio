@@ -51,8 +51,8 @@ public class ProjectGroupService {
 	/**
 	 * Edit project group
 	 */
-	public ProjectGroup editProjectGroupDetails(int projectGroupId, ProjectGroup newProjectGroup){
-		ProjectGroup projectGroup = projGroupDb.editProjectGroupDetails(projectGroupId, newProjectGroup);
+	public ProjectGroup editProjectGroupDetails(ProjectGroup newProjectGroup){
+		ProjectGroup projectGroup = projGroupDb.editProjectGroupDetails(newProjectGroup);
 		return projectGroup;
 	}
 
