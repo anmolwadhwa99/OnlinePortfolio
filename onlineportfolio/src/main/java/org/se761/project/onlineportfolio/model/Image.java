@@ -26,17 +26,15 @@ public class Image {
 	@Column(columnDefinition="TEXT")
 	private String imageUrl;
 	private ImageType imageType;
-	private String imageName;
+	
 	private boolean isActive = true; //by default
 	
 
-	
-	public Image(int imageId, String imageUrl, ImageType imageType,
-			String imageName) {
+	public Image(int imageId, String imageUrl, ImageType imageType) {
 		this.imageId = imageId;
 		this.imageUrl = imageUrl;
 		this.imageType = imageType;
-		this.imageName = imageName;
+		
 	}
 	
 	public Image(){
@@ -65,14 +63,6 @@ public class Image {
 
 	public void setImageType(ImageType imageType) {
 		this.imageType = imageType;
-	}
-
-	public String getImageName() {
-		return imageName;
-	}
-
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
 	}
 
 	public enum ImageType{
