@@ -13,7 +13,7 @@ public class ImageData extends Server{
 		try {
 			jsonImage.put("imageUrl", image.getImageUrl());
 			jsonImage.put("imageType", image.getImageType());
-			jsonImage.put("imageName", image.getImageName());
+			jsonImage.put("publicId", image.getPublicId());
 			jsonImage.put("isActive", image.isActive());
 
 
@@ -29,7 +29,6 @@ public class ImageData extends Server{
 	public static void main(String[] args) {
 		ImageData imageData = new ImageData();
 		Image image = new Image();
-		image.setImageName("Yolo");
 		imageData.addImage(image);
 
 	}
