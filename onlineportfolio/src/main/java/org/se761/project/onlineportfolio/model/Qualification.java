@@ -67,6 +67,9 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String clientImage;
 	
+	@Column(columnDefinition="TEXT")
+	private String projectImage;
+	
 	private String status; //either "open" or "confidential"
 	private String serviceLine; //e.g. auditing, consulting, etc
 
@@ -380,6 +383,18 @@ public class Qualification {
 
 	public void setClientImage(String clientImage) {
 		this.clientImage = clientImage;
+	}
+
+
+
+	public String getProjectImage() {
+		return projectImage;
+	}
+
+
+
+	public void setProjectImage(String projectImage) {
+		this.projectImage = projectImage;
 	}
 
 
