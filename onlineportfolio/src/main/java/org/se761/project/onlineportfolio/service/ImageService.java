@@ -33,15 +33,15 @@ public class ImageService {
 	/**
 	 * Get all images that are client logos
 	 */
-	public List<Image> getAllClientImages(){
-		return imageDatabase.getAllClientImages();
+	public List<Image> getAllLogoImages(){
+		return imageDatabase.getAllLogoImages();
 	}
 	
 	/**
 	 * Get all images that are associated with a project
 	 */
-	public List<Image> getAllProjectImages(){
-		return imageDatabase.getAllProjectImages();
+	public List<Image> getAllProductImages(){
+		return imageDatabase.getAllProductImages();
 	}
 	
 	/**

@@ -43,8 +43,8 @@ public class ImageResource {
 	 */
 	@GET
 	@Path("/client")
-	public List<Image> getAllClientImages(){
-		return imageService.getAllClientImages();
+	public List<Image> getAllLogoImages(){
+		return imageService.getAllLogoImages();
 	}
 	
 	/**
@@ -52,8 +52,8 @@ public class ImageResource {
 	 */
 	@GET
 	@Path("/project")
-	public List<Image> getAllProjectImages(){
-		return imageService.getAllProjectImages();
+	public List<Image> getAllProductImages(){
+		return imageService.getAllProductImages();
 	}
 	
 	/**

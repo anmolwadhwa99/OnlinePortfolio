@@ -119,7 +119,7 @@ public class ImageDatabase {
 	/**
 	 * Get all images that are a client logo
 	 */
-	public List<Image> getAllClientImages(){
+	public List<Image> getAllLogoImages(){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -141,7 +141,7 @@ public class ImageDatabase {
 	/**
 	 * Get all images that are associated with a project
 	 */
-	public List<Image> getAllProjectImages(){
+	public List<Image> getAllProductImages(){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
