@@ -76,7 +76,7 @@ public class Image {
 	}
 
 	public enum ImageType{
-		CLIENT, PROJECT;
+		PRODSERV, LOGO;
 	}
 
 	public boolean isActive() {

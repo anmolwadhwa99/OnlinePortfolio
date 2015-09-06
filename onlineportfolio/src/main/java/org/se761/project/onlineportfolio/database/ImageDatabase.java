@@ -128,7 +128,7 @@ public class ImageDatabase {
 		List<Image> returnImages = new ArrayList<Image>();
 
 		for(Image i : images){
-			if(i.getImageType() == ImageType.CLIENT){
+			if(i.getImageType() == ImageType.LOGO){
 				returnImages.add(i);
 			}
 		}
@@ -150,7 +150,7 @@ public class ImageDatabase {
 		List<Image> returnImages = new ArrayList<Image>();
 
 		for(Image i : images){
-			if(i.getImageType() == ImageType.PROJECT){
+			if(i.getImageType() == ImageType.PRODSERV){
 				returnImages.add(i);
 			}
 		}
