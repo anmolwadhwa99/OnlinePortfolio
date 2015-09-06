@@ -417,7 +417,7 @@
     // Adding input to correct location
     $('.prod_serv_image-upload').append($.cloudinary.unsigned_upload_tag(
                     "ug21hs7g",
-                    {cloud_name: 'onlineportfolio'},
+                    {cloud_name: 'onlineportfolio', tags: 'PRODSERV'},
                     {multiple: false},
                     // With specified id
                     "qual_product_service_img")
@@ -427,7 +427,7 @@
             }
     ).bind('cloudinarydone', function (e, data) {
                 console.log(data);
-                insertImage(true, data.result.public_id, 'PROJECT', data.result.url, function(){});
+                insertImage(true, data.result.public_id, 'PRODSERV', data.result.url, function(){});
 
                 $('#ddExistingProdServ').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
                 $('#ddExistingProdServ').val(data.result.url); // Making new addition the selected option
@@ -448,7 +448,7 @@
     );
     $('.client_logo_image-upload').append($.cloudinary.unsigned_upload_tag(
                     "ug21hs7g",
-                    {cloud_name: 'onlineportfolio'},
+                    {cloud_name: 'onlineportfolio', tags: 'LOGO'},
                     {multiple: false},
                     // With specified id
                     "qual_client_logo")
@@ -458,7 +458,7 @@
             }
     ).bind('cloudinarydone', function (e, data) {
 
-                insertImage(true, data.result.public_id, 'CLIENT', data.result.url, function(){});
+                insertImage(true, data.result.public_id, 'LOGO', data.result.url, function(){});
 
                 $('#ddExistingLogo').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
                 $('#ddExistingLogo').val(data.result.url); // Making new addition the selected option
