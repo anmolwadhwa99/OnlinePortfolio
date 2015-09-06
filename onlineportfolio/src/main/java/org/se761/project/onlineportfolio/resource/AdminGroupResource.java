@@ -83,9 +83,8 @@ public class AdminGroupResource {
 	 * Edit admin group
 	 */
 	@PUT
-	@Path("/{adminGroupId}")
-	public AdminGroup editAdminGroupDetails(@PathParam("adminGroupId") int adminGroupId, AdminGroup adminGroup){
-		return adminGroupService.editAdminGroupDetails(adminGroupId, adminGroup);
+	public AdminGroup editAdminGroupDetails(AdminGroup adminGroup){
+		return adminGroupService.editAdminGroupDetails(adminGroup);
 	}
 	
 }

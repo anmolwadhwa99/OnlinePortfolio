@@ -166,25 +166,17 @@ public class AdminGroupDatabase {
 	 * Edit admin group
 	 */
 	
-	public AdminGroup editAdminGroupDetails(int adminGroupId, AdminGroup modifiedAdminGroup){
+	public AdminGroup editAdminGroupDetails(AdminGroup modifiedAdminGroup){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
-		
-		if (adminGroup == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("AdminGroup with id: " + adminGroupId + " could not be found");
-		}
-		
-		adminGroup = modifiedAdminGroup;
-		session.update(adminGroup);
+		session.saveOrUpdate(modifiedAdminGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		
-		return adminGroup;
+		return modifiedAdminGroup;
 		
 	}
 
