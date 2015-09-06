@@ -66,6 +66,9 @@ public class Qualification {
 	
 	private String status; //either "open" or "confidential"
 	private String serviceLine; //e.g. auditing, consulting, etc
+	
+	@Column(columnDefinition="TEXT")
+	private String imageURL;
 
 
 	//TODO
@@ -361,13 +364,23 @@ public class Qualification {
 		return projGroups;
 	}
 
-
-
+	
 	public void setProjGroups(List<ProjectGroup> projGroups) {
 		this.projGroups = projGroups;
 	}
 
 
 
+	public String getImageURL() {
+		return imageURL;
+	}
+
+
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	
 
 }
