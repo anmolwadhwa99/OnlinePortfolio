@@ -80,8 +80,8 @@ public class QualificationService {
 	/**
 	 * Edit a qualification
 	 */
-	public Qualification editQual(int qualId, Qualification qual){
-		Qualification modifiedQual = qualDatabase.editQualification(qualId, qual);
+	public Qualification editQual(Qualification qual){
+		Qualification modifiedQual = qualDatabase.editQualification(qual);
 		return modifiedQual;
 	}
 

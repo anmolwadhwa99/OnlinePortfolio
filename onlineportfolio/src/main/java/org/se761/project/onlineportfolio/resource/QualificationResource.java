@@ -103,9 +103,8 @@ public class QualificationResource {
 	 * Edit a qualification
 	 */
 	@PUT
-	@Path("/{qualificationId}")
-	public Qualification editQualification(@PathParam("qualificationId") int qualificationId, Qualification qual){
-		return qualificationService.editQual(qualificationId, qual);
+	public Qualification editQualification(Qualification qual){
+		return qualificationService.editQual(qual);
 	}
 	
 	/**
