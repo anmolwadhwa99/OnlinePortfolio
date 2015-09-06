@@ -23,7 +23,7 @@ public class ImageResource {
 	private ImageService imageService = new ImageService();
 	
 	/**
-	 * Adding an image
+	 * Add an image
 	 */
 	@POST
 	public Image addImage(Image image){
@@ -31,7 +31,7 @@ public class ImageResource {
 	}
 	
 	/**
-	 * Get all images stored in the database
+	 * Get all images that are stored in the database
 	 */
 	@GET 
 	public List<Image> getAllImages(){
@@ -39,25 +39,25 @@ public class ImageResource {
 	}
 	
 	/**
-	 * Get all client images stored in the database
+	 * Get all client logo images that are stored in the database
 	 */
 	@GET
-	@Path("/client")
+	@Path("/logo")
 	public List<Image> getAllLogoImages(){
 		return imageService.getAllLogoImages();
 	}
 	
 	/**
-	 * Get all project images stored in the database
+	 * Get all product service images that are stored in the database
 	 */
 	@GET
-	@Path("/project")
+	@Path("/product")
 	public List<Image> getAllProductImages(){
 		return imageService.getAllProductImages();
 	}
 	
 	/**
-	 * Getting any image
+	 * Retrieve an image
 	 */
 	@GET
 	@Path("/{imageId}")

@@ -117,7 +117,7 @@ public class ImageDatabase {
 	}
 	
 	/**
-	 * Get all images that are a client logo
+	 * Get all images that are client logos
 	 */
 	public List<Image> getAllLogoImages(){
 		openSessionFactory();
@@ -139,7 +139,7 @@ public class ImageDatabase {
 	}
 	
 	/**
-	 * Get all images that are associated with a project
+	 * Get all images that are associated with a product service
 	 */
 	public List<Image> getAllProductImages(){
 		openSessionFactory();

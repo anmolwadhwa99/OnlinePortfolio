@@ -38,7 +38,7 @@ public class ImageService {
 	}
 	
 	/**
-	 * Get all images that are associated with a project
+	 * Get all images that are associated with a product service
 	 */
 	public List<Image> getAllProductImages(){
 		return imageDatabase.getAllProductImages();
