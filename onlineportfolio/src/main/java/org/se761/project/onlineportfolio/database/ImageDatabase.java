@@ -93,36 +93,7 @@ public class ImageDatabase {
 		return images;
 	}
 
-	/**
-	 * Link an image to a qualification
-	 */
-	public Image addImageToQualification(int imageId, int qualId){
-		openSessionFactory();
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		Image image = (Image) session.get(Image.class, imageId);
 
-		if(image == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Unable to find image with id " +imageId + " so unable to add to Qualification");
-		}
-
-		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-
-		if(qual == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Unable to find qualification with id " + qualId + " so unable to add image");
-		}
-
-		image.getQuals().add(qual);
-		qual.getQualImages().add(image);
-		session.saveOrUpdate(qual);
-		session.saveOrUpdate(image);
-		session.getTransaction().commit();
-		session.close();
-		closeSessionFactory();
-		return image;
-	}
 
 	/**
 	 * Make an image inactive (like delete)

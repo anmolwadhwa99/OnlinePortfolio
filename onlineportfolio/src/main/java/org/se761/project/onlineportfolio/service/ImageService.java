@@ -31,13 +31,6 @@ public class ImageService {
 	}
 	
 	/**
-	 * Add an image to a qualification
-	 */
-	public Image addImageToQualification(int imageId, int qualId){
-		return imageDatabase.addImageToQualification(imageId, qualId);
-	}
-	
-	/**
 	 * Get all images that are client logos
 	 */
 	public List<Image> getAllClientImages(){

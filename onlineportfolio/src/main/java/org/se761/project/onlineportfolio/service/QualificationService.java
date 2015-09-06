@@ -85,12 +85,6 @@ public class QualificationService {
 		return modifiedQual;
 	}
 
-	/**
-	 * Get all images associated with a qual
-	 */
-	public List<Image> getAllImagesFromQual(int qualId){
-		return qualDatabase.getAllImages(qualId);
-	}
 
 
 }

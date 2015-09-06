@@ -74,13 +74,6 @@ public class ImageResource {
 		return imageService.deleteImage(imageId);
 	}
 	
-	/**
-	 * Add an existing image against a qualification
-	 */
-	@POST
-	@Path("/qual/{imageId}/{qualId}")
-	public Image addImageToQualification(@PathParam("imageId") int imageId, @PathParam("qualId") int qualId){
-		return imageService.addImageToQualification(imageId, qualId);
-	}
+
 	
 }

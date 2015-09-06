@@ -86,12 +86,7 @@ public class Qualification {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ProjectGroup> projGroups = new ArrayList<ProjectGroup>();
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "ImageAccess", joinColumns = { 
-			@JoinColumn(name = "qual_id")}, 
-			inverseJoinColumns = { @JoinColumn(name = "image_id") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Image> qualImages = new ArrayList<Image>();
+	
 	
 	
 	public Qualification(){
@@ -373,16 +368,6 @@ public class Qualification {
 	}
 
 
-	@XmlTransient
-	public List<Image> getQualImages() {
-		return qualImages;
-	}
-
-
-
-	public void setQualImages(List<Image> qualImages) {
-		this.qualImages = qualImages;
-	}
 
 
 }

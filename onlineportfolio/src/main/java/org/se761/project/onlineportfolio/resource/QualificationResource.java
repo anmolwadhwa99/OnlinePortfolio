@@ -107,12 +107,4 @@ public class QualificationResource {
 		return qualificationService.editQual(qual);
 	}
 	
-	/**
-	 * Get all images associated with a qualification
-	 */
-	@GET
-	@Path("/image/{qualId}")
-	public List<Image> getAllImageFromQual(@PathParam("qualId") int qualId){
-		return qualificationService.getAllImagesFromQual(qualId);
-	}
 }

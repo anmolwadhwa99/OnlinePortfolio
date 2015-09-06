@@ -29,9 +29,7 @@ public class Image {
 	private String imageName;
 	private boolean isActive = true; //by default
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "qualImages")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Qualification> quals = new ArrayList<Qualification>();
+
 	
 	public Image(int imageId, String imageUrl, ImageType imageType,
 			String imageName) {
@@ -79,15 +77,6 @@ public class Image {
 
 	public enum ImageType{
 		CLIENT, PROJECT;
-	}
-
-	@XmlTransient
-	public List<Qualification> getQuals() {
-		return quals;
-	}
-
-	public void setQuals(List<Qualification> quals) {
-		this.quals = quals;
 	}
 
 	public boolean isActive() {

@@ -249,26 +249,6 @@ public class QualificationDatabase {
 		
 	}
 	
-	/**
-	 * Get all images that are associated with a qualification
-	 */
-	public List<Image> getAllImages(int qualId){
-		openSessionFactory();
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
-		if(qual == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Unable to find qualification with id " + qualId + " so unable to retrieve images");
-		}
-		
-		List<Image> images = qual.getQualImages();
-		session.getTransaction().commit();
-		session.close();
-		closeSessionFactory();
-		return images;
-	}	
 	
 	
 	
