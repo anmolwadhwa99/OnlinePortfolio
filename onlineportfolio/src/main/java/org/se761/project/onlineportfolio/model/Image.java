@@ -26,14 +26,18 @@ public class Image {
 	@Column(columnDefinition="TEXT")
 	private String imageUrl;
 	private ImageType imageType;
+	@Column(columnDefinition="TEXT")
+	private String publicId;
+	
 	
 	private boolean isActive = true; //by default
 	
 
-	public Image(int imageId, String imageUrl, ImageType imageType) {
+	public Image(int imageId, String imageUrl, ImageType imageType, String publicId) {
 		this.imageId = imageId;
 		this.imageUrl = imageUrl;
 		this.imageType = imageType;
+		this.publicId = publicId;
 		
 	}
 	
@@ -75,6 +79,14 @@ public class Image {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getPublicId() {
+		return publicId;
+	}
+
+	public void setPublicId(String publicId) {
+		this.publicId = publicId;
 	}
 	
 }
