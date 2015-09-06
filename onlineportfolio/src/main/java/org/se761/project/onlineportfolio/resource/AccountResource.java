@@ -117,9 +117,8 @@ public class AccountResource {
 	 * Edit an account
 	 */
 	@PUT
-	@Path("/{accountId}")
-	public Account editAccountDetails(@PathParam("accountId") int accountId, Account account){
-		return accountService.editAccountDetails(accountId, account);
+	public Account editAccountDetails(Account account){
+		return accountService.editAccountDetails(account);
 	}
 	
 	@GET

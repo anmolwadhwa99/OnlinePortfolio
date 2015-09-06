@@ -266,26 +266,18 @@ public class AccountDatabase {
 	/**
 	 * Edit account details
 	 */
-	public Account editAccountDetails(int accountId, Account editedAccount){
+	public Account editAccountDetails(Account editedAccount){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction(); 
 		
-		Account account = (Account) session.get(Account.class, accountId);
-		
-		if(account == null){
-			closeSessionFactory();
-			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
-		}
-		
-		account = editedAccount;
-		session.update(account);
+		session.saveOrUpdate(editedAccount);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		
 		
-		return account;
+		return editedAccount;
 	}
 	
 	/**

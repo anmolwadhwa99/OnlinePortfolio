@@ -95,8 +95,8 @@ public class AccountService {
 	/**
 	 * Edit account details
 	 */
-	public Account editAccountDetails(int accountId, Account modifiedAccount){
-		Account account = accountDatabase.editAccountDetails(accountId, modifiedAccount);
+	public Account editAccountDetails(Account modifiedAccount){
+		Account account = accountDatabase.editAccountDetails(modifiedAccount);
 		return account;
 	}
 	
