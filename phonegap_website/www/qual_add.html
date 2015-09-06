@@ -55,8 +55,8 @@
             var outcome = $("#qual_outcome").val();
             var relevance = $("#qual_relevance").val();
 
-            var clientLogo = globalClientLogoID;
-            var productServicesImage = globalProdServID;
+            var clientLogo = $('#client_logo_img').attr('src');
+            var productServicesImage = $('#prod_serv_img').attr('src');
 
             var emailAction = $("#qual_email").val();
             var websiteAction = $("#qual_website").val();
@@ -427,10 +427,7 @@
             }
     ).bind('cloudinarydone', function (e, data) {
                 console.log(data);
-                insertImage(true, data.result.public_id, 'PROJECT', data.result.url, function(){
-                    var img = this;
-                    globalProdServID = img.imageId; // IMPLICIT Global Variable, to be used for assigning once qual submitted
-                });
+                insertImage(true, data.result.public_id, 'PROJECT', data.result.url, function(){});
 
                 $('#ddExistingProdServ').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
                 $('#ddExistingProdServ').val(data.result.url); // Making new addition the selected option
@@ -461,10 +458,7 @@
             }
     ).bind('cloudinarydone', function (e, data) {
 
-                insertImage(true, data.result.public_id, 'CLIENT', data.result.url, function(){
-                    var img = this;
-                    globalClientLogoID = img.imageId; // IMPLICIT Global Variable, to be used for assigning once qual submitted
-                });
+                insertImage(true, data.result.public_id, 'CLIENT', data.result.url, function(){});
 
                 $('#ddExistingLogo').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
                 $('#ddExistingLogo').val(data.result.url); // Making new addition the selected option
