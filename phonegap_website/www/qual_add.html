@@ -152,14 +152,14 @@
             getAllProjectImages(function () {
                 var prodServs = this;
                 $.each(prodServs, function(i, val){
-                    $('#ddExistingProdServ').append('<option value="'+val.imageUrl+'" >' + val.imageName + '</option>');
+                    $('#ddExistingProdServ').append('<option value="'+val.imageUrl+'" >' + val.publicId + '</option>');
                 });
             });
 
             getAllClientImages(function (){
                 var logos = this;
                 $.each(logos, function(i, val){
-                    $('#ddExistingLogo').append('<option value="'+val.imageUrl+'" >' + val.imageName + '</option>');
+                    $('#ddExistingLogo').append('<option value="'+val.imageUrl+'" >' + val.publicId + '</option>');
                 });
             });
         });
