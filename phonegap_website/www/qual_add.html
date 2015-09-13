@@ -170,6 +170,15 @@
         function SelectLogo(url) {
             $('#client_logo_img').attr('src', url);
         }
+
+        function ResetImages(){
+            $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
+            $('#ddExistingLogo').val("imgs/noPreview.png").trigger("change");
+
+            $('.prod_serv_progress').hide();
+
+            $('.client_logo_progress').hide();
+        }
     </script>
 </head>
 
@@ -215,7 +224,7 @@
                         <br/>
                         <div class="col-md-12">
                             <div class="progress prod_serv_progress">
-                                <div class="progress-bar progress-bar-success active progress-bar-striped prod_serv_progress-bar" role="progressbar"
+                                <div class="progress-bar progress-bar-success progress-bar-striped prod_serv_progress-bar" role="progressbar"
                                      aria-valuemin="0" aria-valuemax="100" >
                                     <span id="prod_serv_progress-value" class="progress-value" style="color: #000;"></span>
                                 </div>
@@ -279,7 +288,7 @@
                                 <br/>
                                 <div class="col-md-12">
                                     <div class="progress client_logo_progress">
-                                        <div class="progress-bar progress-bar-success active progress-bar-striped client_logo_progress-bar" role="progressbar"
+                                        <div class="progress-bar progress-bar-success progress-bar-striped client_logo_progress-bar" role="progressbar"
                                              aria-valuemin="0" aria-valuemax="100" >
                                             <span id="client_logo_progress-value" class="progress-value" style="color: #000;"></span>
                                         </div>
@@ -401,7 +410,8 @@
         </div>
         <div class="col-md-6">
             <br/>
-            <button type="reset" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-repeat"></span> Reset
+            <button type="reset" class="btn btn-block btn-danger" onclick="javascript: ResetImages();">
+                <span class="glyphicon glyphicon-repeat"></span> Reset
             </button>
         </div>
     </div>
@@ -424,13 +434,14 @@
             // Binding events
     ).bind('cloudinarystart', function (e, data) {
                 $('.prod_serv_progress').show();
+                $('.prod_serv_progress-bar').addClass('active');
             }
     ).bind('cloudinarydone', function (e, data) {
                 console.log(data);
                 insertImage(true, data.result.public_id, 'PRODSERV', data.result.url, function(){});
 
                 $('#ddExistingProdServ').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
-                $('#ddExistingProdServ').val(data.result.url); // Making new addition the selected option
+                $('#ddExistingProdServ').val(data.result.url).trigger("change"); // Triggering change event to cause new addition to be the selected option
 
                 $('.prod_serv_progress-bar').removeClass('active');
                 $('#prod_serv_progress-value').text("Upload Complete");
@@ -455,13 +466,14 @@
             // Binding events
     ).bind('cloudinarystart', function (e, data) {
                 $('.client_logo_progress').show();
+                $('.client_logo_progress-bar').addClass('active');
             }
     ).bind('cloudinarydone', function (e, data) {
 
                 insertImage(true, data.result.public_id, 'LOGO', data.result.url, function(){});
 
                 $('#ddExistingLogo').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
-                $('#ddExistingLogo').val(data.result.url); // Making new addition the selected option
+                $('#ddExistingLogo').val(data.result.url).trigger("change"); // Triggering change event to cause new addition to be the selected option
 
                 $('.client_logo_progress-bar').removeClass('active');
                 $('#client_logo_progress-value').text("Upload Complete");
