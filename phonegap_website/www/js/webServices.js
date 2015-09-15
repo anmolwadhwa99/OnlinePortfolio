@@ -113,14 +113,14 @@ function AdminGroup(x){
 function Image(x){
     this.active = x.active;
     this.imageId = x.imageId;
-    this.imageName = x.imageName;
+    this.publicId = x.publicId;
     this.imageType = x.imageType;
     this.imageUrl = x.imageUrl;
 
     this.getInfo = function(){
         return this.active + "\n" +
             this.imageId + "\n" +
-            this.imageName + "\n" +
+            this.publicId + "\n" +
             this.imageType + "\n" +
             this.imageUrl;
     }
@@ -1331,7 +1331,7 @@ function deleteProjectGroup(id){
 }
 
 // === IMAGES ======================================================
-function insertImage(isActive, imageName, imageType, imageUrl , callback){
+function insertImage(isActive, publicid, imageType, imageUrl , callback){
     var methodURL = url + _img;
     var method = "POST";
 
@@ -1365,7 +1365,7 @@ function insertImage(isActive, imageName, imageType, imageUrl , callback){
         //"imageType": "CLIENT",
         //"imageUrl": "http://www.google.co.nz"
         '"active": "' + isActive + '",'+
-        '"imageName": "' + imageName + '",'+
+        '"publicId": "' + publicid + '",'+
         '"imageType": "' + imageType + '",'+
         '"imageUrl": "' + imageUrl + '"'+
         '}';
