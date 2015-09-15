@@ -39,6 +39,8 @@
     <link href="css/select2.min.css" rel="stylesheet">
     <script src="js/select2.min.js"></script>
 
+    <script src="js/iframeResizer.contentWindow.min.js"></script>
+
     <script>
         function addQual() {
             var projName = $("#qual_project_name").val();
@@ -88,17 +90,12 @@
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
                     'solutionStatement', access, projSubTitle,
                     emailAction, websiteAction, function () {
-                        location.replace("index1.html");
+                        parent.$('body').trigger('hidden.bs.modal'); // Should close the modal
                     }
             );
         }
     </script>
     <style>
-        .hand_interact {
-            cursor: pointer;
-            cursor: hand;
-        }
-
         .fill {
             zoom: 2;
 
@@ -110,15 +107,6 @@
 
             width: auto;
             max-width: 100%;
-        }
-
-        .back_button > input {
-            display: none;
-        }
-
-        .back_button_img {
-            max-width: 20px;
-            zoom: 2;
         }
 
         .progress-value {
@@ -139,8 +127,8 @@
     <script type="application/javascript">
         $(document).ready(function(){
 
-            $('#ddExistingProdServ').select2();
-            $('#ddExistingLogo').select2();
+            $('#ddExistingProdServ').select2({width:"style"});
+            $('#ddExistingLogo').select2({width:"style"});
 
             $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
             $('#ddExistingLogo').append('<option value=\"imgs/noPreview.png\" >' + 'No Logo (No image will be displayed)' + '</option>');
@@ -182,16 +170,6 @@
 </head>
 
 <body style="padding:20px;">
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div style="padding-top: 10px;padding-left: 10px;">
-        <div class="back_button pull-left">
-            <label for="qual_back">
-                <img src="imgs/back.png" class="hand_interact back_button_img" alt="Back to Main"/>
-            </label>
-            <input id="qual_back" class="hand_interact" type="button" onclick="location.replace('index1.html');">
-        </div>
-    </div>
-</div>
 <form id="qual_add_form" action="javascript:addQual();" class="container-fluid" style="padding-top: 50px;">
     <div class="row">
         <div class="col-md-6">
@@ -207,7 +185,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <br/>
-                            <select id="ddExistingProdServ" onchange="SelectProdServ(this.value)"  class="form-control" >
+                            <select id="ddExistingProdServ" style="width: 100%;" onchange="SelectProdServ(this.value)"  class="form-control" >
                             </select>
                         </div>
                     </div>
@@ -272,7 +250,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <br/>
-                                    <select id="ddExistingLogo" onchange="SelectLogo(this.value)"  class="form-control" >
+                                    <!-- Width 100% fixes issue caused by iframe resizing affecting select2 -->
+                                    <select id="ddExistingLogo" style="width: 100%;" onchange="SelectLogo(this.value)"  class="form-control" >
                                     </select>
                                 </div>
                             </div>

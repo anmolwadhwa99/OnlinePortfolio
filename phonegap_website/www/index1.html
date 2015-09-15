@@ -43,6 +43,8 @@
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
 
+    <script src="js/iframeResizer.min.js"></script>
+
     <script type="application/javascript">
         $(document).ready(function () {
             var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
@@ -53,6 +55,30 @@
 
             var accentCW = Raphael.colorwheel($("#accent_color_wheel .colorwheel"), 150, 256);
             accentCW.input($("#proj_colour_accent")[0]);
+
+            $('#frameQualAdd').iFrameResize();
+            $('#frameCreateProj').iFrameResize();
+            $('#frameCreateClient').iFrameResize();
+            $('#frameViewQual').iFrameResize();
+
+            // Event handling for when the modal's are closed the iframes are unloaded,
+            // TODO Add loading of iframe src's to relevant openModal functions
+            // E.g. $('#frameViewQual').attr('src', 'view_qual.html');
+            $('#addQualModal').on('hidden.bs.modal', function () {
+                $('#frameQualAdd').attr('src', '');
+            });
+
+            $('#createProjModal').on('hidden.bs.modal', function () {
+                $('#frameCreateProj').attr('src', '');
+            });
+
+            $('#createClientModal').on('hidden.bs.modal', function () {
+                $('#frameCreateClient').attr('src', '');
+            });
+
+            $('#viewQualModal').on('hidden.bs.modal', function () {
+                $('#frameViewQual').attr('src', '');
+            });
         });
     </script>
 
@@ -84,6 +110,7 @@
                 <h4 class="modal-title">Create Project</h4>
             </div>
             <div class="modal-body">
+                <iframe id="frameCreateProj" src="" width="100%" scrolling="no" frameborder="0"></iframe>
                 <form class="form-horizontal" role="form" id="createProjForm">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="modalProjName">Project Name</label>
@@ -115,26 +142,6 @@
                             <input type="text" class="form-control" id="modalClientName"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div id="primary_color_wheel" class="col-sm-4 col-xs-6">
-                            <label for="proj_colour_primary">Primary Colour: </label>
-                            <input id="proj_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
-                                   class="form-control" value="#091D5D" placeholder="#091D5D">
-                            <div class="colorwheel"></div>
-                        </div>
-                        <div id="secondary_color_wheel" class="col-sm-4 col-xs-6">
-                            <label for="proj_colour_secondary">Secondary Colour: </label>
-                            <input id="proj_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
-                                   class="form-control" value="#DDD2B5" placeholder="#DDD2B5">
-                            <div class="colorwheel"></div>
-                        </div>
-                        <div id="accent_color_wheel" class="col-sm-4 col-xs-6">
-                            <label for="proj_colour_accent">Accent Colour: </label>
-                            <input id="proj_colour_accent" type="text" maxlength="7" style="max-width: 100px;"
-                                   class="form-control" value="#9CD100" placeholder="#9CD100">
-                            <div class="colorwheel"></div>
-                        </div>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -154,6 +161,7 @@
                 <h4 class="modal-title">Create Client</h4>
             </div>
             <div class="modal-body">
+                <iframe id="frameCreateClient" src="" width="100%" scrolling="no" frameborder="0"></iframe>
                 <form class="form-horizontal" role="form" id="createClientForm">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="modalClientName">Client Name</label>
@@ -163,6 +171,7 @@
                         </div>
                     </div>
                 </form>
+                <iframe id="frameQualAdd" src="qual_add.html" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -392,143 +401,140 @@
 
     function viewQual(qual_id){
         var htmlStr = "";
-        getQualById(qual_id, function(){
+        getQualById(qual_id, function() {
             var qual = this;
 
-
-            var clientName = "";
-            if(qual.isAnonymous){
-                clientName = qual.anonymousName;
-            }else {
-                clientName = qual.clientName;
-            }
-            htmlStr += "<h2 id='heading'>"+qual.projectName+"</h2> \
-            <div class='col-md-6'> \
-                <div class='image-upload'> \
-                    <img id='qual_product_service_img' class='img-rounded fill' src='imgs/noPreview.png' /> \
-                </div> \
-            </div> \
-            <div class='col-md-6'> \
-                <div class='row'> \
-                    <div class='col-md-3 col-xs-6'> \
-                        <h4 class='subheading'>Client Name:</h4> \
-                    </div>\
-                    <div class='col-md-9 col-xs-6'> \
-                        <p>"+clientName+"</p>\
-                    </div>";
-
-
-            if(qual.subtitle != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Subtitle:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p>"+qual.subtitle+"</p>\
-                            </div>"
-            }
-
-            if(qual.industry != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Industry:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p>"+qual.industry+"</p>\
-                            </div>"
-            }
-
-            if(qual.serviceLine != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Service Line:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p>"+qual.serviceLine+"</p>\
-                            </div>"
-            }
-
-            if(qual.status != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Status:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p style=\"text-transform: capitalize\">"+qual.status+"</p>\
-                            </div>"
-            }
-
-            if(qual.emailButton != null){
-                htmlStr += "<div class='col-md-3'> \
-                                <img class='email_btn' src='imgs/email.png' /> \
-                            </div>"
-            }
-
-            if(qual.websiteButton != null){
-                htmlStr += "<div class='col-md-3'> \
-                                <img class='website_btn' src='imgs/website.png' href='"+qual.websiteButton+"'/> \
-                            </div>"
-            }
-
-            htmlStr += "</div>\
-                </div>";
-
-            htmlStr += "<div class='col-md-12 col-xs-12'> \
-                            <h4 class='subheading2'>Problem Statement:</h4> \
-                        </div>\
-                        <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.problemStatement+"</p>\
-                        </div>";
-
-            if(qual.challengesFaced != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
-                            <h4 class='subheading2'>Challenges Faced:</h4> \
-                        </div>\
-                        <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.challengesFaced+"</p>\
-                        </div>";
-            }
-
-            if(qual.solutionStatement != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
-                            <h4 class='subheading2'>Solution:</h4> \
-                        </div>\
-                        <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.solutionStatement+"</p>\
-                        </div>";
-            }
-
-            if(qual.outcomeStatement != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
-                            <h4 class='subheading2'>Outcome:</h4> \
-                        </div>\
-                        <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.outcomeStatement+"</p>\
-                        </div>";
-            }
-
-            if(qual.relevanceToClient != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
-                            <h4 class='subheading2'>Relevance to Client:</h4> \
-                        </div>\
-                        <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.relevanceToClient+"</p>\
-                        </div>";
-            }
-
-
-
-
-            htmlStr += "<button type='button' class='btn btn-lg' data-dismiss='modal'>" +
-            "<i class='fa fa-times'></i> Close Qual</button></div>";
-
-            $('#modal_body').html(htmlStr);
+//            var clientName = "";
+//            if(qual.isAnonymous){
+//                clientName = qual.anonymousName;
+//            }else {
+//                clientName = qual.clientName;
+//            }
+//            htmlStr += "<h2 id='heading'>"+qual.projectName+"</h2> \
+//            <div class='col-md-6'> \
+//                <div class='image-upload'> \
+//                    <img id='qual_product_service_img' class='img-rounded fill' src='imgs/noPreview.png' /> \
+//                </div> \
+//            </div> \
+//            <div class='col-md-6'> \
+//                <div class='row'> \
+//                    <div class='col-md-3 col-xs-6'> \
+//                        <h4 class='subheading'>Client Name:</h4> \
+//                    </div>\
+//                    <div class='col-md-9 col-xs-6'> \
+//                        <p>"+clientName+"</p>\
+//                    </div>";
+//
+//
+//            if(qual.subtitle != null){
+//                htmlStr += "<div class='col-md-3 col-xs-6'> \
+//                                <h4 class='subheading'>Subtitle:</h4> \
+//                            </div>\
+//                            <div class='col-md-9 col-xs-6'> \
+//                                <p>"+qual.subtitle+"</p>\
+//                            </div>"
+//            }
+//
+//            if(qual.industry != null){
+//                htmlStr += "<div class='col-md-3 col-xs-6'> \
+//                                <h4 class='subheading'>Industry:</h4> \
+//                            </div>\
+//                            <div class='col-md-9 col-xs-6'> \
+//                                <p>"+qual.industry+"</p>\
+//                            </div>"
+//            }
+//
+//            if(qual.serviceLine != null){
+//                htmlStr += "<div class='col-md-3 col-xs-6'> \
+//                                <h4 class='subheading'>Service Line:</h4> \
+//                            </div>\
+//                            <div class='col-md-9 col-xs-6'> \
+//                                <p>"+qual.serviceLine+"</p>\
+//                            </div>"
+//            }
+//
+//            if(qual.status != null){
+//                htmlStr += "<div class='col-md-3 col-xs-6'> \
+//                                <h4 class='subheading'>Status:</h4> \
+//                            </div>\
+//                            <div class='col-md-9 col-xs-6'> \
+//                                <p style=\"text-transform: capitalize\">"+qual.status+"</p>\
+//                            </div>"
+//            }
+//
+//            if(qual.emailButton != null){
+//                htmlStr += "<div class='col-md-3'> \
+//                                <img class='email_btn' src='imgs/email.png' /> \
+//                            </div>"
+//            }
+//
+//            if(qual.websiteButton != null){
+//                htmlStr += "<div class='col-md-3'> \
+//                                <img class='website_btn' src='imgs/website.png' href='"+qual.websiteButton+"'/> \
+//                            </div>"
+//            }
+//
+//            htmlStr += "</div>\
+//                </div>";
+//
+//            htmlStr += "<div class='col-md-12 col-xs-12'> \
+//                            <h4 class='subheading2'>Problem Statement:</h4> \
+//                        </div>\
+//                        <div class='col-md-12 col-xs-12'> \
+//                            <p>"+qual.problemStatement+"</p>\
+//                        </div>";
+//
+//            if(qual.challengesFaced != null){
+//                htmlStr += "<div class='col-md-12 col-xs-12'> \
+//                            <h4 class='subheading2'>Challenges Faced:</h4> \
+//                        </div>\
+//                        <div class='col-md-12 col-xs-12'> \
+//                            <p>"+qual.challengesFaced+"</p>\
+//                        </div>";
+//            }
+//
+//            if(qual.solutionStatement != null){
+//                htmlStr += "<div class='col-md-12 col-xs-12'> \
+//                            <h4 class='subheading2'>Solution:</h4> \
+//                        </div>\
+//                        <div class='col-md-12 col-xs-12'> \
+//                            <p>"+qual.solutionStatement+"</p>\
+//                        </div>";
+//            }
+//
+//            if(qual.outcomeStatement != null){
+//                htmlStr += "<div class='col-md-12 col-xs-12'> \
+//                            <h4 class='subheading2'>Outcome:</h4> \
+//                        </div>\
+//                        <div class='col-md-12 col-xs-12'> \
+//                            <p>"+qual.outcomeStatement+"</p>\
+//                        </div>";
+//            }
+//
+//            if(qual.relevanceToClient != null){
+//                htmlStr += "<div class='col-md-12 col-xs-12'> \
+//                            <h4 class='subheading2'>Relevance to Client:</h4> \
+//                        </div>\
+//                        <div class='col-md-12 col-xs-12'> \
+//                            <p>"+qual.relevanceToClient+"</p>\
+//                        </div>";
+//            }
+//
+//
+//
+//
+//            htmlStr += "<button type='button' class='btn btn-lg' data-dismiss='modal'>" +
+//            "<i class='fa fa-times'></i> Close Qual</button></div>";
+//
+//            $('#modal_body').html(htmlStr);
+//        });
         });
-        //console.log(qual_id);
-        //sessionStorage.setItem("qual_id", qual_id);
-        //location.href="#viewQualModal";
-        //$('#viewQualiFrame').attr('src', 'view_qual.html');
-    }
+    console.log(qual_id);
+    sessionStorage.setItem("qual_id", qual_id);
+    location.href = "#viewQualModal";
+    $('#frameViewQual').attr('src', 'view_qual.html');
 
-    $('#viewQualModal').on('hidden.bs.modal', function () {
-        $('#viewQualiFrame').attr('src', '');
-    });
+    }
 
     function getQuals(){
         getAllQuals(function(){
@@ -824,8 +830,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="modal-body" id="modal_body">
-                        <!-- Project Details Go Here -->
-
+                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>
