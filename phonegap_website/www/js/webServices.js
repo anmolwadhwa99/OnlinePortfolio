@@ -1,5 +1,6 @@
 
-var url = "https://onlineportfolio.herokuapp.com/webapi";
+var url = "http://portfolioprototype.herokuapp.com/webapi"; //https://onlineportfolio.herokuapp.com/webapi";
+
 var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
@@ -1191,6 +1192,7 @@ function getAllProjectGroups(callback) {
             }
         }
     }
+    console.log(methodURL);
     req.open(method, methodURL, true);
     req.send();
 }
