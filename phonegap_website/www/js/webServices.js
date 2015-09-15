@@ -1436,7 +1436,7 @@ function getAllImages(callback) {
 }
 
 function getAllClientImages(callback) {
-    var methodURL = url + _img + "/client";
+    var methodURL = url + _img + "/logo";
     var method = "GET";
 
     var req = createRequest();
@@ -1469,7 +1469,7 @@ function getAllClientImages(callback) {
 }
 
 function getAllProjectImages(callback) {
-    var methodURL = url + _img + "/project";
+    var methodURL = url + _img + "/prodserv";
     var method = "GET";
 
     var req = createRequest();
