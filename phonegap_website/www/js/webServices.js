@@ -184,22 +184,19 @@ function getQualById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
+                alert("An error occurred while retrieving qual");
                 return;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
             if(typeof callback == 'function'){
-
                 callback.apply(new Qual(json));
             }
-
         }
     }
     req.open(method, methodURL, true);
     req.send();
-
 }
 
 function getAllQuals(callback){
