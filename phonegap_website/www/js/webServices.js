@@ -1,5 +1,5 @@
 
-var url = "https://onlineportfolio.herokuapp.com/webapi";
+var url = "http://onlineportfolio.herokuapp.com/webapi";
 var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
