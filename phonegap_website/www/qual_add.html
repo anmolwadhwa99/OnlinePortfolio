@@ -69,6 +69,8 @@
             var tags = $("#qual_tags").val();
             var serviceLine = $("#qual_service_line").val();
 
+            var adminGroups = $('#ddAdminGroups').val();
+
             console.log(projName);
             console.log(projSubTitle);
             console.log(clientName);
@@ -87,11 +89,18 @@
             console.log(industry);
             console.log(tags);
             console.log(serviceLine);
+            console.log(adminGroups);
 
             insertQual('true', isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
                     'solutionStatement', access, projSubTitle,
                     emailAction, websiteAction, function () {
+                        var qual = this;
+
+                        $.each(adminGroups, function(i, val) {
+                            assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
+                        });
+
                         parent.$('body').trigger('hidden.bs.modal'); // Should close the modal
                     }
             );
