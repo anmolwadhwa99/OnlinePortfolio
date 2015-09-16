@@ -131,7 +131,7 @@
 
             $('#ddExistingProdServ').select2({width:"style"});
             $('#ddExistingLogo').select2({width:"style"});
-            $('#ddAdminGroups').select2({width:"style", multiple:"true"});
+            $('#ddAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Qual"});
 
             $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
             $('#ddExistingLogo').append('<option value=\"imgs/noPreview.png\" >' + 'No Logo (No image will be displayed)' + '</option>');
@@ -183,7 +183,7 @@
 </head>
 
 <body style="padding:20px;">
-<form id="qual_add_form" action="javascript:addQual();" class="container-fluid" style="padding-top: 50px;">
+<form id="qual_add_form" action="javascript:addQual();" class="container-fluid" >
     <div class="row">
         <div class="col-md-6">
             <div class="row">
@@ -335,9 +335,11 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <br/>
-                    <select id="ddAdminGroups" style="width: 100%;" class="form-control" required>
-                    </select>
+                    <div class="form-group">
+                        <label for="ddAdminGroups">Admin Groups:</label>
+                        <select id="ddAdminGroups" style="width: 100%;" class="form-control" required>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="row">
