@@ -129,6 +129,7 @@
 
             $('#ddExistingProdServ').select2({width:"style"});
             $('#ddExistingLogo').select2({width:"style"});
+            $('#ddAdminGroups').select2({width:"style", multiple:"true"});
 
             $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
             $('#ddExistingLogo').append('<option value=\"imgs/noPreview.png\" >' + 'No Logo (No image will be displayed)' + '</option>');
@@ -147,6 +148,16 @@
                 var logos = this;
                 $.each(logos, function(i, val){
                     $('#ddExistingLogo').append('<option value="'+val.imageUrl+'" >' + val.publicId + '</option>');
+                });
+            });
+
+            getAllAdminGroups(function (){
+               var groups = this;
+                $.each(groups, function(i, val){
+                    // There should always be atleast one admin group available
+                    if(val.isActive == 'true') {
+                        $('#ddAdminGroups').append('<option value="' + val.id + '">' + val.name + '</option>');
+                    }
                 });
             });
         });
@@ -320,6 +331,11 @@
                         <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <br/>
+                    <select id="ddAdminGroups" style="width: 100%;" class="form-control" required>
+                    </select>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -400,8 +416,11 @@
 <script type="text/javascript">
     // Setting configs
     $.cloudinary.config({cloud_name: 'onlineportfolio', api_key: '699754899746833'});
+
+    // Hiding progress bars
     $('.prod_serv_progress').hide();
     $('.client_logo_progress').hide();
+
     // Adding input to correct location
     $('.prod_serv_image-upload').append($.cloudinary.unsigned_upload_tag(
                     "ug21hs7g",
@@ -468,6 +487,7 @@
             }
     );
 
+    // Styling for the image upload buttons
     $('#qual_product_service_img').filestyle({
         buttonText: "Upload Product Service Image",
         iconName: "glyphicon glyphicon-cloud-upload",
