@@ -40,6 +40,9 @@
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
+    <script type="application/javascript" src="js/raphael-min.js"></script>
+    <script type="application/javascript" src="js/colorwheel.js"></script>
+
     <script type="application/javascript">
         $(document).ready(function () {
             var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
@@ -50,7 +53,7 @@
 
             var accentCW = Raphael.colorwheel($("#accent_color_wheel .colorwheel"), 150, 256);
             accentCW.input($("#proj_colour_accent")[0]);
-        }
+        });
     </script>
 </head>
 <body>
