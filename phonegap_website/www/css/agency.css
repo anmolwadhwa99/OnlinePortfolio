@@ -349,6 +349,12 @@ section h3.section-subheading {
     right: 0% !important;
     top: 80% !important;
 }
+.archiveIcon {
+    width: 25% !important;
+    height: 25% !important;
+    top: 45% !important;
+    right: 0% !important;
+}
 
 .viewIcon {}
 

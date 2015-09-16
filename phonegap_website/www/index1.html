@@ -294,7 +294,7 @@
         });
     }
 
-    function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients){
+    function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
         var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
         var viewFunction = "";
@@ -314,6 +314,9 @@
                     </div>\
                     <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
                             <i class='fa fa-pencil fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
+                            <i class = 'fa fa-minus fa-3x'> </i>\
                     </div>\
                 </div> \
                 <img src=" + image + " class='main-thumbnail'  alt=''> \
@@ -520,10 +523,10 @@
 //            $('#modal_body').html(htmlStr);
 //        });
         });
-    console.log(qual_id);
-    sessionStorage.setItem("qual_id", qual_id);
-    location.href = "#viewQualModal";
-    $('#frameViewQual').attr('src', 'view_qual.html');
+        console.log(qual_id);
+        sessionStorage.setItem("qual_id", qual_id);
+        location.href = "#viewQualModal";
+        $('#frameViewQual').attr('src', 'view_qual.html');
 
     }
 
