@@ -18,6 +18,9 @@ public class AccountData extends Server {
 			jsonAccount.put("password", account.getPassword());
 			jsonAccount.put("isAdmin", account.isAdmin());
 			jsonAccount.put("isSuperUser", account.isSuperUser());
+			jsonAccount.put("primaryColour", account.getPrimaryColour());
+			jsonAccount.put("secondaryColour", account.getSecondaryColour());
+			jsonAccount.put("accentColour", account.getAccentColour());
 			jsonAccount.put("isActive", account.isActive());
 
 		} catch (JSONException e) {
@@ -36,6 +39,9 @@ public class AccountData extends Server {
 		account.setAccountName("Dheeraj");
 		account.setPassword("1234");
 		account.setActive(true);
+		account.setPrimaryColour("red");
+		account.setAccentColour("blue");
+		account.setSecondaryColour("green");
 		accountData.addAccount(account);
 
 	}

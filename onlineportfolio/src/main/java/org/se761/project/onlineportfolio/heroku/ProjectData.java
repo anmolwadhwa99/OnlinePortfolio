@@ -10,9 +10,6 @@ public class ProjectData extends Server{
 		JSONObject jsonProject = new JSONObject();
 		try {
 			jsonProject.put("projGroupName", projectGroup.getProjGroupName());
-			jsonProject.put("primaryColour", projectGroup.getPrimaryColour());
-			jsonProject.put("secondaryColour", projectGroup.getSecondaryColour());
-			jsonProject.put("accentColour", projectGroup.getAccentColour());
 			jsonProject.put("isActive", projectGroup.isActive());
 
 
@@ -31,9 +28,6 @@ public class ProjectData extends Server{
 		ProjectData projectData = new ProjectData();
 		ProjectGroup projectGroup = new ProjectGroup();
 		projectGroup.setProjGroupName("Test Group");
-		projectGroup.setPrimaryColour("Blue");
-		projectGroup.setAccentColour("Red");
-		projectGroup.setSecondaryColour("Black");
 		projectData.addProjectData(projectGroup);
 	}
 
