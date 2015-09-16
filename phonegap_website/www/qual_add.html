@@ -41,6 +41,8 @@
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
+    <link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
+
     <script>
         function addQual() {
             var projName = $("#qual_project_name").val();
@@ -298,13 +300,14 @@
                 <div class="col-md-6">
                     <label for="qual_is_not_anonymous">Qual Anonymity: </label>
 
-                    <div class="btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-info active" onclick="optionalAnonName();">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-default active" onclick="optionalAnonName();">
                             <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false"
-                                   checked="checked"/>Named
+                                   checked="checked"/><i class="fa fa-user"></i> Named
                         </label>
-                        <label class="btn btn-warning" onclick="requireAnonName();">
-                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true"/>Anonymous
+                        <label class="btn btn-default" onclick="requireAnonName();">
+                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true"/>
+                            <i class="fa fa-user-secret"></i> Anonymous
                         </label>
                     </div>
                     <br/>
@@ -343,12 +346,13 @@
                     <br/>
 
                     <div class="btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-info active">
+                        <label class="btn btn-default active">
                             <input type="radio" id="qual_private" name="qual_public_access" value="false"
-                                   checked="checked"/>Private
+                                   checked="checked"/><i class="fa fa-lock"></i> Private
                         </label>
-                        <label class="btn btn-warning">
-                            <input type="radio" id="qual_public" name="qual_public_access" value="true"/>Public
+                        <label class="btn btn-default">
+                            <input type="radio" id="qual_public" name="qual_public_access" value="true"/>
+                            <i class="fa fa-unlock"></i> Public
                         </label>
                     </div>
                 </div>
