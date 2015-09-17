@@ -312,6 +312,10 @@
     function confirmArchive(archiveType, itemID){
         var title;
         var message;
+
+        //take the user to the top of the screen
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+
         if(archiveType == "CLIENT"){
             document.getElementById("divArchiveAlert").style.display = 'block';
             document.getElementById("confirmButton").addEventListener("click", function(){
