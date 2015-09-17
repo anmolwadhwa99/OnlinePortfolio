@@ -357,9 +357,11 @@ section h3.section-subheading {
 }
 
 .viewIcon {}
-
+.fa-7x {
+    font-size: 7em !important;
+}
 .viewIcon i{
-    transform: translateY(220%);
+    transform: translate(30%,69%);
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
