@@ -77,7 +77,7 @@ public class ProjectGroupDatabase {
 	}
 	
 	/**
-	 * Get all project groups from the database
+	 * Get all project groups from the database (for superuser access)
 	 */
 	public List<ProjectGroup> getAllProjectGroups(){
 		openSessionFactory();

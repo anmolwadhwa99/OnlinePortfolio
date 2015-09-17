@@ -67,7 +67,7 @@ public class AdminGroupDatabase {
 	}
 	
 	/**
-	 * Get all admin groups from the database
+	 * Get all admin groups from the database (for superuser access)
 	 */
 	public List<AdminGroup> getAllAdminGroups(){
 		openSessionFactory();
