@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Create Project</title>
+    <title>Add New Qual</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -39,8 +40,172 @@
     <script src="js/select2.min.js"></script>
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
-</head>
-<body>
 
+    <link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
+
+    <script>
+
+    </script>
+    <style>
+        .fill {
+            zoom: 2;
+
+            display: block;
+            margin: auto;
+
+            height: auto;
+            max-height: 100%;
+
+            width: auto;
+            max-width: 100%;
+        }
+
+        .progress-value {
+            position:absolute;
+            right:0;
+            left:0;
+        }
+    </style>
+
+    <script type="application/javascript">
+        $(document).ready(function(){
+
+            $('#ddExistingProdServ').select2({width:"style"});
+            $('#ddAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Qual"});
+
+            $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
+
+            $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
+
+            getAllProjectImages(function () {
+                var prodServs = this;
+                $.each(prodServs, function(i, val){
+                    $('#ddExistingProdServ').append('<option value="'+val.imageUrl+'" >' + val.publicId + '</option>');
+                });
+            });
+
+
+            getAllAdminGroups(function (){
+                var groups = this;
+                $.each(groups, function(i, val){
+                    // There should always be atleast one admin group available
+                    if(val.isActive == 'true') {
+                        $('#ddAdminGroups').append('<option value="' + val.id + '">' + val.name + '</option>');
+                    }
+                });
+            });
+        });
+
+        function SelectProdServ(url) {
+            $('#prod_serv_img').attr('src', url);
+        }
+
+        function ResetImages(){
+            $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
+            $('.prod_serv_progress').hide();
+        }
+    </script>
+</head>
+
+<body style="padding:20px;">
+<div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Heads Up!</strong> Please use CTRL Shift V / ⌘CMD Shift V to paste formatted content from powerpoint, word, etc
+</div>
+<form id="qual_add_form" action="javascript:addQual();" class="container-fluid" >
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div class="img-responsive">
+                                <img id="prod_serv_img" class="img-rounded fill" src="imgs/noPreview.png"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br/>
+                            <select id="ddExistingProdServ" style="width: 100%;" onchange="SelectProdServ(this.value)"  class="form-control" >
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="prod_serv_image-upload">
+                                <label for="qual_product_service_img"> <!-- element with this id only exists after document loads -->
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br/>
+                        <div class="col-md-12">
+                            <div class="progress prod_serv_progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped prod_serv_progress-bar" role="progressbar"
+                                     aria-valuemin="0" aria-valuemax="100" >
+                                    <span id="prod_serv_progress-value" class="progress-value" style="color: #000;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+<script type="text/javascript">
+    // Setting configs
+    $.cloudinary.config({cloud_name: 'onlineportfolio', api_key: '699754899746833'});
+
+    // Hiding progress bars
+    $('.prod_serv_progress').hide();
+
+    // Adding input to correct location
+    $('.prod_serv_image-upload').append($.cloudinary.unsigned_upload_tag(
+                    "ug21hs7g",
+                    {cloud_name: 'onlineportfolio', tags: 'PRODSERV'},
+                    {multiple: false},
+                    // With specified id
+                    "qual_product_service_img")
+            // Binding events
+    ).bind('cloudinarystart', function (e, data) {
+                $('.prod_serv_progress').show();
+                $('.prod_serv_progress-bar').addClass('active');
+            }
+    ).bind('cloudinarydone', function (e, data) {
+                console.log(data);
+                insertImage(true, data.result.public_id, 'PRODSERV', data.result.url, function(){});
+
+                $('#ddExistingProdServ').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
+                $('#ddExistingProdServ').val(data.result.url).trigger("change"); // Triggering change event to cause new addition to be the selected option
+
+                $('.prod_serv_progress-bar').removeClass('active');
+                $('#prod_serv_progress-value').text("Upload Complete");
+                $('#prod_serv_img').attr('src', data.result.url);
+            }
+    ).bind('cloudinaryprogress', function (e, data) {
+                $('.prod_serv_progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
+                $('#prod_serv_progress-value').text(Math.round((data.loaded * 100.0) / data.total) + '%');
+            }
+    ).bind('cloudinaryfail', function (e, data) {
+                $('#prod_serv_progress-value').text("Upload Failed");
+                console.log(e);
+                console.log(data);
+            }
+    );
+
+    // Styling for the image upload buttons
+    $('#qual_product_service_img').filestyle({
+        buttonText: "Upload Product Service Image",
+        iconName: "glyphicon glyphicon-cloud-upload",
+        input: false,
+        badge: false
+    });
+</script>
 </body>
 </html>
