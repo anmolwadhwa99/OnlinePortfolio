@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
@@ -110,6 +111,11 @@ public class ProjectGroupDatabase {
 			throw new DatabaseRetrievalException("Project group with id " + projGroupId + " could not be found");
 		}
 		
+		if(projGroup.isActive() == false){
+			closeSessionFactory();
+			throw new NotActiveException("The Project Group with id " + projGroupId +"  is not active");
+		}
+		
 		session.close();
 		closeSessionFactory();
 		return projGroup;
@@ -131,6 +137,13 @@ public class ProjectGroupDatabase {
 		}
 		
 		List<ProjectGroup> projectGroups = account.getProjGroups();
+		
+		//removing inactive project groups
+		for (int i = 0; i<projectGroups.size(); i++){
+			if (projectGroups.get(i).isActive() == false){
+				projectGroups.remove(i);
+			}
+		}
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

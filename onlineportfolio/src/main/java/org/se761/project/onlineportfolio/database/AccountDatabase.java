@@ -239,7 +239,7 @@ public class AccountDatabase {
 		
 		if(adminGroup.isActive() == false){
 			closeSessionFactory();
-			throw new NotActiveException("The Admin Group with id " + adminGroupId +" you are trying to retrieve is not active");
+			throw new NotActiveException("The Admin Group with id " + adminGroupId +" is not active");
 		}
 		
 		List<Account> accounts = adminGroup.getAccounts();
