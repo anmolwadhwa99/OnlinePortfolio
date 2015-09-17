@@ -57,13 +57,15 @@ public class AccountDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
 		}
 		
+		//handle archive error check
+		
 		session.close();
 		closeSessionFactory();
 		return account;
 	}
 	
 	/**
-	 * Gets all the accounts from the database
+	 * Gets all the accounts from the database (only superUser should have access to this)
 	 */
 	public List<Account> getAllAccounts(){
 		openSessionFactory();
@@ -86,14 +88,14 @@ public class AccountDatabase {
 	
 	
 	/**
-	 * Gets all the client accounts from the database
+	 * Gets all active client accounts from the database 
 	 */
 	public List<Account> getClientAccounts(){
 		List<Account> clientAccounts = new ArrayList<Account>();
 		
 		List<Account> allAccounts = getAllAccounts();
 		for (Account a : allAccounts){
-			if(a.isAdmin() == false){
+			if((a.isAdmin() == false) && (a.isActive() == true)){
 				clientAccounts.add(a);
 			}
 		}
@@ -102,14 +104,14 @@ public class AccountDatabase {
 	}
 	
 	/**
-	 * Gets all the admin accounts from the database
+	 * Gets all active admin accounts from the database
 	 */
 	public List<Account> getAdminAccounts(){
 		List<Account> adminAccounts = new ArrayList<Account>();
 		
 		List<Account> allAccounts = getAllAccounts();
 		for (Account a : allAccounts){
-			if(a.isAdmin() == true){
+			if((a.isAdmin() == true) && (a.isActive() == true)){
 				adminAccounts.add(a);
 			}
 		}
@@ -218,7 +220,7 @@ public class AccountDatabase {
 	}
 	
 	/**
-	 * Get all accounts associated with an admin group
+	 * Get all active accounts associated with an admin group
 	 */
 	public List<Account> getAllAccountsFromAdminGroup(int adminGroupId){
 		openSessionFactory();
@@ -231,6 +233,8 @@ public class AccountDatabase {
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so unable to retrieve all accounts");
 		}
+		
+		//handle active error check
 		
 		List<Account> accounts = adminGroup.getAccounts();
 		session.getTransaction().commit();
@@ -254,6 +258,8 @@ public class AccountDatabase {
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Project group with id " +projGroupId + " could not be found, so unable to retrieve all accounts");
 		}
+		
+		//handle active error check
 		
 		List<Account> accounts = projGroup.getAccountsProj();
 		session.getTransaction().commit();
