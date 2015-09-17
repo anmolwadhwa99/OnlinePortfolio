@@ -6,7 +6,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 
 import org.se761.project.onlineportfolio.model.ErrorMessage;
 
-public class AccountNotActiveExceptionMapper implements ExceptionMapper<Throwable>{
+public class NotActiveExceptionMapper implements ExceptionMapper<Throwable>{
 	
 	@Override
 	public Response toResponse(Throwable ex) {
