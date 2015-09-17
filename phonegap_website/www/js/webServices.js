@@ -129,19 +129,41 @@ function Image(x){
 }
 
 // === Search ======================================================
+var info = [];
+function doSearch(str, quals, clients, projects, callback){
 
-function doSearch(str, callback){
-    var info = [];
-    getAllQuals(function () {
-        for (i = 0; i < this.length ; i++){
-            info [info.length + i] = this[i];
+    var results = [];
+
+    for (i = 0; i < quals.length; i++){
+        var qual = quals[i];
+        if (qual.clientName.indexOf(str) > -1){
+            results.push("Q :" + qual.qualId);
         }
-    });
+        if (qual.projectName.indexOf(str) > -1){
+            results.push("Q :" + qual.qualId);
+        }
+    }
+
+    for (i = 0; i < clients.length; i++){
+        var client = clients[i];
+        if (client.accountName.indexOf(str) > -1){
+            results.push("C :" + client.accountId);
+        }
+    }
+
+    for (i = 0; i < projects.length; i++){
+        var proj = projects[i];
+        if (proj.projectGroupName.indexOf(str) > -1){
+            results.push("P :" + proj.id);
+        }
+    }
+
 
     if(typeof callback == 'function'){
 
-        callback.apply(info);
+        callback.apply(results);
     }
+
 }
 
 // === Web Service Connection ======================================
@@ -1382,10 +1404,10 @@ function insertImage(isActive, publicid, imageType, imageUrl , callback){
 
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
-        //"active": false,
-        //"imageName": "Trial",
-        //"imageType": "CLIENT",
-        //"imageUrl": "http://www.google.co.nz"
+            //"active": false,
+            //"imageName": "Trial",
+            //"imageType": "CLIENT",
+            //"imageUrl": "http://www.google.co.nz"
         '"active": "' + isActive + '",'+
         '"publicId": "' + publicid + '",'+
         '"imageType": "' + imageType + '",'+
