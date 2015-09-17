@@ -9,7 +9,9 @@ var _img = "/image";
 
 function Qual(x){
     this.qualId = x.qualId;
+    this.projectImg = x.projectImg;
     this.projectName = x.projectName;
+    this.clientImg = x.clientImg;
     this.clientName = x.clientName;
     this.problemStatement = x.problemStatement;
     this.challengesFaced = x.challengesFaced;
@@ -125,6 +127,24 @@ function Image(x){
             this.imageUrl;
     }
 }
+
+// === Search ======================================================
+
+function doSearch(str, callback){
+    var info = [];
+    getAllQuals(function () {
+        for (i = 0; i < this.length ; i++){
+            info [info.length + i] = this[i];
+        }
+    });
+
+    if(typeof callback == 'function'){
+
+        callback.apply(info);
+    }
+}
+
+// === Web Service Connection ======================================
 
 function verifyAccount(pw,callback){
     var methodURL = url + _ac + "/verify/" + pw;
@@ -371,7 +391,7 @@ function getImagesForQual(qId, callback){
 
 function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
     , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
-    , solutionStatement, status, subtitle, email, website, callback){
+    , solutionStatement, status, subtitle, email, website, clientImgURL, projectImgURL, callback){
     var methodURL = url + _qual;
     var method = "POST";
 
@@ -402,12 +422,14 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
         '"isActive": ' + isActive + ','+
         '"isAnonymous": ' + isAnonymous + ','+
         '"challengesFaced": "' + challengesFaced + '",'+
+        '"clientImage": ' + clientImgURL + '",'+
         '"clientName": "' + clientName + '",'+
         '"industry": "' + industry + '",'+
         '"tags": "' + tags + '",'+
         '"outcomeStatement": "' + outcomeStatement + '",'+
         '"problemStatement": "' + problemStatement + '",'+
         '"projectName": "' + projectName + '",'+
+        '"projectImage": "' + projectImgURL + '",'+
         '"relevanceToClient": "' + relevanceToClient + '",'+
         '"serviceLine": "' + serviceLine + '",'+
         '"solution": "' + solution + '",'+
