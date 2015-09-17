@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Add New Project Group</title>
+    <title>Add New Qual</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -68,14 +68,10 @@
     </style>
 
     <script type="application/javascript">
-        $(document).ready(function() {
+        $(document).ready(function(){
 
-            $('#ddExistingProdServ').select2({width: "style"});
-            $('#ddAdminGroups').select2({
-                width: "style",
-                multiple: "true",
-                placeholder: "Select Admin Groups for this Qual"
-            });
+            $('#ddExistingProdServ').select2({width:"style"});
+            $('#ddAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Qual"});
 
             $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
 
@@ -83,20 +79,31 @@
 
             getAllProjectImages(function () {
                 var prodServs = this;
-                $.each(prodServs, function (i, val) {
-                    $('#ddExistingProdServ').append('<option value="' + val.imageUrl + '" >' + val.publicId + '</option>');
+                $.each(prodServs, function(i, val){
+                    $('#ddExistingProdServ').append('<option value="'+val.imageUrl+'" >' + val.publicId + '</option>');
                 });
             });
 
-            function SelectProdServ(url) {
-                $('#prod_serv_img').attr('src', url);
-            }
 
-            function ResetImages() {
-                $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
-                $('.prod_serv_progress').hide();
-            }
+            getAllAdminGroups(function (){
+                var groups = this;
+                $.each(groups, function(i, val){
+                    // There should always be atleast one admin group available
+                    if(val.isActive == 'true') {
+                        $('#ddAdminGroups').append('<option value="' + val.id + '">' + val.name + '</option>');
+                    }
+                });
+            });
         });
+
+        function SelectProdServ(url) {
+            $('#prod_serv_img').attr('src', url);
+        }
+
+        function ResetImages(){
+            $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
+            $('.prod_serv_progress').hide();
+        }
     </script>
 </head>
 
@@ -127,6 +134,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="prod_serv_image-upload">
+                                <label for="qual_product_service_img"> <!-- element with this id only exists after document loads -->
                                 </label>
                             </div>
                         </div>
