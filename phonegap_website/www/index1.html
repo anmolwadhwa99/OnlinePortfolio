@@ -299,11 +299,11 @@
 
     function archiveQual(qualId){
         deleteQual(qualId);
-        $('#divArchiveAlert').hide();
+        document.getElementById("divArchiveAlert").style.display = 'none';
     };
     function archiveProject(projectId){
         deleteProjectGroup(projectId);
-        $('#divArchiveAlert').hide();
+        document.getElementById("divArchiveAlert").style.display = 'none';
     };
     function archiveClient(clientId){
         deleteAccount(clientId);
@@ -331,18 +331,16 @@
                 document.getElementById("divArchiveAlert").style.display = 'none';
             });
         }else if(archiveType == "QUAL"){
-            $('#divArchiveAlert').show();
-            $('#confirmButton').attr('onclick', archiveQual(itemID));
-            $('#cancelButton').click(function() {
-                $('#divArchiveAlert').hide();
+            document.getElementById("divArchiveAlert").style.display = 'block';
+            document.getElementById("confirmButton").addEventListener("click", function(){
+                archiveQual(itemID);
+            });
+            document.getElementById("cancelButton").addEventListener("click", function(){
+                document.getElementById("divArchiveAlert").style.display = 'none';
             });
         }else{
             return; // Default if somehow unknown type
         }
-
-        // Set title and message for alert
-
-
     };
 
     function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
