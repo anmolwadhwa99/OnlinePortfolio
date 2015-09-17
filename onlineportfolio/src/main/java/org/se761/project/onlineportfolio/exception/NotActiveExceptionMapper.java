@@ -6,12 +6,12 @@ import javax.ws.rs.ext.ExceptionMapper;
 
 import org.se761.project.onlineportfolio.model.ErrorMessage;
 
-public class NotActiveExceptionMapper implements ExceptionMapper<Throwable>{
+public class NotActiveExceptionMapper implements ExceptionMapper<NotActiveException>{
 	
 	@Override
-	public Response toResponse(Throwable ex) {
+	public Response toResponse(NotActiveException ex) {
 		ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), 500);
-		return Response.status(Status.INTERNAL_SERVER_ERROR)
+		return Response.status(Status.GONE)
 				.entity(errorMessage)
 				.build();
 	}
