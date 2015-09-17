@@ -1,19 +1,17 @@
 package org.se761.project.onlineportfolio.exception;
 
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 
 import org.se761.project.onlineportfolio.model.ErrorMessage;
 
-@Provider
-public class DatabaseRetrievalExceptionMapper implements ExceptionMapper<DatabaseRetrievalException> {
-
+public class NotActiveExceptionMapper implements ExceptionMapper<NotActiveException>{
+	
 	@Override
-	public Response toResponse(DatabaseRetrievalException ex) {
+	public Response toResponse(NotActiveException ex) {
 		ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), 500);
-		return Response.status(Status.NO_CONTENT)
+		return Response.status(Status.GONE)
 				.entity(errorMessage)
 				.build();
 	}

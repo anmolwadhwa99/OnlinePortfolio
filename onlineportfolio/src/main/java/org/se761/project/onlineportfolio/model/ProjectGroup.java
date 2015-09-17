@@ -26,12 +26,7 @@ public class ProjectGroup {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int projGroupId; 
 	private String projGroupName;
-	@Column(columnDefinition="TEXT")
-	private String primaryColour;
-	@Column(columnDefinition="TEXT")
-	private String secondaryColour;
-	@Column(columnDefinition="TEXT")
-	private String accentColour;
+
 	
 	private boolean isActive = true; //be  default
 
@@ -71,29 +66,6 @@ public class ProjectGroup {
 		this.projGroupName = projGroupName;
 	}
 
-	public String getPrimaryColour() {
-		return primaryColour;
-	}
-
-	public void setPrimaryColour(String primaryColour) {
-		this.primaryColour = primaryColour;
-	}
-
-	public String getSecondaryColour() {
-		return secondaryColour;
-	}
-
-	public void setSecondaryColour(String secondaryColour) {
-		this.secondaryColour = secondaryColour;
-	}
-
-	public String getAccentColour() {
-		return accentColour;
-	}
-
-	public void setAccentColour(String accentColour) {
-		this.accentColour = accentColour;
-	}
 	
 	@XmlTransient
 	public List<Qualification> getQuals() {
