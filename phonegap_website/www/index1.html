@@ -70,13 +70,14 @@
             $('#viewQualModal').on('hidden.bs.modal', function () {
                 $('#frameViewQual').attr('src', '');
             });
+
+            $('#divArchiveAlert').hide();
         });
     </script>
 
 </head>
 
 <body id="page-top" class="index">
-
 <!-- Navigation -->
 
 <nav>
@@ -280,7 +281,9 @@
                         '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
                         '\"addProjectQualsToGroup('+projects[i].id+')\"',
                         '\"alert(\'still need to define this one\')\"',
-                        projects[i].projectGroupName
+                        projects[i].projectGroupName,
+                        false,
+                        '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
                 )
             }
             $("#projects").html(htmlStr);
@@ -293,6 +296,44 @@
             loadTab('#clients');
         });
     }
+
+    function archiveQual(qualId){
+        // delete the qual
+        //close the alert
+    };
+    function archiveProject(projectId){
+
+    };
+    function archiveClient(clientId){
+
+    };
+    function confirmArchive(archiveType, itemID){
+        var title;
+        var message;
+        if(archiveType == "CLIENT"){
+            $('#divArchiveAlert').show();
+            $('#confirmButton').attr('onclick', archiveClient(itemID));
+            $('#cancelButton').click(function() {
+                $('#divArchiveAlert').hide();
+            });
+            title = "";
+            message = "";
+        }else if(archiveType == "PROJECT"){
+            $('#divArchiveAlert').show();
+            $('#confirmButton').attr('onclick', archiveProject(itemID));
+            $('#cancelButton').click(function() {
+                $('#divArchiveAlert').hide();
+            });
+        }else if(archiveType == "QUAL"){
+
+        }else{
+            return; // Default if somehow unknown type
+        }
+
+        // Set title and message for alert
+
+
+    };
 
     function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
         var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
@@ -356,7 +397,9 @@
                         quals[i].qualId,
                         '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
                         '\"alert(\'still need to define this one\')\"',
-                        quals[i].projectName
+                        quals[i].projectName,
+                        false,
+                        '\"confirmArchive(' + 'QUAL' + ", \'" + quals[i].qualId + '\')\"'
                 );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
@@ -364,6 +407,7 @@
             $("#heading").html(projectName);
 
         });
+
 
     }
 
@@ -378,7 +422,9 @@
                         quals[i].qualId,
                         '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
                         '\"alert(\'still need to define this one\')\"',
-                        quals[i].projectName
+                        quals[i].projectName,
+                        false,
+                        '\"confirmArchive(' + 'QUAL' + ", \'" + quals[i].qualId + '\')\"'
                 );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
@@ -543,7 +589,9 @@
                         quals[i].qualId,
                         '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
                         '\"alert(\'still need to define this one\')\"',
-                        quals[i].projectName
+                        quals[i].projectName,
+                        false,
+                        '\"confirmArchive(' + 'QUAL' + ", \'" + quals[i].qualId + '\')\"'
                 );
             }
             $("#quals").html(htmlStr)
@@ -566,7 +614,8 @@
                         '\"\"',
                         '\"alert(\'still need to define this one\')\"',
                         clients[i].accountName,
-                        true
+                        true,
+                        '\"confirmArchive(' + 'CLIENT' + ", \'" + clients[i].accountId + '\')\"'
                 );
             }
 
@@ -583,7 +632,9 @@
                         '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
                         '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
                         '\"alert(\'still need to define this one\')\"',
-                        projects[i].projectGroupName
+                        projects[i].projectGroupName,
+                        false,
+                        '\"confirmArchive(' + 'PROJECT' + ", \'" + projects[i].id + '\')\"'
                 );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
@@ -751,7 +802,16 @@
 <section id="portfolio" class="bg-light-gray" style="padding: 0px; padding-top: 22px">
     <div class="container" style="margin: 0px; padding: 0px; width: inherit;">
         <!-- Services Section -->
-
+        <div class="row">
+            <div class="col-md-12">
+                <div id="divArchiveAlert" class="alert alert-warning" role="alert">
+                    <h3 id="archiveHeading">Delete</h3>
+                    <p id="archiveMessage"> This is irreverisble</p>
+                    <button id ="confirmButton">CONFIRM</button>
+                    <button id ="cancelButton">CANCEL</button>
+                </div>
+            </div>
+        </div>
         <div class="row">
 
             <div class="col-md-12" style="margin-bottom: 30px;">
