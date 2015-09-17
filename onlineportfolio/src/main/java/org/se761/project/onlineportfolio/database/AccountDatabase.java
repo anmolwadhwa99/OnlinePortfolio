@@ -10,10 +10,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
-import org.se761.project.onlineportfolio.model.Qualification;
 
 
 public class AccountDatabase {
@@ -57,7 +57,10 @@ public class AccountDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
 		}
 		
-		//handle archive error check
+		if(account.isActive() == false){
+			closeSessionFactory();
+			throw new NotActiveException("The account you are trying to retrieve is not active");
+		}
 		
 		session.close();
 		closeSessionFactory();
