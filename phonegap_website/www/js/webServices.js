@@ -129,40 +129,35 @@ function Image(x){
 }
 
 // === Search ======================================================
-var info = [];
-function doSearch(str, quals, clients, projects, callback){
 
-    var results = [];
+function doSearch(str, quals, clients, projects){
+
+    var resultArray = [];
 
     for (i = 0; i < quals.length; i++){
         var qual = quals[i];
         if (qual.clientName.indexOf(str) > -1){
-            results.push("Q :" + qual.qualId);
+            resultArray.push("Q :" + qual.qualId);
         }
         if (qual.projectName.indexOf(str) > -1){
-            results.push("Q :" + qual.qualId);
+            resultArray.push("Q :" + qual.qualId);
         }
     }
 
     for (i = 0; i < clients.length; i++){
         var client = clients[i];
         if (client.accountName.indexOf(str) > -1){
-            results.push("C :" + client.accountId);
+            resultArray.push("C :" + client.accountId);
         }
     }
 
     for (i = 0; i < projects.length; i++){
         var proj = projects[i];
         if (proj.projectGroupName.indexOf(str) > -1){
-            results.push("P :" + proj.id);
+            resultArray.push("P :" + proj.id);
         }
     }
-
-
-    if(typeof callback == 'function'){
-
-        callback.apply(results);
-    }
+    return resultArray;
 
 }
 

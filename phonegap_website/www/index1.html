@@ -43,6 +43,11 @@
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
 
+    <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <script src="js/iframeResizer.min.js"></script>
 
     <script type="application/javascript">
@@ -199,14 +204,24 @@
             </ul>
         </div>
 
-        <div class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
-            <input type="text" class="form-control input-sm" placeholder="Search.." />
-                    <span class="input-group-btn">
+        <div id="searching" class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
+            <input id="searchBox" type="text" class="form-control input-sm" placeholder="Search.." onkeyup="search()" />
+
+                    <span id="searchIcon" class="input-group-btn">
                         <button class="btn btn-info btn-sm" type="button">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
         </div>
+        <ul class="nav navbar-nav" style="padding-left: 10px;">
+            <li id="resultLI" class="dropdown active">
+                <ul id="resultUL" class="dropdown-menu" style="width:695px; ">
+
+                </ul>
+            </li>
+        </ul>
+
+
 
 
         <!--</div>-->
@@ -708,7 +723,9 @@
 
     }
 
-    var allProjects, allQuals, allClients;
+    var allProjects = [], allQuals = [], allClients = [];
+
+
 
     function getEverything(){
 
@@ -727,14 +744,52 @@
         projGroupID = -1;
     }
 
+    function search(){
+        var text = $("#searchBox").val();
+        var toShow = false;
+        var searchResults = [];
+
+        if (text.length > 0) {
+            toShow =  true;
+
+            searchResults = doSearch(text, allQuals, allClients, allProjects);
+        }
+
+        var len = $('#searchBox').outerWidth() + $('#searchIcon').width();
+
+        var resLI = $('#resultLI');
+        var resUL = $('#resultUL');
+        resUL.empty();
+
+        for(i = 0; i < searchResults.length ; i++) {
+            console.log(searchResults[i]);
+
+            var li = document.createElement('li');
+            var a = document.createElement("a");
+            a.setAttribute("href", "#");
+
+            a.appendChild(document.createTextNode(searchResults[i]));
+
+            li.appendChild(a);
+            resUL.append(li);
+
+        }
+
+        resLI.toggleClass('open',toShow);
+
+    }
+
+
+
     $(document).ready(function(){
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            var target = $(e.target).attr("href") // activated tab
+            var target = $(e.target).attr("href"); // activated tab
             loadTab(target);
         });
         getProjects();
         getEverything();
+
 
         $('#createProjBtn').click(function(e){
             e.preventDefault();
@@ -778,6 +833,9 @@
 
         vnSpace.before(str);
         hnSpace.before(str);
+
+        //stuff for results
+
 
 
 
