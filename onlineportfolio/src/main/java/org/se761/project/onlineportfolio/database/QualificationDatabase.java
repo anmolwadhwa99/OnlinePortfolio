@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Image;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
@@ -54,6 +55,11 @@ public class QualificationDatabase {
 			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
 		}
 		
+		if(qual.isActive() == false){
+			closeSessionFactory();
+			throw new NotActiveException("Qual with id " + qualId + " is not active");
+		}
+		
 		session.close();
 		closeSessionFactory();
 		return qual;
@@ -61,7 +67,7 @@ public class QualificationDatabase {
 	
 	
 	/**
-	 * Gets all the quals from the database
+	 * Gets all the quals from the database (for superuser access)
 	 */
 	public List<Qualification> getAllQuals(){
 		openSessionFactory();
@@ -202,6 +208,14 @@ public class QualificationDatabase {
 		}
 		
 		List<Qualification> quals = adminGroup.getQuals();
+		
+		//removing inactive quals
+		for (int i = 0; i<quals.size(); i++){
+			if (quals.get(i).isActive() == false){
+				quals.remove(i);
+			}
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
@@ -224,6 +238,13 @@ public class QualificationDatabase {
 		}
 		
 		List<Qualification> quals = projectGroup.getQuals();
+		//removing inactive quals
+		for (int i = 0; i<quals.size(); i++){
+			if (quals.get(i).isActive() == false){
+				quals.remove(i);
+			}
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
