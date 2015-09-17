@@ -679,20 +679,42 @@
             $('#clients').removeClass('active'); // remove active class from tabs
             $('#projects').removeClass('active'); // remove active class from tabs
             $(tab).addClass('active');
-            getQuals()
+            getQuals();
+
         } else if (tab == "#projects") {
             $('#clients').removeClass('active'); // remove active class from tabs
             $('#quals').removeClass('active'); // remove active class from tabs
             $(tab).addClass('active'); // add active class to clicked tab
             getProjects();
+
+
         } else if (tab == "#clients") {
             $('#projects').removeClass('active'); // remove active class from tabs
             $('#quals').removeClass('active'); // remove active class from tabs
             $(tab).addClass('active'); // add active class to clicked tab
             getClients();
+
         } else {
             error("invalid tab");
         }
+
+        getEverything();
+
+    }
+
+    var allProjects, allQuals, allClients;
+
+    function getEverything(){
+
+        getAllQuals(function(){
+            allQuals = this;
+        });
+        getAllProjectGroups(function(){
+            allProjects = this;
+        });
+        getAllClients(function(){
+            allClients = this;
+        });
     }
 
     function resetProjID(){
@@ -706,6 +728,7 @@
             loadTab(target);
         });
         getProjects();
+        getEverything();
 
         $('#createProjBtn').click(function(e){
             e.preventDefault();
@@ -827,6 +850,15 @@
 
             <div class="col-md-12" style="margin-bottom: 30px;">
 
+                <div class="row-md-12">
+                    <button type="submit" class="btn btn-lg " onclick="doSearch('Lots', allQuals, allClients, allProjects, function(){
+                    var x = '';
+                    for(i = 0; i < this; i++){
+                    x += this[i] + ' ';
+                    }
+                    alert(x);
+                    })">Testing</button>
+                </div>
                 <!-- Nav tabs --><div>
                 <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
 
