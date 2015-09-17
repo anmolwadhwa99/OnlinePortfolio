@@ -54,7 +54,8 @@
 }
 
 .filmstrip-Wrapper {
-    top: 50%;
+    position : relative;
+    /*top: 50%;*/
 }
 
 html[xmlns] .flexslider .slides {
@@ -112,8 +113,8 @@ html[xmlns] .flexslider .slides {
 .flex-direction-nav a {
   text-decoration: none;
   display: block;
-  width: 40px;
-  height: 40px;
+  /*width: 40px;*/
+  /*height: 40px;*/
   margin: -20px 0 0;
   position: absolute;
   top: 50%;
@@ -131,14 +132,14 @@ html[xmlns] .flexslider .slides {
 }
 .flex-direction-nav a:before {
   font-family: "flexslider-icon";
-  font-size: 40px;
+  font-size: 100px;
   display: inline-block;
-  content: '\f001';
-  color: rgba(0, 0, 0, 0.8);
+  /*content: '\f001';    */ /* Gets rid of the box next to film strip text*/
+  color: rgba(254, 249, 255, 0.80);
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 .flex-direction-nav a.flex-next:before {
-  content: '\f002';
+  /*content: '\f002';*/
 }
 .flex-direction-nav .flex-prev {
   left: -50px;
