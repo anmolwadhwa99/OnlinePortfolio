@@ -1,5 +1,6 @@
 package org.se761.project.onlineportfolio.database;
 
+
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
@@ -52,6 +54,11 @@ public class AdminGroupDatabase {
 		if(adminGroup == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found");
+		}
+		
+		if (adminGroup.isActive() == false){
+			closeSessionFactory();
+			throw new NotActiveException("Admin Group with id " + adminGroupId + " is not active");
 		}
 
 		session.close();
@@ -133,6 +140,14 @@ public class AdminGroupDatabase {
 		}
 		
 		List<AdminGroup> adminGroups = qual.getAdminGroups();
+		
+		//removing inactive admin groups
+		for (int i = 0; i<adminGroups.size(); i++){
+			if (adminGroups.get(i).isActive() == false){
+				adminGroups.remove(i);
+			}
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
@@ -155,6 +170,13 @@ public class AdminGroupDatabase {
 		}
 		
 		List<AdminGroup> adminGroups = account.getAdminGroup();
+		//removing inactive admin groups
+		for (int i = 0; i<adminGroups.size(); i++){
+			if (adminGroups.get(i).isActive() == false){
+				adminGroups.remove(i);
+			}
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
