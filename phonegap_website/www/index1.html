@@ -325,7 +325,11 @@
                 $('#divArchiveAlert').hide();
             });
         }else if(archiveType == "QUAL"){
-
+            $('#divArchiveAlert').show();
+            $('#confirmButton').attr('onclick', archiveQual(itemID));
+            $('#cancelButton').click(function() {
+                $('#divArchiveAlert').hide();
+            });
         }else{
             return; // Default if somehow unknown type
         }
@@ -399,7 +403,7 @@
                         '\"alert(\'still need to define this one\')\"',
                         quals[i].projectName,
                         false,
-                        '\"confirmArchive(' + 'QUAL' + ", \'" + quals[i].qualId + '\')\"'
+                        '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
                 );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
@@ -424,7 +428,7 @@
                         '\"alert(\'still need to define this one\')\"',
                         quals[i].projectName,
                         false,
-                        '\"confirmArchive(' + 'QUAL' + ", \'" + quals[i].qualId + '\')\"'
+                        '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
                 );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
@@ -591,7 +595,7 @@
                         '\"alert(\'still need to define this one\')\"',
                         quals[i].projectName,
                         false,
-                        '\"confirmArchive(' + 'QUAL' + ", \'" + quals[i].qualId + '\')\"'
+                        '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
                 );
             }
             $("#quals").html(htmlStr)
@@ -615,7 +619,7 @@
                         '\"alert(\'still need to define this one\')\"',
                         clients[i].accountName,
                         true,
-                        '\"confirmArchive(' + 'CLIENT' + ", \'" + clients[i].accountId + '\')\"'
+                        '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"'
                 );
             }
 
@@ -634,7 +638,7 @@
                         '\"alert(\'still need to define this one\')\"',
                         projects[i].projectGroupName,
                         false,
-                        '\"confirmArchive(' + 'PROJECT' + ", \'" + projects[i].id + '\')\"'
+                        '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
                 );
             }
             htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
@@ -806,7 +810,7 @@
             <div class="col-md-12">
                 <div id="divArchiveAlert" class="alert alert-warning" role="alert">
                     <h3 id="archiveHeading">Delete</h3>
-                    <p id="archiveMessage"> This is irreverisble</p>
+                    <p id="archiveMessage" class ="body"> This is irreverisble</p>
                     <button id ="confirmButton">CONFIRM</button>
                     <button id ="cancelButton">CANCEL</button>
                 </div>
