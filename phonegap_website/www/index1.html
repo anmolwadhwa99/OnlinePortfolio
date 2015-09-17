@@ -71,7 +71,7 @@
                 $('#frameViewQual').attr('src', '');
             });
 
-            $('#divArchiveAlert').hide();
+            document.getElementById("divArchiveAlert").style.display = 'none';
         });
     </script>
 
@@ -307,16 +307,18 @@
     };
     function archiveClient(clientId){
         deleteAccount(clientId);
-        $('#divArchiveAlert').hide();
+        document.getElementById("divArchiveAlert").style.display = 'none';
     };
     function confirmArchive(archiveType, itemID){
         var title;
         var message;
         if(archiveType == "CLIENT"){
-            $('#divArchiveAlert').show();
-            $('#confirmButton').attr('onclick', archiveClient(itemID));
-            $('#cancelButton').click(function() {
-                $('#divArchiveAlert').hide();
+            document.getElementById("divArchiveAlert").style.display = 'block';
+            document.getElementById("confirmButton").addEventListener("click", function(){
+               archiveClient(itemID);
+            });
+            document.getElementById("confirmButton").addEventListener("click", function(){
+                document.getElementById("divArchiveAlert").style.display = 'none';
             });
             title = "";
             message = "";
