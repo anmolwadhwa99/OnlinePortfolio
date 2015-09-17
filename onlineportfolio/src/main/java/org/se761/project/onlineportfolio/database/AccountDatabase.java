@@ -59,7 +59,7 @@ public class AccountDatabase {
 		
 		if(account.isActive() == false){
 			closeSessionFactory();
-			throw new NotActiveException("The account you are trying to retrieve is not active");
+			throw new NotActiveException("Account with id " + accountId + "  is not active");
 		}
 		
 		session.close();
@@ -237,7 +237,10 @@ public class AccountDatabase {
 			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so unable to retrieve all accounts");
 		}
 		
-		//handle active error check
+		if(adminGroup.isActive() == false){
+			closeSessionFactory();
+			throw new NotActiveException("The Admin Group with id " + adminGroupId +" you are trying to retrieve is not active");
+		}
 		
 		List<Account> accounts = adminGroup.getAccounts();
 		session.getTransaction().commit();
@@ -262,7 +265,10 @@ public class AccountDatabase {
 			throw new DatabaseRetrievalException("Project group with id " +projGroupId + " could not be found, so unable to retrieve all accounts");
 		}
 		
-		//handle active error check
+		if(projGroup.isActive() == false){
+			closeSessionFactory();
+			throw new NotActiveException("The Project Group with id " + projGroupId +" you are trying to retrieve is not active");
+		}
 		
 		List<Account> accounts = projGroup.getAccountsProj();
 		session.getTransaction().commit();
