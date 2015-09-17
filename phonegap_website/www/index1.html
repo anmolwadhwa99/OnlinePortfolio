@@ -317,16 +317,18 @@
             document.getElementById("confirmButton").addEventListener("click", function(){
                archiveClient(itemID);
             });
-            document.getElementById("confirmButton").addEventListener("click", function(){
+            document.getElementById("cancelButton").addEventListener("click", function(){
                 document.getElementById("divArchiveAlert").style.display = 'none';
             });
             title = "";
             message = "";
         }else if(archiveType == "PROJECT"){
-            $('#divArchiveAlert').show();
-            $('#confirmButton').attr('onclick', archiveProject(itemID));
-            $('#cancelButton').click(function() {
-                $('#divArchiveAlert').hide();
+            document.getElementById("divArchiveAlert").style.display = 'block';
+            document.getElementById("confirmButton").addEventListener("click", function(){
+                archiveProject(itemID);
+            });
+            document.getElementById("cancelButton").addEventListener("click", function(){
+                document.getElementById("divArchiveAlert").style.display = 'none';
             });
         }else if(archiveType == "QUAL"){
             $('#divArchiveAlert').show();
