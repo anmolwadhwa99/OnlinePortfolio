@@ -114,13 +114,13 @@
 
             if(qual.emailButton != null){
                 htmlStr += "<div class='col-md-3'> \
-                                <img class='email_btn' src='imgs/email.png' /> \
+                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
                             </div>"
             }
 
             if(qual.websiteButton != null){
                 htmlStr += "<div class='col-md-3'> \
-                                <img class='website_btn' src='imgs/website.png' href='"+qual.websiteButton+"'/> \
+                                <img class='website_btn' style=\"width: 50px\" src='imgs/website.png' href='"+qual.websiteButton+"'/> \
                             </div>"
             }
 
@@ -173,7 +173,7 @@
 
 
 
-            htmlStr += "<button type='button' class='btn btn-lg' data-dismiss='modal'>" +
+            htmlStr += "<button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
             "<i class='fa fa-times'></i> Close Qual</button></div>";
             $('#modal_body').html(htmlStr);
 
