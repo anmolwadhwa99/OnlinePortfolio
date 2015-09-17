@@ -10,20 +10,33 @@
 
     <title>View Qual</title>
 
-    
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]>
-    <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+    <link href="css/select2.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+
+
+
+    <!--&lt;!&ndash; Just for debugging purposes. Don't actually copy these 2 lines! &ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]>-->
+    <!--<script src="js/ie8-responsive-file-warning.js"></script><![endif]&ndash;&gt;-->
+    <!--<script src="js/ie-emulation-modes-warning.js"></script>-->
+
+    <!--&lt;!&ndash; HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries &ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]>-->
+    <!--<script src="js/html5shiv.min.js"></script>-->
+    <!--<script src="js/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
 
     <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
@@ -31,54 +44,7 @@
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
-    <style>
-        .image-upload{
-            height: 10em;
-            position: relative;
-        }
-        .image-upload img{
-            margin: 0;
-            position: absolute;
-            top: 100%;
-        }
-        @media all
-            and (max-width: 991px)
-        {
-            .image-upload img{
-                top:0%;
-            }
-        }
-        .image-upload > input
-        {
-            display: none;
-        }
 
-        .hand_interact {
-            cursor: pointer;
-            cursor: hand;
-        }
-
-        .fill{
-            zoom: 2;
-
-            display: block;
-            margin: auto;
-
-            height: auto;
-            max-height: 100%;
-
-            width: auto;
-            max-width: 100%;
-        }
-
-        .back_button > input{
-            display: none;
-        }
-        .back_button_img{
-            max-width: 20px;
-            zoom: 2;
-        }
-    </style>
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
             var qual_id = sessionStorage.getItem("qual_id");
@@ -219,7 +185,7 @@
 
 </head>
 
-<body style="padding:20px;">
+
 
 <!--<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">-->
     <!--<div class="modal-content">-->
@@ -232,7 +198,7 @@
         <!--<div class="container-fluid">-->
             <!--<div class="row">-->
                 <!--<div class="col-md-12">-->
-                    <div class="modal-body" id="modal_body">
+                    <div class="modal-body" id="modal_body"></div>
                         <!--<iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>-->
                     <!--</div>-->
                 <!--</div>-->
@@ -244,5 +210,5 @@
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
-</body>
+
 </html>
