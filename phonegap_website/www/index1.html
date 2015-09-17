@@ -298,14 +298,16 @@
     }
 
     function archiveQual(qualId){
-        // delete the qual
-        //close the alert
+        deleteQual(qualId);
+        $('#divArchiveAlert').hide();
     };
     function archiveProject(projectId){
-
+        deleteProjectGroup(projectId);
+        $('#divArchiveAlert').hide();
     };
     function archiveClient(clientId){
-
+        deleteAccount(clientId);
+        $('#divArchiveAlert').hide();
     };
     function confirmArchive(archiveType, itemID){
         var title;
