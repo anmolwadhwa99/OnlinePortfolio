@@ -243,6 +243,14 @@ public class AccountDatabase {
 		}
 		
 		List<Account> accounts = adminGroup.getAccounts();
+		
+		//removing inactive accounts
+		for (int i = 0; i<accounts.size(); i++){
+			if (accounts.get(i).isActive() == false){
+				accounts.remove(i);
+			}
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
@@ -271,6 +279,14 @@ public class AccountDatabase {
 		}
 		
 		List<Account> accounts = projGroup.getAccountsProj();
+		
+		//removing inactive accounts
+		for (int i = 0; i<accounts.size(); i++){
+			if (accounts.get(i).isActive() == false){
+				accounts.remove(i);
+			}
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
