@@ -439,7 +439,7 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
         '"isActive": ' + isActive + ','+
         '"isAnonymous": ' + isAnonymous + ','+
         '"challengesFaced": "' + challengesFaced + '",'+
-        '"clientImage": ' + clientImgURL + '",'+
+        '"clientImage": "' + clientImgURL + '",'+
         '"clientName": "' + clientName + '",'+
         '"industry": "' + industry + '",'+
         '"tags": "' + tags + '",'+
