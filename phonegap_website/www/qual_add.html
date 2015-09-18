@@ -46,7 +46,7 @@
     <script>
         function addQual() {
             var projName = $("#qual_project_name").val();
-            var projSubTitle = $("#qual_client_name").val();
+            var projSubtitle = $("#qual_client_name").val();
             var clientName = $("#qual_project_sub").val();
             var isAnonymous = $('input[name=qual_anonymous]:checked').val();
             var anonymousName = $("#qual_anonymous_name").val();
@@ -72,7 +72,7 @@
             var adminGroups = $('#ddAdminGroups').val();
 
             console.log(projName);
-            console.log(projSubTitle);
+            console.log(projSubtitle);
             console.log(clientName);
             console.log(isAnonymous);
             console.log(anonymousName);
@@ -89,12 +89,13 @@
             console.log(industry);
             console.log(tags);
             console.log(serviceLine);
+
             console.log(adminGroups);
 
             insertQual('true', isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
-                    'solutionStatement', access, projSubTitle,
-                    emailAction, websiteAction, function () {
+                    'solutionStatement', status, projSubtitle, emailAction, websiteAction,
+                    clientLogo, productServicesImage, function () {
                         var qual = this;
 
                         $.each(adminGroups, function(i, val) {
