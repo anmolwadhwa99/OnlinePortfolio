@@ -49,7 +49,7 @@
                 $('input[name=signin_password]').val(saved);
             }
 
-            getQuals();
+
         });
 
         function signin(){
@@ -75,10 +75,9 @@
             getAllQuals(function(){
                 var quals = this;
 
-                var htmlStr ="";
+                var htmlStr ="<ul class=\"slides\"> ";
 
                 for (i = 0; i < quals.length; i++) {
-//                    alert(quals[i].qualId);
                     htmlStr += addPortfolioItem(
                             quals[i].qualId,
                             '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
@@ -88,6 +87,8 @@
                             '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
                     );
                 }
+
+                htmlStr += "</ul>"
                 $("#quals").html(htmlStr)
 
             });
@@ -96,34 +97,13 @@
         function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
             var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
-            var viewFunction = "";
-            if(isNumeric(viewFunc)) {
-                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
-            }else{
-                viewFunction = '\' onclick =' +viewFunc + '\"';
-            }
-            return "<div class='col-md-3 col-sm-6 portfolio-item'> \
-              <a href='#' class='portfolio-link' data-toggle='modal'> \
-                <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
-                        <i class='fa fa-search-plus fa-7x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
-                        <i class='fa fa-plus fa-3x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
-                            <i class='fa fa-pencil fa-3x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
-                            <i class = 'fa fa-trash-o fa-3x'> </i>\
-                    </div>\
-                </div> \
-                <img src=" + image + " class='main-thumbnail'  alt=''> \
-            </a> \
-            <div class='portfolio-caption'> \
-                <h4>"+name+"</h4> \
-            </div>\
-        </div>"
+//            var viewFunction = "";
+//            if(isNumeric(viewFunc)) {
+//                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+//            }else{
+//                viewFunction = '\' onclick =' +viewFunc + '\"';
+//            }
+            return "<li><img src=" + image + "></li>"
         }
 
         function isNumeric(n) {
@@ -150,10 +130,8 @@
     <section class="slider">
         <div class="flexslider carousel">
             <div id="scroller">
-                <div class="innerScrollArea">
-                    <ul class="slides">
-                        <div id=quals></div>
-
+                <div class="innerScrollArea" id="quals">
+                    <!--<ul class="slides">-->
 
                         <!--<li>-->
                             <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
@@ -161,7 +139,7 @@
                         <!--<li>-->
                             <!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
                         <!--</li>-->
-                    </ul>
+                    <!--</ul>-->
                 </div>
             </div>
         </div>
@@ -174,10 +152,17 @@
 
 
 <!--FlexSlider-->
-<script defer src="filmStripSlider/jquery.flexslider.js"></script>
+
+
+<script defer src="filmStripSlider/jquery.flexslider.js">
+</script>
 
 <script type="text/javascript">
+    getQuals();
     $(function(){
+
+
+
         var scroller = $('#scroller div.innerScrollArea');
         var scrollerContent = scroller.children('ul');
         scrollerContent.children().clone().appendTo(scrollerContent);
