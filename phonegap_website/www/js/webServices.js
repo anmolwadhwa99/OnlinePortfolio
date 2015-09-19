@@ -1035,8 +1035,7 @@ function getAllAdminGroups(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while get all groups");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1069,8 +1068,7 @@ function insertAdminGroup(groupName){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while creating group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1104,8 +1102,7 @@ function deleteAdminGroup(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while deleting the group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1129,8 +1126,7 @@ function getAdminGroupsByQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while getting account");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1163,8 +1159,7 @@ function getAdminGroupsByAccount(acId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while getting account");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1200,8 +1195,7 @@ function insertProjectGroup(projGroupName, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while creating group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1236,8 +1230,7 @@ function getProjectById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1264,8 +1257,7 @@ function getProjectsByClient(cId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1298,8 +1290,7 @@ function getAllProjectGroups(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1331,8 +1322,7 @@ function deleteProjectGroup(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while deleting the project group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1357,8 +1347,7 @@ function insertImage(isActive, publicid, imageType, imageUrl , callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while creating image");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1400,8 +1389,7 @@ function getImageById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while retrieving image");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1428,8 +1416,7 @@ function getAllImages(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while retrieving all images");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1461,8 +1448,7 @@ function getAllClientImages(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while retrieving all client images");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1494,8 +1480,7 @@ function getAllProjectImages(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while retrieving all project images");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1527,8 +1512,7 @@ function deleteImage(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while deleting the image");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1552,8 +1536,7 @@ function assignImageToQual(iId, qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while assigning image to qual");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
