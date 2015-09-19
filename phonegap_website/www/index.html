@@ -67,6 +67,67 @@
                 location.replace("index1.html");
             });
         };
+
+        function getQuals(){
+            getAllQuals(function(){
+                var quals = this;
+
+                var htmlStr ="";
+                htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
+
+                for (i = 0; i < quals.length; i++) {
+//                    alert(clients[i].accountName);
+                    htmlStr += addPortfolioItem(
+                            quals[i].qualId,
+                            '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
+                            '\"alert(\'still need to define this one\')\"',
+                            quals[i].projectName,
+                            false,
+                            '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
+                    );
+                }
+                $("#quals").html(htmlStr)
+
+            });
+        }
+
+        function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
+            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+
+            var viewFunction = "";
+            if(isNumeric(viewFunc)) {
+                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+            }else{
+                viewFunction = '\' onclick =' +viewFunc + '\"';
+            }
+            return "<div class='col-md-3 col-sm-6 portfolio-item'> \
+              <a href='#' class='portfolio-link' data-toggle='modal'> \
+                <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
+                        <i class='fa fa-search-plus fa-7x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                        <i class='fa fa-plus fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+                            <i class='fa fa-pencil fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
+                            <i class = 'fa fa-trash-o fa-3x'> </i>\
+                    </div>\
+                </div> \
+                <img src=" + image + " class='main-thumbnail'  alt=''> \
+            </a> \
+            <div class='portfolio-caption'> \
+                <h4>"+name+"</h4> \
+            </div>\
+        </div>"
+        }
+
+        $(document).ready(function(){
+            getAllQuals();
+        });
+
     </script>
 
     <style type="text/css">
@@ -89,36 +150,6 @@
             <div id="scroller">
                 <div class="innerScrollArea">
                     <ul class="slides">
-                        <li>
-                            <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
-                        </li>
-                        <!--<li>-->
-                        <!--<img src="images/kitchen_adventurer_lemon.jpg" />-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<img src="images/kitchen_adventurer_lemon.jpg" />-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
-                        <!--</li>-->
-                        <li>
-                            <img src="images/kitchen_adventurer_caramel.jpg" />
-                        </li>
-                        <li>
-                            <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
-                        </li>
-                        <li>
-                            <img src="images/kitchen_adventurer_lemon.jpg" />
-                        </li>
                         <li>
                             <img src="images/kitchen_adventurer_donut.jpg" />
                         </li>
