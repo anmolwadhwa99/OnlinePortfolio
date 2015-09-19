@@ -465,8 +465,7 @@ function deleteQual(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while deleting")
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -494,8 +493,7 @@ function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, indu
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while updating");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -544,8 +542,7 @@ function assignQualToAccount(acId, qId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while assigning qual to account");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -579,8 +576,7 @@ function assignQualToAdminGroup(agId, qId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while assigning qual to admin group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -614,8 +610,7 @@ function assignQualToProjectGroup(pgId, qId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while assigning qual to project group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -653,8 +648,7 @@ function getAccountById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while getting account");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -681,8 +675,7 @@ function getAllAccounts(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -715,8 +708,7 @@ function getAllAdmins(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while getting all admins");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -749,8 +741,7 @@ function getAllClients(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -783,8 +774,7 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while creating account");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -823,8 +813,7 @@ function deleteAccount(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while deleting the account");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -848,8 +837,7 @@ function assignAccountToAdminGroup(agId, acId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while assigning qual to admin group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -883,8 +871,7 @@ function assignAccountToProjectGroup(pgId, acId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while assigning account to project group");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -918,8 +905,7 @@ function getAccountsByAdminGroup(agId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -952,8 +938,7 @@ function getAccountsByQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -986,8 +971,7 @@ function getAccountsByProjectGroup(pgId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -1024,8 +1008,7 @@ function getAdminGroupById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while getting account");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
