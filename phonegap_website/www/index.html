@@ -78,7 +78,7 @@
                 var htmlStr ="";
 
                 for (i = 0; i < quals.length; i++) {
-                    alert(quals[i].qualId);
+//                    alert(quals[i].qualId);
                     htmlStr += addPortfolioItem(
                             quals[i].qualId,
                             '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
@@ -152,8 +152,8 @@
             <div id="scroller">
                 <div class="innerScrollArea">
                     <ul class="slides">
+                        <div id=quals></div>
 
-                        <li><a href="#quals"></a></li>
 
                         <!--<li>-->
                             <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
