@@ -246,8 +246,7 @@ function getAllQuals(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -280,8 +279,7 @@ function getQualsByAccount(acId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -314,8 +312,7 @@ function getQualsByProject(projectId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -348,8 +345,7 @@ function getQualsByAdminGroup(agId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -382,8 +378,7 @@ function getImagesForQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while getting images");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -418,8 +413,7 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending")
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
