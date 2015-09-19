@@ -7,6 +7,8 @@ var _pg = "/projectGroup";
 var _proj = "/project";
 var _img = "/image";
 
+
+
 function Qual(x){
     this.qualId = x.qualId;
     this.projectImg = x.projectImg;
@@ -173,8 +175,7 @@ function verifyAccount(pw,callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while sending");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -221,8 +222,7 @@ function getQualById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert("An error occurred while retrieving qual");
-                return;
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
