@@ -43,10 +43,13 @@
     <script type="application/javascript">
         $(document).ready(function (){
             var saved = window.localStorage.getItem('onlinePortfolioPass');
+
             if(saved !== null){
                 $('#cbRemember').prop('checked', true);
                 $('input[name=signin_password]').val(saved);
             }
+
+            getQuals();
         });
 
         function signin(){
@@ -73,10 +76,9 @@
                 var quals = this;
 
                 var htmlStr ="";
-                htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
 
                 for (i = 0; i < quals.length; i++) {
-//                    alert(clients[i].accountName);
+                    alert(quals[i].qualId);
                     htmlStr += addPortfolioItem(
                             quals[i].qualId,
                             '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
@@ -124,9 +126,9 @@
         </div>"
         }
 
-        $(document).ready(function(){
-            getAllQuals();
-        });
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
 
     </script>
 
@@ -150,12 +152,15 @@
             <div id="scroller">
                 <div class="innerScrollArea">
                     <ul class="slides">
-                        <li>
-                            <img src="images/kitchen_adventurer_donut.jpg" />
-                        </li>
-                        <li>
-                            <img src="images/kitchen_adventurer_caramel.jpg" />
-                        </li>
+
+                        <li><a href="#quals"></a></li>
+
+                        <!--<li>-->
+                            <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
+                        <!--</li>-->
                     </ul>
                 </div>
             </div>
