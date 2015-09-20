@@ -115,8 +115,10 @@ function getProjects(account_id){
                     '\"addProjectQualsToGroup('+projects[i].id+')\"',
                     '\"alert(\'still need to define this one\')\"',
                     projects[i].projectGroupName,
-                    false,
-                    '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
+                    '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
+                    "",
+                    "",
+                    'project'
                 )
             }
             $("#projects").html(htmlStr);
@@ -183,9 +185,10 @@ function confirmArchive(archiveType, itemID){
     }
 };
 
-function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
-    var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
+   // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
+    var image = determineItemImage(clientImg, projectImg, type);
     var viewFunction = "";
     if(isNumeric(viewFunc)) {
         viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
@@ -214,6 +217,23 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveF
                 <h4>"+name+"</h4> \
             </div>\
         </div>"
+}
+
+function determineItemImage(clientImage, projectImage, type){
+
+    var image = ""
+    if(type == 'qual'){
+        if(projectImage == ""){
+            return "img/portfolio/startup-framework.png.png"
+        }else{
+            return projectImage
+        }
+    }else if(type == 'client'){
+        return "img/portfolio/roundicons.png"
+    }else if(type == 'project'){
+        return "img/portfolio/startup-framework.png.png"
+    }
+
 }
 
 function isNumeric(n) {
@@ -245,8 +265,10 @@ function openQualsForProject(projectID, projectName) {
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
-                false,
-                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
+                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
+                quals[i].clientImg,
+                quals[i].projectImg,
+                'qual'
             );
         }
         htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
@@ -270,8 +292,10 @@ function openQualsForClientProject(projectID, projectName) {
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
-                false,
-                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
+                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
+                quals[i].clientImg,
+                quals[i].projectImg,
+                'qual'
             );
         }
         htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
@@ -302,13 +326,16 @@ function getQuals(){
         htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
 
         for (i = 0; i < quals.length; i++) {
+            alert(quals[i].projectImg)
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
-                false,
-                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
+                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
+                quals[i].clientImg,
+                quals[i].projectImg,
+                'qual'
             );
         }
         $("#quals").html(htmlStr)
@@ -327,8 +354,10 @@ function getClients() {
                 '\"\"',
                 '\"alert(\'still need to define this one\')\"',
                 clients[i].accountName,
-                true,
-                '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"'
+                '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"',
+                "",
+                "",
+                'client'
             );
         }
 
@@ -346,8 +375,10 @@ function getProjectforClient(id){
                 '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 projects[i].projectGroupName,
-                false,
-                '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
+                '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
+                "",
+                "",
+                'project'
             );
         }
         htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
