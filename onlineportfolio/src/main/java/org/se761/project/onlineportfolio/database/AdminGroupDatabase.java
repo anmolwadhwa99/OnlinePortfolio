@@ -125,6 +125,28 @@ public class AdminGroupDatabase {
 	}
 	
 	/**
+	 * Reactivate an admin group from database
+	 */
+	public AdminGroup reactivateAdminGroup(int adminGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
+
+		if(adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found so can't reactivate admin group");
+		}
+
+		adminGroup.setActive(true);
+		session.saveOrUpdate(adminGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return adminGroup;
+	}
+	
+	/**
 	 * Get all admin groups associated with a qualification
 	 */
 	public List<AdminGroup> getAllAdminGroupsFromQualification(int qualId){

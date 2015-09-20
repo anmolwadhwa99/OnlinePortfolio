@@ -123,7 +123,27 @@ public class QualificationDatabase {
 		return qual;
 	}
 	
-
+	/**
+	 * Reactivate qualification from database
+	 */
+	public Qualification reactivateQual(int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found so unable to reactivate");
+		}
+		
+		qual.setActive(true);
+		session.saveOrUpdate(qual);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return qual;
+	}
 	
 	/**
 	 * Add a qualification against an admin group
