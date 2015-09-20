@@ -108,6 +108,11 @@
         }
     </script>
     <style>
+        .hand_interact {
+            cursor: pointer;
+            cursor: hand;
+        }
+
         .fill {
             zoom: 2;
 
@@ -120,6 +125,16 @@
             width: auto;
             max-width: 100%;
         }
+
+        .back_button > input {
+            display: none;
+        }
+
+        .back_button_img {
+            max-width: 20px;
+            zoom: 2;
+        }
+
 
         .progress-value {
             position:absolute;
@@ -214,7 +229,17 @@
     </script>
 </head>
 
-<body style="padding:20px;">
+<body style="padding:20px; padding-top: 70px;">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div style="padding-top: 10px;padding-left: 10px;">
+        <div class="back_button pull-left">
+            <label for="qual_back">
+                <img src="imgs/back.png" class="hand_interact back_button_img" alt="Back to Main"/>
+            </label>
+            <input id="qual_back" class="hand_interact" type="button" onclick="location.replace('index1.html');">
+        </div>
+    </div>
+</div>
 <div class="alert alert-info alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Heads Up!</strong> Please use CTRL Shift V / ⌘CMD Shift V to paste formatted content from powerpoint, word, etc
