@@ -108,5 +108,11 @@ public class AccountService {
 		return account;
 	}
 	
+	/**
+	 * Reactivate account
+	 */
+	public Account reactivateAccount(int accountId){
+		return accountDatabase.reactivateAccount(accountId);
+	}
 	
 }

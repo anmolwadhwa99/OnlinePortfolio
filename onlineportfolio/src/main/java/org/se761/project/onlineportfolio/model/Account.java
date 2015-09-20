@@ -44,6 +44,10 @@ public class Account {
 	private List<ProjectGroup> projGroups = new ArrayList<ProjectGroup>();
 	
 	
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "accountsQual", cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Qualification> accountsQual = new ArrayList<Qualification>();
+	
 	public Account() {
 		
 	}
@@ -167,5 +171,17 @@ public class Account {
 	public void setAccentColour(String accentColour) {
 		this.accentColour = accentColour;
 	}
+
+	@XmlTransient
+	public List<Qualification> getAccountsQual() {
+		return accountsQual;
+	}
+
+
+	public void setAccountsQual(List<Qualification> accountsQual) {
+		this.accountsQual = accountsQual;
+	}
+	
+	
 		
 }

@@ -117,6 +117,27 @@ public class ImageDatabase {
 	}
 	
 	/**
+	 * Make an image reactive
+	 */
+	public Image reactivateImage(int imageId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Image image = (Image) session.get(Image.class, imageId);
+
+		if(image == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to find image with id " +imageId + " so unable to reactivate image");
+		}
+		image.setActive(true);
+		session.saveOrUpdate(image);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return image;
+	}
+	
+	/**
 	 * Get all images that are client logos
 	 */
 	public List<Image> getAllLogoImages(){

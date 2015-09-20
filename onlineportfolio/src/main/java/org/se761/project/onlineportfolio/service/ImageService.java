@@ -50,4 +50,11 @@ public class ImageService {
 	public List<Image> getAllImages(){
 		return imageDatabase.getAllImages();
 	}
+	
+	/**
+	 * Reactivate image
+	 */
+	public Image reactivateImage(int imageId){
+		return imageDatabase.reactivateImage(imageId);
+	}
 }
