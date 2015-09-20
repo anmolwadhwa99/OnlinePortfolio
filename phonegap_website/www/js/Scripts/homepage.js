@@ -78,25 +78,27 @@ function linkQualsAndProject(){
     qualsToAdd.splice(0, qualsToAdd.length);
 }
 
-function getProjects(){
-    getAllProjectGroups(function(){
+function getProjects(account_id){
 
-        var projects = this;
-        var htmlStr = "<h1 id='heading'>Projects</h1>";
+    getAccountById(account_id, function() {
+        var account = this;
+        getProjectsByClient(account_id, function() {
+            var projects = this;
+            var htmlStr = "<h1 id='heading'>Projects</h1>";
 
-        for(i = 0; i< projects.length; i++){
+            for(i = 0; i< projects.length; i++){
 
-            htmlStr += addPortfolioItem(
-                '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
-                '\"addProjectQualsToGroup('+projects[i].id+')\"',
-                '\"alert(\'still need to define this one\')\"',
-                projects[i].projectGroupName,
-                false,
-                '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
-            )
-        }
-        $("#projects").html(htmlStr);
-
+                htmlStr += addPortfolioItem(
+                    '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
+                    '\"addProjectQualsToGroup('+projects[i].id+')\"',
+                    '\"alert(\'still need to define this one\')\"',
+                    projects[i].projectGroupName,
+                    false,
+                    '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
+                )
+            }
+            $("#projects").html(htmlStr);
+        });
     });
 }
 

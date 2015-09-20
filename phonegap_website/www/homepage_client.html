@@ -219,7 +219,9 @@
             loadTab(target);
         });
 
-        getProjects();
+        var account_id = sessionStorage.getItem("account_id");
+
+        getProjects(account_id);
         getEverything();
 
         $('#createProjBtn').click(function(e){
