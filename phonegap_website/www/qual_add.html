@@ -103,6 +103,70 @@
                         location.replace("homepage.html");
                     }
             );
+            function modifyQual() {
+                var qualId = $('#qual_id').val()
+                var projName = $("#qual_project_name").val();
+                var projSubtitle = $("#qual_client_name").val();
+                var clientName = $("#qual_project_sub").val();
+                var isAnonymous = $('input[name=qual_anonymous]:checked').val();
+                var anonymousName = $("#qual_anonymous_name").val();
+
+                var access = $('input[name=qual_public_access]:checked').val();
+
+                var problem = $("#qual_problems").val();
+                var challenges = $("#qual_challenges").val();
+                var solution = $("#qual_solution").val();
+                var outcome = $("#qual_outcome").val();
+                var relevance = $("#qual_relevance").val();
+
+                var clientLogo = $('#client_logo_img').attr('src');
+                var productServicesImage = $('#prod_serv_img').attr('src');
+
+                var emailAction = $("#qual_email").val();
+                var websiteAction = $("#qual_website").val();
+
+                var industry = $("#qual_industry").val();
+                var tags = $("#qual_tags").val();
+                var serviceLine = $("#qual_service_line").val();
+
+                var adminGroups = $('#ddAdminGroups').val();
+
+                console.log(qualId);
+                console.log(projName);
+                console.log(projSubtitle);
+                console.log(clientName);
+                console.log(isAnonymous);
+                console.log(anonymousName);
+                console.log(access);
+                console.log(problem);
+                console.log(challenges);
+                console.log(solution);
+                console.log(outcome);
+                console.log(relevance);
+                console.log(clientLogo);
+                console.log(productServicesImage);
+                console.log(emailAction);
+                console.log(websiteAction);
+                console.log(industry);
+                console.log(tags);
+                console.log(serviceLine);
+
+                console.log(adminGroups);
+
+                updateQual(qualId, 'true', isAnonymous, challenges, clientName, industry,
+                        tags, outcome, problem, projName, relevance, serviceLine, solution,
+                        'solutionStatement', status, projSubtitle, emailAction, websiteAction,
+                        clientLogo, productServicesImage, function () {
+                            var qual = this;
+
+                            $.each(adminGroups, function (i, val) {
+                                assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
+                            });
+
+                            location.replace("homepage.html");
+                        }
+                );
+            }
         }
     </script>
     <style>
