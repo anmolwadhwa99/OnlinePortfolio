@@ -387,6 +387,7 @@ function addToCart(qID, m){
 
     if(qID != null) {
         document.getElementById("divAddToCartAlert").style.display = 'block';
+
         document.getElementById("addToCartOkButton").addEventListener("click", function () {
             document.getElementById("divAddToCartAlert").style.display = 'none';
         });
