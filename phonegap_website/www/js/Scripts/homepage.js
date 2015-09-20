@@ -38,6 +38,7 @@ function search(){
                 on_click = 'viewQual(' + res.id +');';
                 break;
             case 1: // project
+                on_click = "openQualsForProject(" + res.id + ", '" + res.value + "')";
                 break;
             case 2: // client
                 on_click = 'getProjectforClient(' + res.id + ')';
