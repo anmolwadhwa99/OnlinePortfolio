@@ -24,36 +24,19 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-
-
-
-    <!--&lt;!&ndash; Just for debugging purposes. Don't actually copy these 2 lines! &ndash;&gt;-->
-    <!--&lt;!&ndash;[if lt IE 9]>-->
-    <!--<script src="js/ie8-responsive-file-warning.js"></script><![endif]&ndash;&gt;-->
-    <!--<script src="js/ie-emulation-modes-warning.js"></script>-->
-
-    <!--&lt;!&ndash; HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries &ndash;&gt;-->
-    <!--&lt;!&ndash;[if lt IE 9]>-->
-    <!--<script src="js/html5shiv.min.js"></script>-->
-    <!--<script src="js/respond.min.js"></script>-->
-    <!--<![endif]&ndash;&gt;-->
-
     <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/webServices.js" ></script>
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
-
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
             var qual_id = sessionStorage.getItem("qual_id");
-            var htmlStr;
+            var htmlStr = "";
             //var qual_id = 1; // hardcoded qual_id for now, would retrieve from sessionStorage once website fully linked up
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
-
-
                 var clientName = "";
             if(qual.isAnonymous){
                 clientName = qual.anonymousName;
@@ -170,9 +153,6 @@
                         </div>";
             }
 
-
-
-
             htmlStr += "<button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
             "<i class='fa fa-times'></i> Close Qual</button></div>";
             $('#modal_body').html(htmlStr);
@@ -180,33 +160,15 @@
             });
         });
 
-
     </script>
 
 </head>
 
 
 <body style="padding:20px;" >
-<!--<div id="qual_add_form" class="container-fluid" style="padding-top: 50px;">-->
-<!--<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">-->
-    <!--<div class="modal-content">-->
-        <!--<div class="close-modal" data-dismiss="modal">-->
-            <!--<div class="lr">-->
-                <!--<div class="rl">-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="container-fluid">-->
-            <div class="row">
-                <!--<div class="col-md-12">-->
-                    <div class="modal-body" id="modal_body"></div>
-                        <!--<iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>-->
-                    <!--</div>-->
-                <!--</div>-->
-            </div>
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+    <div class="row">
+        <div class="modal-body" id="modal_body"></div>
+    </div>
 </body>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
