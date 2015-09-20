@@ -25,7 +25,28 @@ function search(){
         var li = document.createElement('li');
         var a = document.createElement("a");
         var span = document.createElement("span");
-        a.setAttribute("href", "#");
+
+        var h_ref = "#";
+        var on_click = '';
+        var toggle = '';
+        switch (res.type.value){
+            case 0:
+                h_ref = '#viewQualModal';
+                toggle = 'modal';
+                on_click = 'viewQual(' + res.id +');';
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+
+        //javascript:ShowOld(2367,146986,2);
+        a.setAttribute("href", h_ref);
+        a.setAttribute("onclick", on_click);
+        a.setAttribute("data-toggle", toggle);
+
+
         span.setAttribute("style", "color: #909090");
         span.appendChild(document.createTextNode(res.type.name + ":"));
 
