@@ -177,25 +177,10 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
 
     <div class="container-fluid">
-        <!--<div class="navbar-header">-->
-        <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
-        <!--</div>-->
-        <div class="navbar-header pull-right" >
-
-            <a id="nav-expander" class="nav-expander fixed" data-toggle="collapse" data-target=".temp">
-                Qual Collection &nbsp;<i class="fa fa-bars fa-lg white"></i>
-            </a>
-        </div>
 
         <div>
             <ul id="visibleNew" class="nav navbar-nav navbar-right">
-                <li id="space" style="width: 15.5em"></li>
-            </ul>
-        </div>
-
-        <div class="collapse temp">
-            <ul id="hiddenNew" class="nav navbar-nav navbar-right">
-                <li id="hiddenSpace" style="width: 12em"></li>
+                <li id="space" style="width: 0em"></li>
             </ul>
         </div>
 
@@ -255,22 +240,12 @@
         });
 
         var vnSpace =  $('#space');
-        var hnSpace = $('#hiddenSpace');
 
         str = '\
         <li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>\
-        <li class="dropdown active">\
-            <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
-            <ul class="dropdown-menu">\
-                <li><a href="qual_add.html">New Qual</a></li>\
-                <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>\
-                <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
-            </ul>\
-        </li>';
-
+        ';
 
         vnSpace.before(str);
-        hnSpace.before(str);
 
         $(window).on('shown.bs.modal', function() {
 
@@ -346,19 +321,17 @@
         <div class="row">
 
             <div class="col-md-12" style="margin-bottom: 30px;">
-                
+
                 <!-- Nav tabs --><div>
                 <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
                     <li role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
                     <li role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
-                    <li role="presentation" ><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="projects"></div>
                     <div role="tabpanel" class="tab-pane" id="quals"></div>
-                    <div role="tabpanel"   class="tab-pane" id="clients" ></div>
                 </div>
 
             </div>
