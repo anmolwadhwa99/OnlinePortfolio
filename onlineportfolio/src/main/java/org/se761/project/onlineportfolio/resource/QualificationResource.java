@@ -107,4 +107,12 @@ public class QualificationResource {
 		return qualificationService.editQual(qual);
 	}
 	
+	/**
+	 * Reactivate qualification
+	 */
+	@PUT
+	@Path("/reactivate/{qualId}")
+	public Qualification reactivateQualification(@PathParam("qualId") int qualId){
+		return qualificationService.reactivateQual(qualId);
+	}
 }
