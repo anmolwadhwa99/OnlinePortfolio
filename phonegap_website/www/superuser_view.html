@@ -87,6 +87,7 @@
                 alert("ActivateAdminGroup " +id);
             });
             $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
         }
         function activateAccount(id){
             $('#modalTitle').text("Reactivate Account?");
@@ -95,6 +96,7 @@
                 alert("ActivateAccount " +id);
             });
             $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
         }
         function activateQual(id){
             $('#modalTitle').text("Reactivate Qual?");
@@ -103,6 +105,7 @@
                 alert("ActivateQual " +id);
             });
             $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
         }
         function activateProject(id){
             $('#modalTitle').text("Reactivate Project?");
@@ -111,6 +114,7 @@
                 alert("ActivateProjectGroup " +id);
             });
             $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
         }
 
         function deactivateAdminGroup(id){
@@ -120,6 +124,7 @@
                 alert("DeactivateAdminGroup " +id);
             });
             $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
         }
         function deactivateAccount(id){
             $('#modalTitle').text("Reactivate Account?");
@@ -128,6 +133,7 @@
                 alert("DeactivateAccount " +id);
             });
             $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
         }
         function deactivateQual(id){
             $('#modalTitle').text("Deactivate Qual?");
@@ -136,6 +142,7 @@
                 alert("DeactivateQual " +id);
             });
             $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
         }
         function deactivateProject(id){
             $('#modalTitle').text("Deactivate Project?");
@@ -144,6 +151,7 @@
                 alert("DeactivateProjectGroup " +id);
             });
             $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
         }
 
         function loadAdminGroups(table){
@@ -308,6 +316,7 @@
                 $('#modalBody').text("");
                 $('#modalConfirm').prop('onclick',null).off('click');
                 $('#modalConfirm').removeClass("btn-default btn-danger btn-warning btn-primary");
+                $('#modalConfirm').text("");
             });
         });
     </script>
@@ -325,8 +334,8 @@
 
             </div>
             <div class="modal-footer">
-                <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="modalConfirm" type="button" class="btn">Save changes</button>
+                <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="modalConfirm" type="button" class="btn"></button>
             </div>
         </div>
     </div>
