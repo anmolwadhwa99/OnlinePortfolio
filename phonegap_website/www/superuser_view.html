@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SuperUser Main</title>
+
+    <!-- JQuery -->
+    <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+
+    <!-- Additional Fonts and Icons -->
+    <link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
+
+    <!-- JS functions to communicate with WS -->
+    <script src="js/scripts/webServices.js"></script>
+
+    <!-- Parent iFrame Resizer script -->
+    <script src="js/iframeResizer.min.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Select2 -->
+    <link href="css/select2.min.css" rel="stylesheet">
+    <script src="js/select2.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+
+    <!-- Superuser View Specific styles -->
+    <style type="text/css">
+        @media (max-width: 991px) {
+            .superNavbar {
+                margin-right: -15px !important;
+                margin-left: -15px !important;
+            }
+            .superNavbarHeader {
+                margin-right: -15px !important;
+                margin-left: -15px !important;
+            }
+        }
+    </style>
+
+    <!-- Superuser View Functions -->
+    <script type="application/javascript">
+        function logout(){
+            sessionStorage.clear();
+            location.replace('index.html');
+        }
+
+        function editAdminGroup(id){
+            alert("EditAdminGroup " +id);
+        }
+        function editAdmin(id){
+            alert("EditAdmin " +id);
+        }
+        function editQual(id){
+            alert("EditQual " +id);
+        }
+        function editProject(id){
+            alert("EditProjectGroup " +id);
+        }
+        function editClient(id){
+            alert("EditClient " +id);
+        }
+
+        function activateAdminGroup(id){
+            $('#modalTitle').text("Reactivate Admin Group?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Admin Group?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateAdminGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
+        }
+        function activateAccount(id){
+            $('#modalTitle').text("Reactivate Account?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateAccount " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
+        }
+        function activateQual(id){
+            $('#modalTitle').text("Reactivate Qual?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Qual?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateQual " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
+        }
+        function activateProject(id){
+            $('#modalTitle').text("Reactivate Project?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Project?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateProjectGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
+            $('#modalConfirm').text("Activate");
+        }
+
+        function deactivateAdminGroup(id){
+            $('#modalTitle').text("Deactivate Admin Group?");
+            $('#modalBody').text("Are you sure you wish to deactivate this Admin Group?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateAdminGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
+        }
+        function deactivateAccount(id){
+            $('#modalTitle').text("Reactivate Account?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateAccount " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
+        }
+        function deactivateQual(id){
+            $('#modalTitle').text("Deactivate Qual?");
+            $('#modalBody').text("Are you sure you wish to deactivate this Qual?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateQual " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
+        }
+        function deactivateProject(id){
+            $('#modalTitle').text("Deactivate Project?");
+            $('#modalBody').text("Are you sure you wish to deactivate this Project?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateProjectGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
+            $('#modalConfirm').text("Deactivate");
+        }
+
+        function loadAdminGroups(table){
+            getAllAdminGroups(function(){
+                var groups = this;
+                if(groups.length > 0 && groups !== null) {
+                    $.each(groups, function (i, val) {
+
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        table.row.add([val.name,
+                            '<button type="button" onclick="editAdminGroup('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateAdminGroup('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateAdminGroup('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                    });
+                }
+            });
+        }
+
+        function loadAdmins(table){
+            getAllAccounts(function (){
+                var admins = this;
+                if(admins.length > 0 && admins !== null){
+                    $.each(admins, function(i, val){
+
+                        var superuser = "";
+                        if(val.isSuperUser){
+                            superuser = val.isSuperUser;
+                        }
+
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        table.row.add([val.accountName, superuser,
+                            '<button type="button" onclick="editAdmin('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                    });
+                }
+            });
+        }
+
+        function loadQuals(table){
+            getAllQuals(function (){
+                var quals = this;
+                if(quals.length > 0 && quals !== null) {
+                    $.each(quals, function (i, val) {
+                        var subtitle = "";
+                        if(val.subtitle){
+                            subtitle = val.subtitle;
+                        }
+
+                        var anonymousName = "";
+                        if(val.projectName){ // TODO Change to anonymousName
+                            anonymousName = val.projectName;
+                        }
+
+                        var anonymousState = "";
+                        if(val.isAnonymous){
+                            anonymousState = val.isAnonymous;
+                        }
+
+                        var qualStatus = "";
+                        if(val.status){
+                            qualStatus = val.status;
+                        }
+
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        table.row.add([val.projectName,subtitle,val.clientName,anonymousName,anonymousState,qualStatus,
+                            '<button type="button" onclick="editQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+
+                    });
+                }
+            });
+        }
+
+        function loadProjectGroups(table){
+            getAllProjectGroups(function (){
+               var projects = this;
+                if(projects.length > 0 && projects !== null){
+                    $.each(projects, function (i, val){
+
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        table.row.add([val.projectGroupName,
+                            '<button type="button" onclick="editProject('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateProject('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateProject('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                    });
+                }
+            });
+        }
+
+        function loadClients(table){
+            getAllClients(function (){
+                var clients = this;
+                if(clients.length > 0 && clients !== null){
+                    $.each(clients, function (i, val){
+
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        table.row.add([val.accountName,
+                            '<button type="button" onclick="editClient('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                    });
+                }
+            });
+        }
+    </script>
+
+    <!-- Superuser View document.ready Functions -->
+    <script type="application/javascript">
+        $(document).ready(function(){
+            var tableQuals = $('#tableQuals').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableAdminGroups = $('#tableAdminGroups').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableAdmins = $('#tableAdmins').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableProjects = $('#tableProjects').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableClients = $('#tableClients').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+
+            loadAdminGroups(tableAdminGroups);
+            loadAdmins(tableAdmins);
+            loadQuals(tableQuals);
+            loadProjectGroups(tableProjects);
+            loadClients(tableClients);
+
+            <!-- Refreshing modal on hide -->
+            $('#modal').on('hidden.bs.modal', function (event) {
+                $('#modalTitle').text("");
+                $('#modalBody').text("");
+                $('#modalConfirm').prop('onclick',null).off('click');
+                $('#modalConfirm').removeClass("btn-default btn-danger btn-warning btn-primary");
+                $('#modalConfirm').text("");
+            });
+        });
+    </script>
+</head>
+<body style="padding-top: 30px;" >
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalTitle"></h4>
+            </div>
+            <div class="modal-body" id="modalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="modalConfirm" type="button" class="btn"></button>
+            </div>
+        </div>
+    </div>
+</div><!--/.modal -->
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header superNavbarHeader">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" >Qual App - Superuser Mode</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse superNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a class="btn btn-link" href="homepage.html"><span class="glyphicon glyphicon-home"></span> Admin</a></li>
+                    <li><a class="btn btn-link" href="#"><span class="fa fa-users"></span> Add Admin Group</a></li>
+                    <li><a class="btn btn-link" href="#"><span class="fa fa-user-plus"></span> Add Admin Account</a></li>
+                    <li><a class="btn btn-link" onclick="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+            <div >
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation" class="active" ><a href="#adminGroups" aria-controls="admingGroups" role="tab" data-toggle="tab" >Admin Groups</a></li>
+                    <li role="presentation" ><a href="#admins" aria-controls="admins" role="tab" data-toggle="tab" >Admins</a></li>
+                    <li role="presentation" ><a href="#quals" aria-controls="quals" role="tab" data-toggle="tab" >Quals</a></li>
+                    <li role="presentation" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab" >Projects</a></li>
+                    <li role="presentation" ><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab" >Clients</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav><!--/.navbar -->
+
+    <!-- Page Container -->
+    <div class="container">
+        <div class="tab-content" style="padding-top: 70px;">
+            <div role="tabpanel" class="tab-pane active" id="adminGroups">
+                <table id="tableAdminGroups" class="table table-bordered table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th>Admin Group Name</th>
+                            <th>Edit</th>
+                            <th>Active?</th>
+                            <th>Reactivate</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyAdminGroups"></tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="admins">
+                <table id="tableAdmins" class="table table-bordered table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>Admin Name</th>
+                        <th>Superuser?</th>
+                        <th>Edit</th>
+                        <th>Active?</th>
+                        <th>Reactivate</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodyAdmins"></tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="quals">
+                <table id="tableQuals" class="table table-bordered table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Project Subtitle</th>
+                        <th>Client Name</th>
+                        <th>Anonymous Name</th>
+                        <th>Anonymous?</th>
+                        <th>Public?</th>
+                        <th>Edit</th>
+                        <th>Active?</th>
+                        <th>Reactivate</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodyQuals"></tbody>
+                </table>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="projects">
+                <table id="tableProjects" class="table table-bordered table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>Project Group Name</th>
+                        <th>Edit</th>
+                        <th>Active?</th>
+                        <th>Reactivate</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodyProjects"></tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="clients">
+                <table id="tableClients" class="table table-bordered table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Edit</th>
+                        <th>Active?</th>
+                        <th>Reactivate</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodyClients"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

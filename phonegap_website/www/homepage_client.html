@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Deloitte New Zealand </title>
+
+    <link rel=" shortcut icon" href="imgs/favicon.ico">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+    <link href="css/select2.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/scripts/webServices.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/scripts/homepage.js"></script>
+
+    <script type="application/javascript" src="js/raphael-min.js"></script>
+    <script type="application/javascript" src="js/colorwheel.js"></script>
+
+    <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
+
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script src="js/iframeResizer.min.js"></script>
+
+    <script type="application/javascript">
+        $(document).ready(function () {
+
+            $('#frameQualAdd').iFrameResize();
+            $('#frameCreateProj').iFrameResize();
+            $('#frameCreateClient').iFrameResize();
+            $('#frameViewQual').iFrameResize();
+
+            // Event handling for when the modal's are closed the iframes are unloaded,
+            // TODO Add loading of iframe src's to relevant openModal functions
+            // E.g. $('#frameViewQual').attr('src', 'view_qual.html');
+            $('#addQualModal').on('hidden.bs.modal', function () {
+                $('#frameQualAdd').attr('src', '');
+            });
+
+            $('#createProjModal').on('hidden.bs.modal', function () {
+                $('#frameCreateProj').attr('src', '');
+            });
+
+            $('#createClientModal').on('hidden.bs.modal', function () {
+                $('#frameCreateClient').attr('src', '');
+            });
+
+            $('#viewQualModal').on('hidden.bs.modal', function () {
+                $('#frameViewQual').attr('src', '');
+            });
+
+            $('#viewQualModal').on('show.bs.modal', function () {
+                $('.modal').css('max-width', $(window).width() * 0.94);
+                $('.modal').css('max-height', $(window).height() * 0.94);
+                $('.modal').css('left', '3%');
+                $('.modal').css('right', '3%');
+                $('.modal').css('top', '3%');
+            });
+
+            document.getElementById("divArchiveAlert").style.display = 'none';
+
+        });
+    </script>
+
+</head>
+
+<body id="page-top" class="index">
+<!-- Navigation -->
+
+<nav>
+    <ul class="list-unstyled main-menu" id="ProjectCart">
+        <li>
+            <button type='submit' class='btn btn-lg' data-toggle="modal" data-target="#createProjModal">Create Project
+            </button>
+            <a class="pull-right" href="#" id="nav-close"></a>
+        </li>
+    </ul>
+</nav>
+
+<div id="createProjModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create Project</h4>
+            </div>
+            <div class="modal-body">
+                <iframe id="frameCreateProj" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+                <form class="form-horizontal" role="form" id="createProjForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="projName">Project Name</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="projName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="radio col-sm-3">
+                            <label><input type="radio" id="existingClientSelect" style="text-align: left;"
+                                          class="control-label" name="clientRadio">Existing
+                                Client</label>
+                        </div>
+                        <div class="col-sm-9" style="padding-bottom: 15px;">
+                            <select id="clientDropdown" class="form-control"
+                                    style="width: 100% !important;height:34px !important;">
+                            </select>
+                        </div>
+                        <div class="radio col-sm-3">
+                            <label><input type="radio" id="newClientSelect" class=" control-label" for="modalClientName"
+                                          name="clientRadio">Client
+                                Name</label>
+                        </div>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="modalClientName"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createProjBtn">Create</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="createClientModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create Client</h4>
+            </div>
+            <div class="modal-body">
+                <iframe id="frameCreateClient" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+                <form class="form-horizontal" role="form" id="createClientForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="modalClientName">Client Name</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="clientName" value=""/>
+                        </div>
+                    </div>
+                </form>
+                <!--<iframe id="frameQualAdd" src="qual_add.html" width="100%" scrolling="no" frameborder="0"></iframe>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="container-fluid">
+
+        <div>
+            <ul id="visibleNew" class="nav navbar-nav navbar-right">
+                <li id="space" style="width: 0em"></li>
+            </ul>
+        </div>
+
+        <div id="searching" class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
+            <input id="searchBox" type="text" class="form-control input-sm" placeholder="Search.." onkeyup="search()" />
+
+                    <span id="searchIcon" class="input-group-btn">
+                        <button class="btn btn-info btn-sm" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+        </div>
+        <ul class="nav navbar-nav" style="padding-left: 10px;">
+            <li id="resultLI" class="dropdown active">
+                <ul id="resultUL" class="dropdown-menu" style="width:695px; ">
+
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+<script>
+
+    var htmlClientProject = "";
+    var qualsToAdd = [];
+    var projGroupID = -1;
+    var projName = "";
+
+    $(document).ready(function(){
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("href"); // activated tab
+            loadTab(target);
+        });
+
+        var account_id = sessionStorage.getItem("account_id");
+
+        getProjects(account_id);
+        getEverything();
+
+        $('#createProjBtn').click(function(e){
+            e.preventDefault();
+            var projName = $('#projName').val();
+            var clientName = $("#clientName").val();
+            $('#createProjModal').modal('hide');
+            createProjectGroup(projName);
+
+        });
+
+        $('#createClientBtn').click(function(e){
+            e.preventDefault();
+            var clientName = $("#clientName").val();
+            $("#clientName").val("");
+            $('#createClientModal').modal('hide');
+            createClient(clientName);
+        });
+
+        var vnSpace =  $('#space');
+
+        str = '\
+        <li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>\
+        ';
+
+        vnSpace.before(str);
+
+        $(window).on('shown.bs.modal', function() {
+
+            getAllClients(function () {
+                var clients = this;
+                var htmlStr = "";
+                for(i = 0; i < clients.length; i++) {
+                    htmlStr += "<option value='" + clients[i].accountId + "'>" + clients[i].accountName + "</option>";
+                }
+
+                var res = $.map(clients, function (item) {
+                    return {
+                        id: item.accountId,
+                        text: item.accountName
+                    };
+                })
+
+                $("#clientDropdown").select2({data: res});
+            });
+
+        });
+
+        //Navigation Menu Slider
+        $('#nav-expander').on('click',function(e){
+            e.preventDefault();
+            $('body').toggleClass('nav-expanded');
+        });
+        $('#nav-close').on('click',function(e){
+            e.preventDefault();
+            $('body').removeClass('nav-expanded');
+        });
+
+        // Initialize navgoco with default options
+        $(".main-menu").navgoco({
+            caret: '<span class="caret"></span>',
+            accordion: false,
+            openClass: 'open',
+            save: true,
+            cookie: {
+                name: 'navgoco',
+                expires: false,
+                path: '/'
+            },
+            slide: {
+                duration: 300,
+                easing: 'swing'
+            }
+        });
+
+    });
+
+
+</script>
+
+<section id="portfolio" class="bg-light-gray" style="padding: 0px; padding-top: 22px">
+    <div class="container" style="margin: 0px; padding: 0px; width: inherit;">
+        <!-- Services Section -->
+        <div class="row">
+            <div class="col-md-12">
+                <div id="divArchiveAlert" class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                    <h3 id="archiveHeading">Delete</h3>
+                    <p id="archiveMessage" class ="body"> This is irreversible</p>
+                    <p>
+                        <button id ="confirmButton" type="button" class="btn btn-danger">CONFIRM</button>
+                        <button id ="cancelButton" type="button" class="btn btn-default">CANCEL</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12" style="margin-bottom: 30px;">
+
+                <!-- Nav tabs --><div>
+                <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
+                    <li role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
+                    <li role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="projects"></div>
+                    <div role="tabpanel" class="tab-pane" id="quals"></div>
+                </div>
+
+            </div>
+            </div>
+
+        </div></div></section>
+
+<footer></footer>
+
+<!-- Modal For View Qual page -->
+<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal-body" id="modal_body">
+                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpAnimatedHeader.js"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/agency.js"></script>
+
+</body>
+</html>
