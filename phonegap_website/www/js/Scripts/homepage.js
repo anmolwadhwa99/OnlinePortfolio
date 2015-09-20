@@ -30,14 +30,15 @@ function search(){
         var on_click = '';
         var toggle = '';
         switch (res.type.value){
-            case 0:
+            case 0: // qual
                 h_ref = '#viewQualModal';
                 toggle = 'modal';
                 on_click = 'viewQual(' + res.id +');';
                 break;
-            case 1:
+            case 1: // project
                 break;
-            case 2:
+            case 2: // client
+                on_click = 'getProjectforClient(' + res.id + ')';
                 break;
         }
 
