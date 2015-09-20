@@ -80,12 +80,21 @@ public class QualificationResource {
 	}
 	
 	/**
-	 * Getting all qualifications from projet group 
+	 * Getting all qualifications from project group 
 	 */
 	@GET
 	@Path("/project/{projectGroupId}")
 	public List<Qualification> getProjectGroupQualifications(@PathParam("projectGroupId") int projectGroupId){
 		return qualificationService.getAllQualificationsFromProjectGroup(projectGroupId);
+	}
+	
+	/**
+	 * Get all qualifications from account
+	 */
+	@GET
+	@Path("/account/{accountId}")
+	public List<Qualification> getQualificationsFromAccount(@PathParam("accountId") int accountId){
+		return qualificationService.getAllQualificationsFromAccount(accountId);
 	}
 	
 	
