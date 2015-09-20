@@ -64,6 +64,11 @@
             location.replace('index.html');
         }
 
+        function addAdminGroup(){
+            var ag_name = $('#ag_name').val();
+            insertAdminGroup(ag_name);
+        }
+
         function editAdminGroup(id){
             alert("EditAdminGroup " +id);
         }
@@ -335,7 +340,30 @@
             </div>
             <div class="modal-footer">
                 <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="modalConfirm" type="button" class="btn"></button>
+                <button id="modalConfirm" type="button" class="btn" data-dismiss="modal"></button>
+            </div>
+        </div>
+    </div>
+</div><!--/.modal -->
+<!-- Modal - Create Admin Group -->
+<div class="modal fade" id="modalAG" tabindex="-1" role="dialog" aria-labelledby="modalAGTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalAGTitle">Create Admin Group</h4>
+            </div>
+            <div class="modal-body" id="modalAGBody">
+                <form>
+                    <div class="form-group">
+                        <label for="ag_name" class="control-label">Admin Group Name: </label>
+                        <input type="text" id="ag_name" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="modalAGCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="modalAGConfirm" type="button" onclick="addAdminGroup();" data-dismiss="modal" class="btn btn-success">Create</button>
             </div>
         </div>
     </div>
@@ -356,7 +384,7 @@
             <div id="navbar" class="navbar-collapse collapse superNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="btn btn-link" href="homepage.html"><span class="glyphicon glyphicon-home"></span> Admin</a></li>
-                    <li><a class="btn btn-link" href="#"><span class="fa fa-users"></span> Add Admin Group</a></li>
+                    <li><a class="btn btn-link" data-toggle="modal" data-target="#modalAG"><span class="fa fa-users"></span> Add Admin Group</a></li>
                     <li><a class="btn btn-link" href="#"><span class="fa fa-user-plus"></span> Add Admin Account</a></li>
                     <li><a class="btn btn-link" onclick="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
