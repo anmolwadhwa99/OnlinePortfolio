@@ -110,7 +110,7 @@
 //            }else{
 //                viewFunction = '\' onclick =' +viewFunc + '\"';
 //            }
-            return "<li><img src=" + image + "></li>"
+            return "<li><img src=" + image + " left: 0px; width: 316.25px; float: left; display: block;></li>"
         }
 
         function isNumeric(n) {
@@ -138,15 +138,6 @@
         <div class="flexslider carousel">
             <div id="scroller">
                 <div class="innerScrollArea" id="quals">
-                    <!--<ul class="slides">-->
-
-                        <!--<li>-->
-                            <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
-                        <!--</li>-->
-                    <!--</ul>-->
                 </div>
             </div>
         </div>
@@ -158,6 +149,25 @@
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
 
 
+<!--<ul class="slides">-->
+
+<!--<li>-->
+<!--<img src="images/kitchen_adventurer_donut.jpg" />-->
+<!--</li>-->
+<!--<li>-->
+<!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
+<!--</li>-->
+<!--<li>-->
+<!--<img src="images/kitchen_adventurer_donut.jpg" />-->
+<!--</li>-->
+<!--<li>-->
+<!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
+<!--</li>-->
+<!--</ul>-->
+
+
+
+
 <!--FlexSlider-->
 
 
@@ -165,11 +175,10 @@
 </script>
 
 <script type="text/javascript">
-    getQuals();
+
+    $(function(){getQuals();});
+
     $(function(){
-
-
-
         var scroller = $('#scroller div.innerScrollArea');
         var scrollerContent = scroller.children('ul');
         scrollerContent.children().clone().appendTo(scrollerContent);
@@ -211,6 +220,7 @@
         setInterval(doScroll, 20);
         tweenToNewSpeed(controller.fullSpeed);
     });
+
 
 
     $(window).load(function(){
