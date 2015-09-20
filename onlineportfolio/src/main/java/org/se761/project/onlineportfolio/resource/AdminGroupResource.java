@@ -87,4 +87,12 @@ public class AdminGroupResource {
 		return adminGroupService.editAdminGroupDetails(adminGroup);
 	}
 	
+	/**
+	 * Reactivate admin group
+	 */
+	@PUT
+	@Path("/reactivate/{adminGroupId}")
+	public AdminGroup reactivateAdminGroup(int adminGroupId){
+		return adminGroupService.reactivateAdminGroup(adminGroupId);
+	}
 }
