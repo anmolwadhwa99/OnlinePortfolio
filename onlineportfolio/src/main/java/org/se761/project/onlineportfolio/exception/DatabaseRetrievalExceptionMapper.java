@@ -12,7 +12,7 @@ public class DatabaseRetrievalExceptionMapper implements ExceptionMapper<Databas
 
 	@Override
 	public Response toResponse(DatabaseRetrievalException ex) {
-		ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), 500);
+		ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), 204);
 		return Response.status(Status.NO_CONTENT)
 				.entity(errorMessage)
 				.build();

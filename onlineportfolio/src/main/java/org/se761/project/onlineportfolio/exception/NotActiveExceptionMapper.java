@@ -10,7 +10,7 @@ public class NotActiveExceptionMapper implements ExceptionMapper<NotActiveExcept
 	
 	@Override
 	public Response toResponse(NotActiveException ex) {
-		ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), 500);
+		ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), 410);
 		return Response.status(Status.GONE)
 				.entity(errorMessage)
 				.build();
