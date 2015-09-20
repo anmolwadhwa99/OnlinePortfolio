@@ -158,6 +158,28 @@ public class AccountDatabase {
 	}
 	
 	/**
+	 * Reactivate account
+	 */
+	public Account reactivateAccount(int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found so can't reactivate account");
+		}
+		
+		account.setActive(true);
+		session.saveOrUpdate(account);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return account;
+	}
+	
+	/**
 	 * Add an account against a project group
 	 */
 	public Account addAccountToProjectGroup(int projGroupId, int accountId){
