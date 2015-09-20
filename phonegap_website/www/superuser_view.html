@@ -275,25 +275,41 @@
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
-            var tableQuals = $('#tableQuals').DataTable({
+            // Global variables, as required to do specific reloading of individual tables instead of entire page
+            tableQuals = $('#tableQuals').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                "language": {
+                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
+                }
             });
-            var tableAdminGroups = $('#tableAdminGroups').DataTable({
+            tableAdminGroups = $('#tableAdminGroups').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                "language": {
+                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
+                }
             });
-            var tableAdmins = $('#tableAdmins').DataTable({
+            tableAdmins = $('#tableAdmins').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                "language": {
+                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
+                }
             });
-            var tableProjects = $('#tableProjects').DataTable({
+            tableProjects = $('#tableProjects').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                "language": {
+                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
+                }
             });
-            var tableClients = $('#tableClients').DataTable({
+            tableClients = $('#tableClients').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                "language": {
+                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
+                }
             });
 
             loadAdminGroupsTable(tableAdminGroups);
@@ -337,6 +353,29 @@
             $('#modalAGConfirmAdd').hide();
             $('#modalAGConfirmEdit').hide();
         });
+    </script>
+    <script type="application/javascript">
+        // Table specific reload functions
+        function reloadAG(){
+            tableAdminGroups.clear().draw();
+            loadAdminGroupsTable(tableAdminGroups);
+        }
+        function reloadAdmins(){
+            tableAdmins.clear().draw();
+            loadAdminsTable(tableAdmins);
+        }
+        function reloadQuals(){
+            tableQuals.clear().draw();
+            loadQualsTable(tableQuals);
+        }
+        function reloadProjects(){
+            tableProjects.clear().draw();
+            loadProjectGroupsTable(tableProjects);
+        }
+        function reloadClients(){
+            tableClients.clear().draw();
+            loadClientsTable(tableClients);
+        }
     </script>
 </head>
 <body style="padding-top: 30px;" >

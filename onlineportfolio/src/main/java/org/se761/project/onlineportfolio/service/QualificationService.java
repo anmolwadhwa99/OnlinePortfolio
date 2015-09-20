@@ -46,6 +46,14 @@ public class QualificationService {
 	}
 	
 	/**
+	 * Get all qualifications associated with an account
+	 */
+	public List<Qualification> getAllQualificationsFromAccount(int accountId){
+		List<Qualification> quals = qualDatabase.getAllQualificationsForAccount(accountId);
+		return quals;
+	}
+	
+	/**
 	 * Adding a qualification 
 	 */
 	public void addQual(Qualification qual){
