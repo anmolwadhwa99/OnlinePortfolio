@@ -211,6 +211,36 @@ public class QualificationDatabase {
 
 	}
 	
+	/**
+	 * Add a qualification against an account 
+	 */
+	public Qualification addQualificationToAccount(int accountId, int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
+		}
+		
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+		
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qualification with id " + qualId + " could not be found");
+		}
+		
+		account.getAccountsQual().add(qual);
+		qual.getAccountsQual().add(account);
+		session.saveOrUpdate(qual);
+		session.saveOrUpdate(account);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return qual;
+	}
 	
 	
 	/**
@@ -271,6 +301,7 @@ public class QualificationDatabase {
 		closeSessionFactory();
 		return quals;
 	}
+	
 	
 	/**
 	 * Get all quals associated with an account
