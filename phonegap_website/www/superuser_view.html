@@ -87,7 +87,7 @@
             insertAccount('true', acName, pw, isSuperUser, function(){
                 var act = this;
                 $.each(adminGroups, function(i, val) {
-                    assignQualToAdminGroup(val, act.accountId); // Assigning account to each selected group
+                    assignAccountToAdminGroup(val, act.accountId); // Assigning account to each selected group
                 });
             });
         }
@@ -135,7 +135,7 @@
                 $.each(groups, function(i, val){
                     selected.push(val.id);
                 });
-                $('#selectAdminGroups').select2("val", selected)
+                $('#selectAdminGroups').val(selected).trigger('change');
             });
 
             $('#admin_id').val(id);
