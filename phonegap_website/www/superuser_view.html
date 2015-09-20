@@ -68,98 +68,85 @@
             var ag_name = $('#ag_name').val();
             insertAdminGroup(ag_name);
         }
-
-        function editAdminGroup(id){
-            alert("EditAdminGroup " +id);
+        function updateAdminGroup(){
+            var id = $('#ag_id').val();
+            var ag_name = $('#ag_name').val();
         }
-        function editAdmin(id){
+        function loadAGAdd(){
+            $('#modalTitleAG').text("Create Admin Group");
+            $('#modalAGConfirmAdd').show();
+        }
+
+        function loadEditAG(id, name){
+            $('#modalTitleAG').text("Edit Admin Group");
+            $('#ag_name').val(name);
+            $('#ag_id').val(id);
+            $('#modalAGConfirmEdit').show();
+        }
+        function loadEditAdmin(id){
             alert("EditAdmin " +id);
         }
-        function editQual(id){
+        function loadEditQual(id){
             alert("EditQual " +id);
         }
-        function editProject(id){
+        function loadEditProj(id){
             alert("EditProjectGroup " +id);
         }
-        function editClient(id){
+        function loadEditClient(id){
             alert("EditClient " +id);
         }
 
-        function activateAdminGroup(id){
+        function loadActAG(id){
             $('#modalTitle').text("Reactivate Admin Group?");
             $('#modalBody').text("Are you sure you wish to reactivate this Admin Group?");
-            $('#modalConfirm').click(function(){
-                alert("ActivateAdminGroup " +id);
-            });
-            $('#modalConfirm').addClass("btn-primary");
-            $('#modalConfirm').text("Activate");
+            $('#modalReactivateAG').show();
+            $('#modal_id').val(id);
         }
-        function activateAccount(id){
+        function loadActAcct(id){
             $('#modalTitle').text("Reactivate Account?");
             $('#modalBody').text("Are you sure you wish to reactivate this Account?");
-            $('#modalConfirm').click(function(){
-                alert("ActivateAccount " +id);
-            });
-            $('#modalConfirm').addClass("btn-primary");
-            $('#modalConfirm').text("Activate");
+            $('#modalReactivateAcct').show();
+            $('#modal_id').val(id);
         }
-        function activateQual(id){
+        function loadActQual(id){
             $('#modalTitle').text("Reactivate Qual?");
             $('#modalBody').text("Are you sure you wish to reactivate this Qual?");
-            $('#modalConfirm').click(function(){
-                alert("ActivateQual " +id);
-            });
-            $('#modalConfirm').addClass("btn-primary");
-            $('#modalConfirm').text("Activate");
+            $('#modalReactivateQual').show();
+            $('#modal_id').val(id);
         }
-        function activateProject(id){
+        function loadActProj(id){
             $('#modalTitle').text("Reactivate Project?");
             $('#modalBody').text("Are you sure you wish to reactivate this Project?");
-            $('#modalConfirm').click(function(){
-                alert("ActivateProjectGroup " +id);
-            });
-            $('#modalConfirm').addClass("btn-primary");
-            $('#modalConfirm').text("Activate");
+            $('#modalReactivateProj').show();
+            $('#modal_id').val(id);
         }
 
-        function deactivateAdminGroup(id){
+        function loadDeactAG(id){
             $('#modalTitle').text("Deactivate Admin Group?");
             $('#modalBody').text("Are you sure you wish to deactivate this Admin Group?");
-            $('#modalConfirm').click(function(){
-                alert("DeactivateAdminGroup " +id);
-            });
-            $('#modalConfirm').addClass("btn-danger");
-            $('#modalConfirm').text("Deactivate");
+            $('#modalDeactivateAG').show();
+            $('#modal_id').val(id);
         }
-        function deactivateAccount(id){
+        function loadDeactAcct(id){
             $('#modalTitle').text("Reactivate Account?");
             $('#modalBody').text("Are you sure you wish to reactivate this Account?");
-            $('#modalConfirm').click(function(){
-                alert("DeactivateAccount " +id);
-            });
-            $('#modalConfirm').addClass("btn-danger");
-            $('#modalConfirm').text("Deactivate");
+            $('#modalDeactivateAcct').show();
+            $('#modal_id').val(id);
         }
-        function deactivateQual(id){
+        function loadDeactQual(id){
             $('#modalTitle').text("Deactivate Qual?");
             $('#modalBody').text("Are you sure you wish to deactivate this Qual?");
-            $('#modalConfirm').click(function(){
-                alert("DeactivateQual " +id);
-            });
-            $('#modalConfirm').addClass("btn-danger");
-            $('#modalConfirm').text("Deactivate");
+            $('#modalDeactivateQual').show();
+            $('#modal_id').val(id);
         }
-        function deactivateProject(id){
+        function loadDeactProj(id){
             $('#modalTitle').text("Deactivate Project?");
             $('#modalBody').text("Are you sure you wish to deactivate this Project?");
-            $('#modalConfirm').click(function(){
-                alert("DeactivateProjectGroup " +id);
-            });
-            $('#modalConfirm').addClass("btn-danger");
-            $('#modalConfirm').text("Deactivate");
+            $('#modalDeactivateProj').show();
+            $('#modal_id').val(id);
         }
 
-        function loadAdminGroups(table){
+        function loadAdminGroupsTable(table){
             getAllAdminGroups(function(){
                 var groups = this;
                 if(groups.length > 0 && groups !== null) {
@@ -171,15 +158,15 @@
                         }
 
                         table.row.add([val.name,
-                            '<button type="button" onclick="editAdminGroup('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateAdminGroup('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateAdminGroup('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" data-toggle="modal" data-target="#modalAG" onclick="loadEditAG('+val.id+',\''+val.name+'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
         }
 
-        function loadAdmins(table){
+        function loadAdminsTable(table){
             getAllAccounts(function (){
                 var admins = this;
                 if(admins.length > 0 && admins !== null){
@@ -196,15 +183,15 @@
                         }
 
                         table.row.add([val.accountName, superuser,
-                            '<button type="button" onclick="editAdmin('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" onclick="loadEditAdmin('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
         }
 
-        function loadQuals(table){
+        function loadQualsTable(table){
             getAllQuals(function (){
                 var quals = this;
                 if(quals.length > 0 && quals !== null) {
@@ -235,16 +222,16 @@
                         }
 
                         table.row.add([val.projectName,subtitle,val.clientName,anonymousName,anonymousState,qualStatus,
-                            '<button type="button" onclick="editQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" onclick="loadEditQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
                     });
                 }
             });
         }
 
-        function loadProjectGroups(table){
+        function loadProjectGroupsTable(table){
             getAllProjectGroups(function (){
                var projects = this;
                 if(projects.length > 0 && projects !== null){
@@ -256,15 +243,15 @@
                         }
 
                         table.row.add([val.projectGroupName,
-                            '<button type="button" onclick="editProject('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateProject('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateProject('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" onclick="loadEditProj('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
         }
 
-        function loadClients(table){
+        function loadClientsTable(table){
             getAllClients(function (){
                 var clients = this;
                 if(clients.length > 0 && clients !== null){
@@ -277,8 +264,8 @@
 
                         table.row.add([val.accountName,
                             '<button type="button" onclick="editClient('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -309,20 +296,46 @@
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
 
-            loadAdminGroups(tableAdminGroups);
-            loadAdmins(tableAdmins);
-            loadQuals(tableQuals);
-            loadProjectGroups(tableProjects);
-            loadClients(tableClients);
+            loadAdminGroupsTable(tableAdminGroups);
+            loadAdminsTable(tableAdmins);
+            loadQualsTable(tableQuals);
+            loadProjectGroupsTable(tableProjects);
+            loadClientsTable(tableClients);
 
-            <!-- Refreshing modal on hide -->
+            <!-- Refreshing modals on hide -->
             $('#modal').on('hidden.bs.modal', function (event) {
                 $('#modalTitle').text("");
                 $('#modalBody').text("");
-                $('#modalConfirm').prop('onclick',null).off('click');
-                $('#modalConfirm').removeClass("btn-default btn-danger btn-warning btn-primary");
-                $('#modalConfirm').text("");
+                $('#modal_id').val("");
+
+                $('#modalReactivateAG').hide();
+                $('#modalReactivateQual').hide();
+                $('#modalReactivateAcct').hide();
+                $('#modalReactivateProj').hide();
+
+                $('#modalDeactivateAG').hide();
+                $('#modalDeactivateQual').hide();
+                $('#modalDeactivateAcct').hide();
+                $('#modalDeactivateProj').hide();
             });
+            $('#modalReactivateAG').hide();
+            $('#modalReactivateQual').hide();
+            $('#modalReactivateAcct').hide();
+            $('#modalReactivateProj').hide();
+            $('#modalDeactivateAG').hide();
+            $('#modalDeactivateQual').hide();
+            $('#modalDeactivateAcct').hide();
+            $('#modalDeactivateProj').hide();
+
+            $('#modalAG').on('hidden.bs.modal', function (event){
+                $('#modalTitleAG').text("");
+                $('#ag_name').val("");
+                $('#ag_id').val("");
+                $('#modalAGConfirmAdd').hide();
+                $('#modalAGConfirmEdit').hide();
+            });
+            $('#modalAGConfirmAdd').hide();
+            $('#modalAGConfirmEdit').hide();
         });
     </script>
 </head>
@@ -338,9 +351,17 @@
             <div class="modal-body" id="modalBody">
 
             </div>
+            <input type="hidden" id="modal_id">
             <div class="modal-footer">
                 <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="modalConfirm" type="button" class="btn" data-dismiss="modal"></button>
+                <button id="modalDeactivateAG" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
+                <button id="modalDeactivateAcct" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
+                <button id="modalDeactivateQual" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
+                <button id="modalDeactivateProj" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
+                <button id="modalReactivateAG" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
+                <button id="modalReactivateQual" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
+                <button id="modalReactivateAcct" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
+                <button id="modalReactivateProj" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
             </div>
         </div>
     </div>
@@ -351,7 +372,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalAGTitle">Create Admin Group</h4>
+                <h4 class="modal-title" id="modalAGTitle"></h4>
             </div>
             <div class="modal-body" id="modalAGBody">
                 <form>
@@ -359,11 +380,13 @@
                         <label for="ag_name" class="control-label">Admin Group Name: </label>
                         <input type="text" id="ag_name" class="form-control">
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">
                 <button id="modalAGCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="modalAGConfirm" type="button" onclick="addAdminGroup();" data-dismiss="modal" class="btn btn-success">Create</button>
+                <button id="modalAGConfirmAdd" type="button" data-dismiss="modal" onclick="addAdminGroup();" class="btn btn-success">Create</button>
+                <button id="modalAGConfirmEdit" type="button" data-dismiss="modal" onclick="updateAdminGroup();" class="btn btn-success">Edit</button>
             </div>
         </div>
     </div>
@@ -384,7 +407,7 @@
             <div id="navbar" class="navbar-collapse collapse superNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="btn btn-link" href="homepage.html"><span class="glyphicon glyphicon-home"></span> Admin</a></li>
-                    <li><a class="btn btn-link" data-toggle="modal" data-target="#modalAG"><span class="fa fa-users"></span> Add Admin Group</a></li>
+                    <li><a class="btn btn-link" data-toggle="modal" data-target="#modalAG" onclick="loadAGAdd();"><span class="fa fa-users"></span> Add Admin Group</a></li>
                     <li><a class="btn btn-link" href="#"><span class="fa fa-user-plus"></span> Add Admin Account</a></li>
                     <li><a class="btn btn-link" onclick="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
