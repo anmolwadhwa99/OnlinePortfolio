@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.exception.NotActiveException;
+import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Image;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
@@ -265,6 +266,34 @@ public class QualificationDatabase {
 			}
 		}
 		
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return quals;
+	}
+	
+	/**
+	 * Get all quals associated with an account
+	 */
+	public List<Qualification> getAllQualificationsForAccount(int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Account account = (Account) session.get(Account.class, accountId);
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so can't retrieve qualifications");
+		}
+		List<Qualification> quals = account.getAccountsQual();
+		
+		//removing inactive quals
+		for(int i =0; i < quals.size(); i++){
+			if(quals.get(i).isActive() == false){
+				quals.remove(i);
+			}
+		}
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
