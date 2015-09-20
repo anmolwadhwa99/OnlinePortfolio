@@ -50,7 +50,15 @@ public class QualificationResource {
 	public Qualification addProjectGroupQualifications(@PathParam("projectGroupId") int projectGroupId, @PathParam("qualId") int qualId ){
 		return qualificationService.addQualificationToProjectGroup(projectGroupId, qualId);
 	}
-		
+	
+	/**
+	 * Add qual to account
+	 */
+	@POST
+	@Path("/account/{accountId}/{qualId}")
+	public Qualification addQualificationToAccount(@PathParam("accountId") int accountId, @PathParam("qualId") int qualId){
+		return qualificationService.addQualificationToAccount(accountId, qualId);
+	}
 	
 	/**
 	 * Getting any qualification
