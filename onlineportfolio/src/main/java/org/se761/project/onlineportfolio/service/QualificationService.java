@@ -85,6 +85,10 @@ public class QualificationService {
 		return modifiedQual;
 	}
 
-
-
+	/**
+	 * Reactivate qualification
+	 */
+	public Qualification reactivateQual(int qualId){
+		return qualDatabase.reactivateQual(qualId);
+	}
 }

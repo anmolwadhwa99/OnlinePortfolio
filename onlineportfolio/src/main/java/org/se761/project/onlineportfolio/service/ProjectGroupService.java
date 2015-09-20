@@ -55,5 +55,12 @@ public class ProjectGroupService {
 		ProjectGroup projectGroup = projGroupDb.editProjectGroupDetails(newProjectGroup);
 		return projectGroup;
 	}
+	
+	/**
+	 * Reactivate project group
+	 */
+	public ProjectGroup reactivateProjectGroup(int projGroupId){
+		return projGroupDb.reactivateProjGroup(projGroupId);
+	}
 
 }

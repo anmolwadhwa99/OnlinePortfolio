@@ -418,6 +418,7 @@ function addToCart(qID, m){
 
     if(qID != null) {
         document.getElementById("divAddToCartAlert").style.display = 'block';
+        $("#displayQualName").text(m);
         document.getElementById("addToCartOkButton").addEventListener("click", function () {
             document.getElementById("divAddToCartAlert").style.display = 'none';
         });

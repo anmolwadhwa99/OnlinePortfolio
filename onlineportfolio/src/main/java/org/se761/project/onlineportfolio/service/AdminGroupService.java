@@ -65,6 +65,12 @@ public class AdminGroupService {
 		return adminGroup;
 	}
 	
+	/**
+	 * Reactivate admin group
+	 */
+	public AdminGroup reactivateAdminGroup(int adminGroupId){
+		return adminGroupDatabase.reactivateAdminGroup(adminGroupId);
+	}
 	
 
 }
