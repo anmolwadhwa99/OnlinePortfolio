@@ -253,13 +253,17 @@
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
-
+            loadAdminGroups();
+            loadAdmins();
+            loadQuals();
+            loadProjectGroups();
+            loadClients();
         });
     </script>
 </head>
-<body style="min-height: 2000px; padding-top: 70px;" >
+<body style="padding-top: 30px;" >
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
         <div class="container">
             <div class="navbar-header superNavbarHeader">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -291,8 +295,8 @@
     </nav>
 
     <div class="container">
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane" id="adminGroups">
+        <div class="tab-content" style="padding-top: 70px;">
+            <div role="tabpanel" class="tab-pane active" id="adminGroups">
                 <table class="table table-bordered table-responsive table-hover">
                     <thead>
                         <tr>
