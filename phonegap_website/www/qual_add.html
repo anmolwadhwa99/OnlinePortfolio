@@ -173,13 +173,26 @@
                 });
             });
 
-            var qual_id = sessionStorage.getItem("qual_id");
+            var qual_id = sessionStorage.getItem("dup_qual_id");
             if (qual_id != null) {
                 getQualById(qual_id, function() {
                     var qual = this; // gets the qual info
-
+                    $("#qual_project_name").val(qual.projectName);
+                    $("#qual_project_sub").val(qual.subtitle);
+                    $("#qual_client_name").val(qual.clientName);
+                    $("#qual_anonymous_name").val(qual.qual_anonymous);
+                    $("#qual_email").val(qual.emailButton);
+                    $("#qual_website").val(qual.websiteButton);
+                    $("#qual_industry").val(qual.industry);
+                    $("#qual_problems").val(qual.problemStatement);
+                    $("#qual_solutions").val(qual.solutionStatement);
+                    $("#qual_challenges").val(qual.challengesFaced);
+                    $("#qual_outcome").val(qual.outcomeStatement);
+                    $("#qual_relevance").val(qual.relevanceToClient);
+                    $("#qual_service_line").val(qual.relevanceToClient);
                 });
             }
+            sessionStorage.clear();
 
         });
 
@@ -367,7 +380,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <label for="qual_private">Qual Accesscibility: </label>
+                    <label for="qual_private">Qual Accessibility: </label>
                     <br/>
 
                     <div class="btn-group-justified" data-toggle="buttons">
