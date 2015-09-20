@@ -1,5 +1,7 @@
 //Searches for quals, projects, clients or whatever it does
 
+var accountId = -1;
+
 function search(){
     var text = $("#searchBox").val();
     var toShow = false;
@@ -104,6 +106,7 @@ function getProjects(account_id){
 
     getAccountById(account_id, function() {
         var account = this;
+        accountId = account_id;
         getProjectsByClient(account_id, function() {
             var projects = this;
             var htmlStr = "<h1 id='heading'>Projects</h1>";
@@ -271,7 +274,7 @@ function openQualsForProject(projectID, projectName) {
                 'qual'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
+        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects(accountId)'>Back To Projects</button></div><br>";
         $("#projects").html(htmlStr);
         $("#heading").html(projectName);
 
@@ -437,7 +440,7 @@ function loadTab(tab) {
         $('#clients').removeClass('active'); // remove active class from tabs
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
-        getProjects();
+        getProjects(accountId);
 
 
     } else if (tab == "#clients") {
