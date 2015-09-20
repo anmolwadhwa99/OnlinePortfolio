@@ -99,4 +99,11 @@ public class QualificationService {
 	public Qualification reactivateQual(int qualId){
 		return qualDatabase.reactivateQual(qualId);
 	}
+	
+	/**
+	 * Add qualification against account
+	 */
+	public Qualification addQualificationToAccount(int accountId, int qualId){
+		return qualDatabase.addQualificationToAccount(accountId, qualId);
+	}
 }
