@@ -224,12 +224,12 @@ function determineItemImage(clientImage, projectImage, type){
     var image = ""
     if(type == 'qual'){
         if(projectImage == null){
-            return "img/portfolio/startup-framework.png.png"
+            return "img/portfolio/startup-framework.png"
         }else{
             return projectImage
         }
     }else if(type == 'client'){
-        return "img/portfolio/roundicons.png.png"
+        return "img/portfolio/roundicons.png"
     }else if(type == 'project'){
         return "img/portfolio/startup-framework.png"
     }
