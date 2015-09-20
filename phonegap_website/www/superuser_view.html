@@ -288,16 +288,32 @@
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
-            var table = $('#tableQuals').DataTable({
+            var tableQuals = $('#tableQuals').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableAdminGroups = $('#tableAdminGroups').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableAdmins = $('#tableAdmins').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableProjects = $('#tableProjects').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+            var tableClients = $('#tableClients').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
 
-            loadAdminGroups();
-            loadAdmins();
-            loadQuals(table);
-            loadProjectGroups();
-            loadClients();
+            loadAdminGroups(tableAdminGroups);
+            loadAdmins(tableAdmins);
+            loadQuals(tableQuals);
+            loadProjectGroups(tableProjects);
+            loadClients(tableClients);
 
             <!-- Refreshing modal on hide -->
             $('#modal').on('hidden.bs.modal', function (event) {
@@ -365,7 +381,7 @@
     <div class="container">
         <div class="tab-content" style="padding-top: 70px;">
             <div role="tabpanel" class="tab-pane active" id="adminGroups">
-                <table class="table table-bordered table-responsive table-hover">
+                <table id="tableAdminGroups" class="table table-bordered table-responsive table-hover">
                     <thead>
                         <tr>
                             <th>Admin Group Name</th>
@@ -379,7 +395,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="admins">
-                <table class="table table-bordered table-responsive table-hover">
+                <table id="tableAdmins" class="table table-bordered table-responsive table-hover">
                     <thead>
                     <tr>
                         <th>Admin Name</th>
@@ -414,7 +430,7 @@
 
             </div>
             <div role="tabpanel" class="tab-pane" id="projects">
-                <table class="table table-bordered table-responsive table-hover">
+                <table id="tableProjects" class="table table-bordered table-responsive table-hover">
                     <thead>
                     <tr>
                         <th>Project Group Name</th>
@@ -428,7 +444,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="clients">
-                <table class="table table-bordered table-responsive table-hover">
+                <table id="tableClients" class="table table-bordered table-responsive table-hover">
                     <thead>
                     <tr>
                         <th>Client Name</th>
