@@ -335,6 +335,8 @@ function getProjectforClient(id){
 
 }
 
+// qID = Qual ID
+// m = name of qual, used as html element id
 function addToCart(qID, m){
 
     qualsToAdd.push(qID);
@@ -354,6 +356,17 @@ function addToCart(qID, m){
     li.setAttribute("id", m); // added line
     ul.appendChild(li);
 
+    // displaying notification to user that qual has been added to cart
+
+    //take the user to the top of the screen
+    $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+    if(qID != null) {
+        document.getElementById("divAddToCartAlert").style.display = 'block';
+        document.getElementById("addToCartOkButton").addEventListener("click", function () {
+            document.getElementById("divAddToCartAlert").style.display = 'none';
+        });
+    }
 }
 
 function loadTab(tab) {
