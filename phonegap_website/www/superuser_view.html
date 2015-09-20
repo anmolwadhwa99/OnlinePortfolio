@@ -81,16 +81,36 @@
         }
 
         function activateAdminGroup(id){
-            alert("ActivateAdminGroup " +id);
+            $('#modalTitle').text("Reactivate Admin Group?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Admin Group?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateAdminGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
         }
         function activateAccount(id){
-            alert("ActivateAccount " +id);
+            $('#modalTitle').text("Reactivate Account?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateAccount " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
         }
         function activateQual(id){
-            alert("ActivateQual " +id);
+            $('#modalTitle').text("Reactivate Qual?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Qual?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateQual " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
         }
         function activateProject(id){
-            alert("ActivateProjectGroup " +id);
+            $('#modalTitle').text("Reactivate Project?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Project?");
+            $('#modalConfirm').click(function(){
+                alert("ActivateProjectGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-primary");
         }
 
         function deactivateAdminGroup(id){
@@ -190,7 +210,7 @@
 
                         table.row.add([val.projectName,subtitle,val.clientName,anonymousName,anonymousState,qualStatus,
                             '<button type="button" onclick="editQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active,'<button type="button" onclick="activateQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
                     });
@@ -258,6 +278,14 @@
             loadQuals(table);
             loadProjectGroups();
             loadClients();
+
+            <!-- Refreshing modal on hide -->
+            $('#modal').on('hidden.bs.modal', function (event) {
+                $('#modalTitle').text("");
+                $('#modalBody').text("");
+                $('#modalConfirm').prop('onclick',null).off('click');
+                $('#modalConfirm').removeClass("btn-default btn-danger btn-warning btn-primary");
+            });
         });
     </script>
 </head>
