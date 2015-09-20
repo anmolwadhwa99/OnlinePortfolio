@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -74,6 +75,13 @@ public class ImageResource {
 		return imageService.deleteImage(imageId);
 	}
 	
-
+	/**
+	 * Reactivate image
+	 */
+	@PUT
+	@Path("/reactivate/{imageId}")
+	public Image reactivateImage(@PathParam("imageId") int imageId){
+		return imageService.reactivateImage(imageId);
+	}
 	
 }
