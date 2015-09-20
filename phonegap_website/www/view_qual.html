@@ -27,6 +27,7 @@
     <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/scripts/webServices.js" ></script>
+    <script src="js/scripts/view_qual.js" ></script>
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
@@ -153,13 +154,13 @@
                         </div>";
             }
 
-                htmlStr += "<div class='col-md-2'> \
-                                <div class='form-group'> \
-                                    <button type='submit' class='btn btn-block btn-success' onclick='duplicateQual("+qual.qualId+")'><span \
-                                    class='glyphicon glyphicon-copy'></span> Duplicate \
-                                    </button> \
-                                </div> \
-                            </div>"
+            htmlStr += "<div class='col-md-2'> \
+                            <div class='form-group'> \
+                                <button type='submit' class='btn btn-block btn-success' onclick='duplicateQual("+qual_id+")'><span \
+                                class='glyphicon glyphicon-copy'></span> Duplicate \
+                                </button> \
+                            </div> \
+                        </div>"
 
             htmlStr += "<button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
             "<i class='fa fa-times'></i> Close Qual</button></div>";
