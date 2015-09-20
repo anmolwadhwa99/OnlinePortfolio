@@ -148,15 +148,6 @@
                 $('#admin_normal').prop('checked',true);
             }
         }
-        function loadEditQual(id){
-            alert("EditQual " +id);
-        }
-        function loadEditProj(id){
-            alert("EditProjectGroup " +id);
-        }
-        function loadEditClient(id){
-            alert("EditClient " +id);
-        }
 
         function loadActAG(id){
             $('#modalTitle').text("Reactivate Admin Group?");
@@ -284,7 +275,6 @@
                         }
 
                         table.row.add([val.projectName,subtitle,val.clientName,anonymousName,anonymousState,qualStatus,
-                            '<button type="button" onclick="loadEditQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
@@ -305,7 +295,6 @@
                         }
 
                         table.row.add([val.projectGroupName,
-                            '<button type="button" onclick="loadEditProj('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
@@ -325,7 +314,6 @@
                         }
 
                         table.row.add([val.accountName,
-                            '<button type="button" onclick="editClient('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
@@ -629,7 +617,6 @@
                         <th>Anonymous Name</th>
                         <th>Anonymous?</th>
                         <th>Public?</th>
-                        <th>Edit</th>
                         <th>Active?</th>
                         <th>Reactivate</th>
                         <th>Delete</th>
@@ -644,7 +631,6 @@
                     <thead>
                     <tr>
                         <th>Project Group Name</th>
-                        <th>Edit</th>
                         <th>Active?</th>
                         <th>Reactivate</th>
                         <th>Delete</th>
@@ -658,7 +644,6 @@
                     <thead>
                     <tr>
                         <th>Client Name</th>
-                        <th>Edit</th>
                         <th>Active?</th>
                         <th>Reactivate</th>
                         <th>Delete</th>
