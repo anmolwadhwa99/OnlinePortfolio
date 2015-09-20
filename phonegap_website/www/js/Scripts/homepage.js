@@ -223,7 +223,7 @@ function determineItemImage(clientImage, projectImage, type){
 
     var image = ""
     if(type == 'qual'){
-        if(projectImage == ""){
+        if(projectImage == null){
             return "img/portfolio/startup-framework.png.png"
         }else{
             return projectImage
