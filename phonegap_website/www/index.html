@@ -68,7 +68,7 @@
 
                 getAccountById(account.accountId, function() {
                     var account = this;
-                    if (account.isAdmin == false) {
+                    if (account.isAdmin == true) {
                         location.replace("homepage.html");
                     } else {
                         location.replace("homepage_client.html");
