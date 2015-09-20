@@ -231,14 +231,14 @@
                         table.row.add([val.projectName,subtitle,val.clientName,anonymousName,anonymousState,qualStatus,
                             '<button type="button" onclick="editQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" data-toggle="modal" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
                     });
                 }
             });
         }
 
-        function loadProjectGroups(){
+        function loadProjectGroups(table){
             getAllProjectGroups(function (){
                var projects = this;
                 if(projects.length > 0 && projects !== null){
@@ -249,13 +249,10 @@
                             active = val.isActive;
                         }
 
-                        $('#tbodyProjects').append('<tr>'
-                               + '<td>' + val.projectGroupName + '</td>'
-                               + '<td>' + '<button type="button" onclick="editProject('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>' + '</td>'
-                               + '<td>' + active + '</td>'
-                               + '<td>' + '<button type="button" onclick="activateProject('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>' + '</td>'
-                               + '<td>' + '<button type="button" onclick="deactivateProject('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>' + '</td>'
-                               + '</tr>');
+                        table.row.add([val.projectGroupName,
+                            '<button type="button" onclick="editProject('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateProject('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateProject('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
