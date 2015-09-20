@@ -104,20 +104,149 @@
         }
 
         function loadAdminGroups(){
-        function loadAdmins(){
+            getAllAdminGroups(function(){
+                var groups = this;
+                if(groups.length > 0 && groups !== null) {
+                    $.each(groups, function (i, val) {
 
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        $('#tbodyAdminGroups').append('<tr>'
+                                + '<td>' + val.name + '</td>'
+                                + '<td>' + '<button type="button" onclick="editAdminGroup('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>' + '</td>'
+                                + '<td>' + active + '</td>'
+                                + '<td>' + '<button type="button" onclick="activateAdminGroup('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>' + '</td>'
+                                + '<td>' + '<button type="button" onclick="deactivateAdminGroup('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>' + '</td>'
+                                + '</tr>');
+                    });
+                }
+            });
+        }
+
+        function loadAdmins(){
+            getAllAccounts(function (){
+                var admins = this;
+                if(admins.length > 0 && admins !== null){
+                    $.each(admins, function(i, val){
+
+                        var superuser = "";
+                        if(val.isSuperUser){
+                            superuser = val.isSuperUser;
+                        }
+
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        $('#tbodyAdmins').append('<tr>'
+                                + '<td>' + val.accountName + '</td>'
+                                + '<td>' + superuser + '</td>'
+                                + '<td>' + '<button type="button" onclick="editAdmin('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>' + '</td>'
+                                + '<td>' + active + '</td>'
+                                + '<td>' + '<button type="button" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>' + '</td>'
+                                + '<td>' + '<button type="button" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>' + '</td>'
+                                + '</tr>');
+                    });
+                }
+            });
         }
 
         function loadQuals(){
+            getAllQuals(function (){
+                var quals = this;
+                if(quals.length > 0 && quals !== null) {
+                    $.each(quals, function (i, val) {
+                        var subtitle = "";
+                        if(val.subtitle){
+                            subtitle = val.subtitle;
+                        }
 
+                        var anonymousName = "";
+                        if(val.projectName){ // TODO Change to anonymousName
+                            anonymousName = val.projectName;
+                        }
+
+                        var anonymousState = "";
+                        if(val.isAnonymous){
+                            anonymousState = val.isAnonymous;
+                        }
+
+                        var qualStatus = "";
+                        if(val.status){
+                            qualStatus = val.status;
+                        }
+
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        $('#tbodyQuals').append('<tr>'
+                                + '<td>' + val.projectName + '</td>'
+                                + '<td>' + subtitle + '</td>'
+                                + '<td>' + val.clientName + '</td>'
+                                + '<td>' + anonymousName + '</td>'
+                                + '<td>' + anonymousState + '</td>'
+                                + '<td>' + qualStatus + '</td>'
+                                + '<td>' + '<button type="button" onclick="editQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>' + '</td>'
+                                + '<td>' + active + '</td>'
+                                + '<td>' + '<button type="button" onclick="activateQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>' + '</td>'
+                                + '<td>' + '<button type="button" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>' + '</td>'
+                                + '</tr>');
+
+                    });
+                }
+            });
         }
 
         function loadProjectGroups(){
+            getAllProjectGroups(function (){
+               var projects = this;
+                if(projects.length > 0 && projects !== null){
+                    $.each(projects, function (i, val){
 
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        $('#tbodyProjects').append('<tr>'
+                               + '<td>' + val.projectGroupName + '</td>'
+                               + '<td>' + '<button type="button" onclick="editProject('+val.id+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>' + '</td>'
+                               + '<td>' + active + '</td>'
+                               + '<td>' + '<button type="button" onclick="activateProject('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>' + '</td>'
+                               + '<td>' + '<button type="button" onclick="deactivateProject('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>' + '</td>'
+                               + '</tr>');
+                    });
+                }
+            });
         }
 
         function loadClients(){
+            getAllClients(function (){
+                var clients = this;
+                if(clients.length > 0 && clients !== null){
+                    $.each(clients, function (i, val){
 
+                        var active = "";
+                        if(val.isActive){
+                            active = val.isActive;
+                        }
+
+                        $('#tbodyClients').append('<tr>'
+                                + '<td>' + val.accountName + '</td>'
+                                + '<td>' + '<button type="button" onclick="editClient('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>' + '</td>'
+                                + '<td>' + active + '</td>'
+                                + '<td>' + '<button type="button" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>' + '</td>'
+                                + '<td>' + '<button type="button" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>' + '</td>'
+                                + '</tr>');
+                    });
+                }
+            });
         }
     </script>
 
