@@ -11,9 +11,9 @@ var _img = "/image";
 
 function Qual(x){
     this.qualId = x.qualId;
-    this.projectImg = x.projectImg;
+    this.projectImage = x.projectImage;
     this.projectName = x.projectName;
-    this.clientImg = x.clientImg;
+    this.clientImage = x.clientImage;
     this.clientName = x.clientName;
     this.problemStatement = x.problemStatement;
     this.challengesFaced = x.challengesFaced;
