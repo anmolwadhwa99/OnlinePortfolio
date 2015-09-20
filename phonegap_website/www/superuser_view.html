@@ -158,8 +158,7 @@
             });
         }
 
-        function loadQuals(){
-            var table = $('#tableQuals');
+        function loadQuals(table){
             getAllQuals(function (){
                 var quals = this;
                 if(quals.length > 0 && quals !== null) {
@@ -249,11 +248,11 @@
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
-            $('#tableQuals').DataTable();
+            var table = $('#tableQuals').DataTable();
 
             loadAdminGroups();
             loadAdmins();
-            loadQuals();
+            loadQuals(table);
             loadProjectGroups();
             loadClients();
         });
