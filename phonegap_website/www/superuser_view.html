@@ -64,6 +64,46 @@
             sessionStorage.clear();
             location.replace('index.html');
         }
+        function loadAdminGroupSelectList(){
+            getAllAdminGroups(function (){
+                var groups = this;
+                $.each(groups, function(i, val){
+                    console.log(val);
+                    // There should always be atleast one admin group available
+                    if(val.isActive == 'true') {
+                        $('#selectAdminGroups').append('<option value="' + val.id + '">' + val.name + '</option>');
+                    }
+                });
+            });
+        }
+
+        function addAdmin(){
+            var acName = $('#admin_name').val();
+            var pw = $('#admin_pw').val();
+            var isSuperUser = $('input[name=admin_access]:checked').val();
+
+            var adminGroups = $('#selectAdminGroups').val();
+
+            insertAccount('true', acName, pw, isSuperUser, function(){
+                var act = this;
+                $.each(adminGroups, function(i, val) {
+                    assignQualToAdminGroup(val, act.accountId); // Assigning account to each selected group
+                });
+            });
+        }
+        function updateAdmin(){
+            var acName = $('#admin_name').val();
+            var pw = $('#admin_pw').val();
+            var isSuperUser = $('input[name=admin_access]:checked').val();
+
+            var adminGroups = $('#selectAdminGroups').val();
+
+        }
+        function loadAdminAdd(){
+            $('#modalAdminTitle').text("Add Admin Account");
+            $('#modalAdminConfirmAdd').show();
+            loadAdminGroupSelectList();
+        }
 
         function addAdminGroup(){
             var ag_name = $('#ag_name').val();
@@ -84,8 +124,29 @@
             $('#ag_id').val(id);
             $('#modalAGConfirmEdit').show();
         }
-        function loadEditAdmin(id){
-            alert("EditAdmin " +id);
+        function loadEditAdmin(id, name, superStatus, pw){
+            $('#modalAdminTitle').text("Edit Admin Account");
+            $('#modalAdminConfirmEdit').show();
+
+            loadAdminGroupSelectList();
+            getAdminGroupsByAccount(id, function(){
+                var groups = this;
+                var selected = [];
+                $.each(groups, function(i, val){
+                    selected.push(val.id);
+                });
+                $('#selectAdminGroups').select2("val", selected)
+            });
+
+            $('#admin_id').val(id);
+            $('#admin_name').val(name);
+            $('#admin_pw').val(pw);
+
+            if(superStatus === true){
+                $('#admin_special').prop('checked',true);
+            }else{
+                $('#admin_normal').prop('checked',true);
+            }
         }
         function loadEditQual(id){
             alert("EditQual " +id);
@@ -184,7 +245,7 @@
                         }
 
                         table.row.add([val.accountName, superuser,
-                            '<button type="button" onclick="loadEditAdmin('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            '<button type="button" onclick="loadEditAdmin('+val.accountId+',\''+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
@@ -276,6 +337,7 @@
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
+            $('#selectAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Account"});
             // Global variables, as required to do specific reloading of individual tables instead of entire page
             tableQuals = $('#tableQuals').DataTable({
                 "pagingType": "full_numbers",
@@ -353,6 +415,18 @@
             });
             $('#modalAGConfirmAdd').hide();
             $('#modalAGConfirmEdit').hide();
+
+            $('#modalAdmin').on('hidden.bs.modal', function (event) {
+                $('#admin_id').val("");
+                $('#admin_name').val("");
+                $('#admin_pw').val("");
+                $('#modalAdminTitle').text("");
+                $('#modalAdminConfirmAdd').hide();
+                $('#modalAdminConfirmEdit').hide();
+                $('#selectAdminGroups').select2('data', null);
+            });
+            $('#modalAdminConfirmAdd').hide();
+            $('#modalAdminConfirmEdit').hide();
         });
     </script>
     <script type="application/javascript">
@@ -420,13 +494,62 @@
                         <label for="ag_name" class="control-label">Admin Group Name: </label>
                         <input type="text" id="ag_name" class="form-control">
                     </div>
-
+                    <input type="hidden" id="ag_id">
                 </form>
             </div>
             <div class="modal-footer">
                 <button id="modalAGCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button id="modalAGConfirmAdd" type="button" data-dismiss="modal" onclick="addAdminGroup();" class="btn btn-success">Create</button>
                 <button id="modalAGConfirmEdit" type="button" data-dismiss="modal" onclick="updateAdminGroup();" class="btn btn-success">Edit</button>
+            </div>
+        </div>
+    </div>
+</div><!--/.modal -->
+<!-- Modal - Create Admin Group -->
+<div class="modal fade" id="modalAdmin" tabindex="-1" role="dialog" aria-labelledby="modalAGTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalAdminTitle"></h4>
+            </div>
+            <div class="modal-body" id="modalAdminBody">
+                <form>
+                    <div class="form-group">
+                        <label for="admin_name" class="control-label">Admin Name: </label>
+                        <input type="text" id="admin_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin_pw" class="control-label">Password: </label>
+                        <input type="text" id="admin_pw" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="selectAdminGroups">Admin Groups:</label>
+                        <select id="selectAdminGroups" style="width: 100%;" class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin_normal">Admin Access: </label>
+                        <br/>
+
+                        <div class="btn-group-justified" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" id="admin_normal" name="admin_access" value="false"
+                                       checked="checked"/><i class="fa fa-lock"></i> Normal
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="admin_special" name="admin_access" value="true"/>
+                                <i class="fa fa-unlock"></i> Superuser
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" id="admin_id">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="modalAdminCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="modalAdminConfirmAdd" type="button" data-dismiss="modal" onclick="addAdmin();" class="btn btn-success">Create</button>
+                <button id="modalAdminConfirmEdit" type="button" data-dismiss="modal" onclick="updateAdmin();" class="btn btn-success">Edit</button>
             </div>
         </div>
     </div>
@@ -448,7 +571,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="btn btn-link" href="homepage.html"><span class="glyphicon glyphicon-home"></span> Admin</a></li>
                     <li><a class="btn btn-link" data-toggle="modal" data-target="#modalAG" onclick="loadAGAdd();"><span class="fa fa-users"></span> Add Admin Group</a></li>
-                    <li><a class="btn btn-link" href="#"><span class="fa fa-user-plus"></span> Add Admin Account</a></li>
+                    <li><a class="btn btn-link" data-toggle="modal" data-target="#modalAdmin" onclick="loadAdminAdd();"><span class="fa fa-user-plus"></span> Add Admin Account</a></li>
                     <li><a class="btn btn-link" onclick="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
