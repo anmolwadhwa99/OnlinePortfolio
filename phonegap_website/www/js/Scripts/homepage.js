@@ -1,5 +1,7 @@
 //Searches for quals, projects, clients or whatever it does
 
+var accountId = -1;
+
 function search(){
     var text = $("#searchBox").val();
     var toShow = false;
@@ -104,6 +106,7 @@ function getProjects(account_id){
 
     getAccountById(account_id, function() {
         var account = this;
+        accountId = account_id;
         getProjectsByClient(account_id, function() {
             var projects = this;
             var htmlStr = "<h1 id='heading'>Projects</h1>";
@@ -115,8 +118,10 @@ function getProjects(account_id){
                     '\"addProjectQualsToGroup('+projects[i].id+')\"',
                     '\"alert(\'still need to define this one\')\"',
                     projects[i].projectGroupName,
-                    false,
-                    '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
+                    '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
+                    "",
+                    "",
+                    'project'
                 )
             }
             $("#projects").html(htmlStr);
@@ -183,9 +188,10 @@ function confirmArchive(archiveType, itemID){
     }
 };
 
-function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
-    var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
+   // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
+    var image = determineItemImage(clientImg, projectImg, type);
     var viewFunction = "";
     if(isNumeric(viewFunc)) {
         viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
@@ -214,6 +220,28 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveF
                 <h4>"+name+"</h4> \
             </div>\
         </div>"
+}
+
+function determineItemImage(clientImage, projectImage, type){
+
+    var image = ""
+    if(type == 'qual'){
+        if(projectImage == null){
+            if(clientImage == null){
+                return "img/portfolio/startup-framework.png";
+            }else{
+                return clientImage;
+            }
+
+        }else{
+            return projectImage
+        }
+    }else if(type == 'client'){
+        return "img/portfolio/roundicons.png";
+    }else if(type == 'project'){
+        return "img/portfolio/startup-framework.png";
+    }
+
 }
 
 function isNumeric(n) {
@@ -245,11 +273,13 @@ function openQualsForProject(projectID, projectName) {
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
-                false,
-                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
+                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
+                quals[i].clientImage,
+                quals[i].projectImage,
+                'qual'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
+        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects(accountId)'>Back To Projects</button></div><br>";
         $("#projects").html(htmlStr);
         $("#heading").html(projectName);
 
@@ -270,8 +300,10 @@ function openQualsForClientProject(projectID, projectName) {
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
-                false,
-                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
+                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
+                quals[i].clientImage,
+                quals[i].projectImage,
+                'qual'
             );
         }
         htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
@@ -295,20 +327,23 @@ function viewQual(qual_id){
 }
 
 function getQuals(){
-    getAllQuals(function(){
+    getQualsByAccount(accountId, function(){
         var quals = this;
 
         var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
         htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
 
         for (i = 0; i < quals.length; i++) {
+            alert(quals[i].projectImg)
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
-                false,
-                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
+                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
+                quals[i].clientImage,
+                quals[i].projectImage,
+                'qual'
             );
         }
         $("#quals").html(htmlStr)
@@ -327,8 +362,10 @@ function getClients() {
                 '\"\"',
                 '\"alert(\'still need to define this one\')\"',
                 clients[i].accountName,
-                true,
-                '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"'
+                '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"',
+                "",
+                "",
+                'client'
             );
         }
 
@@ -346,8 +383,10 @@ function getProjectforClient(id){
                 '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
                 '\"alert(\'still need to define this one\')\"',
                 projects[i].projectGroupName,
-                false,
-                '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
+                '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
+                "",
+                "",
+                'project'
             );
         }
         htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
@@ -406,7 +445,7 @@ function loadTab(tab) {
         $('#clients').removeClass('active'); // remove active class from tabs
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
-        getProjects();
+        getProjects(accountId);
 
 
     } else if (tab == "#clients") {
