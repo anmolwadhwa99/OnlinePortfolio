@@ -28,24 +28,17 @@
           type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <!-- jQuery -->
     <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/webServices.js"></script>
+    <script src="js/scripts/webServices.js"></script>
     <script src="js/WebServiceConnection.js"></script>
     <script src="js/select2.min.js"></script>
+    <script src="js/scripts/homepage.js"></script>
 
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
 
     <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script src="js/iframeResizer.min.js"></script>
@@ -87,9 +80,6 @@
 
 <nav>
     <ul class="list-unstyled main-menu" id="ProjectCart">
-        <!--Include your navigation here-->
-
-
         <li>
             <button type='submit' class='btn btn-lg' data-toggle="modal" data-target="#createProjModal">Create Project
             </button>
@@ -134,8 +124,6 @@
                         </div>
 
                         <div class="col-sm-9">
-
-
                             <input type="text" class="form-control" id="modalClientName"/>
                         </div>
                     </div>
@@ -188,9 +176,7 @@
             <a id="nav-expander" class="nav-expander fixed" data-toggle="collapse" data-target=".temp">
                 Qual Collection &nbsp;<i class="fa fa-bars fa-lg white"></i>
             </a>
-
         </div>
-
 
         <div>
             <ul id="visibleNew" class="nav navbar-nav navbar-right">
@@ -221,21 +207,7 @@
             </li>
         </ul>
 
-
-
-
-        <!--</div>-->
-
-        <!--<div id="custom-search-input col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">-->
-
     </div>
-    <!--<div class="navbar-header pull-right" >-->
-
-    <!--<a id="nav-expander" class="nav-expander fixed">-->
-    <!--PROJECT CART &nbsp;<i class="fa fa-bars fa-lg white"></i>-->
-    <!--</a>-->
-
-    <!--</div>-->
 
 </div>
 
@@ -246,407 +218,6 @@
     var projGroupID = -1;
     var projName = "";
 
-
-    function createProjectGroup(projectName) {
-
-        if (projGroupID == -1){
-
-            insertProjectGroup(projectName, function () {
-                projGroupID = this; //gets the new project ID
-
-                linkQualsAndProject();
-                var clientID;
-                if ($('#existingClientSelect').is(':checked') == true) {
-                    clientID = $("#clientDropdown").val();
-                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
-                } else if ($('#newClientSelect').is(':checked') == true) {
-                    var accountName = $("#modalClientName").val();
-                    insertAccount(false, accountName, "password", false, function () {
-                        assignAccountToProjectGroup(projGroupID, this, function() {})
-                    });
-                } else {
-                    linkQualsAndProject();
-                }
-            });
-        }else{
-            alert("proj id = "+projGroupID);
-            linkQualsAndProject();
-        }
-
-    }
-
-    function linkQualsAndProject(){
-        for (i = 0; i < qualsToAdd.length; i++) {
-            var tempId = qualsToAdd[i];
-            assignQualToProjectGroup(projGroupID, tempId);
-        }
-        qualsToAdd.splice(0, qualsToAdd.length);
-    }
-
-    function getProjects(){
-        getAllProjectGroups(function(){
-
-            var projects = this;
-
-            var htmlStr = "<h1 id='heading'>Projects</h1>";
-
-            for(i = 0; i< projects.length; i++){
-
-                htmlStr += addPortfolioItem(
-                        '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
-                        '\"addProjectQualsToGroup('+projects[i].id+')\"',
-                        '\"alert(\'still need to define this one\')\"',
-                        projects[i].projectGroupName,
-                        false,
-                        '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
-                )
-            }
-            $("#projects").html(htmlStr);
-
-        });
-    }
-
-    function createClient(clientName){
-        insertAccount(false, clientName, 'qwerty', false, function(){
-            loadTab('#clients');
-        });
-    }
-
-    function archiveQual(qualId){
-        deleteQual(qualId);
-        document.getElementById("divArchiveAlert").style.display = 'none';
-    };
-    function archiveProject(projectId){
-        deleteProjectGroup(projectId);
-        document.getElementById("divArchiveAlert").style.display = 'none';
-    };
-    function archiveClient(clientId){
-        deleteAccount(clientId);
-        document.getElementById("divArchiveAlert").style.display = 'none';
-    };
-    function confirmArchive(archiveType, itemID){
-        var title;
-        var message;
-
-        //take the user to the top of the screen
-        $('html, body').animate({ scrollTop: 0 }, 'fast');
-
-        if(archiveType == "CLIENT"){
-            document.getElementById("divArchiveAlert").style.display = 'block';
-            document.getElementById("confirmButton").addEventListener("click", function(){
-               archiveClient(itemID);
-            });
-            document.getElementById("cancelButton").addEventListener("click", function(){
-                document.getElementById("divArchiveAlert").style.display = 'none';
-            });
-            title = "";
-            message = "";
-        }else if(archiveType == "PROJECT"){
-            document.getElementById("divArchiveAlert").style.display = 'block';
-            document.getElementById("confirmButton").addEventListener("click", function(){
-                archiveProject(itemID);
-            });
-            document.getElementById("cancelButton").addEventListener("click", function(){
-                document.getElementById("divArchiveAlert").style.display = 'none';
-            });
-        }else if(archiveType == "QUAL"){
-            document.getElementById("divArchiveAlert").style.display = 'block';
-            document.getElementById("confirmButton").addEventListener("click", function(){
-                archiveQual(itemID);
-            });
-            document.getElementById("cancelButton").addEventListener("click", function(){
-                document.getElementById("divArchiveAlert").style.display = 'none';
-            });
-        }else{
-            return; // Default if somehow unknown type
-        }
-    };
-
-    function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
-        var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
-
-        var viewFunction = "";
-        if(isNumeric(viewFunc)) {
-            viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
-        }else{
-            viewFunction = '\' onclick =' +viewFunc + '\"';
-        }
-        return "<div class='col-md-3 col-sm-6 portfolio-item'> \
-              <a href='#' class='portfolio-link' data-toggle='modal'> \
-                <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
-                        <i class='fa fa-search-plus fa-7x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
-                        <i class='fa fa-plus fa-3x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
-                            <i class='fa fa-pencil fa-3x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
-                            <i class = 'fa fa-trash-o fa-3x'> </i>\
-                    </div>\
-                </div> \
-                <img src=" + image + " class='main-thumbnail'  alt=''> \
-            </a> \
-            <div class='portfolio-caption'> \
-                <h4>"+name+"</h4> \
-            </div>\
-        </div>"
-    }
-
-    function isNumeric(n) {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    }
-
-    function addProjectQualsToGroup(projectID){
-
-        getQualsByProject(projectID, function(){
-
-            var quals = this;
-
-            for(i = 0; i< quals.length; i++) {
-
-                addToCart(quals[i].qualId, quals[i].projectName);
-            }
-
-        });
-    }
-
-    function openQualsForProject(projectID, projectName) {
-        getQualsByProject(projectID, function(){
-
-            var quals = this;
-
-            var htmlStr = "<h1 id='heading'>Projects</h1>";
-            for(i = 0; i< quals.length; i++){
-                htmlStr += addPortfolioItem(
-                        quals[i].qualId,
-                        '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
-                        '\"alert(\'still need to define this one\')\"',
-                        quals[i].projectName,
-                        false,
-                        '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
-                );
-            }
-            htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects()'>Back To Projects</button></div><br>";
-            $("#projects").html(htmlStr);
-            $("#heading").html(projectName);
-
-        });
-
-
-    }
-
-    function openQualsForClientProject(projectID, projectName) {
-        getQualsByProject(projectID, function(){
-
-            var quals = this;
-
-            var htmlStr = "<h1 id='heading'>Projects</h1>";
-            for(i = 0; i< quals.length; i++){
-                htmlStr += addPortfolioItem(
-                        quals[i].qualId,
-                        '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
-                        '\"alert(\'still need to define this one\')\"',
-                        quals[i].projectName,
-                        false,
-                        '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
-                );
-            }
-            htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
-            $("#clients").html(htmlStr);
-            $("#heading").html(projectName);
-
-        });
-
-    }
-
-    function openPrevClientProj(){
-        $("#clients").html(htmlClientProject);
-    }
-
-    function viewQual(qual_id){
-        console.log(qual_id);
-        sessionStorage.setItem("qual_id", qual_id);
-        location.href = "#viewQualModal";
-        $('#frameViewQual').attr('src', 'view_qual.html');
-
-    }
-
-    function getQuals(){
-        getAllQuals(function(){
-            var quals = this;
-
-            var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
-            htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
-
-            for (i = 0; i < quals.length; i++) {
-                htmlStr += addPortfolioItem(
-                        quals[i].qualId,
-                        '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
-                        '\"alert(\'still need to define this one\')\"',
-                        quals[i].projectName,
-                        false,
-                        '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
-                );
-            }
-            $("#quals").html(htmlStr)
-
-        });
-    }
-
-    function getClients() {
-        getAllClients(function () {
-            var clients = this;
-            var list = document.getElementById("client_list");
-            var htmlStr = "";
-            for (i = 0; i < clients.length; i++) {
-                htmlStr += addPortfolioItem(
-                        '\"getProjectforClient('+clients[i].accountId+')\"',
-                        '\"\"',
-                        '\"alert(\'still need to define this one\')\"',
-                        clients[i].accountName,
-                        true,
-                        '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"'
-                );
-            }
-
-            $("#clients").html(htmlStr)
-        });
-    }
-
-    function getProjectforClient(id){
-        getProjectsByClient(id,function(){
-            var projects = this;
-            var htmlStr = "";
-            for(i = 0; i< projects.length; i++){
-                htmlStr += addPortfolioItem(
-                        '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
-                        '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
-                        '\"alert(\'still need to define this one\')\"',
-                        projects[i].projectGroupName,
-                        false,
-                        '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"'
-                );
-            }
-            htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
-            htmlClientProject = htmlStr;
-            $("#clients").html(htmlStr);
-
-
-        })
-
-    }
-
-    function addToCart(qID, m){
-
-        qualsToAdd.push(qID);
-        var ul = document.getElementById("ProjectCart");
-        var li = document.createElement("li");
-        var a = document.createElement("a");
-        a.setAttribute("href", "#");
-
-        var span = document.createElement("span");
-        span.setAttribute("class","icon");
-
-        a.appendChild(document.createTextNode(m));
-        a.appendChild(span);
-
-        li.appendChild(a);
-        li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
-        li.setAttribute("id", m); // added line
-        ul.appendChild(li);
-
-    }
-
-    function loadTab(tab) {
-
-        if (tab == "#quals") {
-            $('#clients').removeClass('active'); // remove active class from tabs
-            $('#projects').removeClass('active'); // remove active class from tabs
-            $(tab).addClass('active');
-            getQuals();
-
-        } else if (tab == "#projects") {
-            $('#clients').removeClass('active'); // remove active class from tabs
-            $('#quals').removeClass('active'); // remove active class from tabs
-            $(tab).addClass('active'); // add active class to clicked tab
-            getProjects();
-
-
-        } else if (tab == "#clients") {
-            $('#projects').removeClass('active'); // remove active class from tabs
-            $('#quals').removeClass('active'); // remove active class from tabs
-            $(tab).addClass('active'); // add active class to clicked tab
-            getClients();
-
-        } else {
-            error("invalid tab");
-        }
-
-        getEverything();
-
-    }
-
-    var allProjects = [], allQuals = [], allClients = [];
-
-
-
-    function getEverything(){
-
-        getAllQuals(function(){
-            allQuals = this;
-        });
-        getAllProjectGroups(function(){
-            allProjects = this;
-        });
-        getAllClients(function(){
-            allClients = this;
-        });
-    }
-
-    function resetProjID(){
-        projGroupID = -1;
-    }
-
-    function search(){
-        var text = $("#searchBox").val();
-        var toShow = false;
-        var searchResults = [];
-
-        if (text.length > 0) {
-            toShow =  true;
-
-            searchResults = doSearch(text, allQuals, allClients, allProjects);
-        }
-
-        var len = $('#searchBox').outerWidth() + $('#searchIcon').width();
-
-        var resLI = $('#resultLI');
-        var resUL = $('#resultUL');
-        resUL.empty();
-
-        for(i = 0; i < searchResults.length ; i++) {
-            console.log(searchResults[i]);
-
-            var li = document.createElement('li');
-            var a = document.createElement("a");
-            a.setAttribute("href", "#");
-
-            a.appendChild(document.createTextNode(searchResults[i]));
-
-            li.appendChild(a);
-            resUL.append(li);
-
-        }
-
-        resLI.toggleClass('open',toShow);
-
-    }
-
-
-
     $(document).ready(function(){
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -656,15 +227,11 @@
         getProjects();
         getEverything();
 
-
         $('#createProjBtn').click(function(e){
             e.preventDefault();
-
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
-
             $('#createProjModal').modal('hide');
-
             createProjectGroup(projName);
 
         });
@@ -673,14 +240,9 @@
             e.preventDefault();
             var clientName = $("#clientName").val();
             $("#clientName").val("");
-
             $('#createClientModal').modal('hide');
-
             createClient(clientName);
-
         });
-
-
 
         var vnSpace =  $('#space');
         var hnSpace = $('#hiddenSpace');
@@ -699,11 +261,6 @@
 
         vnSpace.before(str);
         hnSpace.before(str);
-
-        //stuff for results
-
-
-
 
         $(window).on('shown.bs.modal', function() {
 
@@ -791,31 +348,16 @@
                 </div>
                 <!-- Nav tabs --><div>
                 <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
-
                     <li role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
-
                     <li role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
-
                     <li role="presentation" ><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
-
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-
-                    <div role="tabpanel" class="tab-pane active" id="projects">
-
-                    </div>
-
-                    <div role="tabpanel" class="tab-pane" id="quals">
-
-                    </div>
-
-                    <div role="tabpanel"   class="tab-pane" id="clients" >
-
-                        <!--<script>getClients();</script>-->
-
-                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="projects"></div>
+                    <div role="tabpanel" class="tab-pane" id="quals"></div>
+                    <div role="tabpanel"   class="tab-pane" id="clients" ></div>
                 </div>
 
             </div>
@@ -823,26 +365,7 @@
 
         </div></div></section>
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <span class="copyright">Copyright &copy; Deloitte 2015 </span>
-            </div>
-            <div class="col-md-5">
-                <ul class="list-inline quicklinks">
-                    <li><a href="#">Privacy Policy</a>
-                    </li>
-                    <li><a href="#">Terms of Use</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Portfolio Modals -->
-<!-- Use the modals below to showcase details about your portfolio projects! -->
+<footer></footer>
 
 <!-- Modal For View Qual page -->
 <div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -865,7 +388,6 @@
     </div>
 </div>
 
-
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
@@ -880,7 +402,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/agency.js"></script>
-
 
 </body>
 </html>
