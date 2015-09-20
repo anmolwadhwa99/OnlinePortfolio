@@ -61,5 +61,11 @@ public class ProjectGroupResource {
 	}
 	
 	
+	@PUT
+	@Path("/reactivate/{projectGroupId}")
+	public ProjectGroup reactivateProjectGroup(@PathParam("projectGroupId") int projectGroupId){
+		return projectGroupService.reactivateProjectGroup(projectGroupId);
+	}
+	
 
 }
