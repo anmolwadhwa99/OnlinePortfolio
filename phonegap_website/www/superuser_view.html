@@ -258,7 +258,7 @@
             });
         }
 
-        function loadClients(){
+        function loadClients(table){
             getAllClients(function (){
                 var clients = this;
                 if(clients.length > 0 && clients !== null){
@@ -269,13 +269,10 @@
                             active = val.isActive;
                         }
 
-                        $('#tbodyClients').append('<tr>'
-                                + '<td>' + val.accountName + '</td>'
-                                + '<td>' + '<button type="button" onclick="editClient('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>' + '</td>'
-                                + '<td>' + active + '</td>'
-                                + '<td>' + '<button type="button" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>' + '</td>'
-                                + '<td>' + '<button type="button" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>' + '</td>'
-                                + '</tr>');
+                        table.row.add([val.accountName,
+                            '<button type="button" onclick="editClient('+val.accountId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="activateAccount('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modal" onclick="deactivateAccount('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
