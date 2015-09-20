@@ -77,6 +77,28 @@ public class ProjectGroupDatabase {
 	}
 	
 	/**
+	 * Reactivate project group from database
+	 */
+	public ProjectGroup reactivateProjGroup(int projGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		ProjectGroup projGroup = (ProjectGroup) session.get(ProjectGroup.class, projGroupId);
+		
+		if(projGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project group with id " + projGroupId + " could not be found so unable to reactivate project group.");
+		}
+		
+		projGroup.setActive(true);
+		session.saveOrUpdate(projGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return projGroup;
+	}
+	
+	/**
 	 * Get all project groups from the database (for superuser access)
 	 */
 	public List<ProjectGroup> getAllProjectGroups(){
