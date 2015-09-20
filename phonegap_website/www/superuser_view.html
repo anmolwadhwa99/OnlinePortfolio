@@ -114,16 +114,36 @@
         }
 
         function deactivateAdminGroup(id){
-            alert("DeactivateAdminGroup " +id);
+            $('#modalTitle').text("Deactivate Admin Group?");
+            $('#modalBody').text("Are you sure you wish to deactivate this Admin Group?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateAdminGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
         }
         function deactivateAccount(id){
-            alert("DeactivateAccount " +id);
+            $('#modalTitle').text("Reactivate Account?");
+            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateAccount " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
         }
         function deactivateQual(id){
-            alert("DeactivateQual " +id);
+            $('#modalTitle').text("Deactivate Qual?");
+            $('#modalBody').text("Are you sure you wish to deactivate this Qual?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateQual " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
         }
         function deactivateProject(id){
-            alert("DeactivateProjectGroup " +id);
+            $('#modalTitle').text("Deactivate Project?");
+            $('#modalBody').text("Are you sure you wish to deactivate this Project?");
+            $('#modalConfirm').click(function(){
+                alert("DeactivateProjectGroup " +id);
+            });
+            $('#modalConfirm').addClass("btn-danger");
         }
 
         function loadAdminGroups(){
@@ -211,7 +231,7 @@
                         table.row.add([val.projectName,subtitle,val.clientName,anonymousName,anonymousState,qualStatus,
                             '<button type="button" onclick="editQual('+val.qualId+')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="activateQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" data-toggle="modal" onclick="deactivateQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
                     });
                 }
