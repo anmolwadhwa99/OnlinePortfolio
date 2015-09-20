@@ -1,4 +1,5 @@
 //Searches for quals, projects, clients or whatever it does
+
 function search(){
     var text = $("#searchBox").val();
     var toShow = false;
@@ -6,6 +7,7 @@ function search(){
 
     if (text.length > 0) {
         toShow =  true;
+
         searchResults = doSearch(text, allQuals, allClients, allProjects);
     }
 
@@ -16,13 +18,21 @@ function search(){
     resUL.empty();
 
     for(i = 0; i < searchResults.length ; i++) {
-        console.log(searchResults[i]);
+        var res = new Results();
+        res = searchResults[i];
+        console.log(res.value);
 
         var li = document.createElement('li');
         var a = document.createElement("a");
+        var span = document.createElement("span");
         a.setAttribute("href", "#");
+        span.setAttribute("style", "color: #909090");
+        span.appendChild(document.createTextNode(res.type.name + ":"));
 
-        a.appendChild(document.createTextNode(searchResults[i]));
+
+        a.appendChild(span);
+        a.appendChild(document.createTextNode( '\u00A0' + " "));
+        a.appendChild(document.createTextNode(res.value));
 
         li.appendChild(a);
         resUL.append(li);
