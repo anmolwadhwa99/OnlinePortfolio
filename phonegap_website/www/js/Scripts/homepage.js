@@ -229,9 +229,9 @@ function determineItemImage(clientImage, projectImage, type){
             return projectImage
         }
     }else if(type == 'client'){
-        return "img/portfolio/roundicons.png"
+        return "img/portfolio/roundicons.png.png"
     }else if(type == 'project'){
-        return "img/portfolio/startup-framework.png.png"
+        return "img/portfolio/startup-framework.png"
     }
 
 }
@@ -266,8 +266,8 @@ function openQualsForProject(projectID, projectName) {
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
-                quals[i].clientImg,
-                quals[i].projectImg,
+                quals[i].clientImage,
+                quals[i].projectImage,
                 'qual'
             );
         }
@@ -293,8 +293,8 @@ function openQualsForClientProject(projectID, projectName) {
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
-                quals[i].clientImg,
-                quals[i].projectImg,
+                quals[i].clientImage,
+                quals[i].projectImage,
                 'qual'
             );
         }
@@ -333,8 +333,8 @@ function getQuals(){
                 '\"alert(\'still need to define this one\')\"',
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
-                quals[i].clientImg,
-                quals[i].projectImg,
+                quals[i].clientImage,
+                quals[i].projectImage,
                 'qual'
             );
         }
