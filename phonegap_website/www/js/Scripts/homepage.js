@@ -322,7 +322,7 @@ function viewQual(qual_id){
 }
 
 function getQuals(){
-    getAllQuals(function(){
+    getQualsByAccount(accountId, function(){
         var quals = this;
 
         var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
