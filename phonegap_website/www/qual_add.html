@@ -172,6 +172,15 @@
                     }
                 });
             });
+
+            var qual_id = sessionStorage.getItem("qual_id");
+            if (qual_id != null) {
+                getQualById(qual_id, function() {
+                    var qual = this; // gets the qual info
+
+                });
+            }
+
         });
 
         function SelectProdServ(url) {

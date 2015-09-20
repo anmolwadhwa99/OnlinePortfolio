@@ -35,7 +35,6 @@
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
             var qual_id = sessionStorage.getItem("qual_id");
             var htmlStr = "";
-            //var qual_id = 1; // hardcoded qual_id for now, would retrieve from sessionStorage once website fully linked up
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
                 var clientName = "";
@@ -163,7 +162,7 @@
                         </div>"
 
             htmlStr += "<button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
-            "<i class='fa fa-times'></i> Close Qual</button></div>";
+            "<i class='fa fa-times'></i>Close Qual</button></div>";
             $('#modal_body').html(htmlStr);
 
 
