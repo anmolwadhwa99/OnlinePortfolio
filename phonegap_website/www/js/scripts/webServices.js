@@ -132,31 +132,63 @@ function Image(x){
 
 // === Search ======================================================
 
+var resType = {
+    QUAL : {value: 0, name: "Qual", code: "Q"},
+    PROJECT : {value: 1, name: "Project", code: "P"},
+    CLIENT : {value: 2, name: "Client", code: "C"}
+};
+function Results(){
+    id = 0;
+    type = resType;
+    value =  "";
+}
+
 function doSearch(str, quals, clients, projects){
+    str = str.toLowerCase();
 
     var resultArray = [];
 
     for (i = 0; i < quals.length; i++){
         var qual = quals[i];
-        if (qual.clientName.indexOf(str) > -1){
-            resultArray.push("Q :" + qual.qualId);
-        }
-        if (qual.projectName.indexOf(str) > -1){
-            resultArray.push("Q :" + qual.qualId);
+        //if (qual.clientName.toLowerCase().indexOf(str) > -1){
+        //    var res = new Results();
+        //    res.id = qual.qualId;
+        //    res.type = resType.QUAL;
+        //    res.value = qual.clientName;
+        //
+        //    resultArray.push(res);
+        //}
+        if (qual.projectName.toLowerCase().indexOf(str) > -1){
+            var res = new Results();
+            res.id = qual.qualId;
+            res.type = resType.QUAL;
+            res.value = qual.projectName;
+
+            resultArray.push(res);
         }
     }
 
     for (i = 0; i < clients.length; i++){
         var client = clients[i];
-        if (client.accountName.indexOf(str) > -1){
-            resultArray.push("C :" + client.accountId);
+        if (client.accountName.toLowerCase().indexOf(str) > -1){
+            var res = new Results();
+            res.id = client.accountId;
+            res.type = resType.CLIENT;
+            res.value = client.accountName;
+
+            resultArray.push(res);
         }
     }
 
     for (i = 0; i < projects.length; i++){
         var proj = projects[i];
-        if (proj.projectGroupName.indexOf(str) > -1){
-            resultArray.push("P :" + proj.id);
+        if (proj.projectGroupName.toLowerCase().indexOf(str) > -1){
+            var res = new Results();
+            res.id = proj.id;
+            res.type = resType.PROJECT;
+            res.value = proj.projectGroupName;
+
+            resultArray.push(res);
         }
     }
     return resultArray;
