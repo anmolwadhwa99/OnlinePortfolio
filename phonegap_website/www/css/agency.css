@@ -360,6 +360,11 @@ section h3.section-subheading {
 .fa-7x {
     font-size: 7em !important;
 }
+
+.fa-11x {
+    font-size: 11em !important;
+}
+
 .viewIcon i{
     transform: translate(30%,69%);
 }
