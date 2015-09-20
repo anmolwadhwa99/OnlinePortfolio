@@ -39,7 +39,6 @@
 
     <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script src="js/iframeResizer.min.js"></script>
@@ -230,10 +229,8 @@
 
         $('#createProjBtn').click(function(e){
             e.preventDefault();
-
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
-
             $('#createProjModal').modal('hide');
             createProjectGroup(projName);
 
@@ -243,11 +240,8 @@
             e.preventDefault();
             var clientName = $("#clientName").val();
             $("#clientName").val("");
-
             $('#createClientModal').modal('hide');
-
             createClient(clientName);
-
         });
 
         var vnSpace =  $('#space');
