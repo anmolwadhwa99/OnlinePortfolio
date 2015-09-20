@@ -153,12 +153,25 @@
                         </div>";
             }
 
+                htmlStr += "<div class='col-md-2'> \
+                                <div class='form-group'> \
+                                    <button type='submit' class='btn btn-block btn-success' onclick='duplicateQual("+qual.qualId+")'><span \
+                                    class='glyphicon glyphicon-copy'></span> Duplicate \
+                                    </button> \
+                                </div> \
+                            </div>"
+
             htmlStr += "<button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
             "<i class='fa fa-times'></i> Close Qual</button></div>";
             $('#modal_body').html(htmlStr);
 
+
+
             });
+
         });
+
+
 
     </script>
 
