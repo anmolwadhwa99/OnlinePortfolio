@@ -32,24 +32,25 @@
   transform: translate3d(0, 0, 0) !important;
 }
 
-/*.pace .pace-progress:before {*/
-  /*content: attr(data-progress-text);*/
-  /*text-align: center;*/
-  /*color: #fff;*/
-  /*background: #29d;*/
-  /*border-radius: 50%;*/
-  /*font-family: "Helvetica Neue", sans-serif;*/
-  /*font-size: 14px;*/
-  /*font-weight: 100;*/
-  /*line-height: 1;*/
-  /*padding: 20% 0 7px;*/
-  /*width: 50%;*/
-  /*height: 40%;*/
-  /*margin: 10px 0 0 30px;*/
-  /*display: block;*/
-  /*z-index: 999;*/
-  /*position: absolute;*/
-/*}*/
+.pace .pace-progress:before {
+  content: "Loading";
+  text-align: center;
+  color: #020202;
+  background: #29d;
+  border-radius: 50%;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 1;
+  padding: 20% 0 7px;
+  width: 50%;
+  height: 40%;
+  margin: 10px 0 0 30px;
+  display: block;
+  z-index: 999;
+  position: absolute;
+
+}
 
 .pace .pace-activity {
   font-size: 15px;
