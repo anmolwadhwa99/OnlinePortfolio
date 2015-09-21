@@ -474,10 +474,10 @@
                 <button id="modalDeactivateAcct" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
                 <button id="modalDeactivateQual" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
                 <button id="modalDeactivateProj" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
-                <button id="modalReactivateAG" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateQual" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateAcct" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateProj" type="button" class="btn btn-primary" onclick="alert($('#modal_id').val());" data-dismiss="modal">Reactivate</button>
+                <button id="modalReactivateAG" type="button" class="btn btn-primary" onclick="reactivateAdminGroup($('#modal_id').val());reloadAG();" data-dismiss="modal">Reactivate</button>
+                <button id="modalReactivateQual" type="button" class="btn btn-primary" onclick="reactivateQual($('#modal_id').val());reloadQuals();" data-dismiss="modal">Reactivate</button>
+                <button id="modalReactivateAcct" type="button" class="btn btn-primary" onclick="reactivateAccount($('#modal_id').val());reloadAdmins();reloadClients();" data-dismiss="modal">Reactivate</button>
+                <button id="modalReactivateProj" type="button" class="btn btn-primary" onclick="reactivateProjectGroup($('#modal_id').val());reloadProjects();" data-dismiss="modal">Reactivate</button>
             </div>
         </div>
     </div>
