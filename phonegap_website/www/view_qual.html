@@ -31,8 +31,22 @@
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
+    <!--pNotify related links-->
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
+
+            // Wrapping of default alert
+            window.alert = function(message) {
+                new PNotify({
+                    title: 'Alert',
+                    text: message,
+                    type: alert_type
+                });
+            };
+
             var qual_id = sessionStorage.getItem("qual_id");
             var htmlStr = "";
             getQualById(qual_id, function(){
