@@ -1186,6 +1186,8 @@ function deleteAdminGroup(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
+                alert_type = 'error';
+                alert("Unable to delete admin group");
                 return null;
             }
             // Request successful, read the response
