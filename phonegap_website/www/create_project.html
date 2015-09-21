@@ -43,6 +43,10 @@
 
     <link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
 
+    <!--pNotify related links-->
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+
     <script>
 
     </script>
@@ -69,6 +73,15 @@
 
     <script type="application/javascript">
         $(document).ready(function(){
+
+            // Wrapping of default alert
+            window.alert = function(message) {
+                new PNotify({
+                    title: 'Alert',
+                    text: message,
+                    type: alert_type
+                });
+            };
 
             $('#ddExistingProdServ').select2({width:"style"});
             $('#ddAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Qual"});
