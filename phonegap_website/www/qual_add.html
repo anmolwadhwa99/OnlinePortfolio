@@ -41,6 +41,11 @@
 
     <link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
 
+    <!--pNotify related links-->
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+
+    
     <script>
         function addQual() {
             var projName = $("#qual_project_name").val();
@@ -215,6 +220,15 @@
     </script>
     <script type="application/javascript">
         $(document).ready(function(){
+
+            // Wrapping of default alert
+            window.alert = function(message) {
+                new PNotify({
+                    title: 'Alert',
+                    text: message,
+                    type: alert_type
+                });
+            };
 
             $('#ddExistingProdServ').select2({width:"style"});
             $('#ddExistingLogo').select2({width:"style"});
