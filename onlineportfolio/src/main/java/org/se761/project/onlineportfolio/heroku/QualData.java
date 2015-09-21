@@ -27,6 +27,8 @@ public class QualData extends Server{
 			jsonQual.put("tags", qual.getTags());
 			jsonQual.put("status", qual.getStatus());
 			jsonQual.put("serviceLine", qual.getServiceLine());
+			jsonQual.put("clientImage", qual.getClientImage());
+			jsonQual.put("projectImage", qual.getProjectImage());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,12 +40,20 @@ public class QualData extends Server{
 	}
 
 	public static void main(String[] args) {
-		QualData qualData = new QualData();
+		
+		//EA Sports 
+		QualData EASportsQual = new QualData();
 		Qualification qualification = new Qualification();
-		qualification.setProjectName("Dheeraj Test");
-		qualification.setClientName("Dheeraj");
-		qualification.setProblemStatement("Dhee");
-		qualData.addQual(qualification);
+		qualification.setProjectName("Capability and Strategy Assessment and Sales Analytics");
+		qualification.setClientName("EA Sports");
+		qualification.setProblemStatement("EA Sports, a gaming software developer and distributor, sought to align the entire organization on CRM vision, goals and establishment of high-priority CRM capabilities to build consistency across multiple brands and groups.");
+		qualification.setSolutionStatement("We performed a capability assessment of current state and identified gaps between existing processes and other leading industry practices in 50+ best-in-class CRM organizations. The assessment identified CRM capability gaps in insights and analytics, customer experience, marketing effectiveness, sales effectiveness, and service effectiveness. Using this assessment, we developed a multi-year roadmap that outlined initiatives to achieve the end vision.");
+		qualification.setRelevanceToClient("We used our assessment to develop a comprehensive 3-year CRM roadmap and incorporate it into the annual operating plan. The roadmap created internal alignment on CRM definition, vision, and priorities and extended vision to the technical environment required to enable and support the priorities and gained CIO support and sponsorship.");
+		qualification.setServiceLine("Technology");
+		EASportsQual.addQual(qualification);
+		
+		
+		
 
 	}
 

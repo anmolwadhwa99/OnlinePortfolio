@@ -36,9 +36,10 @@ public class AccountData extends Server {
 	public static void main(String[] args) {
 		AccountData accountData = new AccountData();
 		Account account = new Account();
-		account.setAccountName("Dheeraj");
+		account.setAccountName("OnlyAdmin");
 		account.setPassword("1234");
 		account.setActive(true);
+		account.setAdmin(true);
 		account.setPrimaryColour("red");
 		account.setAccentColour("blue");
 		account.setSecondaryColour("green");

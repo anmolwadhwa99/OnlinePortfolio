@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
+import org.se761.project.onlineportfolio.exception.InvalidPasswordException;
 import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
@@ -354,7 +355,7 @@ public class AccountDatabase {
 				return a;
 			}
 		}
-		throw new DatabaseRetrievalException("Cannot find account with the password that is given");
+		throw new InvalidPasswordException("Incorrect Password");
 		
 	}
 
