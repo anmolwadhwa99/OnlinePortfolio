@@ -76,6 +76,14 @@
                 $('input[name=signin_password]').val(saved);
             }
 
+            $('#viewQualModal').on('show.bs.modal', function () {
+                $('.modal').css('max-width', $(window).width() * 0.94);
+                $('.modal').css('max-height', $(window).height() * 0.94);
+                $('.modal').css('left', '3%');
+                $('.modal').css('right', '3%');
+                $('.modal').css('top', '3%');
+            });
+
         });
 
         function signin(){
@@ -109,7 +117,7 @@
             getAllQuals(function(){
                 var quals = this;
 
-                  var htmlStr="<ul class=\"slides\"> ";
+                var htmlStr="<ul class=\"slides\"> ";
 
 
                 for (i = 0; i < quals.length; i++) {
@@ -186,17 +194,75 @@
             });
         }
 
-        function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
-            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+        function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
+            // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
+            var image = determineItemImage(clientImg, projectImg, type);
             var viewFunction = "";
             if(isNumeric(viewFunc)) {
                 viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
             }else{
                 viewFunction = '\' onclick =' +viewFunc + '\"';
             }
-            return "<li><img src=" + image + "></li>"
+            return "<div class='col-md-3 col-sm-6 portfolio-item'> \
+              <a href='#' class='portfolio-link' data-toggle='modal' > \
+                <div class='portfolio-hover'> \
+                    <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
+                        <i class='fa fa-search-plus fa-7x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                        <i class='fa fa-plus fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+                            <i class='fa fa-pencil fa-3x'></i>\
+                    </div>\
+                    <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
+                            <i class = 'fa fa-trash-o fa-3x'> </i>\
+                    </div>\
+                </div> \
+                <div class=\"portfolio-image\"> \
+                    <img style=\"width: 100%;height: auto;vertical-align: middle;\" src=" + image + " class='main-thumbnail'  alt=''> \
+                </div>\
+            </a> \
+            <div class='portfolio-caption'> \
+                <h4>"+name+"</h4> \
+            </div>\
+        </div>"
         }
+
+        function determineItemImage(clientImage, projectImage, type){
+
+            var image = ""
+            if(type == 'qual'){
+                if(projectImage == null){
+                    if(clientImage == null){
+                        return "img/portfolio/startup-framework.png";
+                    }else{
+                        return clientImage;
+                    }
+
+                }else{
+                    return projectImage
+                }
+            }else if(type == 'client'){
+                return "img/portfolio/roundicons.png";
+            }else if(type == 'project'){
+                return "img/portfolio/startup-framework.png";
+            }
+
+        }
+//This is working
+        //        function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
+        //            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+        //
+        //            var viewFunction = "";
+        //            if(isNumeric(viewFunc)) {
+        //                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+        //            }else{
+        //                viewFunction = '\' onclick =' +viewFunc + '\"';
+        //            }
+        //            return "<li><img src=" + image + "></li>"
+        //        }
 
         function isNumeric(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
@@ -217,12 +283,35 @@
 </head>
 
 <body>
+
+<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="logo-modal"><img class="logo-image" src="" id="client-logo"></div>
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal-body" id="modal_body">
+                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
     <section class="slider">
         <div class="flexslider carousel">
             <div id="scroller">
-                    <div class="innerScrollArea" id="quals">
+                <div class="innerScrollArea" id="quals">
 
                 </div>
             </div>
