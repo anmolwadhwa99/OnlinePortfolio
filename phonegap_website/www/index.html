@@ -58,6 +58,7 @@
     <link href="css/atom.css" rel="stylesheet">
 
 
+
     <script type="application/javascript">
         $(document).ready(function (){
 
@@ -77,6 +78,12 @@
                 $('#cbRemember').prop('checked', true);
                 $('input[name=signin_password]').val(saved);
             }
+
+            $('#frameViewQual').iFrameResize();
+
+            $('#viewQualModal').on('hidden.bs.modal', function () {  //NEED
+                $('#frameViewQual').attr('src', '');
+            });
 
             $('#viewQualModal').on('show.bs.modal', function () {
                 $('.modal').css('max-width', $(window).width() * 0.94);
@@ -291,27 +298,6 @@
 
 <body>
 
-<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="logo-modal"><img class="logo-image" src="" id="client-logo"></div>
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl">
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="modal-body" id="modal_body">
-                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
@@ -364,6 +350,29 @@
         <p>&copy; 2015 Deloitte New Zealand &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </div>
 </footer>
+
+
+<!-- Modal For View Qual page -->
+<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="logo-modal"><img class="logo-image" src="" id="client-logo"></div>
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal-body" id="modal_body">
+                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
