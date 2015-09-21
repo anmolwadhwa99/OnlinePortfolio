@@ -156,16 +156,6 @@
                             '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
                     );
 
-//                    htmlStr += addPortfolioItem(
-//                            '\"getProjectforClient('+clients[i].accountId+')\"',
-//                            '\"\"',
-//                            '\"alert(\'still need to define this one\')\"',
-//                            clients[i].accountName,
-//                            '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"',
-//                            "",
-//                            "",
-//                            'client'
-//                    );
                 }
 
                 htmlStr += "</ul>"
@@ -254,14 +244,15 @@
             }else{
                 viewFunction = '\' onclick =' +viewFunc + '\"';
             }
-            return "<li><div> \
+            return "<li>\
+            <div> \
               <a href='#' class='portfolio-link' data-toggle='modal' > \
                     <img src=" + image + " alt=''> \
               </a> \
-        </div>\
+            </div>\
         </li>"
 
-//            "<li><img src=" + image + "></li>"
+//            "<li><img src=" + image + "></li>" //was the old tags
 
         }
 
