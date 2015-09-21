@@ -237,6 +237,36 @@
         });
 
         var account_id = sessionStorage.getItem("account_id");
+        getAccountById(account_id, function() {
+
+            //dynamic rendering of client UI
+            var account = this;
+            var primary = account.primaryColour;
+            var secondary = account.secondaryColour;
+
+            $(".navbar-inverse").css({
+                "background-color":primary.toString(),
+                "border-color":secondary.toString()
+            });
+
+            $(".btn-info").css({
+                "background-color":primary.toString(),
+                "border-color":secondary.toString()
+            });
+
+            $("body").css({
+                "color":primary.toString()
+            });
+
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = '.nav-tabs > li.active > a, .nav-tabs > li > a:hover { color:'+primary.toString() +' !important; border: none; background: transparent; } ' +
+                    '.nav-tabs > li > a::after { background:'+primary.toString() + ' !important; content: ""; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); } ' +
+                    '.navbar-inverse .navbar-nav>li>a { color:'+secondary.toString() +'}';
+            document.getElementsByTagName('head')[0].appendChild(style);
+
+        });
+
         getProjects(account_id);
         getEverything();
 
