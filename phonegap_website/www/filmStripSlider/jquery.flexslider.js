@@ -91,7 +91,7 @@
         slider.setup("init");
 
         // CONTROLNAV:
-        if (slider.vars.controlNav) { methods.controlNav.setup(); }
+        //if (slider.vars.controlNav) { methods.controlNav.setup(); }
 
         // DIRECTIONNAV:
         if (slider.vars.directionNav) { methods.directionNav.setup(); }
@@ -198,108 +198,108 @@
           }
         }
       },
-      controlNav: {
-        setup: function() {
-          if (!slider.manualControls) {
-            methods.controlNav.setupPaging();
-          } else { // MANUALCONTROLS:
-            //methods.controlNav.setupManual();
-          }
-        },
-        setupPaging: function() {
-          var type = (slider.vars.controlNav === "thumbnails") ? 'control-thumbs' : 'control-paging',
-              j = 1,
-              item,
-              slide;
-
-          slider.controlNavScaffold = $('<ol class="'+ namespace + 'control-nav ' + namespace + type + '"></ol>');
-
-            //"'style='transform:translateY(-145%)' "'
-
-
-          if (slider.pagingCount > 1) {
-            for (var i = 0; i < slider.pagingCount; i++) {
-              slide = slider.slides.eq(i);
-              item = (slider.vars.controlNav === "thumbnails") ? '<img src="' + slide.attr( 'data-thumb' ) + '"/>' : '<a>' + j + '</a>';
-              if ( 'thumbnails' === slider.vars.controlNav && true === slider.vars.thumbCaptions ) {
-                var captn = slide.attr( 'data-thumbcaption' );
-                if ( '' !== captn && undefined !== captn ) { item += '<span class="' + namespace + 'caption">' + captn + '</span>'; }
-              }
-              //slider.controlNavScaffold.append('<li>' + item + '</li>');
-              j++;
-            }
-          }
-
-          // CONTROLS CONTAINER:
-          (slider.controlsContainer) ? $(slider.controlsContainer).append(slider.controlNavScaffold) : slider.append(slider.controlNavScaffold);
-          methods.controlNav.set();
-
-          methods.controlNav.active();
-
-          slider.controlNavScaffold.delegate('a, img', eventType, function(event) {
-            event.preventDefault();
-
-            if (watchedEvent === "" || watchedEvent === event.type) {
-              var $this = $(this),
-                  target = slider.controlNav.index($this);
-
-              if (!$this.hasClass(namespace + 'active')) {
-                slider.direction = (target > slider.currentSlide) ? "next" : "prev";
-                slider.flexAnimate(target, slider.vars.pauseOnAction);
-              }
-            }
-
-            // setup flags to prevent event duplication
-            if (watchedEvent === "") {
-              watchedEvent = event.type;
-            }
-            methods.setToClearWatchedEvent();
-
-          });
-        },
-        setupManual: function() {
-          slider.controlNav = slider.manualControls;
-          methods.controlNav.active();
-
-          slider.controlNav.bind(eventType, function(event) {
-            event.preventDefault();
-
-            if (watchedEvent === "" || watchedEvent === event.type) {
-              var $this = $(this),
-                  target = slider.controlNav.index($this);
-
-              if (!$this.hasClass(namespace + 'active')) {
-                (target > slider.currentSlide) ? slider.direction = "next" : slider.direction = "prev";
-                slider.flexAnimate(target, slider.vars.pauseOnAction);
-              }
-            }
-
-            // setup flags to prevent event duplication
-            if (watchedEvent === "") {
-              watchedEvent = event.type;
-            }
-            methods.setToClearWatchedEvent();
-          });
-        },
-        set: function() {
-          var selector = (slider.vars.controlNav === "thumbnails") ? 'img' : 'a';
-          slider.controlNav = $('.' + namespace + 'control-nav li ' + selector, (slider.controlsContainer) ? slider.controlsContainer : slider);
-        },
-        active: function() {
-          slider.controlNav.removeClass(namespace + "active").eq(slider.animatingTo).addClass(namespace + "active");
-        },
-        update: function(action, pos) {
-          if (slider.pagingCount > 1 && action === "add") {
-            slider.controlNavScaffold.append($('<li><a>' + slider.count + '</a></li>'));
-          } else if (slider.pagingCount === 1) {
-            slider.controlNavScaffold.find('li').remove();
-          } else {
-            slider.controlNav.eq(pos).closest('li').remove();
-          }
-          methods.controlNav.set();
-          (slider.pagingCount > 1 && slider.pagingCount !== slider.controlNav.length) ? slider.update(pos, action) : methods.controlNav.active();
-        }
-      },
+      //controlNav: {
+      //  setup: function() {
+      //    if (!slider.manualControls) {
+      //      methods.controlNav.setupPaging();
+      //    } else { // MANUALCONTROLS:
+      //      methods.controlNav.setupManual();
+      //    }
+      //  },
+      //  setupPaging: function() {
+      //    var type = (slider.vars.controlNav === "thumbnails") ? 'control-thumbs' : 'control-paging',
+      //        j = 1,
+      //        item,
+      //        slide;
+      //
+      //    slider.controlNavScaffold = $('<ol class="'+ namespace + 'control-nav ' + namespace + type + '"></ol>');
+      //
+      //      //"'style='transform:translateY(-145%)' "'
+      //
+      //
+      //    if (slider.pagingCount > 1) {
+      //      for (var i = 0; i < slider.pagingCount; i++) {
+      //        slide = slider.slides.eq(i);
+      //        item = (slider.vars.controlNav === "thumbnails") ? '<img src="' + slide.attr( 'data-thumb' ) + '"/>' : '<a>' + j + '</a>';
+      //        if ( 'thumbnails' === slider.vars.controlNav && true === slider.vars.thumbCaptions ) {
+      //          var captn = slide.attr( 'data-thumbcaption' );
+      //          if ( '' !== captn && undefined !== captn ) { item += '<span class="' + namespace + 'caption">' + captn + '</span>'; }
+      //        }
+      //        slider.controlNavScaffold.append('<li>' + item + '</li>');
+      //        j++;
+      //      }
+      //    }
+      //
+      //    // CONTROLS CONTAINER:
+      //    (slider.controlsContainer) ? $(slider.controlsContainer).append(slider.controlNavScaffold) : slider.append(slider.controlNavScaffold);
+      //    methods.controlNav.set();
+      //
+      //    methods.controlNav.active();
+      //
+      //    slider.controlNavScaffold.delegate('a, img', eventType, function(event) {
+      //      event.preventDefault();
+      //
+      //      if (watchedEvent === "" || watchedEvent === event.type) {
+      //        var $this = $(this),
+      //            target = slider.controlNav.index($this);
+      //
+      //        if (!$this.hasClass(namespace + 'active')) {
+      //          slider.direction = (target > slider.currentSlide) ? "next" : "prev";
+      //          slider.flexAnimate(target, slider.vars.pauseOnAction);
+      //        }
+      //      }
+      //
+      //      // setup flags to prevent event duplication
+      //      if (watchedEvent === "") {
+      //        watchedEvent = event.type;
+      //      }
+      //      methods.setToClearWatchedEvent();
+      //
+      //    });
+      //  },
+      //  setupManual: function() {
+      //    slider.controlNav = slider.manualControls;
+      //    methods.controlNav.active();
+      //
+      //    slider.controlNav.bind(eventType, function(event) {
+      //      event.preventDefault();
+      //
+      //      if (watchedEvent === "" || watchedEvent === event.type) {
+      //        var $this = $(this),
+      //            target = slider.controlNav.index($this);
+      //
+      //        if (!$this.hasClass(namespace + 'active')) {
+      //          (target > slider.currentSlide) ? slider.direction = "next" : slider.direction = "prev";
+      //          slider.flexAnimate(target, slider.vars.pauseOnAction);
+      //        }
+      //      }
+      //
+      //      // setup flags to prevent event duplication
+      //      if (watchedEvent === "") {
+      //        watchedEvent = event.type;
+      //      }
+      //      methods.setToClearWatchedEvent();
+      //    });
+      //  },
+      //  set: function() {
+      //    var selector = (slider.vars.controlNav === "thumbnails") ? 'img' : 'a';
+      //    slider.controlNav = $('.' + namespace + 'control-nav li ' + selector, (slider.controlsContainer) ? slider.controlsContainer : slider);
+      //  },
+      //  active: function() {
+      //    slider.controlNav.removeClass(namespace + "active").eq(slider.animatingTo).addClass(namespace + "active");
+      //  },
+      //  update: function(action, pos) {
+      //    if (slider.pagingCount > 1 && action === "add") {
+      //      slider.controlNavScaffold.append($('<li><a>' + slider.count + '</a></li>'));
+      //    } else if (slider.pagingCount === 1) {
+      //      slider.controlNavScaffold.find('li').remove();
+      //    } else {
+      //      slider.controlNav.eq(pos).closest('li').remove();
+      //    }
+      //    methods.controlNav.set();
+      //    (slider.pagingCount > 1 && slider.pagingCount !== slider.controlNav.length) ? slider.update(pos, action) : methods.controlNav.active();
+      //  }
+      //},
       directionNav: {
         setup: function() {
           var directionNavScaffold = $('<ul class="' + namespace + 'direction-nav"><li class="' + namespace + 'nav-prev"><a class="' + namespace + 'prev" href="#">' + slider.vars.leftArrow + '</a></li><li class="' + namespace + 'nav-next"><a class="' + namespace + 'next" href="#">' + slider.vars.rightArrow + '</a></li></ul>');
@@ -713,7 +713,7 @@
         if (slider.syncExists && !fromNav) { methods.sync("animate"); }
 
         // CONTROLNAV
-        if (slider.vars.controlNav) { methods.controlNav.active(); }
+        //if (slider.vars.controlNav) { methods.controlNav.active(); }
 
         // !CAROUSEL:
         // CANDIDATE: slide active class (for add/remove slide)
@@ -1016,17 +1016,17 @@
       }
 
       // update controlNav
-      if (slider.vars.controlNav && !slider.manualControls) {
-        if ((action === "add" && !carousel) || slider.pagingCount > slider.controlNav.length) {
-          methods.controlNav.update("add");
-        } else if ((action === "remove" && !carousel) || slider.pagingCount < slider.controlNav.length) {
-          if (carousel && slider.currentSlide > slider.last) {
-            slider.currentSlide -= 1;
-            slider.animatingTo -= 1;
-          }
-          methods.controlNav.update("remove", slider.last);
-        }
-      }
+      //if (slider.vars.controlNav && !slider.manualControls) {
+      //  if ((action === "add" && !carousel) || slider.pagingCount > slider.controlNav.length) {
+      //    methods.controlNav.update("add");
+      //  } else if ((action === "remove" && !carousel) || slider.pagingCount < slider.controlNav.length) {
+      //    if (carousel && slider.currentSlide > slider.last) {
+      //      slider.currentSlide -= 1;
+      //      slider.animatingTo -= 1;
+      //    }
+      //    methods.controlNav.update("remove", slider.last);
+      //  }
+      //}
       // update directionNav
       if (slider.vars.directionNav) { methods.directionNav.update(); }
 
