@@ -113,7 +113,7 @@
                 var projName = $("#qual_project_name").val();
                 var projSubtitle = $("#qual_client_name").val();
                 var clientName = $("#qual_project_sub").val();
-                var isAnonymous = $('input[name=qual_anonymous]:checked').val();
+                var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
                 var anonymousName = $("#qual_anonymous_name").val();
 
                 var access = $('input[name=qual_public_access]:checked').val();
@@ -283,12 +283,12 @@
                     $("#qual_service_line").val(qual.serviceLine);
                     $('#qual_tags').val(qual.tags);
 
-                    if(val.isAnonymous === true){
+                    if(val.isAnonymous == true){
                         $('#qual_is_not_anonymous').attr('checked', false);
                         $('#qual_is_anonymous').attr('checked', true).trigger('click');
                     }
 
-                    if(val.status === true){
+                    if(val.status == "open"){
                         $('#qual_private').attr('checked', false);
                         $('#qual_public').attr('checked', true).trigger('click');
                     }
@@ -331,12 +331,12 @@
                         $("#qual_service_line").val(qual.serviceLine);
                         $('#qual_tags').val(qual.tags);
 
-                        if(val.isAnonymous === true){
+                        if(val.isAnonymous == true){
                             $('#qual_is_not_anonymous').attr('checked', false);
                             $('#qual_is_anonymous').attr('checked', true).trigger('click');
                         }
 
-                        if(val.status === true){
+                        if(val.status == "open"){
                             $('#qual_private').attr('checked', false);
                             $('#qual_public').attr('checked', true).trigger('click');
                         }
@@ -511,11 +511,11 @@
 
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-default active" onclick="optionalAnonName();">
-                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous" value="false"
+                            <input type="radio" id="qual_is_not_anonymous" name="qual_anonymous"
                                    checked="checked"/><i class="fa fa-user"></i> Named
                         </label>
                         <label class="btn btn-default" onclick="requireAnonName();">
-                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous" value="true"/>
+                            <input type="radio" id="qual_is_anonymous" name="qual_anonymous"/>
                             <i class="fa fa-user-secret"></i> Anonymous
                         </label>
                     </div>
@@ -558,11 +558,11 @@
 
                     <div class="btn-group-justified" data-toggle="buttons">
                         <label class="btn btn-default active">
-                            <input type="radio" id="qual_private" name="qual_public_access" value="false"
+                            <input type="radio" id="qual_private" name="qual_public_access" value="confidential"
                                    checked="checked"/><i class="fa fa-lock"></i> Private
                         </label>
                         <label class="btn btn-default">
-                            <input type="radio" id="qual_public" name="qual_public_access" value="true"/>
+                            <input type="radio" id="qual_public" name="qual_public_access" value="open"/>
                             <i class="fa fa-unlock"></i> Public
                         </label>
                     </div>
