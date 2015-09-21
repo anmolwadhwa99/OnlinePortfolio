@@ -126,6 +126,19 @@
             });
         };
 
+        function viewQual(qual_id){
+            console.log(qual_id);
+            sessionStorage.setItem("qual_id", qual_id);
+            location.href = "#viewQualModal";
+            $('#frameViewQual').attr('src', 'view_qual.html');
+            getQualById(qual_id, function() {
+                $('#client-logo').attr('src', "");
+                var qual = this;
+                $('#client-logo').attr('src', qual.clientImage);
+            });
+
+        }
+
         function getQuals(){
             getAllPublicQuals(function(){
                 var quals = this; //The list of public quals
@@ -241,7 +254,15 @@
             }else{
                 viewFunction = '\' onclick =' +viewFunc + '\"';
             }
-            return "<li><img src=" + image + "></li>"
+            return "<li><div> \
+              <a href='#' class='portfolio-link' data-toggle='modal' > \
+                    <img src=" + image + " alt=''> \
+              </a> \
+        </div>\
+        </li>"
+
+//            "<li><img src=" + image + "></li>"
+
         }
 
         function determineItemImage(clientImage, projectImage, type){
