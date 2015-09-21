@@ -109,9 +109,7 @@
             getAllQuals(function(){
                 var quals = this;
 
-//                var htmlStr ="<div class='flex-viewport' style='overflow: hidden; position: relative; transform: translateY(50%);'" +
-//                  var htmlStr = "<ul class=\"slides\" style=\"width: 1600%; transition-duration: 0.6s; transform: translate3d(-1285px, 0px, 0px);\"> ";
-                  var htmlStr = "<ul class=\"slides\"> ";
+                  var htmlStr="<ul class=\"slides\"> ";
 
 
                 for (i = 0; i < quals.length; i++) {
@@ -191,26 +189,24 @@
         function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
             var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
-//            var viewFunction = "";
-//            if(isNumeric(viewFunc)) {
-//                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
-//            }else{
-//                viewFunction = '\' onclick =' +viewFunc + '\"';
-//            }
+            var viewFunction = "";
+            if(isNumeric(viewFunc)) {
+                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+            }else{
+                viewFunction = '\' onclick =' +viewFunc + '\"';
+            }
             return "<li><img src=" + image + "></li>"
-//            return "<li><img src=" + image + " left: '0px'; width: '316.25px'; float: 'left'; display: 'block';></li>"
-
         }
 
-//        function isNumeric(n) {
-//            return !isNaN(parseFloat(n)) && isFinite(n);
-//        }
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
 
     </script>
 
     <style type="text/css">
         .footer {
-            position: absolute;
+            position: relative;
             bottom: 0;
             width: 100%;
             height: 30px;
@@ -226,22 +222,8 @@
     <section class="slider">
         <div class="flexslider carousel">
             <div id="scroller">
-                    <div class="innerScrollArea" id="quals" onload="">
-                        <!--<ul class="slides">-->
+                    <div class="innerScrollArea" id="quals">
 
-                            <!--<li>-->
-                                <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<img src="images/kitchen_adventurer_donut.jpg" />-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<img src="images/kitchen_adventurer_caramel.jpg" />-->
-                            <!--</li>-->
-                        <!--</ul>-->
                 </div>
             </div>
         </div>
@@ -252,81 +234,11 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
 
-
-
-
-
-
-
 <!--FlexSlider-->
 
 
 <script defer src="filmStripSlider/jquery.flexslider.js">
 </script>
-
-<script type="text/javascript">
-
-
-
-//    $(function(){
-//        var scroller = $('#scroller div.innerScrollArea');
-//        var scrollerContent = scroller.children('ul');
-//        scrollerContent.children().clone().appendTo(scrollerContent);
-//        var curX = 0;
-//        scrollerContent.children().each(function(){
-//            var $this = $(this);
-//            $this.css('left', curX);
-//            curX += $this.outerWidth(true);
-//        });
-//        var fullW = curX / 2;
-//        var viewportW = scroller.width();
-//
-//        // Scrolling speed management
-//        var controller = {curSpeed:0, fullSpeed:2};
-//        var $controller = $(controller);
-//        var tweenToNewSpeed = function(newSpeed, duration)
-//        {
-//            if (duration === undefined)
-//                duration = 600;
-//            $controller.stop(true).animate({curSpeed:newSpeed}, duration);
-//        };
-//
-//        // Pause on hover
-//        scroller.hover(function(){
-//            tweenToNewSpeed(0);
-//        }, function(){
-//            tweenToNewSpeed(controller.fullSpeed);
-//        });
-//
-//        // Scrolling management; start the automatical scrolling
-//        var doScroll = function()
-//        {
-//            var curX = scroller.scrollLeft();
-//            var newX = curX + controller.curSpeed;
-//            if (newX > fullW*2 - viewportW)
-//                newX -= fullW;
-//            scroller.scrollLeft(newX);
-//        };
-//        setInterval(doScroll, 20);
-//        tweenToNewSpeed(controller.fullSpeed);
-//    });
-
-
-
-//    $(window).load(function(){
-//
-//        $('.flexslider').flexslider({
-//            animation: "slide",
-//            animationLoop: false,
-//            itemWidth: 210,
-//            itemMargin: 5,
-//            minItems: 2,
-//            maxItems: 4
-//        });
-//    });
-</script>
-
-
 
 <!--filmStrip========================================== -->
 
