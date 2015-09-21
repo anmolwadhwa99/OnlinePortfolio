@@ -44,6 +44,10 @@
     <link href="css/select2.min.css" rel="stylesheet">
     <script src="js/select2.min.js"></script>
 
+    <!--pNotify related links-->
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+
     <!-- Superuser View Specific styles -->
     <style type="text/css">
         @media (max-width: 991px) {
@@ -325,6 +329,16 @@
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
+
+            // Wrapping of default alert
+            window.alert = function(message) {
+                new PNotify({
+                    title: 'Alert',
+                    text: message,
+                    type: alert_type
+                });
+            };
+
             $('#selectAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Account"});
             // Global variables, as required to do specific reloading of individual tables instead of entire page
             tableQuals = $('#tableQuals').DataTable({
