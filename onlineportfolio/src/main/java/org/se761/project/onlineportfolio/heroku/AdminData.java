@@ -31,7 +31,7 @@ public class AdminData extends Server {
 	public static void main(String[] args) {
 		AdminData adminData = new AdminData();
 		AdminGroup adminGroup = new AdminGroup();
-		adminGroup.setAdminGroupName("Dheeraj Group");
+		adminGroup.setAdminGroupName("Technology");
 		adminData.addAdminGroup(adminGroup);
 
 	}
