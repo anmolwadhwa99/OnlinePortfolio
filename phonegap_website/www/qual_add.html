@@ -266,12 +266,8 @@
 
             var qual_id = sessionStorage.getItem("dup_qual_id");
             if (qual_id != null) {
-                $('#page_title').text("Edit Qual");
-                $('#qual_add_form').attr('action', 'javascript:modifyQual();');
-
                 getQualById(qual_id, function() {
                     var qual = this; // gets the qual info
-                    $('#qual_id').val(qual_id);
                     $("#qual_project_name").val(qual.projectName);
                     $("#qual_project_sub").val(qual.subtitle);
                     $("#qual_client_name").val(qual.clientName);
@@ -280,11 +276,12 @@
                     $("#qual_website").val(qual.websiteButton);
                     $("#qual_industry").val(qual.industry);
                     $("#qual_problems").val(qual.problemStatement);
-                    $("#qual_solutions").val(qual.solutionStatement);
+                    $("#qual_solutions").val(qual.solution);
                     $("#qual_challenges").val(qual.challengesFaced);
                     $("#qual_outcome").val(qual.outcomeStatement);
                     $("#qual_relevance").val(qual.relevanceToClient);
                     $("#qual_service_line").val(qual.serviceLine);
+                    $('#qual_tags').val(qual.tags);
 
                     if(val.isAnonymous === true){
                         $('#qual_is_not_anonymous').attr('checked', false);
@@ -308,9 +305,57 @@
                     });
                 });
                 $('#ddAdminGroups').val(groups).trigger("change");
-            }
-            sessionStorage.clear();
 
+                sessionStorage.removeItem("dup_qual_id");
+            }else{ // dup_qual_id is null
+                qual_id = sessionStorage.getItem("edit_qual_id");
+                if(qual_id != null) {
+                    $('#page_title').text("Edit Qual");
+                    $('#qual_add_form').attr('action', 'javascript:modifyQual();');
+                    $('#qual_id').val(qual_id);
+
+                    getQualById(qual_id, function() {
+                        var qual = this; // gets the qual info
+                        $("#qual_project_name").val(qual.projectName);
+                        $("#qual_project_sub").val(qual.subtitle);
+                        $("#qual_client_name").val(qual.clientName);
+                        $("#qual_anonymous_name").val(qual.qual_anonymous);
+                        $("#qual_email").val(qual.emailButton);
+                        $("#qual_website").val(qual.websiteButton);
+                        $("#qual_industry").val(qual.industry);
+                        $("#qual_problems").val(qual.problemStatement);
+                        $("#qual_solutions").val(qual.solution);
+                        $("#qual_challenges").val(qual.challengesFaced);
+                        $("#qual_outcome").val(qual.outcomeStatement);
+                        $("#qual_relevance").val(qual.relevanceToClient);
+                        $("#qual_service_line").val(qual.serviceLine);
+                        $('#qual_tags').val(qual.tags);
+
+                        if(val.isAnonymous === true){
+                            $('#qual_is_not_anonymous').attr('checked', false);
+                            $('#qual_is_anonymous').attr('checked', true).trigger('click');
+                        }
+
+                        if(val.status === true){
+                            $('#qual_private').attr('checked', false);
+                            $('#qual_public').attr('checked', true).trigger('click');
+                        }
+
+                        $('#ddExistingProdServ').val(qual.projectImage).trigger("change");
+                        $('#ddExistingLogo').val(qual.clientImage).trigger("change");
+                    });
+
+                    var groups = [];
+                    getAdminGroupsByQual(qual_id, function(){
+                        var ag = this;
+                        $.each(ag, function(i, val) {
+                            groups.push(val.id);
+                        });
+                    });
+                    $('#ddAdminGroups').val(groups).trigger("change");
+                }
+                sessionStorage.removeItem("edit_qual_id");
+            }
         });
 
         function SelectProdServ(url) {
