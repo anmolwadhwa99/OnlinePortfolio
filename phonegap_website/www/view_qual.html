@@ -184,15 +184,15 @@
                         </div>";
             }
 
-            htmlStr += "<div class='col-md-2'> \
+            htmlStr += "<div class='row'><div class='col-md-2'> \
                             <div class='form-group'> \
-                                <button type='submit' class='btn btn-block btn-success' onclick='duplicateQual("+qual_id+")'><span \
+                                <button type='button' class='btn btn-lg' onclick='duplicateQual("+qual_id+")'><span \
                                 class='glyphicon glyphicon-copy'></span> Duplicate \
                                 </button> \
                             </div> \
                         </div>"
 
-            htmlStr += "<div class='row'><div class='col-md-2'><button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
+            htmlStr += "<div class='col-md-2'><button type='button' class='btn btn-lg' data-dismiss='modal'>" +
             "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
             $('#modal_body').html(htmlStr);
 

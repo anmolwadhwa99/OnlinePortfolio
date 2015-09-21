@@ -216,7 +216,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
                     </div>\
                 </div> \
                 <div class=\"portfolio-image\"> \
-                    <img style=\"width: 100%;height: auto;vertical-align: middle;\" src=" + image + " class='main-thumbnail'  alt=''> \
+                    <img style=\"width: 100%;height: auto;vertical-align: middle;border:none\" src=" + image + " class='main-thumbnail'  alt=''> \
                 </div>\
             </a> \
             <div class='portfolio-caption'> \
@@ -329,6 +329,7 @@ function viewQual(qual_id){
     location.href = "#viewQualModal";
     $('#frameViewQual').attr('src', 'view_qual.html');
     getQualById(qual_id, function() {
+        $('#client-logo').attr('src', "");
         var qual = this;
         $('#client-logo').attr('src', qual.clientImage);
     });
