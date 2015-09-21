@@ -14,6 +14,7 @@ import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Image;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
+import org.se761.project.onlineportfolio.model.Status;
 
 public class QualificationDatabase {
 	
@@ -101,9 +102,9 @@ public class QualificationDatabase {
 
 		List<Qualification> quals = query.list();
 		
-		//Remove any anonymous quals (non - public)
+		//Remove any confidential quals
 		for (int i =0; i<quals.size(); i++){
-			if (quals.get(i).isAnonymous() == true){
+			if (quals.get(i).getStatus().equals(Status.confidential)){
 				quals.remove(i);
 			}
 		}
