@@ -212,7 +212,8 @@
               item,
               slide;
 
-          //slider.controlNavScaffold = $('<ol class="'+ namespace + 'control-nav ' + namespace + type + '"></ol>');
+          slider.controlNavScaffold = $('<ol class="'+ namespace + 'control-nav ' + namespace + type + '"></ol>');
+
             //"'style='transform:translateY(-145%)' "'
 
 
@@ -235,26 +236,26 @@
 
           methods.controlNav.active();
 
-          //slider.controlNavScaffold.delegate('a, img', eventType, function(event) {
-          //  event.preventDefault();
-          //
-          //  if (watchedEvent === "" || watchedEvent === event.type) {
-          //    var $this = $(this),
-          //        target = slider.controlNav.index($this);
-          //
-          //    if (!$this.hasClass(namespace + 'active')) {
-          //      slider.direction = (target > slider.currentSlide) ? "next" : "prev";
-          //      slider.flexAnimate(target, slider.vars.pauseOnAction);
-          //    }
-          //  }
-          //
-          //  // setup flags to prevent event duplication
-          //  if (watchedEvent === "") {
-          //    watchedEvent = event.type;
-          //  }
-          //  methods.setToClearWatchedEvent();
-          //
-          //});
+          slider.controlNavScaffold.delegate('a, img', eventType, function(event) {
+            event.preventDefault();
+
+            if (watchedEvent === "" || watchedEvent === event.type) {
+              var $this = $(this),
+                  target = slider.controlNav.index($this);
+
+              if (!$this.hasClass(namespace + 'active')) {
+                slider.direction = (target > slider.currentSlide) ? "next" : "prev";
+                slider.flexAnimate(target, slider.vars.pauseOnAction);
+              }
+            }
+
+            // setup flags to prevent event duplication
+            if (watchedEvent === "") {
+              watchedEvent = event.type;
+            }
+            methods.setToClearWatchedEvent();
+
+          });
         },
         setupManual: function() {
           slider.controlNav = slider.manualControls;
@@ -288,7 +289,7 @@
           slider.controlNav.removeClass(namespace + "active").eq(slider.animatingTo).addClass(namespace + "active");
         },
         update: function(action, pos) {
-          if (slider.pagingCount > 1){// && action === "add") {
+          if (slider.pagingCount > 1 && action === "add") {
             slider.controlNavScaffold.append($('<li><a>' + slider.count + '</a></li>'));
           } else if (slider.pagingCount === 1) {
             slider.controlNavScaffold.find('li').remove();
