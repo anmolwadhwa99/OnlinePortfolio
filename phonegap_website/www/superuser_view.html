@@ -84,11 +84,11 @@
         function addAdmin(){
             var acName = $('#admin_name').val();
             var pw = $('#admin_pw').val();
-            var isSuperUser = $('input[name=admin_access]:checked').val();
+            var isSuperUser = $('input[name=admin_access]:checked');
 
             var adminGroups = $('#selectAdminGroups').val();
 
-            insertAccount('true', acName, pw, isSuperUser, function(){
+            insertAccount(true, acName, pw, isSuperUser, function(){
                 var act = this;
                 $.each(adminGroups, function(i, val) {
                     assignAccountToAdminGroup(val, act.accountId); // Assigning account to each selected group
@@ -146,7 +146,7 @@
             $('#admin_name').val(name);
             $('#admin_pw').val(pw);
 
-            if(superStatus === true){
+            if(superStatus == true){
                 $('#admin_special').prop('checked',true);
             }else{
                 $('#admin_normal').prop('checked',true);
@@ -209,13 +209,18 @@
                 if(groups.length > 0 && groups !== null) {
                     $.each(groups, function (i, val) {
 
+                        var agName = "";
+                        if(val.name){
+                            agName = val.name;
+                        }
+
                         var active = "";
                         if(val.isActive){
                             active = val.isActive;
                         }
 
-                        table.row.add([val.name,
-                            '<button type="button" data-toggle="modal" data-target="#modalAG" onclick="loadEditAG('+val.id+',\''+val.name+'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                        table.row.add([agName,
+                            '<button type="button" data-toggle="modal" data-target="#modalAG" onclick="loadEditAG('+val.id+',\''+agName+'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
@@ -239,7 +244,12 @@
                             active = val.isActive;
                         }
 
-                        table.row.add([val.accountName, superuser,
+                        var accountName = "";
+                        if(val.accountName){
+                            accountName = val.accountName;
+                        }
+
+                        table.row.add([accountName, superuser,
                             '<button type="button" onclick="loadEditAdmin('+val.accountId+',\''+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
@@ -253,9 +263,19 @@
                 var quals = this;
                 if(quals.length > 0 && quals !== null) {
                     $.each(quals, function (i, val) {
+                        var projectName = "";
+                        if(val.projectName){
+                            projectName = val.projectName;
+                        }
+
                         var subtitle = "";
                         if(val.subtitle){
                             subtitle = val.subtitle;
+                        }
+
+                        var clientName = "";
+                        if(val.clientName){
+                            clientName = val.clientName;
                         }
 
                         var anonymousName = "";
@@ -278,7 +298,7 @@
                             active = val.isActive;
                         }
 
-                        table.row.add([val.projectName,subtitle,val.clientName,anonymousName,anonymousState,qualStatus,
+                        table.row.add([projectName,subtitle,clientName,anonymousName,anonymousState,qualStatus,
                             active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
@@ -298,7 +318,12 @@
                             active = val.isActive;
                         }
 
-                        table.row.add([val.projectGroupName,
+                        var projectName = "";
+                        if(val.projectGroupName){
+                            projectName = val.projectGroupName;
+                        }
+
+                        table.row.add([projectName,
                             active,'<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
@@ -317,7 +342,12 @@
                             active = val.isActive;
                         }
 
-                        table.row.add([val.accountName,
+                        var accountName = "";
+                        if(val.accountName){
+                            accountName = val.accountName;
+                        }
+
+                        table.row.add([accountName,
                             active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
@@ -354,6 +384,7 @@
                 "language": {
                     "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
                 }
+
             });
             tableAdmins = $('#tableAdmins').DataTable({
                 "pagingType": "full_numbers",
