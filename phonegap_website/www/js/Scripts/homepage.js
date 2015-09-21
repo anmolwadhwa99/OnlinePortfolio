@@ -336,7 +336,7 @@ function viewQual(qual_id){
 function getQuals(){
     getQualsByAccount(accountId, function(){
         var quals = this;
-
+        alert_type = "info";
         var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
         htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
 
