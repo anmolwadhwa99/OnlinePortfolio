@@ -207,7 +207,8 @@ function verifyAccount(pw,callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                return null;
+                alert_type = 'error';
+                alert("Invalid Account");
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -256,6 +257,7 @@ function getQualById(id, callback){
             if (req.status != 200) {
                 return null;
             }
+
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
@@ -903,6 +905,7 @@ function assignAccountToProjectGroup(pgId, acId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
+
                 return null;
             }
             // Request successful, read the response

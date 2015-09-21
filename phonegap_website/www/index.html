@@ -48,8 +48,20 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts/webServices.js"></script>
 
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+
     <script type="application/javascript">
         $(document).ready(function (){
+
+            window.alert = function(message) {
+                new PNotify({
+                    title: 'Alert',
+                    text: message,
+                    type: alert_type
+                });
+            };
+
             getQuals();
             var saved = window.localStorage.getItem('onlinePortfolioPass');
 
