@@ -215,7 +215,9 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
                             <i class = 'fa fa-trash-o fa-3x'> </i>\
                     </div>\
                 </div> \
-                <img src=" + image + " class='main-thumbnail'  alt=''> \
+                <div class=\"portfolio-image\"> \
+                    <img style=\"width: 100%;height: auto;vertical-align: middle;\" src=" + image + " class='main-thumbnail'  alt=''> \
+                </div>\
             </a> \
             <div class='portfolio-caption'> \
                 <h4>"+name+"</h4> \
