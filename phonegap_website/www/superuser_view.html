@@ -470,10 +470,10 @@
             <input type="hidden" id="modal_id">
             <div class="modal-footer">
                 <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="modalDeactivateAG" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateAcct" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateQual" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateProj" type="button" class="btn btn-danger" onclick="alert($('#modal_id').val());" data-dismiss="modal">Deactivate</button>
+                <button id="modalDeactivateAG" type="button" class="btn btn-danger" onclick="deleteAdminGroup($('#modal_id').val());reloadAG();" data-dismiss="modal">Deactivate</button>
+                <button id="modalDeactivateAcct" type="button" class="btn btn-danger" onclick="deleteAccount($('#modal_id').val());reloadAdmins();reloadClients();" data-dismiss="modal">Deactivate</button>
+                <button id="modalDeactivateQual" type="button" class="btn btn-danger" onclick="deleteQual($('#modal_id').val());reloadQuals();" data-dismiss="modal">Deactivate</button>
+                <button id="modalDeactivateProj" type="button" class="btn btn-danger" onclick="deleteProjectGroup($('#modal_id').val());reloadProjects();" data-dismiss="modal">Deactivate</button>
                 <button id="modalReactivateAG" type="button" class="btn btn-primary" onclick="reactivateAdminGroup($('#modal_id').val());reloadAG();" data-dismiss="modal">Reactivate</button>
                 <button id="modalReactivateQual" type="button" class="btn btn-primary" onclick="reactivateQual($('#modal_id').val());reloadQuals();" data-dismiss="modal">Reactivate</button>
                 <button id="modalReactivateAcct" type="button" class="btn btn-primary" onclick="reactivateAccount($('#modal_id').val());reloadAdmins();reloadClients();" data-dismiss="modal">Reactivate</button>
