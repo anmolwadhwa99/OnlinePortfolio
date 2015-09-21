@@ -52,6 +52,8 @@ public class QualData extends Server{
 		eaSports.setRelevanceToClient("We used our assessment to develop a comprehensive 3-year CRM roadmap and incorporate it into the annual operating plan. The roadmap created internal alignment on CRM definition, vision, and priorities and extended vision to the technical environment required to enable and support the priorities and gained CIO support and sponsorship.");
 		eaSports.setServiceLine("Technology");
 		eaSports.setStatus(Status.open);
+		eaSports.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
+		eaSports.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792695/Homer.png");
 		qualData.addQual(eaSports);
 		
 		//Apple
@@ -64,6 +66,8 @@ public class QualData extends Server{
 		apple.setRelevanceToClient("Our work for Apple exemplifies our ability to tackle large, scalable, enterprise, and service oriented architecture projects - skills that directly apply to building backend services for supporting mobile apps.");
 		apple.setServiceLine("Technology");
 		apple.setStatus(Status.confidential);
+		apple.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
+		apple.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792771/Louis.png");
 		qualData.addQual(apple);
 		
 		//AVG
@@ -75,6 +79,8 @@ public class QualData extends Server{
 		avg.setSolutionStatement("Deloitte provided strategic guidance, program management. Adobe CQ WCM development, hybris e-commerce development, middleware/integration development, and testing services to AVG to help scale their digital platform to serve over 300M global customers.");
 		avg.setRelevanceToClient("The result: centralized content management and promotion management with rapid optimization, multivariate testing, and localization, advanced user segmentation, targeting, and personalization capabilities, enterprise class product management platform for managing complicated product bundles, vouchers, and discounting on a region by region basis, scalability and flexibility for assimilation of new products and business lines and integrated customer service for shopping cart management, promotions, and cross/up-selling over the phone or through the web.");
 		avg.setServiceLine("Consulting");
+		avg.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
+		avg.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792694/Trump.jpg");
 		qualData.addQual(avg);
 		
 		//Large Oil and Gas
@@ -86,6 +92,8 @@ public class QualData extends Server{
 		oilAndGas.setSolutionStatement("Deloitte assisted our client in delivering a digital platform that supported online business and new customer acquisition, starting in Thailand, Singapore and Malaysia. To accomplish these goals, the team built a responsive B2B site on hybris technology and Real-time integrations with backend applications like SAP and Siebel CRM using SAP Process Orchestration (PO) as the ESB layer.");
 		oilAndGas.setRelevanceToClient("Since the launch of the new solution, our client has established a consistent digital experience across brands, products, geographies and communication channels for both internal and external F&L customers, Streamlined order management experience enhanced by a rigorous back office rules-engine and product catalog logic and Robust account management functionality to empower customers to self-serve.");
 		oilAndGas.setServiceLine("Consulting");
+		oilAndGas.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
+		oilAndGas.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792691/Heisenberg.jpg");
 		qualData.addQual(oilAndGas);
 		
 		
