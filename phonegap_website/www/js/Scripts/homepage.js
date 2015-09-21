@@ -200,7 +200,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         viewFunction = '\' onclick =' +viewFunc + '\"';
     }
     return "<div class='col-md-3 col-sm-6 portfolio-item'> \
-              <a href='#' class='portfolio-link' data-toggle='modal'> \
+              <a href='#' class='portfolio-link' data-toggle='modal' style='height: 210px;'> \
                 <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
                         <i class='fa fa-search-plus fa-7x'></i>\
