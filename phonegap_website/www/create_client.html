@@ -43,8 +43,22 @@
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
 
+    <!--pNotify related links-->
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+
     <script type="application/javascript">
         $(document).ready(function () {
+
+            // Wrapping of default alert
+            window.alert = function(message) {
+                new PNotify({
+                    title: 'Alert',
+                    text: message,
+                    type: alert_type
+                });
+            };
+
             var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
             primaryCW.input($("#proj_colour_primary")[0]);
 
