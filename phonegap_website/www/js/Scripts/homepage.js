@@ -195,12 +195,12 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     var image = determineItemImage(clientImg, projectImg, type);
     var viewFunction = "";
     if(isNumeric(viewFunc)) {
-        viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+        viewFunction = ' portfolio-link\' href=\"#viewQualModal\" style=\"height: 210px;\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
     }else{
         viewFunction = '\' onclick =' +viewFunc + '\"';
     }
     return "<div class='col-md-3 col-sm-6 portfolio-item'> \
-              <a href='#' class='portfolio-link' data-toggle='modal'> \
+              <a href='#' class='portfolio-link' data-toggle='modal' style='height: 210px'> \
                 <div class='portfolio-hover'> \
                     <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
                         <i class='fa fa-search-plus fa-7x'></i>\
@@ -222,6 +222,8 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             </div>\
         </div>"
 }
+
+
 
 function determineItemImage(clientImage, projectImage, type){
 
@@ -324,6 +326,10 @@ function viewQual(qual_id){
     sessionStorage.setItem("qual_id", qual_id);
     location.href = "#viewQualModal";
     $('#frameViewQual').attr('src', 'view_qual.html');
+    getQualById(qual_id, function() {
+        var qual = this;
+        $('#client-logo').attr('src', qual.clientImage);
+    });
 
 }
 

@@ -52,15 +52,32 @@
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
                 var clientName = "";
-            if(qual.isAnonymous){
-                clientName = qual.qual_anonymous;
-            }else {
-                clientName = qual.clientName;
-            }
-            htmlStr += "<h2 id='heading' style=\"text-align: center; margin-bottom: 20px;font-size: 3em;\">"+qual.projectName+"</h2> \
-            <div class='col-md-6'> \
-                <div class='image-upload'> \
-                    <img id='qual_product_service_img' class='img-rounded fill' src='imgs/noPreview.png' /> \
+
+                if(qual.isAnonymous){
+                    clientName = qual.qual_anonymous;
+                }else {
+                    clientName = qual.clientName;
+                }
+
+                var image = "";
+
+
+                if (qual.projectImage == null) {
+                    if (qual.clientImage == null) {
+                        image = "imgs/noPreview.png";
+                    } else {
+                        image = qual.clientImage;
+                    }
+                    image = "imgs/noPreview.png";
+                }else{
+                    image = qual.projectImage;
+                }
+
+
+                htmlStr += "</div><h2 id='heading' style=\"text-align: center; margin-bottom: 20px;font-size: 3em;\">"+qual.projectName+"</h2> \
+            <div class='col-md-6' > \
+                <div class='image-upload' > \
+                        <img style=\"max-width: 100%; max-height: 100%;\"id='qual_product_service_img' class='img-rounded fill' src='"+ image+"' /> \
                 </div> \
             </div> \
             <div class='col-md-6'> \
@@ -175,8 +192,8 @@
                             </div> \
                         </div>"
 
-            htmlStr += "<button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
-            "<i class='fa fa-times'></i>Close Qual</button></div>";
+            htmlStr += "<div class='row'><div class='col-md-2'><button type='button'  style=\"display: block; margin: 0 auto;\" class='btn btn-lg' data-dismiss='modal'>" +
+            "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
             $('#modal_body').html(htmlStr);
 
 
