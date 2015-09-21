@@ -326,6 +326,10 @@ function viewQual(qual_id){
     sessionStorage.setItem("qual_id", qual_id);
     location.href = "#viewQualModal";
     $('#frameViewQual').attr('src', 'view_qual.html');
+    getQualById(qual_id, function() {
+        var qual = this;
+        $('#client-logo').attr('src', qual.clientImage);
+    });
 
 }
 
