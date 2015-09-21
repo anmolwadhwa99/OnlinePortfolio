@@ -316,6 +316,41 @@ function getAllQuals(callback){
     req.send();
 }
 
+function getAllPublicQuals(callback){
+    var methodURL = url + _qual + "/" + "public";
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert_type = 'error';
+                alert("Unable to return Qual");
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var quals = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                quals.push(new Qual(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(quals);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
 function getQualsByAccount(acId, callback){
     var methodURL = url + _qual + _ac + "/" + acId;
     var method = "GET";
