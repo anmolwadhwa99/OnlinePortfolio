@@ -28,6 +28,14 @@ public class QualificationService {
 		return quals;
 	}
 	
+	/**
+	 * Gets all public qualifications
+	 */
+	public List<Qualification> getAllPublicQuals(){
+		List<Qualification> publicQuals = qualDatabase.getAllPublicQuals();
+		return publicQuals;
+	}
+	
 	
 	/**
 	 * Get all qualifications associated with an admin group
