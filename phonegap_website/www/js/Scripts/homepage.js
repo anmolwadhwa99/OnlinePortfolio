@@ -15,7 +15,7 @@ function search(){
 
     var len = $('#searchBox').outerWidth() + $('#searchIcon').width();
 
-    var resLI = $('#resultLI');
+
     var resUL = $('#resultUL');
     resUL.empty();
 
@@ -35,13 +35,13 @@ function search(){
             case 0: // qual
                 h_ref = '#viewQualModal';
                 toggle = 'modal';
-                on_click = 'viewQual(' + res.id +');';
+                on_click = 'viewQual(' + res.id +');showResults(' + false + ');';
                 break;
             case 1: // project
-                on_click = "openQualsForProject(" + res.id + ", '" + res.value + "')";
+                on_click = 'loadTab("' + '#projects' + '");openQualsForProject(' + res.id + ', "' + res.value + '");showResults(' + false + ');';
                 break;
             case 2: // client
-                on_click = 'getProjectforClient(' + res.id + ')';
+                on_click = 'loadTab("' + '#clients' + '");getProjectforClient(' + res.id + ');showResults(' + false + ');';
                 break;
         }
 
@@ -64,8 +64,15 @@ function search(){
 
     }
 
-    resLI.toggleClass('open',toShow);
+    showResults(toShow)
 
+}
+
+function showResults(toShow){
+    $('#resultLI').toggleClass('open',toShow);
+    if (toShow == false){
+        $("#searchBox").val("");
+    }
 }
 
 function createProjectGroup(projectName) {
@@ -104,10 +111,10 @@ function linkQualsAndProject(){
 }
 
 function getProjects(account_id){
+    accountId = account_id;
 
     getAccountById(account_id, function() {
         var account = this;
-        accountId = account_id;
         getProjectsByClient(account_id, function() {
             var projects = this;
             var htmlStr = "<h1 id='heading'>Projects</h1>";
@@ -229,7 +236,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
 
 function determineItemImage(clientImage, projectImage, type){
 
-    var image = ""
+    var image = "";
     if(type == 'qual'){
         if(projectImage == null){
             if(clientImage == null){
@@ -474,17 +481,27 @@ function loadTab(tab) {
 
 var allProjects = [], allQuals = [], allClients = [];
 
+
+//need to get these according the the account
 function getEverything(){
 
-    getAllQuals(function(){
+    getQualsByAccount(accountId,function(){
         allQuals = this;
     });
-    getAllProjectGroups(function(){
+
+    //it's actually by account but named client for some reason :/
+    getProjectsByClient(accountId,function(){
         allProjects = this;
     });
-    getAllClients(function(){
-        allClients = this;
+
+    getAccountById(accountId, function(){
+       if(this.isAdmin){
+           getAllClients(function(){
+               allClients = this;
+           });
+       }
     });
+
 }
 
 function resetProjID(){

@@ -173,13 +173,18 @@ function doSearch(str, quals, clients, projects){
 
     for (i = 0; i < clients.length; i++){
         var client = clients[i];
-        if (client.accountName.toLowerCase().indexOf(str) > -1){
-            var res = new Results();
-            res.id = client.accountId;
-            res.type = resType.CLIENT;
-            res.value = client.accountName;
+        try {
+            if (client.accountName.toLowerCase().indexOf(str) > -1) {
+                var res = new Results();
+                res.id = client.accountId;
+                res.type = resType.CLIENT;
+                res.value = client.accountName;
 
-            resultArray.push(res);
+                resultArray.push(res);
+            }
+        }catch (e){
+            console.log(i);
+            console.log(client.getInfo());
         }
     }
 
