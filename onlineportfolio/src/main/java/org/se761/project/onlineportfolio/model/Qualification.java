@@ -70,7 +70,7 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String projectImage;
 	
-	private String status; //either "open" or "confidential"
+	private Status status; //either "open" or "confidential"
 	private String serviceLine; //e.g. auditing, consulting, etc
 
 
@@ -114,7 +114,7 @@ public class Qualification {
 			String anonymousName, boolean isActive, String emailButton,
 			String websiteButton, List<AdminGroup> adminGroups,
 			List<ProjectGroup> projGroups, String industry, String tags,
-			String status, String serviceLine) {
+			Status status, String serviceLine) {
 		super();
 		this.qualId = qualId;
 		this.projectName = projectName;
@@ -333,13 +333,13 @@ public class Qualification {
 
 
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
 
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
