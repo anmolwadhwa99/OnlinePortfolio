@@ -77,6 +77,15 @@ public class QualificationResource {
 		return qualificationService.getAllQuals();
 	}
 	
+	/**
+	 * Getting all public qualifications
+	 */
+	@GET
+	@Path("/public")
+	public List<Qualification> getAllPublicQualifications(){
+		return qualificationService.getAllPublicQuals();
+	}
+	
 
 	/**
 	 * Getting all qualifications from admin group 
