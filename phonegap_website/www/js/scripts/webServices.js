@@ -93,6 +93,9 @@ function Account(x){
     this.isAdmin = x.admin;
     this.isSuperUser = x.superUser;
     this.isActive = x.isActive;
+    this.primaryColour = x.primaryColour;
+    this.secondaryColour = x.secondaryColour;
+    this.accentColour = x.accentColour;
 
     this.getInfo = function(){
         return this.accountId + "\n" +
