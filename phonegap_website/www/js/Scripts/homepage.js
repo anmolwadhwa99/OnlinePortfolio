@@ -45,7 +45,6 @@ function search(){
                 break;
         }
 
-        //javascript:ShowOld(2367,146986,2);
         a.setAttribute("href", h_ref);
         a.setAttribute("onclick", on_click);
         a.setAttribute("data-toggle", toggle);
@@ -364,7 +363,6 @@ function getQuals(){
         htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
 
         for (i = 0; i < quals.length; i++) {
-            alert(quals[i].projectImg)
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
