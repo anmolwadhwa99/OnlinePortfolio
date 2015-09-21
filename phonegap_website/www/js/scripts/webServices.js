@@ -217,6 +217,7 @@ function verifyAccount(pw,callback){
             if (req.status != 200) {
                 alert_type = 'error';
                 alert("Invalid Account");
+                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;

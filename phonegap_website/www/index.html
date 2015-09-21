@@ -99,18 +99,22 @@
                     window.localStorage.removeItem('onlinePortfolioPass');
                 }
 
+
                 var account = this;
 
-                sessionStorage.setItem("account_id", account.accountId);
+                if (account != null) {
 
-                getAccountById(account.accountId, function() {
-                    var account = this;
-                    if (account.isAdmin == true) {
-                        location.replace("homepage.html");
-                    } else {
-                        location.replace("homepage_client.html");
-                    }
-                });
+                    sessionStorage.setItem("account_id", account.accountId);
+
+                    getAccountById(account.accountId, function () {
+                        var account = this;
+                        if (account.isAdmin == true) {
+                            location.replace("homepage.html");
+                        } else {
+                            location.replace("homepage_client.html");
+                        }
+                    });
+                }
 
             });
         };
