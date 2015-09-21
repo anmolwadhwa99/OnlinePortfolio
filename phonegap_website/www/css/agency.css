@@ -820,6 +820,25 @@ ul.social-buttons li a:active {
     cursor: pointer;
 }
 
+.portfolio-modal .logo-modal {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 75px;
+    height: 75px;
+    background-color: transparent;
+    padding-left: 30px;
+    max-height: 100%;
+    margin-bottom: 0px;
+
+}
+
+.portfolio-modal .logo-image {
+    width: 80px;
+    height: 80px;
+
+}
+
 .portfolio-modal .close-modal:hover {
     opacity: .3;
 }
