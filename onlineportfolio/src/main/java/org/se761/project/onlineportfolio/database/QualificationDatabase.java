@@ -90,6 +90,36 @@ public class QualificationDatabase {
 	}
 	
 	/**
+	 * Gets all the public quals from the database (for film strip)
+	 */
+	public List<Qualification> getAllPublicQuals(){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String getAllQuery = "FROM Qualification q";
+		Query query = session.createQuery(getAllQuery);
+
+		List<Qualification> quals = query.list();
+		
+		//Remove any anonymous quals (non - public)
+		for (int i =0; i<quals.size(); i++){
+			if (quals.get(i).isAnonymous() == true){
+				quals.remove(i);
+			}
+		}
+		
+		//Check if list is empty
+		if(quals.size() == 0){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("No quals in the database to display.");
+		}
+		
+		session.close();
+		closeSessionFactory();
+		return quals;
+	}
+	
+	/**
 	 * Adding a qualification to the database
 	 */
 	public void addQual(Qualification qual){
