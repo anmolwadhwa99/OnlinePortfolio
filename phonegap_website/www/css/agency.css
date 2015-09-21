@@ -914,7 +914,7 @@ nav {
     font-size: 15px;
     top: 0;
     width: 20em;
-    z-index: 2000;
+    z-index: 1049;
 
     transition: right 0.3s ease-in-out 0s;
     -webkit-transition: right 0.3s ease-in-out 0s;
