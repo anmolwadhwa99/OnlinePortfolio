@@ -534,6 +534,34 @@ function deleteQual(id){
 
 }
 
+function reactivateQual(id){
+    var methodURL = url + _qual + "/" + id;
+    var method = "PUT";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert_type = 'error';
+                alert("Unable to reactivate qual");
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Qual(json).getInfo);
+
+            var s = json;
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
 function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, industry
     , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
     , solutionStatement, status, subtitle, email, website, callback){
@@ -900,6 +928,32 @@ function deleteAccount(id){
 
 }
 
+function reactivateAccount(id){
+    var methodURL = url + _ac + "/" + id;
+    var method = "PUT";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert_type = 'error';
+                alert("Unable to reactivate account");
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Account(json).getInfo);
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
 function assignAccountToAdminGroup(agId, acId){
     var methodURL = url + _ac + _ag + "/" + agId + "/" + acId;
     var method = "POST";
@@ -1198,7 +1252,33 @@ function deleteAdminGroup(id){
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Account(json).getInfo);
+            alert(new AdminGroup(json).getInfo);
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function reactivateAdminGroup(id){
+    var methodURL = url + _ag + "/" + id;
+    var method = "PUT";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert_type = 'error';
+                alert("Unable to reactivate admin group");
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new AdminGroup(json).getInfo);
 
         }
     }
@@ -1441,6 +1521,32 @@ function deleteProjectGroup(id){
 
 }
 
+function reactivateProjectGroup(id){
+    var methodURL = url + _pg + "/" + id;
+    var method = "PUT";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert_type = 'error';
+                alert("Unable to reactivate project group");
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new ProjectGroup(json).getInfo);
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
 // === IMAGES ======================================================
 function insertImage(isActive, publicid, imageType, imageUrl , callback){
     var methodURL = url + _img;
@@ -1629,6 +1735,32 @@ function deleteImage(id){
             if (req.status != 200) {
                 alert_type = 'error';
                 alert("Unable to delete images");
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            alert(new Image(json).getInfo());
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+
+}
+
+function reactivateImage(id){
+    var methodURL = url + _img + "/" + id;
+    var method = "PUT";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                alert_type = 'error';
+                alert("Unable to reactivate image");
                 return null;
             }
             // Request successful, read the response
