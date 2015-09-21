@@ -120,15 +120,15 @@
         };
 
         function getQuals(){
-            getAllClients(function(){
-                var quals = this; //change to quals
+            getAllPublicQuals(function(){
+                var quals = this; //The list of public quals
 
                 var htmlStr="<ul class=\"slides\"> ";
 
 
                 for (i = 0; i < quals.length; i++) {
                     htmlStr += addPortfolioItem(
-                            quals[i].qualId,
+                            quals[i].clientImage,quals[i].qualId,
                             '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
                             '\"alert(\'still need to define this one\')\"',
                             quals[i].projectName,
@@ -225,8 +225,8 @@
         //            return "<li><img src=" + image + "><li>"
         //        }
 
-        function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
-            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+        function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
+//            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
             var viewFunction = "";
             if(isNumeric(viewFunc)) {
