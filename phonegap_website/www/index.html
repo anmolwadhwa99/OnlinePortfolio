@@ -87,14 +87,6 @@
                 $('#frameViewQual').attr('src', '');
             });
 
-            $('#viewQualModal').on('show.bs.modal', function () {
-                $('.modal').css('max-width', $(window).width() * 0.94);
-                $('.modal').css('max-height', $(window).height() * 0.94);
-                $('.modal').css('left', '3%');
-                $('.modal').css('right', '3%');
-                $('.modal').css('top', '3%');
-            });
-
         });
 
         function signin(){
@@ -287,7 +279,7 @@
 
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
-    <section class="slider">
+    <section class="slider" style="padding-top: 0px">
         <div class="flexslider carousel">
             <div id="scroller">
                 <div class="innerScrollArea" id="quals">
@@ -332,7 +324,7 @@
 <!-- /container -->
 <footer class="footer" >
     <div class="container">
-        <p>&copy; 2015 Deloitte New Zealand &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2015 Deloitte New Zealand &middot;</p>
     </div>
 </footer>
 
