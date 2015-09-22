@@ -29,7 +29,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- iFrame Resizing Parent -->
-    <script src="js/iframeResizer.min.js"></script>
+
 
     <!-- filmStrip -->
     <link rel="stylesheet" href="filmStripSlider/flexslider.css" type="text/css" media="screen" />
@@ -59,7 +59,7 @@
 
     <script src="js/pace.min.js"></script>
     <link href="css/atom.css" rel="stylesheet">
-
+    <script src="js/iframeResizer.min.js"></script>
 
 
     <script type="application/javascript">
@@ -85,7 +85,7 @@
             //Focuses on
 
             $('#frameViewQual').iFrameResize();//Content in iframe,determines the size of the iframe appropriatly.
-
+//            iFrameResize();
             $('#viewQualModal').on('hidden.bs.modal', function () {   //unloading
                 $('#frameViewQual').attr('src', '');
             });
@@ -251,7 +251,7 @@
             }
             return "<li>\
             <div> \
-              <a href='#' class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + " )' > \
+              <a href='#viewQualModal' class='portfolio-link' data-toggle='modal' onclick='viewQual(" + viewFunc + " )' > \
                     <img src=" + image + " alt=''> \
               </a> \
             </div>\
@@ -336,8 +336,7 @@
 <!--FlexSlider-->
 
 
-<script defer src="filmStripSlider/jquery.flexslider.js">
-</script>
+<script defer src="filmStripSlider/jquery.flexslider.js"></script>
 
 <!--filmStrip========================================== -->
 
@@ -393,6 +392,7 @@
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 
 
