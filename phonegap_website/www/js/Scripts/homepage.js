@@ -1,6 +1,7 @@
 //Searches for quals, projects, clients or whatever it does
 
 var accountId = -1;
+var isClient = false;
 
 function search(){
     var text = $("#searchBox").val();
@@ -145,6 +146,9 @@ function getProjects(account_id){
 
     getAccountById(account_id, function() {
         var account = this;
+
+        isClient = !account.isAdmin;
+
         getProjectsByClient(account_id, function() {
             var projects = this;
             var htmlStr = "<h1 id='heading'>Projects</h1>";
@@ -266,8 +270,10 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         <div class='portfolio-hover'> \
             <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
                 <i class='fa fa-search-plus fa-7x'></i>\
-            </div>\
-            <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+            </div>";
+
+    if (!isClient) {
+        str += "\<div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
                 <i class='fa fa-plus fa-3x'></i>\
             </div>\
             <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
@@ -275,14 +281,12 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             </div>\
             <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
                     <i class = 'fa fa-trash-o fa-3x'> </i>\
-            </div>\
-    </div> \
-    <div class=\"portfolio-image\">";
-
-
-
-    str += "<img id='itemPic' style=\"vertical-align: middle;border:none\" src=" + image + " class='main-thumbnail'  alt=''> \
-                </div>\
+            </div>";
+    }
+    str +="</div>\
+    <div class=\"portfolio-image\">\
+    <img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">" +
+        "</div>\
             </a> \
             <div class='portfolio-caption'> \
                 <h4>"+name+"</h4> \
