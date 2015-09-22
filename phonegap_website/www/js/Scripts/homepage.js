@@ -38,10 +38,10 @@ function search(){
                 on_click = 'viewQual(' + res.id +');showResults(' + false + ');';
                 break;
             case 1: // project
-                on_click = 'openQualsForProject(' + res.id + ', "' + res.value + '");showResults(' + false + ',"' + '#projectsTab' + '");';
+                on_click = 'openQualsForProject(' + res.id + ', "' + res.value + '");showResults(' + false + ',"' + '#projects' + '");';
                 break;
             case 2: // client
-                on_click = 'getProjectforClient(' + res.id + ');showResults(' + false + ',"' + '#clientsTab' + '");';
+                on_click = 'getProjectforClient(' + res.id + ');showResults(' + false + ',"' + '#clients' + '");';
                 break;
         }
 
@@ -67,25 +67,42 @@ function search(){
 
 }
 
-function showResults(toShow, tab){
-    $('#resultLI').toggleClass('open',toShow);
-    if (toShow == false){
+function showResults(toShow, tab) {
+    $('#resultLI').toggleClass('open', toShow);
+    if (toShow == false) {
         $("#searchBox").val("");
     }
 
-   if (tab == "#projectsTab") {
 
-        $('#clientsTab').parent().removeClass('active'); // remove active class from tabs
-        $('#qualsTab').parent().removeClass('active'); // remove active class from tabs
-        $(tab).parent().addClass('active'); // add active class to clicked tab
+    if (tab == "#quals") {
+        $('#clients').removeClass('active'); // remove active class from tabs
+        $('#projects').removeClass('active'); // remove active class from tabs
+        $(tab).addClass('active');
+
+    } else if (tab == "#projects") {
+        $('#clientsTab').removeClass('active');
+        $('#qualsTab').removeClass('active');
+        $('#projectsTab').addClass('active');
+
+        $('#clients').removeClass('active'); // remove active class from tabs
+        $('#quals').removeClass('active'); // remove active class from tabs
+        $(tab).addClass('active'); // add active class to clicked tab
 
 
-    } else if (tab == "#clientsTab") {
-        $('#projectsTab').parent().removeClass('active'); // remove active class from tabs
-        $('#qualsTab').parent().removeClass('active'); // remove active class from tabs
-        $(tab).parent().addClass('active'); // add active class to clicked tab
+    } else if (tab == "#clients") {
+        $('#clientsTab').addClass('active');
+        $('#qualsTab').removeClass('active');
+        $('#projectsTab').removeClass('active');
+
+        $('#projects').removeClass('active'); // remove active class from tabs
+        $('#quals').removeClass('active'); // remove active class from tabs
+        $(tab).addClass('active'); // add active class to clicked tab
+
+    } else {
+        error("invalid tab");
     }
 
+    getEverything();
 }
 
 function createProjectGroup(projectName) {
@@ -210,7 +227,7 @@ function confirmArchive(archiveType, itemID){
 };
 
 function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
-   // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+    // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
     var image = determineItemImage(clientImg, projectImg, type);
     var viewFunction = "";
@@ -507,11 +524,11 @@ function getEverything(){
     });
 
     getAccountById(accountId, function(){
-       if(this.isAdmin){
-           getAllClients(function(){
-               allClients = this;
-           });
-       }
+        if(this.isAdmin){
+            getAllClients(function(){
+                allClients = this;
+            });
+        }
     });
 
 }
