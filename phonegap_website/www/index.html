@@ -82,9 +82,11 @@
                 $('input[name=signin_password]').val(saved);
             }
 
-            $('#frameViewQual').iFrameResize();
+            //Focuses on
 
-            $('#viewQualModal').on('hidden.bs.modal', function () {  //NEED
+            $('#frameViewQual').iFrameResize();//Content in iframe,determines the size of the iframe appropriatly.
+
+            $('#viewQualModal').on('hidden.bs.modal', function () {   //unloading
                 $('#frameViewQual').attr('src', '');
             });
 
@@ -128,6 +130,7 @@
 
             });
         }
+
         function viewQual(qual_id){
             console.log(qual_id);
             sessionStorage.setItem("qual_id", qual_id);
@@ -248,7 +251,7 @@
             }
             return "<li>\
             <div> \
-              <a href='#' class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' > \
+              <a href='#' class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + " )' > \
                     <img src=" + image + " alt=''> \
               </a> \
             </div>\
