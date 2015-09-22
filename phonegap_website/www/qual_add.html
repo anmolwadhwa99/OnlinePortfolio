@@ -287,12 +287,12 @@
                     $("#qual_service_line").val(qual.serviceLine);
                     $('#qual_tags').val(qual.tags);
 
-                    if(val.isAnonymous == true){
+                    if(qual.isAnonymous == true){
                         $('#qual_is_not_anonymous').attr('checked', false);
                         $('#qual_is_anonymous').attr('checked', true).trigger('click');
                     }
 
-                    if(val.status == "open"){
+                    if(qual.status == "open"){
                         $('#qual_private').attr('checked', false);
                         $('#qual_public').attr('checked', true).trigger('click');
                     }
