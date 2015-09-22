@@ -84,7 +84,7 @@
         function addAdmin(){
             var acName = $('#admin_name').val();
             var pw = $('#admin_pw').val();
-            var isSuperUser = $('input[name=admin_access]:checked');
+            var isSuperUser = $('#admin_special').is(':checked');
 
             var adminGroups = $('#selectAdminGroups').val();
 
@@ -98,10 +98,12 @@
         function updateAdmin(){
             var acName = $('#admin_name').val();
             var pw = $('#admin_pw').val();
-            var isSuperUser = $('input[name=admin_access]:checked').val();
+            var isSuperUser = $('#admin_special').is(':checked');
 
             var adminGroups = $('#selectAdminGroups').val();
 
+            alert_type = "info";
+            alert("Updating admin: " + acName + "\nPassword: " + pw + "\nSuperuser Status: " + isSuperUser + "\nAdmin Groups: " + adminGroups);
         }
         function loadAdminAdd(){
             $('#modalAdminTitle').text("Add Admin Account");
@@ -116,6 +118,9 @@
         function updateAdminGroup(){
             var id = $('#ag_id').val();
             var ag_name = $('#ag_name').val();
+
+            alert_type = "info";
+            alert("Updating admin group: " + ag_name);
         }
         function loadAGAdd(){
             $('#modalTitleAG').text("Create Admin Group");
@@ -147,9 +152,11 @@
             $('#admin_pw').val(pw);
 
             if(superStatus == true){
-                $('#admin_special').prop('checked',true);
+                $('#admin_normal').attr('checked', false);
+                $('#admin_special').attr('checked', true).trigger('click');
             }else{
-                $('#admin_normal').prop('checked',true);
+                $('#admin_special').attr('checked', false);
+                $('#admin_normal').attr('checked', true).trigger('click');
             }
         }
 
@@ -576,11 +583,11 @@
 
                         <div class="btn-group-justified" data-toggle="buttons">
                             <label class="btn btn-default active">
-                                <input type="radio" id="admin_normal" name="admin_access" value="false"
+                                <input type="radio" id="admin_normal" name="admin_access"
                                        checked="checked"/><i class="fa fa-lock"></i> Normal
                             </label>
                             <label class="btn btn-default">
-                                <input type="radio" id="admin_special" name="admin_access" value="true"/>
+                                <input type="radio" id="admin_special" name="admin_access"/>
                                 <i class="fa fa-unlock"></i> Superuser
                             </label>
                         </div>
