@@ -224,45 +224,73 @@ function confirmArchive(archiveType, itemID){
     }else{
         return; // Default if somehow unknown type
     }
-};
+}
 
 function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
     // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
+    var locHeight = 210;
+    var locWidth = 295;
     var image = determineItemImage(clientImg, projectImg, type);
+
+    var newImg = new Image();
+    newImg.src = image;
+    var heightLarger = false;
+
+    setTimeout(function(){
+        var height = newImg.height;
+        var width = newImg.width;
+        heightLarger = (height >= locHeight);
+
+        var w = '100%';
+        var h = 'auto';
+        if (heightLarger){
+            h = '100%';
+            w = 'auto';
+        }
+
+        $('#itemPic').css('width', w);
+        $('#itemPic').css('height', h);
+    }, 100);
+
+
     var viewFunction = "";
     if(isNumeric(viewFunc)) {
         viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
     }else{
         viewFunction = '\' onclick =' +viewFunc + '\"';
     }
-    return "<div class='col-md-3 col-sm-6 portfolio-item'> \
-              <a href='#' class='portfolio-link' data-toggle='modal' > \
-                <div class='portfolio-hover'> \
-                    <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
-                        <i class='fa fa-search-plus fa-7x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
-                        <i class='fa fa-plus fa-3x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
-                            <i class='fa fa-pencil fa-3x'></i>\
-                    </div>\
-                    <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
-                            <i class = 'fa fa-trash-o fa-3x'> </i>\
-                    </div>\
-                </div> \
-                <div class=\"portfolio-image\"> \
-                    <img style=\"width: 100%;height: auto;vertical-align: middle;border:none\" src=" + image + " class='main-thumbnail'  alt=''> \
+    var str = "\
+    <div class='col-md-3 col-sm-6 portfolio-item'> \
+        <a href='#' class='portfolio-link' data-toggle='modal' > \
+        <div class='portfolio-hover'> \
+            <div class='portfolio-hover-content viewIcon" + viewFunction + ">\
+                <i class='fa fa-search-plus fa-7x'></i>\
+            </div>\
+            <div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                <i class='fa fa-plus fa-3x'></i>\
+            </div>\
+            <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+                    <i class='fa fa-pencil fa-3x'></i>\
+            </div>\
+            <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
+                    <i class = 'fa fa-trash-o fa-3x'> </i>\
+            </div>\
+    </div> \
+    <div class=\"portfolio-image\">";
+
+
+
+    str += "<img id='itemPic' style=\"vertical-align: middle;border:none\" src=" + image + " class='main-thumbnail'  alt=''> \
                 </div>\
             </a> \
             <div class='portfolio-caption'> \
                 <h4>"+name+"</h4> \
             </div>\
-        </div>"
+        </div>";
+
+    return str;
 }
-
-
 
 function determineItemImage(clientImage, projectImage, type){
 
@@ -283,8 +311,8 @@ function determineItemImage(clientImage, projectImage, type){
     }else if(type == 'project'){
         return "img/portfolio/startup-framework.png";
     }
-
 }
+
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);

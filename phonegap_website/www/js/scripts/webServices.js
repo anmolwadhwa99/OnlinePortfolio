@@ -117,7 +117,7 @@ function AdminGroup(x){
     }
 }
 
-function Image(x){
+function Pic(x){
     this.active = x.active;
     this.imageId = x.imageId;
     this.publicId = x.publicId;
@@ -477,7 +477,7 @@ function getImagesForQual(qId, callback){
             var json = JSON.parse(resp);
 
             for (i = 0; i < json.length; i++ ){
-                imgs.push(new Image(json[i]));
+                imgs.push(new Pic(json[i]));
             }
 
             if(typeof callback == 'function'){
@@ -1606,7 +1606,7 @@ function insertImage(isActive, publicid, imageType, imageUrl , callback){
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            var img = new Image(json);
+            var img = new Pic(json);
 
             if (typeof callback == 'function'){
                 callback.apply(img.imageId);
@@ -1652,7 +1652,7 @@ function getImageById(id, callback){
             var json = JSON.parse(resp);
             if(typeof callback == 'function'){
 
-                callback.apply(new Image(json));
+                callback.apply(new Pic(json));
             }
 
         }
@@ -1683,7 +1683,7 @@ function getAllImages(callback) {
             var json = JSON.parse(resp);
 
             for (i = 0; i < json.length; i++ ){
-                imgs.push(new Image(json[i]));
+                imgs.push(new Pic(json[i]));
             }
 
             if(typeof callback == 'function'){
@@ -1717,7 +1717,7 @@ function getAllClientImages(callback) {
             var json = JSON.parse(resp);
 
             for (i = 0; i < json.length; i++ ){
-                imgs.push(new Image(json[i]));
+                imgs.push(new Pic(json[i]));
             }
 
             if(typeof callback == 'function'){
@@ -1751,7 +1751,7 @@ function getAllProjectImages(callback) {
             var json = JSON.parse(resp);
 
             for (i = 0; i < json.length; i++ ){
-                imgs.push(new Image(json[i]));
+                imgs.push(new Pic(json[i]));
             }
 
             if(typeof callback == 'function'){
@@ -1781,7 +1781,7 @@ function deleteImage(id){
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Image(json).getInfo());
+            alert(new Pic(json).getInfo());
 
         }
     }
@@ -1807,7 +1807,7 @@ function reactivateImage(id){
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Image(json).getInfo());
+            alert(new Pic(json).getInfo());
 
         }
     }
@@ -1834,7 +1834,7 @@ function assignImageToQual(iId, qId, callback){
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            var img = new Image(json);
+            var img = new Pic(json);
 
             if (typeof callback == 'function'){
                 callback.apply(img.id);
