@@ -12,13 +12,20 @@
 
   z-index: 2000;
   position: fixed;
-  height: 60px;
-  width: 100px;
+  height: 100%;
+  width: 100%;
   margin: auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+
+  /*background-color: #fed136;*/
+  /*opacity: 0.63;*/
+
+  background-image: url('ajax-loader1.gif');
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .pace .pace-progress {
@@ -33,10 +40,10 @@
 }
 
 .pace .pace-progress:before {
-  content: "Loading";
+  /*content: "Loading";*/
   text-align: center;
   color: #020202;
-  background: #29d;
+  /*background: #29d;*/
   border-radius: 50%;
   font-family: "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -69,7 +76,7 @@
 
 .pace .pace-activity {
   border-radius: 50%;
-  border: 5px solid #29d;
+  /*border: 5px solid #29d;*/
   content: ' ';
   display: block;
   position: absolute;
@@ -81,7 +88,7 @@
 
 .pace .pace-activity:after {
   border-radius: 50%;
-  border: 5px solid #29d;
+  /*border: 5px solid #29d;*/
   content: ' ';
   display: block;
   position: absolute;
@@ -98,7 +105,7 @@
 
 .pace .pace-activity:before {
   border-radius: 50%;
-  border: 5px solid #29d;
+  /*border: 5px solid #29d;*/
   content: ' ';
   display: block;
   position: absolute;
@@ -113,19 +120,19 @@
   transform: rotate(120deg);
 }
 
-@-webkit-keyframes pace-theme-center-atom-spin {
-  0%   { -webkit-transform: rotate(0deg) }
-  100% { -webkit-transform: rotate(359deg) }
-}
-@-moz-keyframes pace-theme-center-atom-spin {
-  0%   { -moz-transform: rotate(0deg) }
-  100% { -moz-transform: rotate(359deg) }
-}
-@-o-keyframes pace-theme-center-atom-spin {
-  0%   { -o-transform: rotate(0deg) }
-  100% { -o-transform: rotate(359deg) }
-}
-@keyframes pace-theme-center-atom-spin {
-  0%   { transform: rotate(0deg) }
-  100% { transform: rotate(359deg) }
-}
+/*@-webkit-keyframes pace-theme-center-atom-spin {*/
+  /*0%   { -webkit-transform: rotate(0deg) }*/
+  /*100% { -webkit-transform: rotate(359deg) }*/
+/*}*/
+/*@-moz-keyframes pace-theme-center-atom-spin {*/
+  /*0%   { -moz-transform: rotate(0deg) }*/
+  /*100% { -moz-transform: rotate(359deg) }*/
+/*}*/
+/*@-o-keyframes pace-theme-center-atom-spin {*/
+  /*0%   { -o-transform: rotate(0deg) }*/
+  /*100% { -o-transform: rotate(359deg) }*/
+/*}*/
+/*@keyframes pace-theme-center-atom-spin {*/
+  /*0%   { transform: rotate(0deg) }*/
+  /*100% { transform: rotate(359deg) }*/
+/*}*/
