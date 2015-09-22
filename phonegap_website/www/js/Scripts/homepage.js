@@ -22,7 +22,7 @@ function search(){
     for(i = 0; i < searchResults.length ; i++) {
         var res = new Results();
         res = searchResults[i];
-        console.log(res.value);
+        //console.log(res.value);
 
         var li = document.createElement('li');
         var a = document.createElement("a");
@@ -38,10 +38,10 @@ function search(){
                 on_click = 'viewQual(' + res.id +');showResults(' + false + ');';
                 break;
             case 1: // project
-                on_click = 'openQualsForProject(' + res.id + ', "' + res.value + '");showResults(' + false + ',"' + '#projects' + '");';
+                on_click = 'openQualsForProject(' + res.id + ', "' + res.value + '");showResults(' + false + ',"' + '#projectsTab' + '");';
                 break;
             case 2: // client
-                on_click = 'getProjectforClient(' + res.id + ');showResults(' + false + ',"' + '#clients' + '");';
+                on_click = 'getProjectforClient(' + res.id + ');showResults(' + false + ',"' + '#clientsTab' + '");';
                 break;
         }
 
@@ -73,16 +73,17 @@ function showResults(toShow, tab){
         $("#searchBox").val("");
     }
 
-   if (tab == "#projects") {
-        $('#clients').removeClass('active'); // remove active class from tabs
-        $('#quals').removeClass('active'); // remove active class from tabs
-        $(tab).addClass('active'); // add active class to clicked tab
+   if (tab == "#projectsTab") {
+
+        $('#clientsTab').parent().removeClass('active'); // remove active class from tabs
+        $('#qualsTab').parent().removeClass('active'); // remove active class from tabs
+        $(tab).parent().addClass('active'); // add active class to clicked tab
 
 
-    } else if (tab == "#clients") {
-        $('#projects').removeClass('active'); // remove active class from tabs
-        $('#quals').removeClass('active'); // remove active class from tabs
-        $(tab).addClass('active'); // add active class to clicked tab
+    } else if (tab == "#clientsTab") {
+        $('#projectsTab').parent().removeClass('active'); // remove active class from tabs
+        $('#qualsTab').parent().removeClass('active'); // remove active class from tabs
+        $(tab).parent().addClass('active'); // add active class to clicked tab
     }
 
 }
