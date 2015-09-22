@@ -370,6 +370,7 @@
             };
 
             $('#selectAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Account"});
+
             // Global variables, as required to do specific reloading of individual tables instead of entire page
             tableQuals = $('#tableQuals').DataTable({
                 "pagingType": "full_numbers",
@@ -378,14 +379,17 @@
                     "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
                 }
             });
+            $('#tableQuals_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadQuals();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
+
             tableAdminGroups = $('#tableAdminGroups').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 "language": {
                     "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
                 }
-
             });
+            $('#tableAdminGroups_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadAG();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
+
             tableAdmins = $('#tableAdmins').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -393,6 +397,8 @@
                     "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
                 }
             });
+            $('#tableAdmins_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadAdmins();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
+
             tableProjects = $('#tableProjects').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -400,6 +406,8 @@
                     "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
                 }
             });
+            $('#tableProjects_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadProjects();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
+
             tableClients = $('#tableClients').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -407,6 +415,7 @@
                     "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
                 }
             });
+            $('#tableClients_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadClients();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
 
             loadAdminGroupsTable(tableAdminGroups);
             loadAdminsTable(tableAdmins);
