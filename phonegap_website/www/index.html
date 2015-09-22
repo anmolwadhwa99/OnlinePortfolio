@@ -82,7 +82,7 @@
             //Focuses on
 
             iFrameResize();//Content in iframe,determines the size of the iframe appropriatly.
-//            iFrameResize();
+
             $('#viewQualModal').on('hidden.bs.modal', function () {   //unloading
                 $('#frameViewQual').attr('src', '');
             });
@@ -223,20 +223,6 @@
             });
         }
 
-
-        //        function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
-        //            // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
-        //
-        //            var image = determineItemImage(clientImg, projectImg, type);
-        //            var viewFunction = "";
-        //            if(isNumeric(viewFunc)) {
-        //                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
-        //            }else{
-        //                viewFunction = '\' onclick =' +viewFunc + '\"';
-        //            }
-        //            return "<li><img src=" + image + "><li>"
-        //        }
-
         function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
 //            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
@@ -253,8 +239,6 @@
               </a> \
             </div>\
         </li>"
-
-//            "<li><img src=" + image + "></li>" //was the old tags
 
         }
 
@@ -279,19 +263,7 @@
             }
 
         }
-
-        //        function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
-        //            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
-        //
-        //            var viewFunction = "";
-        //            if(isNumeric(viewFunc)) {
-        //                viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
-        //            }else{
-        //                viewFunction = '\' onclick =' +viewFunc + '\"';
-        //            }
-        //            return "<li><img src=" + image + "></li>"
-        //        }
-
+        
         function isNumeric(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
