@@ -27,7 +27,7 @@ public class ProjectData extends Server{
 	public static void main(String[] args) {
 		ProjectData projectData = new ProjectData();
 		ProjectGroup projectGroup = new ProjectGroup();
-		projectGroup.setProjGroupName("AVG");
+		projectGroup.setProjGroupName("Project Group 2");
 		projectData.addProjectData(projectGroup);
 	}
 

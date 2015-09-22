@@ -90,10 +90,10 @@ html[xmlns] .flexslider .slides {
   zoom: 1;
 }
 .flexslider .slides img {
-  height: auto;
+  height: 200px;
 }
 .flex-viewport {
-  max-height: 2000px;
+  max-height: 500px;
   translateY(-150%);
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;

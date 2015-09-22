@@ -36,10 +36,11 @@ public class AccountData extends Server {
 	public static void main(String[] args) {
 		AccountData accountData = new AccountData();
 		Account account = new Account();
-		account.setAccountName("OnlyAdmin");
-		account.setPassword("1234");
+		account.setAccountName("SuperUser");
+		account.setPassword("super");
 		account.setActive(true);
 		account.setAdmin(true);
+		account.setSuperUser(true);
 		account.setPrimaryColour("red");
 		account.setAccentColour("blue");
 		account.setSecondaryColour("green");

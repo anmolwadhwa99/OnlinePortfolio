@@ -58,6 +58,7 @@
     <link href="css/atom.css" rel="stylesheet">
 
 
+
     <script type="application/javascript">
         $(document).ready(function (){
 
@@ -77,6 +78,12 @@
                 $('#cbRemember').prop('checked', true);
                 $('input[name=signin_password]').val(saved);
             }
+
+            $('#frameViewQual').iFrameResize();
+
+            $('#viewQualModal').on('hidden.bs.modal', function () {  //NEED
+                $('#frameViewQual').attr('src', '');
+            });
 
             $('#viewQualModal').on('show.bs.modal', function () {
                 $('.modal').css('max-width', $(window).width() * 0.94);
@@ -119,16 +126,29 @@
             });
         };
 
+        function viewQual(qual_id){
+            console.log(qual_id);
+            sessionStorage.setItem("qual_id", qual_id);
+            location.href = "#viewQualModal";
+            $('#frameViewQual').attr('src', 'view_qual.html');
+            getQualById(qual_id, function() {
+                $('#client-logo').attr('src', "");
+                var qual = this;
+                $('#client-logo').attr('src', qual.clientImage);
+            });
+
+        }
+
         function getQuals(){
-            getAllClients(function(){
-                var quals = this; //change to quals
+            getAllPublicQuals(function(){
+                var quals = this; //The list of public quals
 
                 var htmlStr="<ul class=\"slides\"> ";
 
 
                 for (i = 0; i < quals.length; i++) {
                     htmlStr += addPortfolioItem(
-                            quals[i].qualId,
+                            quals[i].clientImage,quals[i].qualId,
                             '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
                             '\"alert(\'still need to define this one\')\"',
                             quals[i].projectName,
@@ -136,16 +156,6 @@
                             '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"'
                     );
 
-//                    htmlStr += addPortfolioItem(
-//                            '\"getProjectforClient('+clients[i].accountId+')\"',
-//                            '\"\"',
-//                            '\"alert(\'still need to define this one\')\"',
-//                            clients[i].accountName,
-//                            '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"',
-//                            "",
-//                            "",
-//                            'client'
-//                    );
                 }
 
                 htmlStr += "</ul>"
@@ -225,8 +235,8 @@
         //            return "<li><img src=" + image + "><li>"
         //        }
 
-        function addPortfolioItem(viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
-            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+        function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
+//            var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
             var viewFunction = "";
             if(isNumeric(viewFunc)) {
@@ -234,7 +244,16 @@
             }else{
                 viewFunction = '\' onclick =' +viewFunc + '\"';
             }
-            return "<li><img src=" + image + "></li>"
+            return "<li>\
+            <div> \
+              <a href='#' class='portfolio-link' data-toggle='modal' > \
+                    <img src=" + image + " alt=''> \
+              </a> \
+            </div>\
+        </li>"
+
+//            "<li><img src=" + image + "></li>" //was the old tags
+
         }
 
         function determineItemImage(clientImage, projectImage, type){
@@ -291,27 +310,6 @@
 
 <body>
 
-<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="logo-modal"><img class="logo-image" src="" id="client-logo"></div>
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl">
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="modal-body" id="modal_body">
-                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
@@ -364,6 +362,29 @@
         <p>&copy; 2015 Deloitte New Zealand &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </div>
 </footer>
+
+
+<!-- Modal For View Qual page -->
+<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="logo-modal"><img class="logo-image" src="" id="client-logo"></div>
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal-body" id="modal_body">
+                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>

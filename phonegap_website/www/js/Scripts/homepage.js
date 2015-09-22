@@ -22,7 +22,7 @@ function search(){
     for(i = 0; i < searchResults.length ; i++) {
         var res = new Results();
         res = searchResults[i];
-        console.log(res.value);
+        //console.log(res.value);
 
         var li = document.createElement('li');
         var a = document.createElement("a");
@@ -45,7 +45,6 @@ function search(){
                 break;
         }
 
-        //javascript:ShowOld(2367,146986,2);
         a.setAttribute("href", h_ref);
         a.setAttribute("onclick", on_click);
         a.setAttribute("data-toggle", toggle);
@@ -68,24 +67,42 @@ function search(){
 
 }
 
-function showResults(toShow, tab){
-    $('#resultLI').toggleClass('open',toShow);
-    if (toShow == false){
+function showResults(toShow, tab) {
+    $('#resultLI').toggleClass('open', toShow);
+    if (toShow == false) {
         $("#searchBox").val("");
     }
 
-   if (tab == "#projects") {
+
+    if (tab == "#quals") {
+        $('#clients').removeClass('active'); // remove active class from tabs
+        $('#projects').removeClass('active'); // remove active class from tabs
+        $(tab).addClass('active');
+
+    } else if (tab == "#projects") {
+        $('#clientsTab').removeClass('active');
+        $('#qualsTab').removeClass('active');
+        $('#projectsTab').addClass('active');
+
         $('#clients').removeClass('active'); // remove active class from tabs
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
 
 
     } else if (tab == "#clients") {
+        $('#clientsTab').addClass('active');
+        $('#qualsTab').removeClass('active');
+        $('#projectsTab').removeClass('active');
+
         $('#projects').removeClass('active'); // remove active class from tabs
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
+
+    } else {
+        error("invalid tab");
     }
 
+    getEverything();
 }
 
 function createProjectGroup(projectName) {
@@ -210,7 +227,7 @@ function confirmArchive(archiveType, itemID){
 };
 
 function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
-   // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
+    // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
 
     var image = determineItemImage(clientImg, projectImg, type);
     var viewFunction = "";
@@ -360,11 +377,21 @@ function getQuals(){
     getQualsByAccount(accountId, function(){
         var quals = this;
         alert_type = "info";
+
+
+
         var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
-        htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
+
+        getAccountById(accountId, function(){
+            var account = this;
+            if (account.isAdmin == true){
+                htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
+            }
+
+        });
+
 
         for (i = 0; i < quals.length; i++) {
-            alert(quals[i].projectImg)
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
@@ -508,11 +535,11 @@ function getEverything(){
     });
 
     getAccountById(accountId, function(){
-       if(this.isAdmin){
-           getAllClients(function(){
-               allClients = this;
-           });
-       }
+        if(this.isAdmin){
+            getAllClients(function(){
+                allClients = this;
+            });
+        }
     });
 
 }
