@@ -64,8 +64,8 @@
             };
 
             $('#frameQualAdd').iFrameResize();
-            $('#frameCreateProj').iFrameResize();
             $('#frameCreateClient').iFrameResize();
+            $('#frameCreateProj').iFrameResize();
             $('#frameViewQual').iFrameResize();
 
             // Event handling for when the modal's are closed the iframes are unloaded,
@@ -85,14 +85,6 @@
 
             $('#viewQualModal').on('hidden.bs.modal', function () {
                 $('#frameViewQual').attr('src', '');
-            });
-
-            $('#viewQualModal').on('show.bs.modal', function () {
-                $('.modal').css('max-width', $(window).width() * 0.94);
-                $('.modal').css('max-height', $(window).height() * 0.94);
-                $('.modal').css('left', '3%');
-                $('.modal').css('right', '3%');
-                $('.modal').css('top', '3%');
             });
 
             //the project cart will be hidden when the user clicks elsewhere on the screen
@@ -165,10 +157,9 @@
                 <h4 class="modal-title">Create Project</h4>
             </div>
             <div class="modal-body">
-                <iframe id="frameCreateProj" src="" width="100%" scrolling="no" frameborder="0"></iframe>
                 <form class="form-horizontal" role="form" id="createProjForm">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="projName">Project Name</label>
+                        <label class="col-sm-3 control-label" >Project Name</label>
 
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="projName"/>
@@ -176,9 +167,7 @@
                     </div>
                     <div class="form-group">
                         <div class="radio col-sm-3">
-                            <label><input type="radio" id="existingClientSelect" style="text-align: left;"
-                                          class="control-label" name="clientRadio">Existing
-                                Client</label>
+                            <label><input type="radio" id="existingClientSelect" style="text-align: left;" class="control-label" name="clientRadio">Existing Client</label>
                         </div>
                         <div class="col-sm-9" style="padding-bottom: 15px;">
                             <select id="clientDropdown" class="form-control"
@@ -186,11 +175,9 @@
                             </select>
                         </div>
                         <div class="radio col-sm-3">
-                            <label><input type="radio" id="newClientSelect" class=" control-label" for="modalClientName"
-                                          name="clientRadio">Client
+                            <label><input type="radio" id="newClientSelect" class="control-label" for="modalClientName" name="clientRadio">Client
                                 Name</label>
                         </div>
-
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="modalClientName"/>
                         </div>
@@ -369,28 +356,7 @@
 
                 $("#clientDropdown").select2({data: res});
             });
-
         });
-
-
-
-        // Initialize navgoco with default options
-        $(".main-menu").navgoco({
-            caret: '<span class="caret"></span>',
-            accordion: false,
-            openClass: 'open',
-            save: true,
-            cookie: {
-                name: 'navgoco',
-                expires: false,
-                path: '/'
-            },
-            slide: {
-                duration: 300,
-                easing: 'swing'
-            }
-        });
-
     });
 
 
