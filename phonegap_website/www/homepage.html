@@ -101,10 +101,10 @@
 <body id="page-top" class="index">
 <!-- Navigation -->
 
-<nav>
+<nav id = "projectCartNav">
     <ul class="list-unstyled main-menu" id="ProjectCart">
         <li>
-            <button type='submit' class='btn btn-lg' data-toggle="modal" data-target="#createProjModal">Create Project
+            <button id="qualCollection" type='submit' class='btn btn-lg' data-toggle="modal" data-target="#createProjModal">Create Project
             </button>
             <a class="pull-right" href="#" id="nav-close"></a>
         </li>
@@ -269,6 +269,16 @@
             createClient(clientName);
         });
 
+        $(document).click(function() {
+            $('#createProjModal').modal('hide');
+        });
+        $("#projectCartNav").click(function(e) {
+            e.stopPropagation(); // This is the preferred method.
+            return false;        // This should not be used unless you do not want
+                                 // any click events registering inside the div
+        });
+
+
         var vnSpace =  $('#space');
         var hnSpace = $('#hiddenSpace');
 
@@ -336,6 +346,7 @@
         });
 
     });
+
 
 
 </script>
