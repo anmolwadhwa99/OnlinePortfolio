@@ -28,6 +28,9 @@
           type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
+    <!-- iFrame Resizing Parent -->
+    <script src="js/iframeResizer.min.js"></script>
+
     <!-- filmStrip -->
     <link rel="stylesheet" href="filmStripSlider/flexslider.css" type="text/css" media="screen" />
 
@@ -124,8 +127,7 @@
                 }
 
             });
-        };
-
+        }
         function viewQual(qual_id){
             console.log(qual_id);
             sessionStorage.setItem("qual_id", qual_id);
@@ -158,8 +160,8 @@
 
                 }
 
-                htmlStr += "</ul>"
-                $("#quals").html(htmlStr)
+                htmlStr += "</ul>";
+                $("#quals").html(htmlStr);
 
                 //============filmStrip =============
 
@@ -246,7 +248,7 @@
             }
             return "<li>\
             <div> \
-              <a href='#' class='portfolio-link' data-toggle='modal' > \
+              <a href='#' class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' > \
                     <img src=" + image + " alt=''> \
               </a> \
             </div>\
@@ -258,7 +260,7 @@
 
         function determineItemImage(clientImage, projectImage, type){
 
-            var image = ""
+            var image = "";
             if(type == 'qual'){
                 if(projectImage == null){
                     if(clientImage == null){
