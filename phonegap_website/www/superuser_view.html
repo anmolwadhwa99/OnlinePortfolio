@@ -250,7 +250,7 @@
                         }
 
                         table.row.add([accountName, superuser,
-                            '<button type="button" onclick="loadEditAdmin('+val.accountId+',\''+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            '<button type="button" data-toggle="modal" data-target="#modalAdmin" onclick="loadEditAdmin('+val.accountId+',\''+ accountName +'\','+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
                             active, '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
