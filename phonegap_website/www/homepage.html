@@ -90,6 +90,46 @@
                 $('.modal').css('top', '3%');
             });
 
+            //the project cart will be hidden when the user clicks elsewhere on the screen
+            $(document).click(function(e) {
+                e.preventDefault();
+                $('body').removeClass('nav-expanded');
+                $('#logoutButton').css('marginRight', '200px' );
+            });
+            $("#nav-expander").click(function(e) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                if ($('body').hasClass('nav-expanded')) {
+                    $('body').removeClass('nav-expanded');
+                    $('#logoutButton').css('marginRight', '200px');
+                } else {
+                    $('body').toggleClass('nav-expanded');
+                    $('#logoutButton').css('marginRight', '500px');
+                }
+            });
+
+            $("#projectCartNav, #qualCollection").click(function(e) {
+                e.stopImmediatePropagation();
+                if(this.id = 'qualCollection'){
+                    $('#createProjModal').modal('show');
+                }else if(this.id = 'projectCartNav'){
+                    e.stopPropagation();
+                    return false;
+                }
+
+            });
+
+            $('#newQual').click(function(e){
+                e.stopImmediatePropagation();
+                window.location.replace("qual_add.html")
+            });
+
+            $('#logoutUser').click(function(e){
+                e.stopImmediatePropagation();
+                sessionStorage.clear();
+                window.location.replace('index.html');
+            });
+
             document.getElementById("divArchiveAlert").style.display = 'none';
             //this is to hide the div containing the notification of "qual added to cart"
             document.getElementById("divAddToCartAlert").style.display = 'none';
@@ -101,10 +141,10 @@
 <body id="page-top" class="index">
 <!-- Navigation -->
 
-<nav>
+<nav id = "projectCartNav">
     <ul class="list-unstyled main-menu" id="ProjectCart">
         <li>
-            <button type='submit' class='btn btn-lg' data-toggle="modal" data-target="#createProjModal">Create Project
+            <button id="qualCollection" type='submit' class='btn btn-lg' data-toggle="modal" data-target="#createProjModal">Create Project
             </button>
             <a class="pull-right" href="#" id="nav-close"></a>
         </li>
@@ -201,15 +241,31 @@
             </a>
         </div>
 
-        <div>
-            <ul id="visibleNew" class="nav navbar-nav navbar-right">
-                <li id="space" style="width: 15.5em"></li>
-            </ul>
-        </div>
+        <!--<div>-->
+        <!--<ul id="visibleNew" class="nav navbar-nav navbar-right" style="margin-right: 50px">-->
+        <!--<li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>-->
+        <!--<li class="dropdown active">-->
+        <!--<a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>-->
+        <!--<ul class="dropdown-menu">-->
+        <!--<li><a href="qual_add.html">New Qual</a></li>-->
+        <!--<li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>-->
+        <!--<li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
 
-        <div class="collapse temp">
-            <ul id="hiddenNew" class="nav navbar-nav navbar-right">
-                <li id="hiddenSpace" style="width: 12em"></li>
+        <div id="logoutButton" style="margin-right: 200px">
+            <ul id="hiddenNew" class="nav navbar-nav navbar-right" >
+                <li><a href="index.html" id="logoutUser" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a id ="newQual" href="qual_add.html">New Qual</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
 
@@ -269,6 +325,9 @@
             createClient(clientName);
         });
 
+
+
+
         var vnSpace =  $('#space');
         var hnSpace = $('#hiddenSpace');
 
@@ -277,15 +336,15 @@
         <li class="dropdown active">\
             <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
             <ul class="dropdown-menu">\
-                <li><a href="qual_add.html">New Qual</a></li>\
+                <li><a id = "newQual" href="qual_add.html">New Qual</a></li>\
                 <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>\
                 <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
             </ul>\
         </li>';
 
 
-        vnSpace.before(str);
-        hnSpace.before(str);
+//        vnSpace.before(str);
+//        hnSpace.before(str);
 
         $(window).on('shown.bs.modal', function() {
 
@@ -308,15 +367,7 @@
 
         });
 
-        //Navigation Menu Slider
-        $('#nav-expander').on('click',function(e){
-            e.preventDefault();
-            $('body').toggleClass('nav-expanded');
-        });
-        $('#nav-close').on('click',function(e){
-            e.preventDefault();
-            $('body').removeClass('nav-expanded');
-        });
+
 
         // Initialize navgoco with default options
         $(".main-menu").navgoco({
@@ -336,6 +387,7 @@
         });
 
     });
+
 
 
 </script>
@@ -377,7 +429,7 @@
         <div class="row">
 
             <div class="col-md-12" style="margin-bottom: 30px;">
-                
+
                 <!-- Nav tabs --><div>
                 <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
                     <li id="qualsTab" role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>

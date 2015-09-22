@@ -87,104 +87,119 @@
                     </div>\
                     <div class='col-md-9 col-xs-6'> \
                         <p>"+clientName+"</p>\
-                    </div>";
-
-
-            if(qual.subtitle != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Subtitle:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p>"+qual.subtitle+"</p>\
-                            </div>"
-            }
-
-            if(qual.industry != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Industry:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p>"+qual.industry+"</p>\
-                            </div>"
-            }
-
-            if(qual.serviceLine != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Service Line:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p>"+qual.serviceLine+"</p>\
-                            </div>"
-            }
-
-            if(qual.status != null){
-                htmlStr += "<div class='col-md-3 col-xs-6'> \
-                                <h4 class='subheading'>Status:</h4> \
-                            </div>\
-                            <div class='col-md-9 col-xs-6'> \
-                                <p style=\"text-transform: capitalize\">"+qual.status+"</p>\
-                            </div>"
-            }
-
-            if(qual.emailButton != null){
-                htmlStr += "<div class='col-md-3'> \
-                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
-                            </div>"
-            }
-
-            if(qual.websiteButton != null){
-                htmlStr += "<div class='col-md-3'> \
-                                <img class='website_btn' style=\"width: 50px\" src='imgs/website.png' href='"+qual.websiteButton+"'/> \
-                            </div>"
-            }
-
-            htmlStr += "</div>\
+                    </div>\
                 </div>";
 
-            htmlStr += "<div class='col-md-12 col-xs-12'> \
+
+                if(qual.subtitle != null){
+                    htmlStr += "\
+                <div class='row'> \
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Subtitle:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>"+qual.subtitle+"</p>\
+                    </div>\
+                </div>"
+                }
+
+                if(qual.industry != null){
+                    htmlStr += "\
+                <div class='row'>\
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Industry:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>"+qual.industry+"</p>\
+                    </div>\
+                </div>"
+                }
+
+                if(qual.serviceLine != null){
+                    htmlStr += "\
+                <div class='row'>\
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Service Line:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>"+qual.serviceLine+"</p>\
+                    </div>\
+                </div>"
+                }
+
+                if(qual.status != null){
+                    htmlStr += "\
+                <div class='row'> \
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Status:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p style=\"text-transform: capitalize\">"+qual.status+"</p>\
+                    </div>\
+                </div>"
+                }
+
+                htmlStr += "<div class='row'>";
+                if(qual.emailButton != null){
+                    htmlStr += "<div class='col-md-3'> \
+                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
+                            </div>"
+                }
+
+                if(qual.websiteButton != null){
+                    htmlStr += "<div class='col-md-3'> \
+                                <img class='website_btn' style=\"width: 50px\" src='imgs/website.png' href='"+qual.websiteButton+"'/> \
+                            </div>"
+                }
+                htmlStr += "</div>";
+
+                htmlStr += "</div>\
+                </div>";
+
+                htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Problem Statement:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
                             <p>"+qual.problemStatement+"</p>\
                         </div>";
 
-            if(qual.challengesFaced != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                if(qual.challengesFaced != null){
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Challenges Faced:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
                             <p>"+qual.challengesFaced+"</p>\
                         </div>";
-            }
+                }
 
-            if(qual.solutionStatement != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                if(qual.solutionStatement != null){
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Solution:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
                             <p>"+qual.solutionStatement+"</p>\
                         </div>";
-            }
+                }
 
-            if(qual.outcomeStatement != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                if(qual.outcomeStatement != null){
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Outcome:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
                             <p>"+qual.outcomeStatement+"</p>\
                         </div>";
-            }
+                }
 
-            if(qual.relevanceToClient != null){
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                if(qual.relevanceToClient != null){
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Relevance to Client:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
                             <p>"+qual.relevanceToClient+"</p>\
                         </div>";
-            }
+                }
 
-            htmlStr += "<div class='row'><div class='col-md-2'> \
+                htmlStr += "<div class='row'><div class='col-md-2'> \
                             <div class='form-group'> \
                                 <button type='button' class='btn btn-lg' onclick='duplicateQual("+qual_id+")'><span \
                                 class='glyphicon glyphicon-copy'></span> Duplicate \
@@ -192,9 +207,9 @@
                             </div> \
                         </div>"
 
-            htmlStr += "<div class='col-md-2'><button type='button' class='btn btn-lg' data-dismiss='modal'>" +
-            "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
-            $('#modal_body').html(htmlStr);
+                htmlStr += "<div class='col-md-2'><button type='button' class='btn btn-lg' data-dismiss='modal'>" +
+                "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
+                $('#modal_body').html(htmlStr);
 
 
 
@@ -210,9 +225,9 @@
 
 
 <body style="padding:20px;" >
-    <div class="row">
-        <div class="modal-body" id="modal_body"></div>
-    </div>
+<div class="row">
+    <div class="modal-body" id="modal_body"></div>
+</div>
 </body>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
