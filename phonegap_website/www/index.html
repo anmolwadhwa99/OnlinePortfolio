@@ -124,8 +124,7 @@
                 }
 
             });
-        };
-
+        }
         function viewQual(qual_id){
             console.log(qual_id);
             sessionStorage.setItem("qual_id", qual_id);
@@ -158,8 +157,8 @@
 
                 }
 
-                htmlStr += "</ul>"
-                $("#quals").html(htmlStr)
+                htmlStr += "</ul>";
+                $("#quals").html(htmlStr);
 
                 //============filmStrip =============
 
@@ -244,13 +243,24 @@
             }else{
                 viewFunction = '\' onclick =' +viewFunc + '\"';
             }
-            return "<li>\
-            <div> \
-              <a href='#' class='portfolio-link' data-toggle='modal' > \
-                    <img src=" + image + " alt=''> \
-              </a> \
-            </div>\
-        </li>"
+            return "<a>" +
+                        "<li><img src=" + image + " alt=''>" +
+                        "</li>" +
+                    "</a> "
+
+
+//            <a href='#' data-toggle='modal' data-target='#viewQualModal'> \
+//            "<li>\
+//            <div> \
+//              <a href='#' class="+ viewFunction;"> \
+//                    <img src=" + image + " alt=''> \
+//              </a> \
+//            </div>\
+//        </li>";
+
+//                    <a href='#' class='portfolio-link' data-toggle='modal' data-target='viewQualModal'> \
+//        <img src=" + image + " alt=''> \
+//        </a> \
 
 //            "<li><img src=" + image + "></li>" //was the old tags
 
@@ -258,7 +268,7 @@
 
         function determineItemImage(clientImage, projectImage, type){
 
-            var image = ""
+            var image = "";
             if(type == 'qual'){
                 if(projectImage == null){
                     if(clientImage == null){
