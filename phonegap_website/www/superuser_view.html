@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Script located here so it runs immediately before anything on the page can load -->
     <script>
-        var account = sessionStorage.get("account_id");
+        var account = sessionStorage.getItem("account_id");
         if(! account){ // if not defined (i.e. value is undefined or null)
             location.replace("index.html");
         }else{
