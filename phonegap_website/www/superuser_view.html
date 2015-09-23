@@ -6,9 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Script located here so it runs immediately before anything on the page can load -->
     <script>
-        var superuserStatus = sessionStorage.getItem("superuserStatus");
-        if(! superuserStatus){ // if not defined (i.e. value is undefined or null)
-            location.replace("homepage.html");
+        var account = sessionStorage.get("account_id");
+        if(! account){ // if not defined (i.e. value is undefined or null)
+            location.replace("index.html");
+        }else{
+            var isAdmin = sessionStorage.getItem("isAdmin");
+            if(! isAdmin || isAdmin == false){ // if not defined or false
+                location.replace("homepage_client.html");
+            }else{
+                var superuserStatus = sessionStorage.getItem("superuserStatus");
+                if(! superuserStatus || superuserStatus == false){ // if not defined or false
+                    location.replace("homepage.html");
+                }
+            }
         }
     </script>
 
