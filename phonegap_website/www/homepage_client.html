@@ -256,6 +256,14 @@
                     '.navbar-inverse .navbar-nav>li>a { color:'+secondary.toString() +'}';
             document.getElementsByTagName('head')[0].appendChild(style);
 
+            var vnSpace =  $('#space');
+
+            str = '\
+            <li><h7 style="color: '+secondary.toString()+';margin: 0; line-height: 50px">Welcome, '+account.accountName+'!</h7></li>\
+            <li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>\
+            ';
+
+            vnSpace.before(str);
         });
 
         getProjects(account_id);
@@ -277,14 +285,6 @@
             $('#createClientModal').modal('hide');
             createClient(clientName);
         });
-
-        var vnSpace =  $('#space');
-
-        str = '\
-        <li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>\
-        ';
-
-        vnSpace.before(str);
 
         $(window).on('shown.bs.modal', function() {
 

@@ -56,6 +56,11 @@ h6 {
     font-weight: 700;
 }
 
+h7 {
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+}
+
 .img-centered {
     margin: 0 auto;
 }
@@ -1112,7 +1117,6 @@ h4 {
     max-width: 400px;
     /*height: 50px; *//* Fallback for non-webkit */
     font-size: 20px;
-
     line-height: 1.2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
