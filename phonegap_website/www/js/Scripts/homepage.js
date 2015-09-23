@@ -173,9 +173,36 @@ function getProjects(account_id){
     });
 }
 
-function createClient(clientName){
-    insertAccount(false, clientName, 'qwerty', false, function(){
+function generatePassword() {
+    var length = 4,
+        charset = "0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
+
+function verifyAccount2(password) {
+    verifyAccount(password, function() {
+        var account = this;
+        if (account == null) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
+
+function createClient(clientName, primaryColour, secondaryColour){
+    var password = generatePassword();
+    while (verifyAccount2(password) == false) {
+        password = generatePassword();
+    }
+
+    insertAccount(false, clientName, 'qwerty', false, primaryColour, secondaryColour, password, function(){
         loadTab('#clients');
+        return password;
     });
 }
 
