@@ -55,7 +55,7 @@
         $(document).ready(function () {
 
             // Wrapping of default alert
-            window.alert = function(message) {
+            window.alert = function (message) {
                 new PNotify({
                     title: 'Alert',
                     text: message,
@@ -89,12 +89,12 @@
             });
 
             //the project cart will be hidden when the user clicks elsewhere on the screen
-            $(document).click(function(e) {
+            $(document).click(function (e) {
                 e.preventDefault();
                 $('body').removeClass('nav-expanded');
-                $('#logoutButton').css('marginRight', '200px' );
+                $('#logoutButton').css('marginRight', '200px');
             });
-            $("#nav-expander").click(function(e) {
+            $("#nav-expander").click(function (e) {
                 e.stopImmediatePropagation();
                 e.preventDefault();
                 if ($('body').hasClass('nav-expanded')) {
@@ -108,9 +108,9 @@
 
             $("#projectCartNav, #qualCollection", "#deleteQual").click(function(e) {
                 e.stopImmediatePropagation();
-                if(this.id = 'qualCollection'){
+                if (this.id = 'qualCollection') {
                     $('#createProjModal').modal('show');
-                }else if(this.id = 'projectCartNav'){
+                } else if (this.id = 'projectCartNav') {
                     e.stopPropagation();
                     return false;
                 }else if(this.id = 'deleteQual'){
@@ -123,12 +123,12 @@
 
             });
 
-            $('#newQual').click(function(e){
+            $('#newQual').click(function (e) {
                 e.stopImmediatePropagation();
                 window.location.replace("qual_add.html")
             });
 
-            $('#logoutUser').click(function(e){
+            $('#logoutUser').click(function (e) {
                 e.stopImmediatePropagation();
                 sessionStorage.clear();
                 window.location.replace('index.html');
@@ -140,16 +140,17 @@
         });
     </script>
     <style>
-        .qualModal{
+        .qualModal {
             max-height: 100% !important;
             min-height: 100% !important;
             min-width: 100% !important;
             max-width: 100% !important;
         }
+
         @media (min-width: 768px) {
             .modal-xl {
                 width: 94%;
-                max-width:94%;
+                max-width: 94%;
             }
         }
     </style>
@@ -162,14 +163,16 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times fa-2x"></i></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                        class="fa fa-times fa-2x"></i></button>
                 <h4 class="modal-title" id="qualModalLabel"></h4>
             </div>
             <div class="modal-body">
                 <iframe id="frameQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
             <div class="modal-footer hidden">
-                <button id="btnQualModalClose" type="button" class="hidden btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btnQualModalClose" type="button" class="hidden btn btn-default" data-dismiss="modal">Close
+                </button>
             </div>
         </div>
     </div>
@@ -177,10 +180,11 @@
 
 <!-- Navigation -->
 
-<nav id = "projectCartNav">
+<nav id="projectCartNav">
     <ul class="list-unstyled main-menu" id="ProjectCart">
         <li>
-            <button id="qualCollection" type='submit' class='btn btn-lg' data-toggle="modal" data-target="#createProjModal">Create Project
+            <button id="qualCollection" type='submit' class='btn btn-lg' data-toggle="modal"
+                    data-target="#createProjModal">Create Project
             </button>
             <a class="pull-right" href="#" id="nav-close"></a>
         </li>
@@ -198,7 +202,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" id="createProjForm">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" >Project Name</label>
+                        <label class="col-sm-3 control-label">Project Name</label>
 
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="projName"/>
@@ -206,7 +210,8 @@
                     </div>
                     <div class="form-group">
                         <div class="radio col-sm-3">
-                            <label><input type="radio" id="existingClientSelect" style="text-align: left;" class="control-label" name="clientRadio">Existing Client</label>
+                            <label><input type="radio" id="existingClientSelect" style="text-align: left;"
+                                          class="control-label" name="clientRadio">Existing Client</label>
                         </div>
                         <div class="col-sm-9" style="padding-bottom: 15px;">
                             <select id="clientDropdown" class="form-control"
@@ -214,7 +219,8 @@
                             </select>
                         </div>
                         <div class="radio col-sm-3">
-                            <label><input type="radio" id="newClientSelect" class="control-label" for="modalClientName" name="clientRadio">Client
+                            <label><input type="radio" id="newClientSelect" class="control-label" for="modalClientName"
+                                          name="clientRadio">Client
                                 Name</label>
                         </div>
                         <div class="col-sm-9">
@@ -227,9 +233,12 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="createProjBtn">Create</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <div id="createClientModal" class="modal fade">
     <div class="modal-dialog">
@@ -240,7 +249,6 @@
                 <h4 class="modal-title">Create Client</h4>
             </div>
             <div class="modal-body">
-                <iframe id="frameCreateClient" src="" width="100%" scrolling="no" frameborder="0"></iframe>
                 <form class="form-horizontal" role="form" id="createClientForm">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="modalClientName">Client Name</label>
@@ -250,22 +258,52 @@
                         </div>
                     </div>
                 </form>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div id="primary_color_wheel" class="col-md-6 col-xs-8">
+                            <div class="col-md-7">
+                                <label for="qual_colour_primary">Primary Colour: </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input id="qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
+                                       class="form-control" value="#091D5D" placeholder="#091D5D">
+                            </div>
+                            <div class="colorwheel" style="margin-right: auto;margin-left: auto"></div>
+                        </div>
+
+                        <div id="secondary_color_wheel" class="col-md-6 col-xs-8">
+                            <div class="col-md-7">
+                                <label for="qual_colour_secondary">Secondary Colour: </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input id="qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
+                                       class="form-control" value="#091D5D" placeholder="#091D5D">
+                            </div>
+                            <div class="colorwheel" style="margin-right: auto;margin-left: auto"></div>
+                        </div>
+                    </div>
+                    <div style="height: 15px;"></div>
+                </form>
+
                 <!--<iframe id="frameQualAdd" src="qual_add.html" width="100%" scrolling="no" frameborder="0"></iframe>-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <div class="navbar navbar-inverse navbar-fixed-top">
 
     <div class="container-fluid">
         <!--<div class="navbar-header">-->
         <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
         <!--</div>-->
-        <div class="navbar-header pull-right" >
+        <div class="navbar-header pull-right">
 
             <a id="nav-expander" class="nav-expander fixed" data-toggle="collapse" data-target=".temp">
                 Qual Collection &nbsp;<i class="fa fa-bars fa-lg white"></i>
@@ -287,38 +325,43 @@
         <!--</div>-->
 
         <div id="logoutButton" style="margin-right: 200px">
-            <ul id="hiddenNew" class="nav navbar-nav navbar-right" >
-                <li><a href="index.html" id="logoutUser" style="color: white" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+            <ul id="hiddenNew" class="nav navbar-nav navbar-right">
+                <li><a href="index.html" id="logoutUser" style="color: white"
+                       onclick="javascript: sessionStorage.clear();">Logout <span
+                        class="glyphicon glyphicon-log-out"></span></a></li>
                 <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>
+
+                    <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown" style="background-color: #222;"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" data-toggle="modal" data-target="#qualModal" onclick="addQual();">New Qual</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#qualModal" onclick="addQual();">New Qual</a>
+                        </li>
+                        <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New
+                            Project</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
 
-        <div class="col-sm-5 spec_vertical_center" style="padding-left: 0px;">
-            <div class="input-group stylish-input-group">
+
+        <div class="col-sm-5 spec_vertical_center" style="padding-left: 36px;">
+            <div  class="input-group stylish-input-group">
                 <input id="searchBox" type="text" class="form-control"  placeholder="Search..." onkeyup="search()" >
-                    <span class="input-group-addon" style="font-size:13px">
+                    <span id="searchIcon" class="input-group-addon" style="font-size:13px">
                         <button type="button">
                             <span class="glyphicon glyphicon-search"></span>
+
                         </button>
                     </span>
             </div>
+            <ul class="nav navbar-nav">
+                <li id="resultLI" class="dropdown active">
+                    <ul id="resultUL" class="dropdown-menu" style="width:695px; ">
+
+                    </ul>
+                </li>
+            </ul>
         </div>
-
-        <ul class="nav navbar-nav" style="padding-left: 10px;">
-            <li id="resultLI" class="dropdown active">
-                <ul id="resultUL" class="dropdown-menu" style="width:695px; ">
-
-                </ul>
-            </li>
-        </ul>
-
     </div>
 
 </div>
@@ -330,7 +373,7 @@
     var projGroupID = -1;
     var projName = "";
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             var target = $(e.target).attr("href"); // activated tab
@@ -341,7 +384,7 @@
         getProjects(account_id);
         getEverything();
 
-        $('#createProjBtn').click(function(e){
+        $('#createProjBtn').click(function (e) {
             e.preventDefault();
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
@@ -350,18 +393,24 @@
 
         });
 
-        $('#createClientBtn').click(function(e){
+        $('#createClientBtn').click(function (e) {
             e.preventDefault();
             var clientName = $("#clientName").val();
+            var primaryColour = $("#qual_colour_primary").val();
+            var secondaryColour = $("#qual_colour_secondary").val();
             $("#clientName").val("");
             $('#createClientModal').modal('hide');
-            createClient(clientName);
+            var clientPw = createClient(clientName, primaryColour, secondaryColour);
+            console.log("password returned is: "+clientPw);
         });
 
+        var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
+        primaryCW.input($("#qual_colour_primary")[0]);
 
+        var secondaryCW = Raphael.colorwheel($("#secondary_color_wheel .colorwheel"), 150, 256);
+        secondaryCW.input($("#qual_colour_secondary")[0]);
 
-
-        var vnSpace =  $('#space');
+        var vnSpace = $('#space');
         var hnSpace = $('#hiddenSpace');
 
         str = '\
@@ -379,12 +428,12 @@
 //        vnSpace.before(str);
 //        hnSpace.before(str);
 
-        $(window).on('shown.bs.modal', function() {
+        $(window).on('shown.bs.modal', function () {
 
             getAllClients(function () {
                 var clients = this;
                 var htmlStr = "";
-                for(i = 0; i < clients.length; i++) {
+                for (i = 0; i < clients.length; i++) {
                     htmlStr += "<option value='" + clients[i].accountId + "'>" + clients[i].accountName + "</option>";
                 }
 
@@ -401,7 +450,6 @@
     });
 
 
-
 </script>
 
 <section id="portfolio" class="bg-light-gray" style="padding: 0px; padding-top: 22px">
@@ -414,10 +462,12 @@
                         <span aria-hidden="true">x</span>
                     </button>
                     <h3 id="archiveHeading">Delete</h3>
-                    <p id="archiveMessage" class ="body"> This is irreversible</p>
+
+                    <p id="archiveMessage" class="body"> This is irreversible</p>
+
                     <p>
-                        <button id ="confirmButton" type="button" class="btn btn-danger">CONFIRM</button>
-                        <button id ="cancelButton" type="button" class="btn btn-default">CANCEL</button>
+                        <button id="confirmButton" type="button" class="btn btn-danger">CONFIRM</button>
+                        <button id="cancelButton" type="button" class="btn btn-default">CANCEL</button>
                     </p>
                 </div>
             </div>
@@ -430,9 +480,11 @@
                         <span aria-hidden="true">x</span>
                     </button>
                     <h3 id="addToCartAlertHeading">The following qual(s) has been added to cart</h3>
-                    <p id="displayQualName" class ="body"></p><br/>
+
+                    <p id="displayQualName" class="body"></p><br/>
+
                     <p>
-                        <button id ="addToCartOkButton" type="button" class="btn btn-success">OK</button>
+                        <button id="addToCartOkButton" type="button" class="btn btn-success">OK</button>
                     </p>
                 </div>
             </div>
@@ -442,24 +494,31 @@
 
             <div class="col-md-12" style="margin-bottom: 30px;">
 
-                <!-- Nav tabs --><div>
-                <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
-                    <li id="qualsTab" role="presentation"><a href="#quals"  aria-controls="quals" role="tab" data-toggle="tab">Quals</a></li>
-                    <li id="projectsTab" role="presentation" class="active" ><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a></li>
-                    <li id="clientsTab" role="presentation" ><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
-                </ul>
+                <!-- Nav tabs -->
+                <div>
+                    <ul class="nav nav-tabs nav-justified" role="tablist" id="tablist">
+                        <li id="qualsTab" role="presentation"><a href="#quals" aria-controls="quals" role="tab"
+                                                                 data-toggle="tab">Quals</a></li>
+                        <li id="projectsTab" role="presentation" class="active"><a href="#projects"
+                                                                                   aria-controls="projects" role="tab"
+                                                                                   data-toggle="tab">Projects</a></li>
+                        <li id="clientsTab" role="presentation"><a href="#clients" aria-controls="clients" role="tab"
+                                                                   data-toggle="tab">Clients</a></li>
+                    </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="projects"></div>
-                    <div role="tabpanel" class="tab-pane" id="quals"></div>
-                    <div role="tabpanel"   class="tab-pane" id="clients" ></div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="projects"></div>
+                        <div role="tabpanel" class="tab-pane" id="quals"></div>
+                        <div role="tabpanel" class="tab-pane" id="clients"></div>
+                    </div>
+
                 </div>
-
-            </div>
             </div>
 
-        </div></div></section>
+        </div>
+    </div>
+</section>
 
 <footer></footer>
 

@@ -15,11 +15,16 @@ function search(){
         searchResults = doSearch(text, allQuals, allClients, allProjects);
     }
 
-    var len = $('#searchBox').outerWidth() + $('#searchIcon').width();
+    var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
 
 
     var resUL = $('#resultUL');
     resUL.empty();
+    resUL.width(len);
+
+    if(searchResults.length == 0){
+        return;
+    }
 
     for(i = 0; i < searchResults.length ; i++) {
         var res = new Results();
@@ -173,9 +178,36 @@ function getProjects(account_id){
     });
 }
 
-function createClient(clientName){
-    insertAccount(false, clientName, 'qwerty', false, function(){
+function generatePassword() {
+    var length = 4,
+        charset = "0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
+
+function verifyAccount2(password) {
+    verifyAccount(password, function() {
+        var account = this;
+        if (account == null) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
+
+function createClient(clientName, primaryColour, secondaryColour){
+    var password = generatePassword();
+    while (verifyAccount2(password) == false) {
+        password = generatePassword();
+    }
+
+    insertAccount(false, clientName, 'qwerty', false, primaryColour, secondaryColour, password, function(){
         loadTab('#clients');
+        return password;
     });
 }
 
@@ -313,7 +345,7 @@ function determineItemImage(clientImage, projectImage, type){
             return projectImage
         }
     }else if(type == 'client'){
-        return "img/portfolio/roundicons.png";
+        return "imgs/client.png";
     }else if(type == 'project'){
         return "imgs/deloitte.jpg";
     }
@@ -500,8 +532,9 @@ function addToCart(qID, m){
     var span = document.createElement("span");
     span.setAttribute("class","icon");
 
-    a.appendChild(document.createTextNode(m));
     a.appendChild(span);
+    a.appendChild(document.createTextNode(m));
+
 
     li.appendChild(a);
     li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
