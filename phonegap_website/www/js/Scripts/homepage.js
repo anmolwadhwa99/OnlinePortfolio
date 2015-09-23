@@ -504,8 +504,9 @@ function addToCart(qID, m){
     var span = document.createElement("span");
     span.setAttribute("class","icon");
 
-    a.appendChild(document.createTextNode(m));
     a.appendChild(span);
+    a.appendChild(document.createTextNode(m));
+
 
     li.appendChild(a);
     li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}

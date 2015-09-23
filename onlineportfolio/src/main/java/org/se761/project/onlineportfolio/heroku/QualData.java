@@ -98,44 +98,44 @@ public class QualData extends Server{
 		
 		
 		//Random Qual 1
-		Qualification qual1 = new Qualification();
-		qual1.setClientName("Donald Trump");
-		qual1.setProjectName("We will build a wall so big");
-		qual1.setSolutionStatement("Mexico will pay for the wall");
-		qual1.setRelevanceToClient("Well I have built an empire and am highly successful");
-		qual1.setStatus(Status.open);
-		qual1.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792694/Trump.jpg");
-		qualData.addQual(qual1);
-		
-		//Random Qual 2
-		Qualification qual2 = new Qualification();
-		qual2.setClientName("Heisenberg");
-		qual2.setProjectName("SAY MY NAME");
-		qual2.setSolutionStatement("Youre god damn right");
-		qual2.setRelevanceToClient("We cook");
-		qual2.setStatus(Status.open);
-		qual2.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792691/Heisenberg.jpg");
-		qualData.addQual(qual2);
-		
-		//Random Qual 3
-		Qualification qual3 = new Qualification();
-		qual3.setClientName("Homer Simpson");
-		qual3.setProjectName("Doh");
-		qual3.setSolutionStatement("Smartest guy in the world");
-		qual3.setRelevanceToClient("I am from springfield");
-		qual3.setStatus(Status.open);
-		qual3.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792695/Homer.png");
-		qualData.addQual(qual3);
-		
-		//Random Qual 4
-		Qualification qual4 = new Qualification();
-		qual4.setClientName("Louis Litt");
-		qual4.setProjectName("Time to Litt Up");
-		qual4.setSolutionStatement("Best lawyer in NYC after Harvey Specter");
-		qual4.setRelevanceToClient("I always screw things up");
-		qual4.setStatus(Status.open);
-		qual4.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792771/Louis.png");
-		qualData.addQual(qual4);
+//		Qualification qual1 = new Qualification();
+//		qual1.setClientName("Donald Trump");
+//		qual1.setProjectName("We will build a wall so big");
+//		qual1.setSolutionStatement("Mexico will pay for the wall");
+//		qual1.setRelevanceToClient("Well I have built an empire and am highly successful");
+//		qual1.setStatus(Status.open);
+//		qual1.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792694/Trump.jpg");
+//		qualData.addQual(qual1);
+//		
+//		//Random Qual 2
+//		Qualification qual2 = new Qualification();
+//		qual2.setClientName("Heisenberg");
+//		qual2.setProjectName("SAY MY NAME");
+//		qual2.setSolutionStatement("Youre god damn right");
+//		qual2.setRelevanceToClient("We cook");
+//		qual2.setStatus(Status.open);
+//		qual2.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792691/Heisenberg.jpg");
+//		qualData.addQual(qual2);
+//		
+//		//Random Qual 3
+//		Qualification qual3 = new Qualification();
+//		qual3.setClientName("Homer Simpson");
+//		qual3.setProjectName("Doh");
+//		qual3.setSolutionStatement("Smartest guy in the world");
+//		qual3.setRelevanceToClient("I am from springfield");
+//		qual3.setStatus(Status.open);
+//		qual3.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792695/Homer.png");
+//		qualData.addQual(qual3);
+//		
+//		//Random Qual 4
+//		Qualification qual4 = new Qualification();
+//		qual4.setClientName("Louis Litt");
+//		qual4.setProjectName("Time to Litt Up");
+//		qual4.setSolutionStatement("Best lawyer in NYC after Harvey Specter");
+//		qual4.setRelevanceToClient("I always screw things up");
+//		qual4.setStatus(Status.open);
+//		qual4.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792771/Louis.png");
+//		qualData.addQual(qual4);
 		
 		
 
