@@ -153,14 +153,6 @@ function doSearch(str, quals, clients, projects){
 
     for (i = 0; i < quals.length; i++){
         var qual = quals[i];
-        //if (qual.clientName.toLowerCase().indexOf(str) > -1){
-        //    var res = new Results();
-        //    res.id = qual.qualId;
-        //    res.type = resType.QUAL;
-        //    res.value = qual.clientName;
-        //
-        //    resultArray.push(res);
-        //}
         if (qual.projectName.toLowerCase().indexOf(str) > -1){
             var res = new Results();
             res.id = qual.qualId;
