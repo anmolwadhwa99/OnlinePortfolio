@@ -282,7 +282,7 @@ function getAllQuals(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to retrieve all the quals");
+                alert("Sorry an error occurred when trying to retrieve all quals.");
                 return null;
             }
             // Request successful, read the response
@@ -317,7 +317,7 @@ function getAllPublicQuals(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to retrieve all public quals");
+                alert("Sorry an error occurred when trying to retrieve all public quals.");
                 return null;
             }
             // Request successful, read the response
@@ -486,7 +486,7 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to add new qual. Please try again later");
+                alert("Sorry an occurred when trying to add a new qual. Please try again later.");
                 return null;
             }
             // Request successful, read the response
@@ -774,7 +774,7 @@ function getAllAccounts(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to retrieve all client accounts");
+                alert("Sorry an error occurred when trying to retrieve all accounts");
                 return null;
             }
             // Request successful, read the response
@@ -809,7 +809,7 @@ function getAllAdmins(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to retrieve all admin accounts");
+                alert("Sorry an occurred when trying to retrieve all admin accounts.");
                 return null;
             }
             // Request successful, read the response
@@ -1162,7 +1162,7 @@ function getAllAdminGroups(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to retrieve all admin groups");
+                alert("Sorry an error occurred when trying to retrieve all admin accounts.");
                 return null;
             }
             // Request successful, read the response
@@ -1441,7 +1441,7 @@ function getAllProjectGroups(callback) {
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to retrieve all projects");
+                alert("Sorry an error occurred when trying to retrieve all projects.");
                 return null;
             }
             // Request successful, read the response
