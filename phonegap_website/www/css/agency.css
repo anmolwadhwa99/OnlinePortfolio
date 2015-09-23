@@ -73,21 +73,20 @@ h7 {
     background-color: #222;
 }
 
-<<<<<<< Updated upstream
 .further_right{
     right: 100px !important;
 }
 
-.vertical_center{
+.vertical_center {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-=======
-.vertical_center{
+}
+
+.spec_vertical_center{
     position: relative;
     top: 50%;
     transform: translateY(25%);
->>>>>>> Stashed changes
 }
 
 .btn-primary {
