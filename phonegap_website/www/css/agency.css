@@ -68,6 +68,16 @@ h6 {
     background-color: #222;
 }
 
+.further_right{
+    right: 100px !important;
+}
+
+.vertical_center{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .btn-primary {
     border-color: #fed136;
     text-transform: uppercase;

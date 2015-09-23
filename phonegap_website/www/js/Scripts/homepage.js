@@ -2,6 +2,7 @@
 
 var accountId = -1;
 var isClient = false;
+var isSuperUser = false;
 
 function search(){
     var text = $("#searchBox").val();
@@ -148,6 +149,7 @@ function getProjects(account_id){
         var account = this;
 
         isClient = !account.isAdmin;
+        isSuperUser = account.isSuperUser;
 
         getProjectsByClient(account_id, function() {
             var projects = this;
