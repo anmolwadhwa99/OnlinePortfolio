@@ -239,25 +239,25 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     var locWidth = 295;
     var image = determineItemImage(clientImg, projectImg, type);
 
-    var newImg = new Image();
-    newImg.src = image;
-    var heightLarger = false;
+    //var newImg = new Image();
+    //newImg.src = image;
+    //var heightLarger = false;
 
-    setTimeout(function(){
-        var height = newImg.height;
-        var width = newImg.width;
-        heightLarger = (height >= locHeight);
+    //setTimeout(function(){
+    //    var height = newImg.height;
+    //    var width = newImg.width;
+    //    heightLarger = (height >= locHeight);
+    //
+    //    var w = '100%';
+    //    var h = 'auto';
+    //    if (heightLarger){
+    //        h = '100%';
+    //        w = 'auto';
+    //    }
 
-        var w = '100%';
-        var h = 'auto';
-        if (heightLarger){
-            h = '100%';
-            w = 'auto';
-        }
-
-        $('#itemPic').css('width', w);
-        $('#itemPic').css('height', h);
-    }, 100);
+        $('#itemPic').css('width', '100%');
+        $('#itemPic').css('height', 'auto');
+    //}, 100);
 
 
     var viewFunction = "";
@@ -315,7 +315,7 @@ function determineItemImage(clientImage, projectImage, type){
     }else if(type == 'client'){
         return "img/portfolio/roundicons.png";
     }else if(type == 'project'){
-        return "img/portfolio/startup-framework.png";
+        return "imgs/deloitte.jpg";
     }
 }
 
