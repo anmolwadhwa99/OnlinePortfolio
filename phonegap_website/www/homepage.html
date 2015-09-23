@@ -63,7 +63,7 @@
                 });
             };
 
-            $('#frameQualAdd').iFrameResize();
+            $('#frameQual').iFrameResize();
             $('#frameCreateClient').iFrameResize();
             $('#frameCreateProj').iFrameResize();
             $('#frameViewQual').iFrameResize();
@@ -71,8 +71,9 @@
             // Event handling for when the modal's are closed the iframes are unloaded,
             // TODO Add loading of iframe src's to relevant openModal functions
             // E.g. $('#frameViewQual').attr('src', 'view_qual.html');
-            $('#addQualModal').on('hidden.bs.modal', function () {
-                $('#frameQualAdd').attr('src', '');
+            $('#qualModal').on('hidden.bs.modal', function () {
+                $('#frameQual').attr('src', '');
+                $('#qualModalLabel').text("");
             });
 
             $('#createProjModal').on('hidden.bs.modal', function () {
@@ -132,10 +133,42 @@
             document.getElementById("divAddToCartAlert").style.display = 'none';
         });
     </script>
-
+    <style>
+        .qualModal{
+            max-height: 100% !important;
+            min-height: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+        }
+        @media (min-width: 768px) {
+            .modal-xl {
+                width: 94%;
+                max-width:94%;
+            }
+        }
+    </style>
 </head>
 
 <body id="page-top" class="index">
+
+<!-- Add/Edit/Duplicate Qual Modal -->
+<div class="qualModal modal fade" id="qualModal" tabindex="-1" role="dialog" aria-labelledby="qualModalLabel">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="qualModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <iframe id="frameQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer hidden">
+                <button id="btnQualModalClose" type="button" class="hidden btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Navigation -->
 
 <nav id = "projectCartNav">
@@ -253,7 +286,7 @@
                 <li class="dropdown active">
                     <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a id ="newQual" href="qual_add.html">New Qual</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#qualModal" onclick="addQual();">New Qual</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>
                     </ul>
@@ -328,7 +361,7 @@
         <li class="dropdown active">\
             <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>\
             <ul class="dropdown-menu">\
-                <li><a id = "newQual" href="qual_add.html">New Qual</a></li>\
+                <li><a href="#" data-toggle="modal" data-target="#qualModal" onclick="addQual();">New Qual</a></li>\
                 <li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>\
                 <li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\
             </ul>\

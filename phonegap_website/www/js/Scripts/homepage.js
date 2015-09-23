@@ -579,3 +579,16 @@ function getEverything(){
 function resetProjID(){
     projGroupID = -1;
 }
+
+function addQual(){
+    $('#qualModalLabel').text("Add New Qual");
+    $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
+}
+
+function editQual(qual_id){
+    console.log(qual_id);
+    sessionStorage.setItem("edit_qual_id", qual_id); // Setting edit qual id
+    $('#qualModalLabel').text("Edit Existing Qual"); // Changing Title of modal
+    $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
+}
+

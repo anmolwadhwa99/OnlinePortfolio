@@ -46,16 +46,19 @@
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
-    <!--Loading screen-->
-    <!--<script src="js/pace.min.js"></script>-->
-    <!--<link href="css/atom.css" rel="stylesheet">-->
+
+    <script src="js/iframeResizer.contentWindow.min.js"></script>
 
     <script>
+        function closeModal(){
+            window.parent.$('#btnQualModalClose').click(); // Clicking close button to dismiss modal
+        }
+
         function addQual() {
             var projName = $("#qual_project_name").val();
             var projSubtitle = $("#qual_client_name").val();
             var clientName = $("#qual_project_sub").val();
-            var isAnonymous = $('input[name=qual_anonymous]:checked').val();
+            var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
             var anonymousName = $("#qual_anonymous_name").val();
 
             var access = $('input[name=qual_public_access]:checked').val();
@@ -99,17 +102,19 @@
 
             console.log(adminGroups);
 
-            insertQual('true', isAnonymous, challenges, clientName, industry,
+            insertQual(true, isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
                     'solutionStatement', status, projSubtitle, emailAction, websiteAction,
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
-                        $.each(adminGroups, function(i, val) {
-                            assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
-                        });
+                        if(adminGroups != null) {
+                            $.each(adminGroups, function (i, val) {
+                                assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
+                            });
+                        }
 
-                        location.replace("homepage.html");
+                        closeModal();
                     }
             );
             function modifyQual() {
@@ -162,7 +167,7 @@
 
                 console.log(adminGroups);
 
-                updateQual(qualId, 'true', isAnonymous, challenges, clientName, industry,
+                updateQual(qualId, true, isAnonymous, challenges, clientName, industry,
                         tags, outcome, problem, projName, relevance, serviceLine, solution,
                         'solutionStatement', status, projSubtitle, emailAction, websiteAction,
                         clientLogo, productServicesImage, function () {
@@ -172,18 +177,13 @@
                                 assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
                             });
 
-                            location.replace("homepage.html");
+                            closeModal();
                         }
                 );
             }
         }
     </script>
     <style>
-        .hand_interact {
-            cursor: pointer;
-            cursor: hand;
-        }
-
         .fill {
             zoom: 2;
 
@@ -196,16 +196,6 @@
             width: auto;
             max-width: 100%;
         }
-
-        .back_button > input {
-            display: none;
-        }
-
-        .back_button_img {
-            max-width: 20px;
-            zoom: 2;
-        }
-
 
         .progress-value {
             position:absolute;
@@ -270,6 +260,7 @@
 
             var qual_id = sessionStorage.getItem("dup_qual_id");
             if (qual_id != null) {
+                $('#btnReset').prop('disabled', true); // Disabling reset for now as would clear entire form instead of resetting to original values
                 getQualById(qual_id, function() {
                     var qual = this; // gets the qual info
                     $("#qual_project_name").val(qual.projectName);
@@ -314,6 +305,8 @@
             }else{ // dup_qual_id is null
                 qual_id = sessionStorage.getItem("edit_qual_id");
                 if(qual_id != null) {
+                    $('#btnReset').prop('disabled', true); // Disabling reset for now as would clear entire form instead of resetting to original values
+
                     $('#page_title').text("Edit Qual");
                     $('#qual_add_form').attr('action', 'javascript:modifyQual();');
                     $('#qual_id').val(qual_id);
@@ -380,17 +373,7 @@
     </script>
 </head>
 
-<body style="padding:20px; padding-top: 70px;">
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div style="padding-top: 10px;padding-left: 10px;">
-        <div class="back_button pull-left">
-            <label for="qual_back">
-                <img src="imgs/back.png" class="hand_interact back_button_img" alt="Back to Main"/>
-            </label>
-            <input id="qual_back" class="hand_interact" type="button" onclick="location.replace('homepage.html');">
-        </div>
-    </div>
-</div>
+<body>
 <div class="alert alert-info alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Heads Up!</strong> Please use CTRL Shift V / ⌘CMD Shift V to paste formatted content from powerpoint, word, etc
@@ -628,7 +611,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <button type="reset" class="btn btn-block btn-danger" onclick="javascript: ResetImages();">
+                <button type="reset" id="btnReset" class="btn btn-block btn-danger" onclick="javascript: ResetImages();">
                     <span class="glyphicon glyphicon-repeat"></span> Reset
                 </button>
             </div>
