@@ -194,27 +194,24 @@
 
 
 
-        <div class="col-sm-5 spec_vertical_center" style="padding-left: 0px;">
-            <div class="input-group stylish-input-group">
+        <div class="col-sm-5 spec_vertical_center" style="padding-left: 36px;">
+            <div  class="input-group stylish-input-group">
                 <input id="searchBox" type="text" class="form-control"  placeholder="Search..." onkeyup="search()" >
-                    <span class="input-group-addon" style="font-size:13px">
+                    <span id="searchIcon" class="input-group-addon" style="font-size:13px">
                         <button type="button">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </span>
             </div>
+            <ul class="nav navbar-nav">
+                <li id="resultLI" class="dropdown active">
+                    <ul id="resultUL" class="dropdown-menu" style="width:695px; ">
+
+                    </ul>
+                </li>
+            </ul>
         </div>
-
-        <ul class="nav navbar-nav" style="padding-left: 10px;">
-            <li id="resultLI" class="dropdown active">
-                <ul id="resultUL" class="dropdown-menu" style="width:695px; ">
-
-                </ul>
-            </li>
-        </ul>
-
     </div>
-
 </div>
 
 <script>
