@@ -165,7 +165,7 @@ function getProjects(account_id){
                 htmlStr += addPortfolioItem(
                     '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
                     '\"addProjectQualsToGroup('+projects[i].id+')\"',
-                    '\"alert(\'still need to define this one\')\"',
+                    projects[i].id,
                     projects[i].projectGroupName,
                     '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
                     "",
@@ -299,6 +299,17 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     }else{
         viewFunction = '\' onclick =' +viewFunc + '\"';
     }
+
+    var editFunction = "";
+    if(type == 'project'){
+
+    }else if(type == 'qual'){
+        editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
+    }else if(type == 'client'){
+
+    }
+
+
     var str = "\
     <div class='col-md-3 col-sm-6 portfolio-item'> \
         <a href='#' class='portfolio-link' data-toggle='modal' > \
@@ -311,7 +322,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         str += "\<div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
                 <i class='fa fa-plus fa-3x'></i>\
             </div>\
-            <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+            <div class='portfolio-hover-content editIcon' " + editFunction + " >\
                     <i class='fa fa-pencil fa-3x'></i>\
             </div>\
             <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
@@ -380,7 +391,7 @@ function openQualsForProject(projectID, projectName) {
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                quals[i].qualId,
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
                 quals[i].clientImage,
@@ -407,7 +418,7 @@ function openQualsForClientProject(projectID, projectName) {
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                quals[i].qualId,
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
                 quals[i].clientImage,
@@ -458,7 +469,7 @@ function getQuals(){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                quals[i].qualId,
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
                 quals[i].clientImage,
@@ -481,7 +492,7 @@ function getClients() {
             htmlStr += addPortfolioItem(
                 "\"getProjectforClient("+clients[i].accountId+ ', \''   +clients[i].accountName+'\')',
                 '\"\"',
-                '\"alert(\'still need to define this one\')\"',
+                clients[i].accountId,
                 clients[i].accountName,
                 '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"',
                 "",
@@ -503,7 +514,7 @@ function getProjectforClient(id, clientName){
             htmlStr += addPortfolioItem(
                 '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
                 '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                projects[i].id,
                 projects[i].projectGroupName,
                 '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
                 "",
