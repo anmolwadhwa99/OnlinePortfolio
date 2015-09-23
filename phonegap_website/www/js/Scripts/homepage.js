@@ -15,11 +15,16 @@ function search(){
         searchResults = doSearch(text, allQuals, allClients, allProjects);
     }
 
-    var len = $('#searchBox').outerWidth() + $('#searchIcon').width();
+    var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
 
 
     var resUL = $('#resultUL');
     resUL.empty();
+    resUL.width(len);
+
+    if(searchResults.length == 0){
+        return;
+    }
 
     for(i = 0; i < searchResults.length ; i++) {
         var res = new Results();
