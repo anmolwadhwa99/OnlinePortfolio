@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Script located here so it runs immediately before anything on the page can load -->
+    <script>
+        var superuserStatus = sessionStorage.getItem("superuserStatus");
+        if(! superuserStatus){ // if not defined (i.e. value is undefined or null)
+            location.replace("homepage.html");
+        }
+    </script>
+
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -369,7 +377,6 @@
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
-
             // Wrapping of default alert
             window.alert = function(message) {
                 new PNotify({
