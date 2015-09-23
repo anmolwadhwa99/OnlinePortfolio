@@ -109,6 +109,8 @@
 
                     getAccountById(account.accountId, function () {
                         var account = this;
+                        sessionStorage.setItem("superuserStatus", account.isSuperUser);
+                        sessionStorage.setItem("isAdmin", account.isAdmin);
                         if (account.isAdmin == true) {
                             location.replace("homepage.html");
                         } else {
