@@ -106,13 +106,19 @@
                 }
             });
 
-            $("#projectCartNav, #qualCollection").click(function (e) {
+            $("#projectCartNav, #qualCollection", "#deleteQual").click(function(e) {
                 e.stopImmediatePropagation();
                 if (this.id = 'qualCollection') {
                     $('#createProjModal').modal('show');
                 } else if (this.id = 'projectCartNav') {
                     e.stopPropagation();
                     return false;
+                }else if(this.id = 'deleteQual'){
+//                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    $('#createProjModal').modal('hide');
+                    $('body').toggleClass('nav-expanded');
+                    $('#logoutButton').css('marginRight', '500px');
                 }
 
             });
@@ -352,8 +358,6 @@
                 </li>
             </ul>
         </div>
-
-
 
     </div>
 

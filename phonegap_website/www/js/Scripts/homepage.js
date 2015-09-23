@@ -346,7 +346,7 @@ function determineItemImage(clientImage, projectImage, type){
             return projectImage
         }
     }else if(type == 'client'){
-        return "img/portfolio/roundicons.png";
+        return "imgs/client.png";
     }else if(type == 'project'){
         return "imgs/deloitte.jpg";
     }
@@ -528,12 +528,14 @@ function addToCart(qID, m){
     var li = document.createElement("li");
     var a = document.createElement("a");
     a.setAttribute("href", "#");
+    li.id = "deleteQual";
 
     var span = document.createElement("span");
     span.setAttribute("class","icon");
 
-    a.appendChild(document.createTextNode(m));
     a.appendChild(span);
+    a.appendChild(document.createTextNode(m));
+
 
     li.appendChild(a);
     li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
