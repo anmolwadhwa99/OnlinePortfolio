@@ -153,14 +153,6 @@ function doSearch(str, quals, clients, projects){
 
     for (i = 0; i < quals.length; i++){
         var qual = quals[i];
-        //if (qual.clientName.toLowerCase().indexOf(str) > -1){
-        //    var res = new Results();
-        //    res.id = qual.qualId;
-        //    res.type = resType.QUAL;
-        //    res.value = qual.clientName;
-        //
-        //    resultArray.push(res);
-        //}
         if (qual.projectName.toLowerCase().indexOf(str) > -1){
             var res = new Results();
             res.id = qual.qualId;
@@ -216,7 +208,7 @@ function verifyAccount(pw,callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Invalid Account");
+                alert("Incorrect password. Please try again.");
                 return null;
             }
             // Request successful, read the response
@@ -264,8 +256,6 @@ function getQualById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to qual by id");
                 return null;
             }
 
@@ -292,7 +282,7 @@ function getAllQuals(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to return Qual");
+                alert("Unable to retrieve all the quals");
                 return null;
             }
             // Request successful, read the response
@@ -327,7 +317,7 @@ function getAllPublicQuals(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to return Qual");
+                alert("Unable to retrieve all public quals");
                 return null;
             }
             // Request successful, read the response
@@ -361,8 +351,6 @@ function getQualsByAccount(acId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get Qual by account");
                 return null;
             }
             // Request successful, read the response
@@ -396,8 +384,6 @@ function getQualsByProject(projectId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to return Qual by project");
                 return null;
             }
             // Request successful, read the response
@@ -431,8 +417,6 @@ function getQualsByAdminGroup(agId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to return Qual by admin group");
                 return null;
             }
             // Request successful, read the response
@@ -466,8 +450,6 @@ function getImagesForQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get images for qual");
                 return null;
             }
             // Request successful, read the response
@@ -504,7 +486,7 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable add qual");
+                alert("Unable to add new qual. Please try again later");
                 return null;
             }
             // Request successful, read the response
@@ -557,14 +539,11 @@ function deleteQual(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to delete qual");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Qual(json).getInfo);
 
             var s = json;
 
@@ -585,14 +564,11 @@ function reactivateQual(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to reactivate qual");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Qual(json).getInfo);
 
             var s = json;
 
@@ -615,8 +591,6 @@ function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, indu
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to update qual");
                 return null;
             }
             // Request successful, read the response
@@ -666,8 +640,6 @@ function assignQualToAccount(acId, qId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to assign qual to account");
                 return null;
             }
             // Request successful, read the response
@@ -702,8 +674,6 @@ function assignQualToAdminGroup(agId, qId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to assign qual to admin");
                 return null;
             }
             // Request successful, read the response
@@ -738,8 +708,6 @@ function assignQualToProjectGroup(pgId, qId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to assign qual to project group");
                 return null;
             }
             // Request successful, read the response
@@ -778,8 +746,6 @@ function getAccountById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get account by id");
                 return null;
             }
             // Request successful, read the response
@@ -808,7 +774,7 @@ function getAllAccounts(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to get all accounts");
+                alert("Unable to retrieve all client accounts");
                 return null;
             }
             // Request successful, read the response
@@ -843,7 +809,7 @@ function getAllAdmins(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to get all admins");
+                alert("Unable to retrieve all admin accounts");
                 return null;
             }
             // Request successful, read the response
@@ -877,8 +843,6 @@ function getAllClients(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get all clients");
                 return null;
             }
             // Request successful, read the response
@@ -912,8 +876,6 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to insert account");
                 return null;
             }
             // Request successful, read the response
@@ -953,14 +915,11 @@ function deleteAccount(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to delete account");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Account(json).getInfo);
 
         }
     }
@@ -979,14 +938,11 @@ function reactivateAccount(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to reactivate account");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Account(json).getInfo);
 
         }
     }
@@ -1005,8 +961,6 @@ function assignAccountToAdminGroup(agId, acId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to assign Account To Admin Group");
                 return null;
             }
             // Request successful, read the response
@@ -1041,8 +995,6 @@ function assignAccountToProjectGroup(pgId, acId){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to assign Account To Project Group");
                 return null;
             }
             // Request successful, read the response
@@ -1077,8 +1029,6 @@ function getAccountsByAdminGroup(agId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get accounts by admin group");
                 return null;
             }
             // Request successful, read the response
@@ -1112,8 +1062,6 @@ function getAccountsByQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get accounts by qual");
                 return null;
             }
             // Request successful, read the response
@@ -1147,8 +1095,6 @@ function getAccountsByProjectGroup(pgId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get accounts by project group");
                 return null;
             }
             // Request successful, read the response
@@ -1186,8 +1132,6 @@ function getAdminGroupById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get admin group by id");
                 return null;
             }
             // Request successful, read the response
@@ -1216,7 +1160,7 @@ function getAllAdminGroups(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to get all admin groups");
+                alert("Unable to retrieve all admin groups");
                 return null;
             }
             // Request successful, read the response
@@ -1250,8 +1194,6 @@ function insertAdminGroup(groupName){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to insert admin group");
                 return null;
             }
             // Request successful, read the response
@@ -1286,14 +1228,11 @@ function deleteAdminGroup(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to delete admin group");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new AdminGroup(json).getInfo);
 
         }
     }
@@ -1312,14 +1251,11 @@ function reactivateAdminGroup(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to reactivate admin group");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new AdminGroup(json).getInfo);
 
         }
     }
@@ -1338,8 +1274,6 @@ function getAdminGroupsByQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get admin group by qual");
                 return null;
             }
             // Request successful, read the response
@@ -1373,8 +1307,6 @@ function getAdminGroupsByAccount(acId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get admin group by account");
                 return null;
             }
             // Request successful, read the response
@@ -1411,8 +1343,6 @@ function insertProjectGroup(projGroupName, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to insert project group");
                 return null;
             }
             // Request successful, read the response
@@ -1448,8 +1378,6 @@ function getProjectById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get project by id");
                 return null;
             }
             // Request successful, read the response
@@ -1477,8 +1405,6 @@ function getProjectsByClient(cId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get project by client");
                 return null;
             }
             // Request successful, read the response
@@ -1513,7 +1439,7 @@ function getAllProjectGroups(callback) {
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to get all projects by group");
+                alert("Unable to retrieve all projects");
                 return null;
             }
             // Request successful, read the response
@@ -1546,14 +1472,11 @@ function deleteProjectGroup(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to delete project group");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new ProjectGroup(json).getInfo);
 
         }
     }
@@ -1572,14 +1495,11 @@ function reactivateProjectGroup(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to reactivate project group");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new ProjectGroup(json).getInfo);
 
         }
     }
@@ -1599,8 +1519,6 @@ function insertImage(isActive, publicid, imageType, imageUrl , callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to insert Image");
                 return null;
             }
             // Request successful, read the response
@@ -1643,8 +1561,6 @@ function getImageById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get image by id");
                 return null;
             }
             // Request successful, read the response
@@ -1672,8 +1588,6 @@ function getAllImages(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get all images");
                 return null;
             }
             // Request successful, read the response
@@ -1706,8 +1620,6 @@ function getAllClientImages(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get all client images");
                 return null;
             }
             // Request successful, read the response
@@ -1740,8 +1652,6 @@ function getAllProjectImages(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get all project images");
                 return null;
             }
             // Request successful, read the response
@@ -1774,14 +1684,11 @@ function deleteImage(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to delete images");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Pic(json).getInfo());
 
         }
     }
@@ -1800,14 +1707,11 @@ function reactivateImage(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to reactivate image");
                 return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
             var json = JSON.parse(resp);
-            alert(new Pic(json).getInfo());
 
         }
     }
@@ -1826,8 +1730,6 @@ function assignImageToQual(iId, qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to assign image to qual");
                 return null;
 
             }

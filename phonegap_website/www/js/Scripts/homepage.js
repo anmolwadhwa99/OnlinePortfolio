@@ -2,6 +2,7 @@
 
 var accountId = -1;
 var isClient = false;
+var isSuperUser = false;
 
 function search(){
     var text = $("#searchBox").val();
@@ -42,7 +43,7 @@ function search(){
                 on_click = 'openQualsForProject(' + res.id + ', "' + res.value + '");showResults(' + false + ',"' + '#projects' + '");';
                 break;
             case 2: // client
-                on_click = 'getProjectforClient(' + res.id + ');showResults(' + false + ',"' + '#clients' + '");';
+                on_click = 'getProjectforClient(' + res.id + ', "'+ res.value + '");showResults(' + false + ',"' + '#clients' + '");';
                 break;
         }
 
@@ -148,10 +149,11 @@ function getProjects(account_id){
         var account = this;
 
         isClient = !account.isAdmin;
+        isSuperUser = account.isSuperUser;
 
         getProjectsByClient(account_id, function() {
             var projects = this;
-            var htmlStr = "<h1 id='heading'>Projects</h1>";
+            var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
 
             for(i = 0; i< projects.length; i++){
 
@@ -340,7 +342,7 @@ function openQualsForProject(projectID, projectName) {
 
         var quals = this;
 
-        var htmlStr = "<h1 id='heading'>Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
         for(i = 0; i< quals.length; i++){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
@@ -367,7 +369,7 @@ function openQualsForClientProject(projectID, projectName) {
 
         var quals = this;
 
-        var htmlStr = "<h1 id='heading'>Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
         for(i = 0; i< quals.length; i++){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
@@ -410,8 +412,6 @@ function getQuals(){
         var quals = this;
         alert_type = "info";
 
-
-
         var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
         getAccountById(accountId, function(){
@@ -419,9 +419,7 @@ function getQuals(){
             if (account.isAdmin == true){
                 htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
             }
-
         });
-
 
         for (i = 0; i < quals.length; i++) {
             htmlStr += addPortfolioItem(
@@ -441,13 +439,14 @@ function getQuals(){
 }
 
 function getClients() {
+    var htmlStr ="<h1 id='heading' class='col-md-10'>Clients</h1>";
+
     getAllClients(function () {
         var clients = this;
         var list = document.getElementById("client_list");
-        var htmlStr = "";
         for (i = 0; i < clients.length; i++) {
             htmlStr += addPortfolioItem(
-                '\"getProjectforClient('+clients[i].accountId+')\"',
+                "\"getProjectforClient("+clients[i].accountId+ ', \''   +clients[i].accountName+'\')',
                 '\"\"',
                 '\"alert(\'still need to define this one\')\"',
                 clients[i].accountName,
@@ -462,10 +461,11 @@ function getClients() {
     });
 }
 
-function getProjectforClient(id){
+function getProjectforClient(id, clientName){
+
     getProjectsByClient(id,function(){
         var projects = this;
-        var htmlStr = "";
+        var htmlStr ="<h1 id='heading' class='col-md-10'>"+clientName+"\'s Projects</h1>";
         for(i = 0; i< projects.length; i++){
             htmlStr += addPortfolioItem(
                 '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
@@ -482,8 +482,7 @@ function getProjectforClient(id){
         htmlClientProject = htmlStr;
         $("#clients").html(htmlStr);
 
-
-    })
+    });
 
 }
 
