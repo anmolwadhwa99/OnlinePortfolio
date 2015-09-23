@@ -106,13 +106,19 @@
                 }
             });
 
-            $("#projectCartNav, #qualCollection").click(function(e) {
+            $("#projectCartNav, #qualCollection", "#deleteQual").click(function(e) {
                 e.stopImmediatePropagation();
                 if(this.id = 'qualCollection'){
                     $('#createProjModal').modal('show');
                 }else if(this.id = 'projectCartNav'){
                     e.stopPropagation();
                     return false;
+                }else if(this.id = 'deleteQual'){
+//                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    $('#createProjModal').modal('hide');
+                    $('body').toggleClass('nav-expanded');
+                    $('#logoutButton').css('marginRight', '500px');
                 }
 
             });
@@ -304,7 +310,7 @@
                     </span>
             </div>
         </div>
-        
+
         <ul class="nav navbar-nav" style="padding-left: 10px;">
             <li id="resultLI" class="dropdown active">
                 <ul id="resultUL" class="dropdown-menu" style="width:695px; ">

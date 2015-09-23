@@ -495,6 +495,7 @@ function addToCart(qID, m){
     var li = document.createElement("li");
     var a = document.createElement("a");
     a.setAttribute("href", "#");
+    li.id = "deleteQual";
 
     var span = document.createElement("span");
     span.setAttribute("class","icon");
