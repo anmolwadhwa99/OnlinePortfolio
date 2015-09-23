@@ -192,15 +192,32 @@
             </ul>
         </div>
 
-        <div id="searching" class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">
-            <input id="searchBox" type="text" class="form-control input-sm" placeholder="Search..." onkeyup="search()" />
-
-                    <span id="searchIcon" class="input-group-btn">
-                        <button class="btn btn-info btn-sm" type="button">
-                            <i class="glyphicon glyphicon-search"></i>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 vertical_center" style="padding-left: 0px;">
+                    <div class="input-group stylish-input-group">
+                        <input id="searchBox" type="text" class="form-control"  placeholder="Search..." onkeyup="search()" >
+                    <span class="input-group-addon" style="font-size:13px">
+                        <button type="button">
+                            <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </span>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!--<div id="searching" class="input-group col-md-6 col-sm-8 col-xs-8" style="padding-top: 10px;padding-left: 10px;">-->
+        <!--<input id="searchBox" type="text" class="form-control input-sm" placeholder="Search.." onkeyup="search()" />-->
+
+        <!--<span id="searchIcon" class="input-group-btn">-->
+        <!--<button class="btn btn-info btn-sm" type="button">-->
+        <!--<i class="glyphicon glyphicon-search"></i>-->
+        <!--</button>-->
+        <!--</span>-->
+        <!--</div>-->
+
+
         <ul class="nav navbar-nav" style="padding-left: 10px;">
             <li id="resultLI" class="dropdown active">
                 <ul id="resultUL" class="dropdown-menu" style="width:695px; ">
@@ -240,10 +257,10 @@
                 "border-color":secondary.toString()
             });
 
-            $(".btn-info").css({
-                "background-color":primary.toString(),
-                "border-color":secondary.toString()
-            });
+//            $(".btn-info").css({
+//                "background-color":primary.toString(),
+//                "border-color":secondary.toString()
+//            });
 
             $("body").css({
                 "color":primary.toString()
@@ -252,8 +269,8 @@
             var style = document.createElement('style');
             style.type = 'text/css';
             style.innerHTML = '.nav-tabs > li.active > a, .nav-tabs > li > a:hover { color:'+primary.toString() +' !important; border: none; background: transparent; } ' +
-                    '.nav-tabs > li > a::after { background:'+primary.toString() + ' !important; content: ""; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); } ' +
-                    '.navbar-inverse .navbar-nav>li>a { color:'+secondary.toString() +'}';
+            '.nav-tabs > li > a::after { background:'+primary.toString() + ' !important; content: ""; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); } ' +
+            '.navbar-inverse .navbar-nav>li>a { color:'+secondary.toString() +'}';
             document.getElementsByTagName('head')[0].appendChild(style);
 
             var vnSpace =  $('#space');
