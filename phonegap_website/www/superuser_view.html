@@ -420,7 +420,7 @@
                             disableDeactive = "disabled=\"disabled\"";
                         }
 
-                        table.row.add([accountName,
+                        table.row.add([accountName, val.password,
                             active, '<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
@@ -755,6 +755,7 @@
                     <thead>
                     <tr>
                         <th>Client Name</th>
+                        <th>Client Password</th>
                         <th>Active?</th>
                         <th>Reactivate</th>
                         <th>Delete</th>
