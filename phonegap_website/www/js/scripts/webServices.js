@@ -866,7 +866,7 @@ function getAllClients(callback){
     req.send();
 }
 
-function insertAccount(isAdmin, acName, pw, isSuperUser, callback){
+function insertAccount(isAdmin, acName, pw, isSuperUser, primaryColour, secondaryColour, password, callback){
     var methodURL = url + _ac;
     var method = "POST";
 
@@ -887,7 +887,6 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, callback){
                 callback.apply(ac.accountId);
             }
 
-
         }
     }
     req.open(method, methodURL, true);
@@ -897,6 +896,9 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, callback){
         '"isAdmin": ' + isAdmin + ','+
         '"accountName": "' + acName + '",'+
         '"password": "' + pw + '",'+
+        '"primaryColour": "' + primaryColour + '",'+
+        '"secondaryColour": "' + secondaryColour + '",'+
+        '"password": "' + password + '",'+
         '"isSuperUser": ' + isSuperUser +
         '}';
 
