@@ -318,7 +318,7 @@ function determineItemImage(clientImage, projectImage, type){
             return projectImage
         }
     }else if(type == 'client'){
-        return "img/portfolio/roundicons.png";
+        return "imgs/client.png";
     }else if(type == 'project'){
         return "imgs/deloitte.jpg";
     }
