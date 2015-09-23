@@ -256,9 +256,9 @@
                         }
 
                         table.row.add([agName,
-                            '<button type="button" data-toggle="modal" data-target="#modalAG" onclick="loadEditAG('+val.id+',\''+agName+'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active,'<button type="button" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" class="btn" data-toggle="modal" data-target="#modalAG" onclick="loadEditAG('+val.id+',\''+agName+'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -294,9 +294,9 @@
                         }
 
                         table.row.add([accountName, superuser,
-                            '<button type="button" data-toggle="modal" data-target="#modalAdmin" onclick="loadEditAdmin('+val.accountId+',\''+ accountName +'\','+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active, '<button type="button" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            '<button type="button" class="btn" data-toggle="modal" data-target="#modalAdmin" onclick="loadEditAdmin('+val.accountId+',\''+ accountName +'\','+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
+                            active, '<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -307,6 +307,9 @@
                 var quals = this;
                 if(quals.length > 0 && quals !== null) {
                     $.each(quals, function (i, val) {
+
+                        console.log(val.isActive);
+
                         var projectName = "";
                         if(val.projectName){
                             projectName = val.projectName;
@@ -351,8 +354,8 @@
                         }
 
                         table.row.add([projectName,subtitle,clientName,anonymousName,anonymousState,qualStatus,
-                            active,'<button type="button" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
                     });
                 }
@@ -384,8 +387,8 @@
                         }
 
                         table.row.add([projectName,
-                            active,'<button type="button" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -416,8 +419,8 @@
                         }
 
                         table.row.add([accountName,
-                            active, '<button type="button" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active, '<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
