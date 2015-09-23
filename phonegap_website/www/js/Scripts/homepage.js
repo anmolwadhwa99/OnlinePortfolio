@@ -207,8 +207,9 @@ function createClient(clientName, primaryColour, secondaryColour){
 
     insertAccount(false, clientName, 'qwerty', false, primaryColour, secondaryColour, password, function(){
         loadTab('#clients');
-        return password;
     });
+
+    return password;
 }
 
 function archiveQual(qualId){

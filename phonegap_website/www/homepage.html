@@ -252,31 +252,27 @@
                         </div>
                     </div>
                 </form>
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div id="primary_color_wheel" class="col-md-6 col-xs-8">
-                            <div class="col-md-7">
-                                <label for="qual_colour_primary">Primary Colour: </label>
-                            </div>
-                            <div class="col-md-5">
-                                <input id="qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
-                                       class="form-control" value="#091D5D" placeholder="#091D5D">
-                            </div>
-                            <div class="colorwheel" style="margin-right: auto;margin-left: auto"></div>
-                        </div>
+                <div class="row">
+                    <div id="primary_color_wheel" class="col-md-6 col-xs-8">
+                        <label for="qual_colour_primary">Primary Colour: </label>
+                        <input id="qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
+                               class="form-control" value="#091D5D" placeholder="#091D5D">
 
-                        <div id="secondary_color_wheel" class="col-md-6 col-xs-8">
-                            <div class="col-md-7">
-                                <label for="qual_colour_secondary">Secondary Colour: </label>
-                            </div>
-                            <div class="col-md-5">
-                                <input id="qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
-                                       class="form-control" value="#091D5D" placeholder="#091D5D">
-                            </div>
-                            <div class="colorwheel" style="margin-right: auto;margin-left: auto"></div>
-                        </div>
+                        <div class="colorwheel"></div>
                     </div>
-                    <div style="height: 15px;"></div>
+                    <div id="secondary_color_wheel" class="col-md-6 col-xs-8">
+                        <label for="qual_colour_secondary">Secondary Colour: </label>
+                        <input id="qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
+                               class="form-control" value="#DDD2B5" placeholder="#DDD2B5">
+
+                        <div class="colorwheel"></div>
+                    </div>
+
+                </div>
+                <div style="height: 15px;"></div>
+                <div style="display: none" id="passwordAlert" class="alert alert-success alert-dismissible" role="alert">
+
+                </div>
                 </form>
 
                 <!--<iframe id="frameQualAdd" src="qual_add.html" width="100%" scrolling="no" frameborder="0"></iframe>-->
@@ -356,7 +352,7 @@
                 </li>
             </ul>
         </div>
-        
+
 
 
     </div>
@@ -396,9 +392,12 @@
             var primaryColour = $("#qual_colour_primary").val();
             var secondaryColour = $("#qual_colour_secondary").val();
             $("#clientName").val("");
-            $('#createClientModal').modal('hide');
             var clientPw = createClient(clientName, primaryColour, secondaryColour);
-            console.log("password returned is: "+clientPw);
+            var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                    "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
+
+            $("#passwordAlert").html(htmlStr);
+            $("#passwordAlert").show();
         });
 
         var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
