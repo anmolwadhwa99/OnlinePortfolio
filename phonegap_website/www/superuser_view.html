@@ -242,7 +242,7 @@
                             agName = val.name;
                         }
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -270,12 +270,12 @@
                 if(admins.length > 0 && admins !== null){
                     $.each(admins, function(i, val){
 
-                        var superuser = "";
+                        var superuser = "false";
                         if(val.isSuperUser){
                             superuser = val.isSuperUser;
                         }
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -330,7 +330,7 @@
                             anonymousName = val.projectName;
                         }
 
-                        var anonymousState = "";
+                        var anonymousState = "false";
                         if(val.isAnonymous){
                             anonymousState = val.isAnonymous;
                         }
@@ -340,7 +340,7 @@
                             qualStatus = val.status;
                         }
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -368,7 +368,7 @@
                 if(projects.length > 0 && projects !== null){
                     $.each(projects, function (i, val){
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -400,7 +400,7 @@
                 if(clients.length > 0 && clients !== null){
                     $.each(clients, function (i, val){
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
