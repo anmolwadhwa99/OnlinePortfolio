@@ -264,8 +264,6 @@ function getQualById(id, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to qual by id");
                 return null;
             }
 
@@ -292,7 +290,7 @@ function getAllQuals(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to return Qual");
+                alert("Unable to retrieve all the quals");
                 return null;
             }
             // Request successful, read the response
@@ -327,7 +325,7 @@ function getAllPublicQuals(callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to return Qual");
+                alert("Unable to retrieve all public quals");
                 return null;
             }
             // Request successful, read the response
@@ -361,8 +359,6 @@ function getQualsByAccount(acId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get Qual by account");
                 return null;
             }
             // Request successful, read the response
@@ -396,8 +392,6 @@ function getQualsByProject(projectId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to return Qual by project");
                 return null;
             }
             // Request successful, read the response
@@ -431,8 +425,6 @@ function getQualsByAdminGroup(agId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to return Qual by admin group");
                 return null;
             }
             // Request successful, read the response
@@ -466,8 +458,6 @@ function getImagesForQual(qId, callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to get images for qual");
                 return null;
             }
             // Request successful, read the response
@@ -504,7 +494,7 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable add qual");
+                alert("Unable to add new qual. Please try again later");
                 return null;
             }
             // Request successful, read the response
@@ -557,8 +547,6 @@ function deleteQual(id){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to delete qual");
                 return null;
             }
             // Request successful, read the response
@@ -586,8 +574,6 @@ function reactivateQual(id){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
-                alert("Unable to reactivate qual");
-                return null;
             }
             // Request successful, read the response
             var resp = req.responseText;
@@ -615,8 +601,6 @@ function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, indu
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
-                alert_type = 'error';
-                alert("Unable to update qual");
                 return null;
             }
             // Request successful, read the response
