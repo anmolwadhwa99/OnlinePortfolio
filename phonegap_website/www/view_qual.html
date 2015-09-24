@@ -14,6 +14,8 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/select2.min.css" rel="stylesheet">
@@ -38,7 +40,7 @@
 
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
-
+            HoldOn.open();
             // Wrapping of default alert
             window.alert = function(message) {
                 new PNotify({
@@ -256,6 +258,10 @@
 
             });
 
+            setTimeout(function(){
+                HoldOn.close();
+            },2000);
+
         });
 
 
@@ -273,5 +279,6 @@
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 
 </html>
