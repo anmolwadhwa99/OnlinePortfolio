@@ -86,8 +86,10 @@
 
                 parent.$('#client-logo').attr('src', qual.clientImage);
 
+                parent.$('#qual-projectName').text(qual.projectName);
 
-                htmlStr += "</div><h2 id='heading' style=\"text-align: center; margin-bottom: 20px;font-size: 3em;\">"+qual.projectName+"</h2> \
+
+                htmlStr += " \
             <div class='col-md-6' > \
                 <div class='image-upload' > \
                         <img style=\"max-width: 100%; max-height: 100%;\"id='qual_product_service_img' class='img-rounded fill' src='"+ image+"' /> \
