@@ -186,13 +186,9 @@
 
 
         function loadAct(){
-            $('#form_title').text("Reactivate?");
-
             $('#form_submit').text("Reactivate").addClass("btn-primary");
         }
         function loadDeact(){
-            $('#form_title').text("Deactivate?");
-
             $('#form_submit').text("Deactivate").addClass("btn-danger");
         }
 
@@ -201,28 +197,28 @@
 
             $('#form_body').text("Are you sure you wish to reactivate this Admin Group?");
 
-            confirmAction(id, "warning", "react_ag", "Successfully reactivated the Admin Group!");
+            confirmAction(id, "Reactivate?", "warning", "react_ag", "Successfully reactivated the Admin Group!");
         }
         function loadActAcct(id){
             loadAct();
 
             $('#form_body').text("Are you sure you wish to reactivate this Account?");
 
-            confirmAction(id, "warning", "react_ac", "Successfully reactivated the Account!");
+            confirmAction(id, "Reactivate?", "warning", "react_ac", "Successfully reactivated the Account!");
         }
         function loadActQual(id){
             loadAct();
 
             $('#form_body').text("Are you sure you wish to reactivate this Qual?");
 
-            confirmAction(id, "warning", "react_q", "Successfully reactivated the Admin Group!");
+            confirmAction(id, "Reactivate?", "warning", "react_q", "Successfully reactivated the Admin Group!");
         }
         function loadActProj(id){
             loadAct();
 
             $('#form_body').text("Are you sure you wish to reactivate this Project?");
 
-            confirmAction(id, "warning", "react_pg", "Successfully reactivated the Admin Group!");
+            confirmAction(id, "Reactivate?", "warning", "react_pg", "Successfully reactivated the Admin Group!");
         }
 
         function loadDeactAG(id){
@@ -230,28 +226,28 @@
 
             $('#form_body').text("Are you sure you wish to deactivate this Admin Group?");
 
-            confirmAction(id, "error", "deact_ag", "Successfully deactivated the Admin Group!");
+            confirmAction(id, "Deactivate?", "error", "deact_ag", "Successfully deactivated the Admin Group!");
         }
         function loadDeactAcct(id){
             loadDeact();
 
             $('#form_body').text("Are you sure you wish to reactivate this Account?");
 
-            confirmAction(id, "error", "deact_ac", "Successfully deactivated the Account!");
+            confirmAction(id, "Deactivate?", "error", "deact_ac", "Successfully deactivated the Account!");
         }
         function loadDeactQual(id){
             loadDeact();
 
             $('#form_body').text("Are you sure you wish to deactivate this Qual?");
 
-            confirmAction(id, "error", "deact_q", "Successfully deactivated the Qual!");
+            confirmAction(id, "Deactivate?", "error", "deact_q", "Successfully deactivated the Qual!");
         }
         function loadDeactProj(id){
             loadDeact();
 
             $('#form_body').text("Are you sure you wish to deactivate this Project?");
 
-            confirmAction(id, "error", "deact_pg", "Successfully deactivated the Project!");
+            confirmAction(id, "Deactivate?", "error", "deact_pg", "Successfully deactivated the Project!");
         }
 
         function loadAdminGroupsTable(table){
@@ -451,10 +447,11 @@
     </script>
 
     <script>
-        function confirmAction(item_id, notice_type, submit_option, success_message) {
+        function confirmAction(item_id, notice_title, notice_type, submit_option, success_message) {
             var notice = new PNotify({
+                title: notice_title,
                 text: $('#form_notice').html(),
-                icon: false,
+                icon: true,
                 width: 'auto',
                 hide: false,
                 type: notice_type,
@@ -464,7 +461,7 @@
                 },
                 insert_brs: false
             });
-            notice.get().find('form.container-fluid').on('click', '[name=cancel]', function () {
+            notice.get().find('form.pf-form').on('click', '[name=cancel]', function () {
                 cleanseForm();
                 notice.remove();
             }).submit(function () {
@@ -648,15 +645,15 @@
 
 <!-- The form within this div(id="form_notice") is what is shown inside the customized PNotify form message -->
 <div id="form_notice" style="display: none;">
-    <form action method="POST" class="container-fluid">
-
-        <h3 id="form_title"></h3>
-
-        <div id="form_body">
+    <form action method="POST" class="pf-form">
+        <div class="pf-element">
+            <div id="form_body">
+            </div>
         </div>
-
-        <button id="form_cancel" type="button" name="cancel" class="btn btn-default">Cancel</button>
-        <button id="form_submit" type="submit" name="submit" class="btn"></button>
+        <div class="pf-element pf-buttons">
+            <button id="form_cancel" type="button" name="cancel" class="pf-button btn btn-default">Cancel</button>
+            <button id="form_submit" type="submit" name="submit" class="pf-button btn"></button>
+        </div>
     </form>
 </div>
 
