@@ -231,14 +231,15 @@
         function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
 
             return "<li>\
-                        <div> \
+                        <div style=\"background-image: url('" + image + "'); background-size: contain; border: none; background-repeat: no-repeat\"> \
                           <a class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + ")' > \
-                                <img src=" + image + " alt=''> \
+                          <img>\
                           </a> \
                         </div>\
                     </li>"
         }
 
+//        <img src=" + '' + " style='width=100%; height=auto;'> \
         function determineItemImage(clientImage, projectImage, type){
 
             var image = "";
