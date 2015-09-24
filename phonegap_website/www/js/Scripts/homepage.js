@@ -295,7 +295,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
 
     var viewFunction = "";
     if(isNumeric(viewFunc)) {
-        viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+        viewFunction = ' portfolio-link\' data-target=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
     }else{
         viewFunction = '\' onclick =' +viewFunc + '\"';
     }
@@ -441,14 +441,7 @@ function openPrevClientProj(){
 function viewQual(qual_id){
     console.log(qual_id);
     sessionStorage.setItem("qual_id", qual_id);
-    location.href = "#viewQualModal";
     $('#frameViewQual').attr('src', 'view_qual.html');
-    getQualById(qual_id, function() {
-        $('#client-logo').attr('src', "");
-        var qual = this;
-        $('#client-logo').attr('src', qual.clientImage);
-    });
-
 }
 
 function getQuals(){
