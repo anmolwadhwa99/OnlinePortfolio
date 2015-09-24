@@ -399,7 +399,7 @@ public class QualificationDatabase {
 		qualification.setWebsiteButton(qual.getWebsiteButton());
 
 
-		session.saveOrUpdate(qualification);
+		session.update(qualification);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

@@ -192,7 +192,7 @@ public class ProjectGroupDatabase {
 		projectGroup.setProjGroupId(newProjectGroup.getProjGroupId());
 		projectGroup.setProjGroupName(newProjectGroup.getProjGroupName());
 		
-		session.saveOrUpdate(projectGroup);
+		session.update(projectGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

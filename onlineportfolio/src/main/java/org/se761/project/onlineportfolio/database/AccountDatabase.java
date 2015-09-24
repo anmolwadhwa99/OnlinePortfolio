@@ -343,7 +343,7 @@ public class AccountDatabase {
 		account.setSecondaryColour(editedAccount.getSecondaryColour());
 		account.setSuperUser(editedAccount.isSuperUser());
 		
-		session.saveOrUpdate(account);
+		session.update(account);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

@@ -226,7 +226,7 @@ public class AdminGroupDatabase {
 		adminGroup.setAdminGroupId(modifiedAdminGroup.getAdminGroupId());
 		adminGroup.setAdminGroupName(modifiedAdminGroup.getAdminGroupName());
 		
-		session.saveOrUpdate(adminGroup);
+		session.update(adminGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
