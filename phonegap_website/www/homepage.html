@@ -303,20 +303,6 @@
             </a>
         </div>
 
-        <!--<div>-->
-        <!--<ul id="visibleNew" class="nav navbar-nav navbar-right" style="margin-right: 50px">-->
-        <!--<li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>-->
-        <!--<li class="dropdown active">-->
-        <!--<a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown"> <span class="caret"></span></a>-->
-        <!--<ul class="dropdown-menu">-->
-        <!--<li><a href="qual_add.html">New Qual</a></li>-->
-        <!--<li><a href="#" data-toggle="modal" data-target="#createProjModal" onclick="resetProjID()">New Project</a></li>-->
-        <!--<li><a href="#" data-toggle="modal" data-target="#createClientModal">New Client</a></li>\-->
-        <!--</ul>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-
         <div id="logoutButton" style="margin-right: 200px">
             <ul id="hiddenNew" class="nav navbar-nav navbar-right">
                 <li><a href="index.html" id="logoutUser" style="color: white"
@@ -355,7 +341,8 @@
                 </li>
             </ul>
         </div>
-
+        <div class="col-md-1" id="superAdminDiv">
+        </div>
     </div>
 
 </div>
@@ -385,6 +372,17 @@
             $('#createProjModal').modal('hide');
             createProjectGroup(projName);
 
+        });
+
+        getAccountById(account_id, function() {
+           var account = this;
+            if (account.isSuperUser == true) {
+                var htmlStr = "<button id='superAdminBtn' class='btn spec_vertical_center'>Access Super User</button>";
+                $("#superAdminDiv").html(htmlStr);
+                $("#superAdminBtn").click(function (e) {
+                    document.location.href = "superuser_view.html";
+                });
+            }
         });
 
         $('#createClientBtn').click(function (e) {

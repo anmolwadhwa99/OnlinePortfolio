@@ -1443,10 +1443,14 @@ function getAllProjectGroups(callback) {
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
+                if (req.status == 204) {
+                    return null;
+                }
                 alert_type = 'error';
                 alert("Sorry an error occurred when trying to retrieve all projects.");
                 return null;
             }
+
             // Request successful, read the response
             var resp = req.responseText;
             var projects = new Array();
