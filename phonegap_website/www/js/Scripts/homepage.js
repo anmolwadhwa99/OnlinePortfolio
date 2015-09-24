@@ -4,6 +4,10 @@ var accountId = -1;
 var isClient = false;
 var isSuperUser = false;
 
+var imported = document.createElement('script');
+imported.src = 'js/pnotify.custom.min.js';
+document.head.appendChild(imported);
+
 function search(){
     var text = $("#searchBox").val();
     var toShow = false;
@@ -235,15 +239,37 @@ function confirmArchive(archiveType, itemID){
     $('html, body').animate({ scrollTop: 0 }, 'fast');
 
     if(archiveType == "CLIENT"){
-        document.getElementById("divArchiveAlert").style.display = 'block';
-        document.getElementById("confirmButton").addEventListener("click", function(){
-            archiveClient(itemID);
-        });
-        document.getElementById("cancelButton").addEventListener("click", function(){
-            document.getElementById("divArchiveAlert").style.display = 'none';
-        });
-        title = "";
-        message = "";
+ //       document.getElementById("divArchiveAlert").style.display = 'block';
+ //       document.getElementById("confirmButton").addEventListener("click", function(){
+ //           archiveClient(itemID);
+ //       });
+ //       document.getElementById("cancelButton").addEventListener("click", function(){
+ //           document.getElementById("divArchiveAlert").style.display = 'none';
+ //       });
+ //       title = "";
+ //       message = "";
+        (new PNotify({
+            title: 'Confirmation Needed',
+            text: 'Are you sure?',
+            icon: 'glyphicon glyphicon-question-sign',
+            hide: false,
+            confirm: {
+                confirm: true
+            },
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            history: {
+                history: false
+            }
+        })).get().on('pnotify.confirm', function() {
+                alert('Ok, cool.');
+            }).on('pnotify.cancel', function() {
+                alert('Oh ok. Chicken, I see.');
+            });
+
+
     }else if(archiveType == "PROJECT"){
         document.getElementById("divArchiveAlert").style.display = 'block';
         document.getElementById("confirmButton").addEventListener("click", function(){
@@ -253,13 +279,34 @@ function confirmArchive(archiveType, itemID){
             document.getElementById("divArchiveAlert").style.display = 'none';
         });
     }else if(archiveType == "QUAL"){
-        document.getElementById("divArchiveAlert").style.display = 'block';
-        document.getElementById("confirmButton").addEventListener("click", function(){
-            archiveQual(itemID);
-        });
-        document.getElementById("cancelButton").addEventListener("click", function(){
-            document.getElementById("divArchiveAlert").style.display = 'none';
-        });
+        //document.getElementById("divArchiveAlert").style.display = 'block';
+        //document.getElementById("confirmButton").addEventListener("click", function(){
+        //    archiveQual(itemID);
+        //});
+        //document.getElementById("cancelButton").addEventListener("click", function(){
+        //    document.getElementById("divArchiveAlert").style.display = 'none';
+        //});
+        (new PNotify({
+            title: 'Confirmation Needed',
+            text: 'Are you sure?',
+            icon: 'glyphicon glyphicon-question-sign',
+            hide: false,
+            confirm: {
+                confirm: true
+            },
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            history: {
+                history: false
+            }
+        })).get().on('pnotify.confirm', function() {
+                alert('Ok, cool.');
+            }).on('pnotify.cancel', function() {
+                alert('Oh ok. Chicken, I see.');
+            });
+
     }else{
         return; // Default if somehow unknown type
     }
