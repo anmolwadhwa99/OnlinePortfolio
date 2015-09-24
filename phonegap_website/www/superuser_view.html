@@ -66,6 +66,7 @@
     <!--pNotify related links-->
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+    <link rel="stylesheet" href="css/pform.css"/>
 
     <!--Loading screen-->
     <script src="js/pace.min.js"></script>
@@ -183,11 +184,22 @@
             }
         }
 
+
+        function loadAct(){
+            $('#form_submit').text("Activate").addClass("btn-primary");
+        }
+        function loadDeact(){
+            $('#form_submit').text("Deactivate").addClass("btn-danger");
+        }
+
         function loadActAG(id){
+            loadAct();
+
             $('#modalTitle').text("Reactivate Admin Group?");
             $('#modalBody').text("Are you sure you wish to reactivate this Admin Group?");
-            $('#modalReactivateAG').show();
             $('#modal_id').val(id);
+
+            confirmAction("warning", "ag_act", "Successfully reactivated the Admin Group!");
         }
         function loadActAcct(id){
             $('#modalTitle').text("Reactivate Account?");
@@ -429,6 +441,79 @@
         }
     </script>
 
+    <script>
+        function confirmAction(notice_type, submit_option, success_message) {
+            var notice = new PNotify({
+                text: $('#form_notice').html(),
+                icon: false,
+                width: 'auto',
+                hide: false,
+                type: notice_type,
+                buttons: {
+                    closer: false,
+                    sticker: false
+                },
+                insert_brs: false
+            });
+            notice.get().find('form.pf-form').on('click', '[name=cancel]', function () {
+                cleanseForm();
+                notice.remove();
+            }).submit(function () {
+
+                if(submit_option == "ag_deact") {
+                    deleteAdminGroup($('#modal_id').val());
+                    reloadAG();
+                }else if(submit_option == "ac_deact") {
+                    deleteAccount($('#modal_id').val());
+                    reloadAdmins();
+                    reloadClients();
+                }else if(submit_option == "q_deact") {
+                    deleteQual($('#modal_id').val());
+                    reloadQuals();
+                }else if(submit_option == "pg_deact") {
+                    deleteProjectGroup($('#modal_id').val());
+                    reloadProjects();
+                }else if(submit_option == "ag_act") {
+                    reactivateAdminGroup($('#modal_id').val());
+                    reloadAG();
+                }else if(submit_option == "q_act") {
+                    reactivateQual($('#modal_id').val());
+                    reloadQuals();
+                }else if(submit_option == "ac_act") {
+                    reactivateAccount($('#modal_id').val());
+                    reloadAdmins();
+                }else if(submit_option == "pg_act") {
+                    reactivateProjectGroup($('#modal_id').val());
+                    reloadProjects();
+                }
+
+                cleanseForm();
+                notice.update({
+                    title: 'Completed',
+                    text: success_message,
+                    icon: true,
+                    width: PNotify.prototype.options.width,
+                    hide: true,
+                    buttons: {
+                        closer: true,
+                        sticker: true
+                    },
+                    type: 'success'
+                });
+                return false;
+            });
+        }
+
+        function cleanseForm(){
+            $('#form_title').text("");
+            $('#form_body').text("");
+
+            $('#form_submit').text("").removeClass('btn-primary btn-danger');
+
+            $('#modal_id').val("");
+        }
+    </script>
+
     <!-- Superuser View document.ready Functions -->
     <script type="application/javascript">
         $(document).ready(function(){
@@ -561,6 +646,21 @@
     </script>
 </head>
 <body style="padding-top: 30px;" >
+
+<div id="form_notice" style="display: none;">
+    <form action method="POST">
+
+        <h3 id="form_title"></h3>
+
+        <div id="form_body">
+        </div>
+
+        <input type="hidden" id="modal_id">
+
+        <button id="form_cancel" type="button" name="cancel" class="btn btn-default">Cancel</button>
+        <button id="form_submit" type="submit" name="submit" class="btn"></button>
+    </form>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle">
     <div class="modal-dialog" role="document">
@@ -572,17 +672,9 @@
             <div class="modal-body" id="modalBody">
 
             </div>
-            <input type="hidden" id="modal_id">
+
             <div class="modal-footer">
-                <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="modalDeactivateAG" type="button" class="btn btn-danger" onclick="deleteAdminGroup($('#modal_id').val());reloadAG();" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateAcct" type="button" class="btn btn-danger" onclick="deleteAccount($('#modal_id').val());reloadAdmins();reloadClients();" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateQual" type="button" class="btn btn-danger" onclick="deleteQual($('#modal_id').val());reloadQuals();" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateProj" type="button" class="btn btn-danger" onclick="deleteProjectGroup($('#modal_id').val());reloadProjects();" data-dismiss="modal">Deactivate</button>
-                <button id="modalReactivateAG" type="button" class="btn btn-primary" onclick="reactivateAdminGroup($('#modal_id').val());reloadAG();" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateQual" type="button" class="btn btn-primary" onclick="reactivateQual($('#modal_id').val());reloadQuals();" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateAcct" type="button" class="btn btn-primary" onclick="reactivateAccount($('#modal_id').val());reloadAdmins();reloadClients();" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateProj" type="button" class="btn btn-primary" onclick="reactivateProjectGroup($('#modal_id').val());reloadProjects();" data-dismiss="modal">Reactivate</button>
+
             </div>
         </div>
     </div>
