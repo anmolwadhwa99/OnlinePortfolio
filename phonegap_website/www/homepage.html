@@ -3,6 +3,18 @@
 
 <head>
 
+    <script>
+        var account = sessionStorage.getItem("account_id");
+        if(! account){ // if not defined (i.e. value is undefined or null)
+            location.replace("index.html");
+        }else{
+            var isAdmin = sessionStorage.getItem("isAdmin");
+            if(! isAdmin || isAdmin == "false"){ // if not defined or false
+                location.replace("homepage_client.html");
+            }
+        }
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -149,23 +161,15 @@
         });
 
         function confirmArchive(archiveType, itemID){
-            var message;
-            $('#form_submit').text('Delete');
+            $('#form_submit').text('Delete').addClass("btn-danger");
             $('#form_body').text('This will be deleted. This can only be undone by a superuser. Are you sure?');
+
             if(archiveType == "CLIENT"){
-                confirmAction(itemID, "Heads Up!", "error", "CLIENT", "Client successfully archived.");
+                confirmAction(itemID, "Heads Up!", "error", "CLIENT", "Client successfully archived!");
             }else if(archiveType == "PROJECT"){
-                document.getElementById("divArchiveAlert").style.display = 'block';
-                document.getElementById("confirmButton").addEventListener("click", function(){
-                    archiveProject(itemID);
-                });
-                document.getElementById("cancelButton").addEventListener("click", function(){
-                    document.getElementById("divArchiveAlert").style.display = 'none';
-                });
+                confirmAction(itemID, "Heads Up!", "error", "PROJECT", "Project successfully archived!")
             }else if(archiveType == "QUAL"){
-                confirmAction(itemID, "Heads Up!", "error", "QUAL", "Qual successfully archived.");
-            }else{
-                return; // Default if somehow unknown type
+                confirmAction(itemID, "Heads Up!", "error", "QUAL", "Qual successfully archived!");
             }
         }
 
@@ -191,17 +195,17 @@
                 if(submit_option == "CLIENT")
                 {
                     archiveClient(item_id);
-                    location.reload();
+                    //location.reload();
                 }
                 else if(submit_option == "PROJECT")
                 {
                     archiveProject(item_id);
-                    location.reload();
+                    //location.reload();
                 }
                 else if(submit_option == "QUAL")
                 {
                     archiveQual(item_id);
-                    location.reload();
+                    //location.reload();
                 }
 
                 cleanseForm();
@@ -624,7 +628,7 @@
                 <div class="close-modal" data-dismiss="modal">
                     <i class="fa fa-times fa-5x"></i>
                 </div>
-                <div id="btnDuplicate" class="close-modal further_right">
+                <div id="btnDuplicate" class="close-modal further_right" onclick="">
                     <i class="fa fa-clipboard fa-3x vertical_center"></i>
                 </div>
             </div>
