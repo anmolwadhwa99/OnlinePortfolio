@@ -2,6 +2,11 @@
 
 var accountId = -1;
 var isClient = false;
+var isSuperUser = false;
+
+var imported = document.createElement('script');
+imported.src = 'js/pnotify.custom.min.js';
+document.head.appendChild(imported);
 
 function search(){
     var text = $("#searchBox").val();
@@ -14,11 +19,16 @@ function search(){
         searchResults = doSearch(text, allQuals, allClients, allProjects);
     }
 
-    var len = $('#searchBox').outerWidth() + $('#searchIcon').width();
+    var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
 
 
     var resUL = $('#resultUL');
     resUL.empty();
+    resUL.width(len);
+
+    if(searchResults.length == 0){
+        return;
+    }
 
     for(i = 0; i < searchResults.length ; i++) {
         var res = new Results();
@@ -148,6 +158,7 @@ function getProjects(account_id){
         var account = this;
 
         isClient = !account.isAdmin;
+        isSuperUser = account.isSuperUser;
 
         getProjectsByClient(account_id, function() {
             var projects = this;
@@ -158,7 +169,7 @@ function getProjects(account_id){
                 htmlStr += addPortfolioItem(
                     '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
                     '\"addProjectQualsToGroup('+projects[i].id+')\"',
-                    '\"alert(\'still need to define this one\')\"',
+                    projects[i].id,
                     projects[i].projectGroupName,
                     '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
                     "",
@@ -171,10 +182,38 @@ function getProjects(account_id){
     });
 }
 
-function createClient(clientName){
-    insertAccount(false, clientName, 'qwerty', false, function(){
+function generatePassword() {
+    var length = 4,
+        charset = "0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
+
+function verifyAccount2(password) {
+    verifyAccount(password, function() {
+        var account = this;
+        if (account == null) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
+
+function createClient(clientName, primaryColour, secondaryColour){
+    var password = generatePassword();
+    while (verifyAccount2(password) == false) {
+        password = generatePassword();
+    }
+
+    insertAccount(false, clientName, 'qwerty', false, primaryColour, secondaryColour, password, function(){
         loadTab('#clients');
     });
+
+    return password;
 }
 
 function archiveQual(qualId){
@@ -200,15 +239,37 @@ function confirmArchive(archiveType, itemID){
     $('html, body').animate({ scrollTop: 0 }, 'fast');
 
     if(archiveType == "CLIENT"){
-        document.getElementById("divArchiveAlert").style.display = 'block';
-        document.getElementById("confirmButton").addEventListener("click", function(){
-            archiveClient(itemID);
-        });
-        document.getElementById("cancelButton").addEventListener("click", function(){
-            document.getElementById("divArchiveAlert").style.display = 'none';
-        });
-        title = "";
-        message = "";
+ //       document.getElementById("divArchiveAlert").style.display = 'block';
+ //       document.getElementById("confirmButton").addEventListener("click", function(){
+ //           archiveClient(itemID);
+ //       });
+ //       document.getElementById("cancelButton").addEventListener("click", function(){
+ //           document.getElementById("divArchiveAlert").style.display = 'none';
+ //       });
+ //       title = "";
+ //       message = "";
+        (new PNotify({
+            title: 'Confirmation Needed',
+            text: 'Are you sure?',
+            icon: 'glyphicon glyphicon-question-sign',
+            hide: false,
+            confirm: {
+                confirm: true
+            },
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            history: {
+                history: false
+            }
+        })).get().on('pnotify.confirm', function() {
+                alert('Ok, cool.');
+            }).on('pnotify.cancel', function() {
+                alert('Oh ok. Chicken, I see.');
+            });
+
+
     }else if(archiveType == "PROJECT"){
         document.getElementById("divArchiveAlert").style.display = 'block';
         document.getElementById("confirmButton").addEventListener("click", function(){
@@ -218,13 +279,34 @@ function confirmArchive(archiveType, itemID){
             document.getElementById("divArchiveAlert").style.display = 'none';
         });
     }else if(archiveType == "QUAL"){
-        document.getElementById("divArchiveAlert").style.display = 'block';
-        document.getElementById("confirmButton").addEventListener("click", function(){
-            archiveQual(itemID);
-        });
-        document.getElementById("cancelButton").addEventListener("click", function(){
-            document.getElementById("divArchiveAlert").style.display = 'none';
-        });
+        //document.getElementById("divArchiveAlert").style.display = 'block';
+        //document.getElementById("confirmButton").addEventListener("click", function(){
+        //    archiveQual(itemID);
+        //});
+        //document.getElementById("cancelButton").addEventListener("click", function(){
+        //    document.getElementById("divArchiveAlert").style.display = 'none';
+        //});
+        (new PNotify({
+            title: 'Confirmation Needed',
+            text: 'Are you sure?',
+            icon: 'glyphicon glyphicon-question-sign',
+            hide: false,
+            confirm: {
+                confirm: true
+            },
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            history: {
+                history: false
+            }
+        })).get().on('pnotify.confirm', function() {
+                alert('Ok, cool.');
+            }).on('pnotify.cancel', function() {
+                alert('Oh ok. Chicken, I see.');
+            });
+
     }else{
         return; // Default if somehow unknown type
     }
@@ -237,33 +319,44 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     var locWidth = 295;
     var image = determineItemImage(clientImg, projectImg, type);
 
-    var newImg = new Image();
-    newImg.src = image;
-    var heightLarger = false;
+    //var newImg = new Image();
+    //newImg.src = image;
+    //var heightLarger = false;
 
-    setTimeout(function(){
-        var height = newImg.height;
-        var width = newImg.width;
-        heightLarger = (height >= locHeight);
+    //setTimeout(function(){
+    //    var height = newImg.height;
+    //    var width = newImg.width;
+    //    heightLarger = (height >= locHeight);
+    //
+    //    var w = '100%';
+    //    var h = 'auto';
+    //    if (heightLarger){
+    //        h = '100%';
+    //        w = 'auto';
+    //    }
 
-        var w = '100%';
-        var h = 'auto';
-        if (heightLarger){
-            h = '100%';
-            w = 'auto';
-        }
-
-        $('#itemPic').css('width', w);
-        $('#itemPic').css('height', h);
-    }, 100);
+        $('#itemPic').css('width', '100%');
+        $('#itemPic').css('height', 'auto');
+    //}, 100);
 
 
     var viewFunction = "";
     if(isNumeric(viewFunc)) {
-        viewFunction = ' portfolio-link\' href=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
+        viewFunction = ' portfolio-link\' data-target=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
     }else{
         viewFunction = '\' onclick =' +viewFunc + '\"';
     }
+
+    var editFunction = "";
+    if(type == 'project'){
+
+    }else if(type == 'qual'){
+        editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
+    }else if(type == 'client'){
+
+    }
+
+
     var str = "\
     <div class='col-md-3 col-sm-6 portfolio-item'> \
         <a href='#' class='portfolio-link' data-toggle='modal' > \
@@ -276,7 +369,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         str += "\<div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
                 <i class='fa fa-plus fa-3x'></i>\
             </div>\
-            <div class='portfolio-hover-content editIcon' onclick=" + editFunc + ">\
+            <div class='portfolio-hover-content editIcon' " + editFunction + " >\
                     <i class='fa fa-pencil fa-3x'></i>\
             </div>\
             <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
@@ -311,9 +404,9 @@ function determineItemImage(clientImage, projectImage, type){
             return projectImage
         }
     }else if(type == 'client'){
-        return "img/portfolio/roundicons.png";
+        return "imgs/client.png";
     }else if(type == 'project'){
-        return "img/portfolio/startup-framework.png";
+        return "imgs/deloitte.jpg";
     }
 }
 
@@ -345,7 +438,7 @@ function openQualsForProject(projectID, projectName) {
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                quals[i].qualId,
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
                 quals[i].clientImage,
@@ -372,7 +465,7 @@ function openQualsForClientProject(projectID, projectName) {
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                quals[i].qualId,
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
                 quals[i].clientImage,
@@ -395,14 +488,7 @@ function openPrevClientProj(){
 function viewQual(qual_id){
     console.log(qual_id);
     sessionStorage.setItem("qual_id", qual_id);
-    location.href = "#viewQualModal";
     $('#frameViewQual').attr('src', 'view_qual.html');
-    getQualById(qual_id, function() {
-        $('#client-logo').attr('src', "");
-        var qual = this;
-        $('#client-logo').attr('src', qual.clientImage);
-    });
-
 }
 
 function getQuals(){
@@ -423,7 +509,7 @@ function getQuals(){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                quals[i].qualId,
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
                 quals[i].clientImage,
@@ -446,7 +532,7 @@ function getClients() {
             htmlStr += addPortfolioItem(
                 "\"getProjectforClient("+clients[i].accountId+ ', \''   +clients[i].accountName+'\')',
                 '\"\"',
-                '\"alert(\'still need to define this one\')\"',
+                clients[i].accountId,
                 clients[i].accountName,
                 '\"confirmArchive(\'CLIENT\'' + ", \'" + clients[i].accountId + '\')\"',
                 "",
@@ -468,7 +554,7 @@ function getProjectforClient(id, clientName){
             htmlStr += addPortfolioItem(
                 '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
                 '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
-                '\"alert(\'still need to define this one\')\"',
+                projects[i].id,
                 projects[i].projectGroupName,
                 '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
                 "",
@@ -493,12 +579,14 @@ function addToCart(qID, m){
     var li = document.createElement("li");
     var a = document.createElement("a");
     a.setAttribute("href", "#");
+    li.id = "deleteQual";
 
     var span = document.createElement("span");
     span.setAttribute("class","icon");
 
-    a.appendChild(document.createTextNode(m));
     a.appendChild(span);
+    a.appendChild(document.createTextNode(m));
+
 
     li.appendChild(a);
     li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}

@@ -215,12 +215,23 @@ public class AdminGroupDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		session.saveOrUpdate(modifiedAdminGroup);
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, modifiedAdminGroup.getAdminGroupId());
+		
+		if(adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to retrieve admin group with id " + modifiedAdminGroup.getAdminGroupId() + " so not able to edit.");
+		}
+		
+		adminGroup.setActive(modifiedAdminGroup.isActive());
+		adminGroup.setAdminGroupId(modifiedAdminGroup.getAdminGroupId());
+		adminGroup.setAdminGroupName(modifiedAdminGroup.getAdminGroupName());
+		
+		session.update(adminGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		
-		return modifiedAdminGroup;
+		return adminGroup;
 		
 	}
 

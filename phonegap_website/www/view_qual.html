@@ -36,10 +36,6 @@
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
-    <!--Loading screen-->
-    <script src="js/pace.min.js"></script>
-    <link href="css/atom.css" rel="stylesheet">
-
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
 
@@ -48,7 +44,15 @@
                 new PNotify({
                     title: 'Alert',
                     text: message,
-                    type: alert_type
+                    type: alert_type,
+                    opacity: .8,
+                    nonblock: {
+                        nonblock: true,
+                        nonblock_opacity: .2
+                    },
+                    buttons: {
+                        show_on_nonblock: true
+                    }
                 });
             };
 
@@ -79,6 +83,8 @@
                 }else{
                     image = qual.projectImage;
                 }
+
+                parent.$('#client-logo').attr('src', qual.clientImage);
 
 
                 htmlStr += "</div><h2 id='heading' style=\"text-align: center; margin-bottom: 20px;font-size: 3em;\">"+qual.projectName+"</h2> \
@@ -206,16 +212,23 @@
                         </div>";
                 }
 
-                htmlStr += "<div class='row'><div class='col-md-2'> \
-                            <div class='form-group'> \
-                                <button type='button' class='btn btn-lg' onclick='duplicateQual("+qual_id+")'><span \
-                                class='glyphicon glyphicon-copy'></span> Duplicate \
-                                </button> \
-                            </div> \
-                        </div>"
 
-                htmlStr += "<div class='col-md-2'><button type='button' class='btn btn-lg' data-dismiss='modal'>" +
-                "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
+
+                htmlStr += "</div></div>";
+
+//                $('#btnDuplicate').click(duplicateQual(qual_id));
+
+//                htmlStr += "<div class='row'><div class='col-md-2'> \
+//                            <div class='form-group'> \
+//                                <button type='button' class='btn btn-lg' onclick='duplicateQual("+qual_id+")'><span \
+//                                class='glyphicon glyphicon-copy'></span> Duplicate \
+//                                </button> \
+//                            </div> \
+//                        </div>";
+
+//                htmlStr += "<div class='col-md-2'><button type='button' class='btn btn-lg' data-dismiss='modal'>" +
+//                "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
+
                 $('#modal_body').html(htmlStr);
 
 

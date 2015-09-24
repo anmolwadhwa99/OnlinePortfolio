@@ -18,6 +18,7 @@
     <link href="css/signin.css" rel="stylesheet">
     <link href="css/carousel.css" rel="stylesheet">
     <link href="css/agency.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -67,7 +68,15 @@
                 new PNotify({
                     title: 'Alert',
                     text: message,
-                    type: alert_type
+                    type: alert_type,
+                    opacity: .8,
+                    nonblock: {
+                        nonblock: true,
+                        nonblock_opacity: .2
+                    },
+                    buttons: {
+                        show_on_nonblock: true
+                    }
                 });
             };
 
@@ -276,12 +285,12 @@
 
 </head>
 
-<body>
+<body style="background-color: #222">
 
 
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
-    <section class="slider" style="padding-top: 0px">
+    <section class="slider" style="padding-top: 0px; padding-bottom: 50px;">
         <div class="flexslider carousel">
             <div id="scroller">
                 <div class="innerScrollArea" id="quals">
@@ -303,32 +312,22 @@
 
 <!--filmStrip========================================== -->
 
-<div class="container">
-    <div class="jumbotron">
-        <h1 align="center">Online Portfolio</h1>
-        <p align="center">View any of our public projects above</p>
-        <p align="center">Or enter the password you were supplied with to view your private projects</p>
-    </div>
+<div class="modal-body">
+    <h1 align="center" style="color: #ffffff; font-size:xx-large">qHub</h1>
 </div>
 
+<!-- PASSWORD FORM -->
 <div class="container">
-    <form id="signin_form" action="javascript:signin();" class="form-signin">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="signin_password" class="form-control" placeholder="Password" required autofocus>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" id="cbRemember" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
-</div>
-<!-- /container -->
-<footer class="footer" >
-    <div class="container">
-        <p>&copy; 2015 Deloitte New Zealand &middot;</p>
-    </div>
-</footer>
+<form class="form-group" id="signin_form" action="javascript:signin();" >
+    <input type="password" id="inputPassword" class="form-control" name="signin_password" placeholder="Password"
+           style="margin-left: auto;margin-right: auto;width: 65%;height: 46px;text-align: center;" required autofocus>
+    <br>
+    <button class="btn btn-lg btn-primary1 btn-block" style="margin-left: auto;margin-right: auto;width: 65%;"type="submit">Sign in</button>
+
+</form></div>
+
+
+
 
 
 <!-- Modal For View Qual page -->

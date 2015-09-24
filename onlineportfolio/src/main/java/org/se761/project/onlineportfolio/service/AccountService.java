@@ -56,8 +56,8 @@ public class AccountService {
 	/**
 	 * Adds an account to the database
 	 */
-	public void addAccountDetails(Account account){
-		accountDatabase.addAccountDetails(account);
+	public Account addAccountDetails(Account account){
+		return accountDatabase.addAccountDetails(account);
 	}
 	
 	/**

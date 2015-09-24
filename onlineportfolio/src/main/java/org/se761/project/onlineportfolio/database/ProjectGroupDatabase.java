@@ -180,14 +180,25 @@ public class ProjectGroupDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction(); 
+
+		ProjectGroup projectGroup = (ProjectGroup) session.get(ProjectGroup.class, newProjectGroup.getProjGroupId());
 		
-		session.saveOrUpdate(newProjectGroup);
+		if(projectGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to retrieve project group with id " +newProjectGroup.getProjGroupId());
+		}
+		
+		projectGroup.setActive(newProjectGroup.isActive());
+		projectGroup.setProjGroupId(newProjectGroup.getProjGroupId());
+		projectGroup.setProjGroupName(newProjectGroup.getProjGroupName());
+		
+		session.update(projectGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		
 		
-		return newProjectGroup;
+		return projectGroup;
 		
 	}
 	

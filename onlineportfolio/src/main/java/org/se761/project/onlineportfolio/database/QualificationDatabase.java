@@ -17,14 +17,14 @@ import org.se761.project.onlineportfolio.model.Qualification;
 import org.se761.project.onlineportfolio.model.Status;
 
 public class QualificationDatabase {
-	
+
 	private SessionFactory sessionFactory;
 	private Session session;
-	
+
 	public QualificationDatabase(){
-		
+
 	}
-	
+
 	/**
 	 * Opens the current session
 	 */
@@ -35,7 +35,7 @@ public class QualificationDatabase {
 
 		sessionFactory = c.buildSessionFactory(builder.build());
 	}
-	
+
 	/**
 	 * Closing the current session
 	 */
@@ -43,7 +43,7 @@ public class QualificationDatabase {
 		sessionFactory.close();
 
 	}
-	
+
 	/**
 	 * Getting a particular qualification from the database
 	 */
@@ -51,23 +51,23 @@ public class QualificationDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
+
 		if(qual == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
 		}
-		
+
 		if(qual.isActive() == false){
 			closeSessionFactory();
 			throw new NotActiveException("Qual with id " + qualId + " is not active");
 		}
-		
+
 		session.close();
 		closeSessionFactory();
 		return qual;
 	}
-	
-	
+
+
 	/**
 	 * Gets all the quals from the database (for superuser access)
 	 */
@@ -79,17 +79,17 @@ public class QualificationDatabase {
 		Query query = session.createQuery(getAllQuery);
 
 		List<Qualification> quals = query.list();
-		
+
 		if(quals.size() == 0){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("No quals in the database to display.");
 		}
-		
+
 		session.close();
 		closeSessionFactory();
 		return quals;
 	}
-	
+
 	/**
 	 * Gets all the public quals from the database (for film strip)
 	 */
@@ -101,25 +101,25 @@ public class QualificationDatabase {
 		Query query = session.createQuery(getAllQuery);
 
 		List<Qualification> quals = query.list();
-		
+
 		//Remove any confidential quals
 		for (int i =0; i<quals.size(); i++){
 			if (quals.get(i).getStatus().equals(Status.confidential)){
 				quals.remove(i);
 			}
 		}
-		
+
 		//Check if list is empty
 		if(quals.size() == 0){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("No quals in the database to display.");
 		}
-		
+
 		session.close();
 		closeSessionFactory();
 		return quals;
 	}
-	
+
 	/**
 	 * Adding a qualification to the database
 	 */
@@ -132,7 +132,7 @@ public class QualificationDatabase {
 		session.close();
 		closeSessionFactory();
 	}
-	
+
 	/**
 	 * Delete qualification from database
 	 */
@@ -141,12 +141,12 @@ public class QualificationDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
+
 		if(qual == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found.");
 		}
-		
+
 		qual.setActive(false);
 		session.saveOrUpdate(qual);
 		session.getTransaction().commit();
@@ -154,7 +154,7 @@ public class QualificationDatabase {
 		closeSessionFactory();
 		return qual;
 	}
-	
+
 	/**
 	 * Reactivate qualification from database
 	 */
@@ -163,12 +163,12 @@ public class QualificationDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
+
 		if(qual == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found so unable to reactivate");
 		}
-		
+
 		qual.setActive(true);
 		session.saveOrUpdate(qual);
 		session.getTransaction().commit();
@@ -176,7 +176,7 @@ public class QualificationDatabase {
 		closeSessionFactory();
 		return qual;
 	}
-	
+
 	/**
 	 * Add a qualification against an admin group
 	 */
@@ -190,9 +190,9 @@ public class QualificationDatabase {
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so can't add qualification");
 		}
-		
+
 		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
+
 		if(qual == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
@@ -208,8 +208,8 @@ public class QualificationDatabase {
 		return qual;
 
 	}
-	
-	
+
+
 	/**
 	 * Add a qualification against an project group
 	 */
@@ -223,9 +223,9 @@ public class QualificationDatabase {
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Project Group with id " + projectGroupId + " could not be found, so can't add qualification");
 		}
-		
+
 		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
+
 		if(qual == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found");
@@ -241,7 +241,7 @@ public class QualificationDatabase {
 		return qual;
 
 	}
-	
+
 	/**
 	 * Add a qualification against an account 
 	 */
@@ -250,19 +250,19 @@ public class QualificationDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		Account account = (Account) session.get(Account.class, accountId);
-		
+
 		if(account == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
 		}
-		
+
 		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
-		
+
 		if(qual == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Qualification with id " + qualId + " could not be found");
 		}
-		
+
 		account.getAccountsQual().add(qual);
 		qual.getAccountsQual().add(account);
 		session.saveOrUpdate(qual);
@@ -272,8 +272,8 @@ public class QualificationDatabase {
 		closeSessionFactory();
 		return qual;
 	}
-	
-	
+
+
 	/**
 	 * Get all qualifications associated with an admin group
 	 */
@@ -288,22 +288,22 @@ public class QualificationDatabase {
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found, so can't retrieve qualifications");
 		}
-		
+
 		List<Qualification> quals = adminGroup.getQuals();
-		
+
 		//removing inactive quals
 		for (int i = 0; i<quals.size(); i++){
 			if (quals.get(i).isActive() == false){
 				quals.remove(i);
 			}
 		}
-		
+
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		return quals;
 	}
-	
+
 	/**
 	 * Get all qualifications associated with an project group
 	 */
@@ -318,7 +318,7 @@ public class QualificationDatabase {
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Project Group with id " + projectGroupId + " could not be found, so can't retrieve qualifications");
 		}
-		
+
 		List<Qualification> quals = projectGroup.getQuals();
 		//removing inactive quals
 		for (int i = 0; i<quals.size(); i++){
@@ -326,14 +326,14 @@ public class QualificationDatabase {
 				quals.remove(i);
 			}
 		}
-		
+
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		return quals;
 	}
-	
-	
+
+
 	/**
 	 * Get all quals associated with an account
 	 */
@@ -341,15 +341,15 @@ public class QualificationDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		
+
 		Account account = (Account) session.get(Account.class, accountId);
-		
+
 		if(account == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so can't retrieve qualifications");
 		}
 		List<Qualification> quals = account.getAccountsQual();
-		
+
 		//removing inactive quals
 		for(int i =0; i < quals.size(); i++){
 			if(quals.get(i).isActive() == false){
@@ -361,7 +361,7 @@ public class QualificationDatabase {
 		closeSessionFactory();
 		return quals;
 	}
-	
+
 	/**
 	 * Edit a qualification
 	 */
@@ -369,20 +369,44 @@ public class QualificationDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction(); 
+
+		Qualification qualification = (Qualification) session.get(Qualification.class, qual.getQualId());
+
+		if(qualification == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to retrieve qual with id " +qual.getQualId());
+		}
 		
-		session.saveOrUpdate(qual);
-		
+		qualification.setActive(qual.isActive());
+		qualification.setAnonymous(qual.isAnonymous());
+		qualification.setAnonymousName(qual.getAnonymousName());
+		qualification.setChallengesFaced(qual.getChallengesFaced());
+		qualification.setClientImage(qual.getClientImage());
+		qualification.setClientName(qual.getClientName());
+		qualification.setEmailButton(qual.getEmailButton());
+		qualification.setIndustry(qual.getIndustry());
+		qualification.setOutcomeStatement(qual.getOutcomeStatement());
+		qualification.setProblemStatement(qual.getProblemStatement());
+		qualification.setProjectImage(qual.getProjectImage());
+		qualification.setProjectName(qual.getProjectName());
+		qualification.setQualId(qual.getQualId());
+		qualification.setRelevanceToClient(qual.getRelevanceToClient());
+		qualification.setServiceLine(qual.getServiceLine());
+		qualification.setSolutionStatement(qual.getSolutionStatement());
+		qualification.setStatus(qual.getStatus());
+		qualification.setSubtitle(qual.getSubtitle());
+		qualification.setTags(qual.getTags());
+		qualification.setWebsiteButton(qual.getWebsiteButton());
+
+
+		session.update(qualification);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		
-		
-		return qual;
-		
+
+
+		return qualification;
+
 	}
-	
-	
-	
-	
-	
+
 }

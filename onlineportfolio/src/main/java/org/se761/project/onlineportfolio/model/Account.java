@@ -25,8 +25,8 @@ public class Account {
 	private int accountId;
 	private String accountName;
 	private String password;
-	private boolean isAdmin;
-	private boolean isSuperUser;
+	private boolean isAdmin = false; //by default
+	private boolean isSuperUser = false; //by default
 	private boolean isActive = true; //is true by default
 	@Column(columnDefinition="TEXT")
 	private String primaryColour;

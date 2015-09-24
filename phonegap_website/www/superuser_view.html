@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Script located here so it runs immediately before anything on the page can load -->
     <script>
-        var account = sessionStorage.getItem("account_id");
-        if(! account){ // if not defined (i.e. value is undefined or null)
-            location.replace("index.html");
-        }else{
-            var isAdmin = sessionStorage.getItem("isAdmin");
-            if(! isAdmin || isAdmin == false){ // if not defined or false
-                location.replace("homepage_client.html");
-            }else{
-                var superuserStatus = sessionStorage.getItem("superuserStatus");
-                if(! superuserStatus || superuserStatus == false){ // if not defined or false
-                    location.replace("homepage.html");
-                }
-            }
-        }
+//        var account = sessionStorage.getItem("account_id");
+//        if(! account){ // if not defined (i.e. value is undefined or null)
+//            location.replace("index.html");
+//        }else{
+//            var isAdmin = sessionStorage.getItem("isAdmin");
+//            if(! isAdmin || isAdmin == false){ // if not defined or false
+//                location.replace("homepage_client.html");
+//            }else{
+//                var superuserStatus = sessionStorage.getItem("superuserStatus");
+//                if(! superuserStatus || superuserStatus == false){ // if not defined or false
+//                    location.replace("homepage.html");
+//                }
+//            }
+//        }
     </script>
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -66,8 +66,11 @@
     <!--pNotify related links-->
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+    <link rel="stylesheet" href="css/pform.css"/>
 
-
+    <!--Loading screen-->
+    <script src="js/pace.min.js"></script>
+    <link href="css/atom.css" rel="stylesheet">
 
     <!-- Superuser View Specific styles -->
     <style type="text/css">
@@ -181,54 +184,70 @@
             }
         }
 
+
+        function loadAct(){
+            $('#form_submit').text("Reactivate").addClass("btn-primary");
+        }
+        function loadDeact(){
+            $('#form_submit').text("Deactivate").addClass("btn-danger");
+        }
+
         function loadActAG(id){
-            $('#modalTitle').text("Reactivate Admin Group?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Admin Group?");
-            $('#modalReactivateAG').show();
-            $('#modal_id').val(id);
+            loadAct();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Admin Group?");
+
+            confirmAction(id, "Reactivate?", "warning", "react_ag", "Successfully reactivated the Admin Group!");
         }
         function loadActAcct(id){
-            $('#modalTitle').text("Reactivate Account?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
-            $('#modalReactivateAcct').show();
-            $('#modal_id').val(id);
+            loadAct();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Account?");
+
+            confirmAction(id, "Reactivate?", "warning", "react_ac", "Successfully reactivated the Account!");
         }
         function loadActQual(id){
-            $('#modalTitle').text("Reactivate Qual?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Qual?");
-            $('#modalReactivateQual').show();
-            $('#modal_id').val(id);
+            loadAct();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Qual?");
+
+            confirmAction(id, "Reactivate?", "warning", "react_q", "Successfully reactivated the Admin Group!");
         }
         function loadActProj(id){
-            $('#modalTitle').text("Reactivate Project?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Project?");
-            $('#modalReactivateProj').show();
-            $('#modal_id').val(id);
+            loadAct();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Project?");
+
+            confirmAction(id, "Reactivate?", "warning", "react_pg", "Successfully reactivated the Admin Group!");
         }
 
         function loadDeactAG(id){
-            $('#modalTitle').text("Deactivate Admin Group?");
-            $('#modalBody').text("Are you sure you wish to deactivate this Admin Group?");
-            $('#modalDeactivateAG').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to deactivate this Admin Group?");
+
+            confirmAction(id, "Deactivate?", "error", "deact_ag", "Successfully deactivated the Admin Group!");
         }
         function loadDeactAcct(id){
-            $('#modalTitle').text("Reactivate Account?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
-            $('#modalDeactivateAcct').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Account?");
+
+            confirmAction(id, "Deactivate?", "error", "deact_ac", "Successfully deactivated the Account!");
         }
         function loadDeactQual(id){
-            $('#modalTitle').text("Deactivate Qual?");
-            $('#modalBody').text("Are you sure you wish to deactivate this Qual?");
-            $('#modalDeactivateQual').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to deactivate this Qual?");
+
+            confirmAction(id, "Deactivate?", "error", "deact_q", "Successfully deactivated the Qual!");
         }
         function loadDeactProj(id){
-            $('#modalTitle').text("Deactivate Project?");
-            $('#modalBody').text("Are you sure you wish to deactivate this Project?");
-            $('#modalDeactivateProj').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to deactivate this Project?");
+
+            confirmAction(id, "Deactivate?", "error", "deact_pg", "Successfully deactivated the Project!");
         }
 
         function loadAdminGroupsTable(table){
@@ -242,7 +261,7 @@
                             agName = val.name;
                         }
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -257,8 +276,8 @@
 
                         table.row.add([agName,
                             '<button type="button" class="btn" data-toggle="modal" data-target="#modalAG" onclick="loadEditAG('+val.id+',\''+agName+'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+' onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+' onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -270,12 +289,12 @@
                 if(admins.length > 0 && admins !== null){
                     $.each(admins, function(i, val){
 
-                        var superuser = "";
+                        var superuser = "false";
                         if(val.isSuperUser){
                             superuser = val.isSuperUser;
                         }
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -295,8 +314,8 @@
 
                         table.row.add([accountName, superuser,
                             '<button type="button" class="btn" data-toggle="modal" data-target="#modalAdmin" onclick="loadEditAdmin('+val.accountId+',\''+ accountName +'\','+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active, '<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active, '<button type="button" class="btn" '+disableReactive+'  onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -330,7 +349,7 @@
                             anonymousName = val.projectName;
                         }
 
-                        var anonymousState = "";
+                        var anonymousState = "false";
                         if(val.isAnonymous){
                             anonymousState = val.isAnonymous;
                         }
@@ -340,7 +359,7 @@
                             qualStatus = val.status;
                         }
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -354,8 +373,8 @@
                         }
 
                         table.row.add([projectName,subtitle,clientName,anonymousName,anonymousState,qualStatus,
-                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+'  onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
                     });
                 }
@@ -368,7 +387,7 @@
                 if(projects.length > 0 && projects !== null){
                     $.each(projects, function (i, val){
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -387,8 +406,8 @@
                         }
 
                         table.row.add([projectName,
-                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+'  onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -400,7 +419,7 @@
                 if(clients.length > 0 && clients !== null){
                     $.each(clients, function (i, val){
 
-                        var active = "";
+                        var active = "false";
                         if(val.isActive){
                             active = val.isActive;
                         }
@@ -418,12 +437,100 @@
                             disableDeactive = "disabled=\"disabled\"";
                         }
 
-                        table.row.add([accountName,
-                            active, '<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                        table.row.add([accountName, val.password,
+                            active, '<button type="button" class="btn" '+disableReactive+'  onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
+        }
+    </script>
+
+    <script>
+        function confirmAction(item_id, notice_title, notice_type, submit_option, success_message) {
+            var notice = new PNotify({
+                title: notice_title,
+                text: $('#form_notice').html(),
+                icon: true,
+                width: 'auto',
+                hide: false,
+                type: notice_type,
+                buttons: {
+                    closer: false,
+                    sticker: false
+                },
+                insert_brs: false
+            });
+            notice.get().find('form.pf-form').on('click', '[name=cancel]', function () {
+                cleanseForm();
+                notice.remove();
+            }).submit(function () {
+
+                if(submit_option == "deact_ag")
+                {
+                    deleteAdminGroup(item_id);
+                    reloadAG();
+                }
+                else if(submit_option == "deact_ac")
+                {
+                    deleteAccount(item_id);
+                    reloadAdmins();
+                    reloadClients();
+                }
+                else if(submit_option == "deact_q")
+                {
+                    deleteQual(item_id);
+                    reloadQuals();
+                }
+                else if(submit_option == "deact_pg")
+                {
+                    deleteProjectGroup(item_id);
+                    reloadProjects();
+                }
+                else if(submit_option == "react_ag")
+                {
+                    reactivateAdminGroup(item_id);
+                    reloadAG();
+                }
+                else if(submit_option == "react_q")
+                {
+                    reactivateQual(item_id);
+                    reloadQuals();
+                }
+                else if(submit_option == "react_ac")
+                {
+                    reactivateAccount(item_id);
+                    reloadAdmins();
+                }
+                else if(submit_option == "react_pg")
+                {
+                    reactivateProjectGroup(item_id);
+                    reloadProjects();
+                }
+
+                cleanseForm();
+                notice.update({
+                    title: 'Completed',
+                    text: success_message,
+                    icon: true,
+                    width: PNotify.prototype.options.width,
+                    hide: true,
+                    buttons: {
+                        closer: true,
+                        sticker: true
+                    },
+                    type: 'success'
+                });
+                return false;
+            });
+        }
+
+        function cleanseForm(){
+            $('#form_title').text("");
+            $('#form_body').text("");
+
+            $('#form_submit').text("").removeClass('btn-primary btn-danger');
+
         }
     </script>
 
@@ -435,7 +542,15 @@
                 new PNotify({
                     title: 'Alert',
                     text: message,
-                    type: alert_type
+                    type: alert_type,
+                    opacity: .8,
+                    nonblock: {
+                        nonblock: true,
+                        nonblock_opacity: .2
+                    },
+                    buttons: {
+                        show_on_nonblock: true
+                    }
                 });
             };
 
@@ -444,46 +559,31 @@
             // Global variables, as required to do specific reloading of individual tables instead of entire page
             tableQuals = $('#tableQuals').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                "language": {
-                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
-                }
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
             $('#tableQuals_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadQuals();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
 
             tableAdminGroups = $('#tableAdminGroups').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                "language": {
-                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
-                }
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
             $('#tableAdminGroups_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadAG();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
 
             tableAdmins = $('#tableAdmins').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                "language": {
-                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
-                }
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
             $('#tableAdmins_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadAdmins();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
 
             tableProjects = $('#tableProjects').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                "language": {
-                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
-                }
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
             $('#tableProjects_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadProjects();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
 
             tableClients = $('#tableClients').DataTable({
                 "pagingType": "full_numbers",
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                "language": {
-                    "emptyTable": "Loading  <i class='fa fa-spinner fa-pulse'></i>"
-                }
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             });
             $('#tableClients_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadClients();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
 
@@ -494,30 +594,6 @@
             loadClientsTable(tableClients);
 
             <!-- Refreshing modals on hide -->
-            $('#modal').on('hidden.bs.modal', function (event) {
-                $('#modalTitle').text("");
-                $('#modalBody').text("");
-                $('#modal_id').val("");
-
-                $('#modalReactivateAG').hide();
-                $('#modalReactivateQual').hide();
-                $('#modalReactivateAcct').hide();
-                $('#modalReactivateProj').hide();
-
-                $('#modalDeactivateAG').hide();
-                $('#modalDeactivateQual').hide();
-                $('#modalDeactivateAcct').hide();
-                $('#modalDeactivateProj').hide();
-            });
-            $('#modalReactivateAG').hide();
-            $('#modalReactivateQual').hide();
-            $('#modalReactivateAcct').hide();
-            $('#modalReactivateProj').hide();
-            $('#modalDeactivateAG').hide();
-            $('#modalDeactivateQual').hide();
-            $('#modalDeactivateAcct').hide();
-            $('#modalDeactivateProj').hide();
-
             $('#modalAG').on('hidden.bs.modal', function (event){
                 $('#modalTitleAG').text("");
                 $('#ag_name').val("");
@@ -566,32 +642,21 @@
     </script>
 </head>
 <body style="padding-top: 30px;" >
-<!-- Modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalTitle"></h4>
-            </div>
-            <div class="modal-body" id="modalBody">
 
-            </div>
-            <input type="hidden" id="modal_id">
-            <div class="modal-footer">
-                <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="modalDeactivateAG" type="button" class="btn btn-danger" onclick="deleteAdminGroup($('#modal_id').val());reloadAG();" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateAcct" type="button" class="btn btn-danger" onclick="deleteAccount($('#modal_id').val());reloadAdmins();reloadClients();" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateQual" type="button" class="btn btn-danger" onclick="deleteQual($('#modal_id').val());reloadQuals();" data-dismiss="modal">Deactivate</button>
-                <button id="modalDeactivateProj" type="button" class="btn btn-danger" onclick="deleteProjectGroup($('#modal_id').val());reloadProjects();" data-dismiss="modal">Deactivate</button>
-                <button id="modalReactivateAG" type="button" class="btn btn-primary" onclick="reactivateAdminGroup($('#modal_id').val());reloadAG();" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateQual" type="button" class="btn btn-primary" onclick="reactivateQual($('#modal_id').val());reloadQuals();" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateAcct" type="button" class="btn btn-primary" onclick="reactivateAccount($('#modal_id').val());reloadAdmins();reloadClients();" data-dismiss="modal">Reactivate</button>
-                <button id="modalReactivateProj" type="button" class="btn btn-primary" onclick="reactivateProjectGroup($('#modal_id').val());reloadProjects();" data-dismiss="modal">Reactivate</button>
+<!-- The form within this div(id="form_notice") is what is shown inside the customized PNotify form message -->
+<div id="form_notice" style="display: none;">
+    <form action method="POST" class="pf-form">
+        <div class="pf-element">
+            <div id="form_body">
             </div>
         </div>
-    </div>
-</div><!--/.modal -->
+        <div class="pf-element pf-buttons">
+            <button id="form_cancel" type="button" name="cancel" class="pf-button btn btn-default">Cancel</button>
+            <button id="form_submit" type="submit" name="submit" class="pf-button btn"></button>
+        </div>
+    </form>
+</div>
+
 <!-- Modal - Create Admin Group -->
 <div class="modal fade" id="modalAG" tabindex="-1" role="dialog" aria-labelledby="modalAGTitle">
     <div class="modal-dialog" role="document">
@@ -768,6 +833,7 @@
                     <thead>
                     <tr>
                         <th>Client Name</th>
+                        <th>Client Password</th>
                         <th>Active?</th>
                         <th>Reactivate</th>
                         <th>Delete</th>

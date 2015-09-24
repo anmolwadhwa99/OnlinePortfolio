@@ -108,7 +108,7 @@
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
-                        if(adminGroups != null) {
+                        if (adminGroups != null) {
                             $.each(adminGroups, function (i, val) {
                                 assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
                             });
@@ -117,70 +117,71 @@
                         closeModal();
                     }
             );
-            function modifyQual() {
-                var qualId = $('#qual_id').val()
-                var projName = $("#qual_project_name").val();
-                var projSubtitle = $("#qual_client_name").val();
-                var clientName = $("#qual_project_sub").val();
-                var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
-                var anonymousName = $("#qual_anonymous_name").val();
+        }
 
-                var access = $('input[name=qual_public_access]:checked').val();
+        function modifyQual() {
+            var qualId = $('#qual_id').val()
+            var projName = $("#qual_project_name").val();
+            var projSubtitle = $("#qual_client_name").val();
+            var clientName = $("#qual_project_sub").val();
+            var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
+            var anonymousName = $("#qual_anonymous_name").val();
 
-                var problem = $("#qual_problems").val();
-                var challenges = $("#qual_challenges").val();
-                var solution = $("#qual_solution").val();
-                var outcome = $("#qual_outcome").val();
-                var relevance = $("#qual_relevance").val();
+            var access = $('input[name=qual_public_access]:checked').val();
 
-                var clientLogo = $('#client_logo_img').attr('src');
-                var productServicesImage = $('#prod_serv_img').attr('src');
+            var problem = $("#qual_problems").val();
+            var challenges = $("#qual_challenges").val();
+            var solution = $("#qual_solution").val();
+            var outcome = $("#qual_outcome").val();
+            var relevance = $("#qual_relevance").val();
 
-                var emailAction = $("#qual_email").val();
-                var websiteAction = $("#qual_website").val();
+            var clientLogo = $('#client_logo_img').attr('src');
+            var productServicesImage = $('#prod_serv_img').attr('src');
 
-                var industry = $("#qual_industry").val();
-                var tags = $("#qual_tags").val();
-                var serviceLine = $("#qual_service_line").val();
+            var emailAction = $("#qual_email").val();
+            var websiteAction = $("#qual_website").val();
 
-                var adminGroups = $('#ddAdminGroups').val();
+            var industry = $("#qual_industry").val();
+            var tags = $("#qual_tags").val();
+            var serviceLine = $("#qual_service_line").val();
 
-                console.log(qualId);
-                console.log(projName);
-                console.log(projSubtitle);
-                console.log(clientName);
-                console.log(isAnonymous);
-                console.log(anonymousName);
-                console.log(access);
-                console.log(problem);
-                console.log(challenges);
-                console.log(solution);
-                console.log(outcome);
-                console.log(relevance);
-                console.log(clientLogo);
-                console.log(productServicesImage);
-                console.log(emailAction);
-                console.log(websiteAction);
-                console.log(industry);
-                console.log(tags);
-                console.log(serviceLine);
+            var adminGroups = $('#ddAdminGroups').val();
 
-                console.log(adminGroups);
+            console.log(qualId);
+            console.log(projName);
+            console.log(projSubtitle);
+            console.log(clientName);
+            console.log(isAnonymous);
+            console.log(anonymousName);
+            console.log(access);
+            console.log(problem);
+            console.log(challenges);
+            console.log(solution);
+            console.log(outcome);
+            console.log(relevance);
+            console.log(clientLogo);
+            console.log(productServicesImage);
+            console.log(emailAction);
+            console.log(websiteAction);
+            console.log(industry);
+            console.log(tags);
+            console.log(serviceLine);
 
-                updateQual(qualId, true, isAnonymous, challenges, clientName, industry,
-                        tags, outcome, problem, projName, relevance, serviceLine, solution,
-                        'solutionStatement', status, projSubtitle, emailAction, websiteAction,
-                        clientLogo, productServicesImage, function () {
-                            var qual = this;
+            console.log(adminGroups);
 
-                            $.each(adminGroups, function (i, val) {
-                                assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
-                            });
+            updateQual(qualId, true, isAnonymous, challenges, clientName, industry,
+                    tags, outcome, problem, projName, relevance, serviceLine, solution,
+                    'solutionStatement', status, projSubtitle, emailAction, websiteAction,
+                    clientLogo, productServicesImage, function () {
+                        var qual = this;
 
-                            closeModal();
-                        }
-                );
-            }
+                        $.each(adminGroups, function (i, val) {
+                            assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
+                        });
+
+                        closeModal();
+                    }
+            );
         }
     </script>
     <style>
@@ -220,7 +221,15 @@
                 new PNotify({
                     title: 'Alert',
                     text: message,
-                    type: alert_type
+                    type: alert_type,
+                    opacity: .8,
+                    nonblock: {
+                        nonblock: true,
+                        nonblock_opacity: .2
+                    },
+                    buttons: {
+                        show_on_nonblock: true
+                    }
                 });
             };
 
@@ -420,9 +429,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="background-color: #dcdcdc;padding-bottom: 20px;padding-top: 20px;">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
