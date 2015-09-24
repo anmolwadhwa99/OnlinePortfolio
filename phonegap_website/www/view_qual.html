@@ -36,10 +36,6 @@
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
-    <!--Loading screen-->
-    <script src="js/pace.min.js"></script>
-    <link href="css/atom.css" rel="stylesheet">
-
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
 
@@ -87,6 +83,8 @@
                 }else{
                     image = qual.projectImage;
                 }
+
+                parent.$('#client-logo').attr('src', qual.clientImage);
 
 
                 htmlStr += "</div><h2 id='heading' style=\"text-align: center; margin-bottom: 20px;font-size: 3em;\">"+qual.projectName+"</h2> \
