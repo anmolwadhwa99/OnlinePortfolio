@@ -173,9 +173,10 @@
 //                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
 
                 if(qual.websiteButton != null){
-                    htmlStr += "<div class='col-md-3'> \
-                                <img class='website_btn' style=\"width: 50px\" src='imgs/website.png' href='"+qual.websiteButton+"'/> \
-                            </div>"
+                    htmlStr += "\
+                    <div class='col-md-3'>\
+                    <a href='" + qual.websiteButton + "' target=\"_blank\"><i class='fa fa-external-link fa-2x'></i></a>\
+                            </div>";
                 }
                 if (ext){
                     htmlStr += "</div>";
