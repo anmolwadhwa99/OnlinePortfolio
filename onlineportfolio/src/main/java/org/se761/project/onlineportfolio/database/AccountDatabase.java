@@ -325,13 +325,29 @@ public class AccountDatabase {
 		session = sessionFactory.openSession();
 		session.beginTransaction(); 
 		
-		session.saveOrUpdate(editedAccount);
+		Account account = (Account) session.get(Account.class, editedAccount.getAccountId());
+		
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Unable to retrieve account with id " +editedAccount.getAccountId());
+		}
+		
+		account.setAccountId(editedAccount.getAccountId());
+		account.setAccentColour(editedAccount.getAccentColour());
+		account.setAccountName(editedAccount.getAccountName());
+		account.setActive(editedAccount.isActive());
+		account.setAdmin(editedAccount.isAdmin());
+		account.setPassword(editedAccount.getPassword());
+		account.setPrimaryColour(editedAccount.getPrimaryColour());
+		account.setSecondaryColour(editedAccount.getSecondaryColour());
+		account.setSuperUser(editedAccount.isSuperUser());
+		
+		session.saveOrUpdate(account);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		
-		
-		return editedAccount;
+		return account;
 	}
 	
 	/**
