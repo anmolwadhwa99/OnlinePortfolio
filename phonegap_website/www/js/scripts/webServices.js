@@ -1161,6 +1161,9 @@ function getAllAdminGroups(callback){
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
+                if (req.status == 204){
+                    return null;
+                }
                 alert_type = 'error';
                 alert("Sorry an error occurred when trying to retrieve all admin accounts.");
                 return null;
