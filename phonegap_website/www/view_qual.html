@@ -153,16 +153,30 @@
                 }
 
                 htmlStr += "<div class='row'>";
-                if(qual.emailButton != null){
-                    htmlStr += "<div class='col-md-3'> \
-                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
-                            </div>"
+
+                var ext = false;
+                if(qual.emailButton != null || qual.websiteButton != null){
+                    ext = true;
+                    htmlStr += "<div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>External Links:</h4> \
+                    </div>";
                 }
+
+                if(qual.emailButton != null){
+                    htmlStr += "\
+                    <div class='col-md-3'>\
+                    <a href='mailto:" + qual.emailButton + "'><i class='fa fa-envelope-o fa-2x'></i></a>\
+                            </div>";
+                }
+//                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
 
                 if(qual.websiteButton != null){
                     htmlStr += "<div class='col-md-3'> \
                                 <img class='website_btn' style=\"width: 50px\" src='imgs/website.png' href='"+qual.websiteButton+"'/> \
                             </div>"
+                }
+                if (ext){
+                    htmlStr += "</div>";
                 }
                 htmlStr += "</div>";
 
