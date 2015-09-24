@@ -14,6 +14,8 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/select2.min.css" rel="stylesheet">
@@ -38,7 +40,7 @@
 
     <script type="application/javascript">
         $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
-
+            HoldOn.open();
             // Wrapping of default alert
             window.alert = function(message) {
                 new PNotify({
@@ -166,16 +168,19 @@
 
                 if(qual.emailButton != null){
                     htmlStr += "\
-                    <div class='col-md-3'>\
-                    <a href='mailto:" + qual.emailButton + "'><i class='fa fa-envelope-o fa-2x'></i></a>\
+                    <div class='col-md-3 vertical_center_2'>\
+                    <a href='mailto:" + qual.emailButton + "' class='external-link'><span class='fa fa-envelope-o fa-1x'></span>\
+                    <span class='slightly-left'>Email</span>\
+                    </a>\
                             </div>";
                 }
-//                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
 
                 if(qual.websiteButton != null){
                     htmlStr += "\
-                    <div class='col-md-3'>\
-                    <a href='" + qual.websiteButton + "' target=\"_blank\"><i class='fa fa-external-link fa-2x'></i></a>\
+                    <div class='col-md-3 vertical_center_2'>\
+                    <a href='" + qual.websiteButton + "' target=\"_blank\" class='external-link'><i class='fa fa-external-link fa-1x'></i>\
+                    <span class='slightly-left'>View Website</span>\
+                    </a>\
                             </div>";
                 }
                 if (ext){
@@ -255,6 +260,10 @@
 
             });
 
+            setTimeout(function(){
+                HoldOn.close();
+            },2000);
+
         });
 
 
@@ -272,5 +281,6 @@
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 
 </html>

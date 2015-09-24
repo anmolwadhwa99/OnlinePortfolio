@@ -485,9 +485,22 @@ function openPrevClientProj(){
     $("#clients").html(htmlClientProject);
 }
 
+function duplicateQual(qual_id){
+    console.log(qual_id);
+    sessionStorage.clear();
+    sessionStorage.setItem("dup_qual_id", qual_id);
+    location.href = 'qual_add.html';
+}
+
 function viewQual(qual_id){
     console.log(qual_id);
     sessionStorage.setItem("qual_id", qual_id);
+
+    //$('#btnDuplicate').addEventListener("click", function(event) {
+    //    duplicateQual(qual_id);
+    //    event.preventDefault();
+    //});
+    document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
     $('#frameViewQual').attr('src', 'view_qual.html');
 }
 
