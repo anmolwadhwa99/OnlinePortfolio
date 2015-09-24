@@ -126,7 +126,7 @@ public class AccountDatabase {
 	/**
 	 * Adds an account to the database
 	 */
-	public void addAccountDetails(Account account){
+	public Account addAccountDetails(Account account){
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -134,6 +134,7 @@ public class AccountDatabase {
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
+		return account;
 	}
 	
 	/**

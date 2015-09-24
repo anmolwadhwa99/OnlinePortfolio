@@ -29,8 +29,7 @@ public class AccountResource {
 	
 	@POST
 	public Account addAccount(Account account){
-		accountService.addAccountDetails(account);
-		return account;
+		return accountService.addAccountDetails(account);
 	}
 	
 	/**
