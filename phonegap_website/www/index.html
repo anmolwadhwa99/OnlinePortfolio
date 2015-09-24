@@ -14,10 +14,14 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
+
+
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
     <link href="css/carousel.css" rel="stylesheet">
     <link href="css/agency.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -45,7 +49,7 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <script src="js/jquery-2.1.4.min.js"></script>
+
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts/webServices.js"></script>
 
@@ -54,14 +58,17 @@
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
     <!--Loading screen-->
-    <script src="js/pace.min.js"></script>
-    <link href="css/atom.css" rel="stylesheet">
+    <!--<script src="js/pace.min.js"></script>-->
+    <!--<link href="css/atom.css" rel="stylesheet">-->
+
+
 
     <!-- iFrame Resizing Parent -->
     <script src="js/iframeResizer.min.js"></script>
     <script type="application/javascript">
-        $(document).ready(function (){
 
+        $(document).ready(function (){
+            HoldOn.open();
             // Wrapping of default alert
             window.alert = function(message) {
                 new PNotify({
@@ -98,6 +105,7 @@
         });
 
         function signin(){
+            HoldOn.open();
             var password = $('input[name=signin_password]').val();
 
             verifyAccount(password, function() {
@@ -121,13 +129,20 @@
                         sessionStorage.setItem("isAdmin", account.isAdmin);
                         if (account.isAdmin == true) {
                             location.replace("homepage.html");
+                            HoldOn.close();
                         } else {
                             location.replace("homepage_client.html");
+                            HoldOn.close();
                         }
                     });
                 }
-
+//                HoldOn.close();
             });
+
+            setTimeout(function(){
+                HoldOn.close();
+            },3500);
+
         }
 
         function viewQual(qual_id){
@@ -270,6 +285,12 @@
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
 
+        setTimeout(function(){
+            HoldOn.close();
+        },2000);
+
+
+
     </script>
 
     <style type="text/css">
@@ -330,22 +351,23 @@
 
 
 <!-- Modal For View Qual page -->
-<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="logo-modal"><img class="logo-image" src="" id="client-logo"></div>
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl">
+<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document" style= "position: fixed;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="logo-modal">
+                    <img class="logo-image" src="" id="client-logo">
+                </div>
+                <h3 id="qual-projectName"></h3>
+                <div class="close-modal" data-dismiss="modal">
+                    <i class="fa fa-times fa-5x"></i>
+                </div>
+                <div id="btnDuplicate" class="close-modal further_right">
+                    <i class="fa fa-clipboard fa-3x vertical_center"></i>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="modal-body" id="modal_body">
-                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
-                    </div>
-                </div>
+            <div class="modal-body" id="modal_body">
+                <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -356,5 +378,7 @@
 
 </body>
 
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 
 </html>

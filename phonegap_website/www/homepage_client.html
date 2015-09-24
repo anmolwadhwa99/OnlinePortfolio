@@ -18,6 +18,8 @@
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/select2.min.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
+
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -34,6 +36,7 @@
 
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
+
 
     <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 
@@ -373,19 +376,23 @@
 <footer></footer>
 
 <!-- Modal For View Qual page -->
-<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="logo-modal"><img class="logo-image" src="" id="client-logo"></div>
-        <div class="close-modal" data-dismiss="modal">
-            <i class="fa fa-times fa-5x"></i>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="modal-body" id="modal_body">
-                        <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
-                    </div>
+<div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document" style= "position: fixed;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="logo-modal">
+                    <img class="logo-image" src="" id="client-logo">
                 </div>
+                <h3 id="qual-projectName"></h3>
+                <div class="close-modal" data-dismiss="modal">
+                    <i class="fa fa-times fa-5x"></i>
+                </div>
+                <div id="btnDuplicate" class="close-modal further_right">
+                    <i class="fa fa-clipboard fa-3x vertical_center"></i>
+                </div>
+            </div>
+            <div class="modal-body" id="modal_body">
+                <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
         </div>
     </div>
