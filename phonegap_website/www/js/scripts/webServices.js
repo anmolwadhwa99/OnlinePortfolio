@@ -208,6 +208,7 @@ function verifyAccount(pw,callback){
             if (req.readyState != 4) return;
             if (req.status != 200) {
                 alert_type = 'error';
+                HoldOn.close();
                 alert("Incorrect password. Please try again.");
                 return null;
             }
