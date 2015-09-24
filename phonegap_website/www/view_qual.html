@@ -48,7 +48,15 @@
                 new PNotify({
                     title: 'Alert',
                     text: message,
-                    type: alert_type
+                    type: alert_type,
+                    opacity: .8,
+                    nonblock: {
+                        nonblock: true,
+                        nonblock_opacity: .2
+                    },
+                    buttons: {
+                        show_on_nonblock: true
+                    }
                 });
             };
 
