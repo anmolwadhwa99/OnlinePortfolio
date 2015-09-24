@@ -186,63 +186,72 @@
 
 
         function loadAct(){
-            $('#form_submit').text("Activate").addClass("btn-primary");
+            $('#form_title').text("Reactivate?");
+
+            $('#form_submit').text("Reactivate").addClass("btn-primary");
         }
         function loadDeact(){
+            $('#form_title').text("Deactivate?");
+
             $('#form_submit').text("Deactivate").addClass("btn-danger");
         }
 
         function loadActAG(id){
             loadAct();
 
-            $('#modalTitle').text("Reactivate Admin Group?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Admin Group?");
-            $('#modal_id').val(id);
+            $('#form_body').text("Are you sure you wish to reactivate this Admin Group?");
 
-            confirmAction("warning", "ag_act", "Successfully reactivated the Admin Group!");
+            confirmAction(id, "warning", "react_ag", "Successfully reactivated the Admin Group!");
         }
         function loadActAcct(id){
-            $('#modalTitle').text("Reactivate Account?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
-            $('#modalReactivateAcct').show();
-            $('#modal_id').val(id);
+            loadAct();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Account?");
+
+            confirmAction(id, "warning", "react_ac", "Successfully reactivated the Account!");
         }
         function loadActQual(id){
-            $('#modalTitle').text("Reactivate Qual?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Qual?");
-            $('#modalReactivateQual').show();
-            $('#modal_id').val(id);
+            loadAct();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Qual?");
+
+            confirmAction(id, "warning", "react_q", "Successfully reactivated the Admin Group!");
         }
         function loadActProj(id){
-            $('#modalTitle').text("Reactivate Project?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Project?");
-            $('#modalReactivateProj').show();
-            $('#modal_id').val(id);
+            loadAct();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Project?");
+
+            confirmAction(id, "warning", "react_pg", "Successfully reactivated the Admin Group!");
         }
 
         function loadDeactAG(id){
-            $('#modalTitle').text("Deactivate Admin Group?");
-            $('#modalBody').text("Are you sure you wish to deactivate this Admin Group?");
-            $('#modalDeactivateAG').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to deactivate this Admin Group?");
+
+            confirmAction(id, "error", "deact_ag", "Successfully deactivated the Admin Group!");
         }
         function loadDeactAcct(id){
-            $('#modalTitle').text("Reactivate Account?");
-            $('#modalBody').text("Are you sure you wish to reactivate this Account?");
-            $('#modalDeactivateAcct').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to reactivate this Account?");
+
+            confirmAction(id, "error", "deact_ac", "Successfully deactivated the Account!");
         }
         function loadDeactQual(id){
-            $('#modalTitle').text("Deactivate Qual?");
-            $('#modalBody').text("Are you sure you wish to deactivate this Qual?");
-            $('#modalDeactivateQual').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to deactivate this Qual?");
+
+            confirmAction(id, "error", "deact_q", "Successfully deactivated the Qual!");
         }
         function loadDeactProj(id){
-            $('#modalTitle').text("Deactivate Project?");
-            $('#modalBody').text("Are you sure you wish to deactivate this Project?");
-            $('#modalDeactivateProj').show();
-            $('#modal_id').val(id);
+            loadDeact();
+
+            $('#form_body').text("Are you sure you wish to deactivate this Project?");
+
+            confirmAction(id, "error", "deact_pg", "Successfully deactivated the Project!");
         }
 
         function loadAdminGroupsTable(table){
@@ -271,8 +280,8 @@
 
                         table.row.add([agName,
                             '<button type="button" class="btn" data-toggle="modal" data-target="#modalAG" onclick="loadEditAG('+val.id+',\''+agName+'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+' onclick="loadActAG('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+' onclick="loadDeactAG('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -309,8 +318,8 @@
 
                         table.row.add([accountName, superuser,
                             '<button type="button" class="btn" data-toggle="modal" data-target="#modalAdmin" onclick="loadEditAdmin('+val.accountId+',\''+ accountName +'\','+superuser+ ',\'' + val.password +'\')"><span class="glyphicon glyphicon-pencil"><span class="sr-only">Edit</span></span></button>',
-                            active, '<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active, '<button type="button" class="btn" '+disableReactive+'  onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -368,8 +377,8 @@
                         }
 
                         table.row.add([projectName,subtitle,clientName,anonymousName,anonymousState,qualStatus,
-                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+'  onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
                     });
                 }
@@ -401,8 +410,8 @@
                         }
 
                         table.row.add([projectName,
-                            active,'<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active,'<button type="button" class="btn" '+disableReactive+'  onclick="loadActProj('+val.id+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactProj('+val.id+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -433,8 +442,8 @@
                         }
 
                         table.row.add([accountName, val.password,
-                            active, '<button type="button" class="btn" '+disableReactive+' data-toggle="modal" data-target="#modal" onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
-                            '<button type="button" class="btn" '+disableDeactive+' data-toggle="modal" data-target="#modal" onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
+                            active, '<button type="button" class="btn" '+disableReactive+'  onclick="loadActAcct('+val.accountId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
+                            '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactAcct('+val.accountId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
                     });
                 }
             });
@@ -442,7 +451,7 @@
     </script>
 
     <script>
-        function confirmAction(notice_type, submit_option, success_message) {
+        function confirmAction(item_id, notice_type, submit_option, success_message) {
             var notice = new PNotify({
                 text: $('#form_notice').html(),
                 icon: false,
@@ -455,35 +464,50 @@
                 },
                 insert_brs: false
             });
-            notice.get().find('form.pf-form').on('click', '[name=cancel]', function () {
+            notice.get().find('form.container-fluid').on('click', '[name=cancel]', function () {
                 cleanseForm();
                 notice.remove();
             }).submit(function () {
 
-                if(submit_option == "ag_deact") {
-                    deleteAdminGroup($('#modal_id').val());
+                if(submit_option == "deact_ag")
+                {
+                    deleteAdminGroup(item_id);
                     reloadAG();
-                }else if(submit_option == "ac_deact") {
-                    deleteAccount($('#modal_id').val());
+                }
+                else if(submit_option == "deact_ac")
+                {
+                    deleteAccount(item_id);
                     reloadAdmins();
                     reloadClients();
-                }else if(submit_option == "q_deact") {
-                    deleteQual($('#modal_id').val());
+                }
+                else if(submit_option == "deact_q")
+                {
+                    deleteQual(item_id);
                     reloadQuals();
-                }else if(submit_option == "pg_deact") {
-                    deleteProjectGroup($('#modal_id').val());
+                }
+                else if(submit_option == "deact_pg")
+                {
+                    deleteProjectGroup(item_id);
                     reloadProjects();
-                }else if(submit_option == "ag_act") {
-                    reactivateAdminGroup($('#modal_id').val());
+                }
+                else if(submit_option == "react_ag")
+                {
+                    reactivateAdminGroup(item_id);
                     reloadAG();
-                }else if(submit_option == "q_act") {
-                    reactivateQual($('#modal_id').val());
+                }
+                else if(submit_option == "react_q")
+                {
+                    reactivateQual(item_id);
                     reloadQuals();
-                }else if(submit_option == "ac_act") {
-                    reactivateAccount($('#modal_id').val());
+                }
+                else if(submit_option == "react_ac")
+                {
+                    reactivateAccount(item_id);
                     reloadAdmins();
-                }else if(submit_option == "pg_act") {
-                    reactivateProjectGroup($('#modal_id').val());
+                }
+                else if(submit_option == "react_pg")
+                {
+                    reactivateProjectGroup(item_id);
                     reloadProjects();
                 }
 
@@ -510,7 +534,6 @@
 
             $('#form_submit').text("").removeClass('btn-primary btn-danger');
 
-            $('#modal_id').val("");
         }
     </script>
 
@@ -574,30 +597,6 @@
             loadClientsTable(tableClients);
 
             <!-- Refreshing modals on hide -->
-            $('#modal').on('hidden.bs.modal', function (event) {
-                $('#modalTitle').text("");
-                $('#modalBody').text("");
-                $('#modal_id').val("");
-
-                $('#modalReactivateAG').hide();
-                $('#modalReactivateQual').hide();
-                $('#modalReactivateAcct').hide();
-                $('#modalReactivateProj').hide();
-
-                $('#modalDeactivateAG').hide();
-                $('#modalDeactivateQual').hide();
-                $('#modalDeactivateAcct').hide();
-                $('#modalDeactivateProj').hide();
-            });
-            $('#modalReactivateAG').hide();
-            $('#modalReactivateQual').hide();
-            $('#modalReactivateAcct').hide();
-            $('#modalReactivateProj').hide();
-            $('#modalDeactivateAG').hide();
-            $('#modalDeactivateQual').hide();
-            $('#modalDeactivateAcct').hide();
-            $('#modalDeactivateProj').hide();
-
             $('#modalAG').on('hidden.bs.modal', function (event){
                 $('#modalTitleAG').text("");
                 $('#ag_name').val("");
@@ -647,15 +646,14 @@
 </head>
 <body style="padding-top: 30px;" >
 
+<!-- The form within this div(id="form_notice") is what is shown inside the customized PNotify form message -->
 <div id="form_notice" style="display: none;">
-    <form action method="POST">
+    <form action method="POST" class="container-fluid">
 
         <h3 id="form_title"></h3>
 
         <div id="form_body">
         </div>
-
-        <input type="hidden" id="modal_id">
 
         <button id="form_cancel" type="button" name="cancel" class="btn btn-default">Cancel</button>
         <button id="form_submit" type="submit" name="submit" class="btn"></button>
