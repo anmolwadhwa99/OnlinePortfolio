@@ -166,16 +166,20 @@
 
                 if(qual.emailButton != null){
                     htmlStr += "\
-                    <div class='col-md-3'>\
-                    <a href='mailto:" + qual.emailButton + "'><i class='fa fa-envelope-o fa-2x'></i></a>\
+                    <div class='col-md-3 vertical_center_2'>\
+                    <a href='mailto:" + qual.emailButton + "' class='external-link'><i class='fa fa-envelope-o fa-2x'></i>\
+                    <span class='slightly-left'>Email</span>\
+                    </a>\
                             </div>";
                 }
 //                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
 
                 if(qual.websiteButton != null){
                     htmlStr += "\
-                    <div class='col-md-3'>\
-                    <a href='" + qual.websiteButton + "' target=\"_blank\"><i class='fa fa-external-link fa-2x'></i></a>\
+                    <div class='col-md-3 vertical_center_2'>\
+                    <a href='" + qual.websiteButton + "' target=\"_blank\" class='external-link'><i class='fa fa-external-link fa-2x'></i>\
+                    <span class='slightly-left'>View Website</span>\
+                    </a>\
                             </div>";
                 }
                 if (ext){
