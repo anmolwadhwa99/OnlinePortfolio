@@ -86,8 +86,10 @@
 
                 parent.$('#client-logo').attr('src', qual.clientImage);
 
+                parent.$('#qual-projectName').text(qual.projectName);
 
-                htmlStr += "</div><h2 id='heading' style=\"text-align: center; margin-bottom: 20px;font-size: 3em;\">"+qual.projectName+"</h2> \
+
+                htmlStr += " \
             <div class='col-md-6' > \
                 <div class='image-upload' > \
                         <img style=\"max-width: 100%; max-height: 100%;\"id='qual_product_service_img' class='img-rounded fill' src='"+ image+"' /> \
@@ -153,16 +155,31 @@
                 }
 
                 htmlStr += "<div class='row'>";
-                if(qual.emailButton != null){
-                    htmlStr += "<div class='col-md-3'> \
-                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
-                            </div>"
+
+                var ext = false;
+                if(qual.emailButton != null || qual.websiteButton != null){
+                    ext = true;
+                    htmlStr += "<div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>External Links:</h4> \
+                    </div>";
                 }
 
+                if(qual.emailButton != null){
+                    htmlStr += "\
+                    <div class='col-md-3'>\
+                    <a href='mailto:" + qual.emailButton + "'><i class='fa fa-envelope-o fa-2x'></i></a>\
+                            </div>";
+                }
+//                                <img class='email_btn' style=\"width: 50px\" src='imgs/email.png' /> \
+
                 if(qual.websiteButton != null){
-                    htmlStr += "<div class='col-md-3'> \
-                                <img class='website_btn' style=\"width: 50px\" src='imgs/website.png' href='"+qual.websiteButton+"'/> \
-                            </div>"
+                    htmlStr += "\
+                    <div class='col-md-3'>\
+                    <a href='" + qual.websiteButton + "' target=\"_blank\"><i class='fa fa-external-link fa-2x'></i></a>\
+                            </div>";
+                }
+                if (ext){
+                    htmlStr += "</div>";
                 }
                 htmlStr += "</div>";
 
