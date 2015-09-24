@@ -83,6 +83,19 @@ h7 {
     transform: translateY(-50%);
 }
 
+.external-link{
+    color: #333;
+}
+
+.slightly-left{
+    padding-left: 2px;
+}
+.vertical_center_2 {
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+}
+
 .spec_vertical_center{
     position: relative;
     top: 50%;
