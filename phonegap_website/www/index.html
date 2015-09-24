@@ -14,6 +14,9 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
+
+
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
     <link href="css/carousel.css" rel="stylesheet">
@@ -46,7 +49,7 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <script src="js/jquery-2.1.4.min.js"></script>
+
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts/webServices.js"></script>
 
@@ -55,14 +58,17 @@
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
     <!--Loading screen-->
-    <script src="js/pace.min.js"></script>
-    <link href="css/atom.css" rel="stylesheet">
+    <!--<script src="js/pace.min.js"></script>-->
+    <!--<link href="css/atom.css" rel="stylesheet">-->
+
+
 
     <!-- iFrame Resizing Parent -->
     <script src="js/iframeResizer.min.js"></script>
     <script type="application/javascript">
-        $(document).ready(function (){
 
+        $(document).ready(function (){
+            HoldOn.open();
             // Wrapping of default alert
             window.alert = function(message) {
                 new PNotify({
@@ -99,6 +105,7 @@
         });
 
         function signin(){
+            HoldOn.open();
             var password = $('input[name=signin_password]').val();
 
             verifyAccount(password, function() {
@@ -122,13 +129,20 @@
                         sessionStorage.setItem("isAdmin", account.isAdmin);
                         if (account.isAdmin == true) {
                             location.replace("homepage.html");
+                            HoldOn.close();
                         } else {
                             location.replace("homepage_client.html");
+                            HoldOn.close();
                         }
                     });
                 }
-
+//                HoldOn.close();
             });
+
+            setTimeout(function(){
+                HoldOn.close();
+            },3500);
+
         }
 
         function viewQual(qual_id){
@@ -271,6 +285,12 @@
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
 
+        setTimeout(function(){
+            HoldOn.close();
+        },2000);
+
+
+
     </script>
 
     <style type="text/css">
@@ -357,5 +377,7 @@
 
 </body>
 
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 
 </html>
