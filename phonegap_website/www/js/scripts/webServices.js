@@ -22,7 +22,7 @@ function Qual(x){
     this.outcomeStatement = x.outcomeStatement;
     this.subtitle = x.subtitle;
     this.isAnonymous = x.isAnonymous;
-    this.isActive = x.isActive;
+    this.isActive = x.active;
     this.emailButton = x.emailButton;
     this.websiteButton = x.websiteButton;
     this.industry = x.industry;
