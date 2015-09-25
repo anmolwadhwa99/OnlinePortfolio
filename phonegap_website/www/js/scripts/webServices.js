@@ -21,8 +21,8 @@ function Qual(x){
     this.relevanceToClient = x.relevanceToClient;
     this.outcomeStatement = x.outcomeStatement;
     this.subtitle = x.subtitle;
-    this.isAnonymous = x.isAnonymous;
-    this.isActive = x.isActive;
+    this.isAnonymous = x.anonymous;
+    this.isActive = x.active;
     this.emailButton = x.emailButton;
     this.websiteButton = x.websiteButton;
     this.industry = x.industry;
@@ -103,7 +103,7 @@ function Account(x){
 function AdminGroup(x){
     this.id = x.adminGroupId;
     this.name = x.adminGroupName;
-    this.isActive = x.isActive;
+    this.isActive = x.active;
 
     this.getInfo = function(){
         return this.id + "\n" + this.name;
