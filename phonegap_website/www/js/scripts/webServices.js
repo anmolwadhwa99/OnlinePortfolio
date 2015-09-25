@@ -22,44 +22,37 @@ function Qual(x){
     this.outcomeStatement = x.outcomeStatement;
     this.subtitle = x.subtitle;
     this.isAnonymous = x.isAnonymous;
-    //this.anonymousName = x.anonymousName;
     this.isActive = x.isActive;
-    //this.primaryColour = x.primaryColour;
-    //this.secondaryColour = x.secondaryColour;
-    //this.accentColour = x.accentColour;
     this.emailButton = x.emailButton;
     this.websiteButton = x.websiteButton;
-    //this.adminGroups = x.adminGroups;
     this.industry = x.industry;
     this.tags = x.tags;
     this.status = x.status;
     this.serviceLine = x.serviceLine;
-    this.solution = x.solution;
+    this.anonymousName = x.anonymousName;
 
 
     this.getInfo = function(){
         return this.qualId + "\n" +
-            this.projectName + "\n"  +
-            this.clientName +"\n"  +
-            this.problemStatement + "\n"  +
-            this.challengesFaced + "\n"  +
-            this.solutionStatement + "\n"  +
-            this.relevanceToClient + "\n"  +
-            this.outcomeStatement + "\n"  +
-            this.subtitle + "\n"  +
-                //this.isAnonymous + "\n"  +
-            this.isActive + "\n" +
-                //this.primaryColour + "\n" +
-                //this.secondaryColour + "\n" +
-                //this.accentColour + "\n" +
-            this.emailButton + "\n" +
-            this.websiteButton + "\n" +
-            this.adminGroups + "\n" +
-            this.industry + "\n" +
-            this.tags + "\n" +
-            this.status + "\n"+
-            this.solution + "\n" +
-            this.serviceLine ;
+        this.projectImage + "\n" +
+        this.projectName  + "\n" +
+        this.clientImage  + "\n" +
+        this.clientName  + "\n" +
+        this.problemStatement  + "\n" +
+        this.challengesFaced  + "\n" +
+        this.solutionStatement  + "\n" +
+        this.relevanceToClient  + "\n" +
+        this.outcomeStatement  + "\n" +
+        this.subtitle + "\n" +
+        this.isAnonymous  + "\n" +
+        this.isActive + "\n" +
+        this.emailButton  + "\n" +
+        this.websiteButton  + "\n" +
+        this.industry  + "\n" +
+        this.tags + "\n" +
+        this.status  + "\n" +
+        this.serviceLine  + "\n" +
+        this.anonymousName;
     };
 }
 
