@@ -48,6 +48,7 @@
 
     <!-- Autocomplete for input text - typeahead and bloodhound bundled together -->
     <script type="application/javascript" src="js/typeahead.bundle.js"></script>
+    <link rel="stylesheet" href="css/typeahead.css"/>
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
@@ -297,10 +298,10 @@
                 };
             };
 
-            var industries = []; // TODO need to get array of string containing all previously entered industries
-            var servicelines = []; // TODO need to get array of string containing all previously entered servicelines
+            var industries = ['consulting']; // TODO need to get array of string containing all previously entered industries
+            var servicelines = ['testing']; // TODO need to get array of string containing all previously entered servicelines
 
-            $("#qual_industry .typeahead").typeahead(
+            $("#div_industry .typeahead").typeahead(
                     {
                         hint: true,
                         highlight: true,
@@ -312,7 +313,7 @@
                     }
             );
 
-            $("#qual_service_line .typeahead").typeahead(
+            $("#div_service_line .typeahead").typeahead(
                     {
                         hint: true,
                         highlight: true,
@@ -594,7 +595,9 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="typeahead form-control" placeholder="Industry">
+                        <div id="div_industry">
+                            <input id="qual_industry" type="text" class="typeahead form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -663,8 +666,9 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_service_line">Service Line: </label>
-                <textarea id="qual_service_line" rows="1" class="typeahead form-control" placeholder="Service Line"
-                          required></textarea>
+                <div id="div_service_line">
+                    <input id="qual_service_line" type="text"  class="typeahead form-control" required/>
+                </div>
             </div>
         </div>
     </div>
