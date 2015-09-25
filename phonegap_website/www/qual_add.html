@@ -243,9 +243,15 @@
             $('#ddExistingLogo').val("imgs/noPreview.png").trigger("change");
 
 
-            var tags = []; // TODO load tags with existing tags
+            var tags = [{id: '123', text:'test'}]; // TODO load tags with existing tags
             //e.g. tags = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
             $('#qual_tags').select2({width:"style", tags:true, placeholder:"Select existing tags or enter new ones", data:tags});
+
+            var industry = [{}];
+            $('#qual_industry').select2({width:"style", placeholder:"Select Industry", data:industry});
+
+            var serviceline = [];
+            $('#qual_service_line').select2({width:"style", placeholder:"Select Serviceline", data:serviceline});
 
             getAllProjectImages(function () {
                 var prodServs = this;
@@ -540,7 +546,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
+                        <select id="qual_industry" style="width:100%;" class="form-control" required>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -609,7 +616,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_service_line">Service Line: </label>
-                <input id="qual_service_line" type="text"  class="form-control" placeholder="Serviceline" required/>
+                <select id="qual_service_line" style="width:100%;" class="form-control" required>
+                </select>
             </div>
         </div>
     </div>
