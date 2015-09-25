@@ -24,6 +24,8 @@
     <title>Deloitte New Zealand </title>
     <link rel=" shortcut icon" href="imgs/favicon.ico">
 
+    <script src="js/jquery-2.1.4.min.js"></script>
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -40,7 +42,7 @@
           type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-    <script src="js/jquery-2.1.4.min.js"></script>
+
     <script src="js/scripts/webServices.js"></script>
     <script src="js/select2.min.js"></script>
     <script src="js/scripts/homepage.js"></script>
@@ -171,57 +173,40 @@
             }else if(archiveType == "QUAL"){
                 confirmAction(itemID, "Heads Up!", "error", "QUAL", "Qual successfully archived!");
             }
-        }
-
+        };
+    </script>
+    <script>
         function confirmAction(item_id, notice_title, notice_type, submit_option, success_message) {
             var notice = new PNotify({
-                title: notice_title,
-                text: $('#form_notice').html(),
-                icon: true,
-                width: 'auto',
+                title: 'Confirmation Needed',
+                text: 'Are you sure?',
+                icon: 'glyphicon glyphicon-question-sign',
                 hide: false,
-                type: notice_type,
+                confirm: {
+                    confirm: true
+                },
                 buttons: {
                     closer: false,
                     sticker: false
                 },
-                insert_brs: false
-            });
-            notice.get().find('form.pf-form').on('click', '[name=cancel]', function () {
-                cleanseForm();
-                notice.remove();
-            }).submit(function () {
-
-                if(submit_option == "CLIENT")
-                {
+                history: {
+                    history: false
+                }
+            }).get().on('pnotify.confirm', function () {
+                if (submit_option == "CLIENT") {
                     archiveClient(item_id);
-                    //location.reload();
+                    location.reload();
                 }
-                else if(submit_option == "PROJECT")
-                {
+                else if (submit_option == "PROJECT") {
                     archiveProject(item_id);
-                    //location.reload();
+                    location.reload();
                 }
-                else if(submit_option == "QUAL")
-                {
+                else if (submit_option == "QUAL") {
                     archiveQual(item_id);
-                    //location.reload();
+                    location.reload();
                 }
+            }).on('pnotify.cancel', function () {
 
-                cleanseForm();
-                notice.update({
-                    title: 'Completed',
-                    text: success_message,
-                    icon: true,
-                    width: PNotify.prototype.options.width,
-                    hide: true,
-                    buttons: {
-                        closer: true,
-                        sticker: true
-                    },
-                    type: 'success'
-                });
-                return false;
             });
         }
 
@@ -230,9 +215,7 @@
             $('#form_body').text("");
 
             $('#form_submit').text("").removeClass('btn-primary btn-danger');
-
         }
-
     </script>
 </head>
 
