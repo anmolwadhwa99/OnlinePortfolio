@@ -21,7 +21,7 @@ function Qual(x){
     this.relevanceToClient = x.relevanceToClient;
     this.outcomeStatement = x.outcomeStatement;
     this.subtitle = x.subtitle;
-    this.isAnonymous = x.isAnonymous;
+    this.isAnonymous = x.anonymous;
     this.isActive = x.active;
     this.emailButton = x.emailButton;
     this.websiteButton = x.websiteButton;
