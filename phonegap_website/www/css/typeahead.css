@@ -6,11 +6,11 @@ html {
   *overflow-x: hidden;
 }
 
-.container {
-  max-width: 750px;
-  margin: 0 auto;
-  text-align: center;
-}
+/*.container {*/
+  /*max-width: 750px;*/
+  /*margin: 0 auto;*/
+  /*text-align: center;*/
+/*}*/
 
 .tt-menu,
 .gist {
@@ -42,7 +42,7 @@ a:hover {
 }
 
 .table-of-contents li a {
-  font-size: 16px;
+  font-size: 14px;
   color: #999;
 }
 
@@ -76,11 +76,9 @@ p + p {
 .typeahead,
 .tt-query,
 .tt-hint {
-  width: 396px;
-  height: 30px;
   padding: 8px 12px;
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 14px;
+  line-height: 14px;
   border: 2px solid #ccc;
   -webkit-border-radius: 8px;
      -moz-border-radius: 8px;
@@ -107,9 +105,9 @@ p + p {
 }
 
 .tt-menu {
-  width: 422px;
-  margin: 12px 0;
-  padding: 8px 0;
+  width: 300px;
+  margin: 5px 0;
+  padding: 5px 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -123,7 +121,7 @@ p + p {
 
 .tt-suggestion {
   padding: 3px 20px;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 24px;
 }
 

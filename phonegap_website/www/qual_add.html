@@ -217,6 +217,9 @@
         }
     </script>
     <script type="application/javascript">
+        $(window).resize(function(){
+            resizeAutocompletes();
+        });
         $(document).ready(function(){
 
             // Wrapping of default alert
@@ -301,7 +304,7 @@
             var industries = ['consulting']; // TODO need to get array of string containing all previously entered industries
             var servicelines = ['testing']; // TODO need to get array of string containing all previously entered servicelines
 
-            $("#div_industry .typeahead").typeahead(
+            $("#qual_industry").typeahead(
                     {
                         hint: true,
                         highlight: true,
@@ -313,7 +316,7 @@
                     }
             );
 
-            $("#div_service_line .typeahead").typeahead(
+            $("#qual_service_line").typeahead(
                     {
                         hint: true,
                         highlight: true,
@@ -324,6 +327,7 @@
                         source: substringMatcher(servicelines)
                     }
             );
+            resizeAutocompletes(); // fixing width issues
             <!-- Autocomplete ends -->
 
             var qual_id = sessionStorage.getItem("dup_qual_id");
@@ -437,6 +441,14 @@
             $('.prod_serv_progress').hide();
 
             $('.client_logo_progress').hide();
+        }
+
+        function resizeAutocompletes(){
+            var inputWidth = $('#qual_email').width();
+            $('#div_industry').find(':input').width(inputWidth);
+
+            var inputWidth2 = $('#select2-qual_tags-container').width();
+            $('#div_service_line').find(':input').width(inputWidth2);
         }
     </script>
 </head>
@@ -596,7 +608,7 @@
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
                         <div id="div_industry">
-                            <input id="qual_industry" type="text" class="typeahead form-control">
+                            <input id="qual_industry" type="text" class="typeahead form-control" placeholder="Industry">
                         </div>
                     </div>
                 </div>
@@ -667,7 +679,7 @@
             <div class="form-group">
                 <label for="qual_service_line">Service Line: </label>
                 <div id="div_service_line">
-                    <input id="qual_service_line" type="text"  class="typeahead form-control" required/>
+                    <input id="qual_service_line" type="text"  class="typeahead form-control" placeholder="Serviceline" required/>
                 </div>
             </div>
         </div>
