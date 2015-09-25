@@ -468,7 +468,7 @@ function getImagesForQual(qId, callback){
 }
 
 function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
-    , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
+    , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine
     , solutionStatement, status, subtitle, email, website, clientImgURL, projectImgURL, callback){
     var methodURL = url + _qual;
     var method = "POST";
@@ -511,7 +511,6 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
         '"projectImage": "' + projectImgURL + '",'+
         '"relevanceToClient": "' + relevanceToClient + '",'+
         '"serviceLine": "' + serviceLine + '",'+
-        '"solution": "' + solution + '",'+
         '"solutionStatement": "' + solutionStatement + '",'+
         '"status": "' + status + '",'+
         '"subtitle": "' + subtitle + '",'+
@@ -574,7 +573,7 @@ function reactivateQual(id){
 }
 
 function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, industry
-    , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine, solution
+    , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine
     , solutionStatement, status, subtitle, email, website, callback){
     var methodURL = url + _qual + "/" + id;
     var method = "PUT";
@@ -613,7 +612,6 @@ function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, indu
         '"projectName": "' + projectName + '",'+
         '"relevanceToClient": "' + relevanceToClient + '",'+
         '"serviceLine": "' + serviceLine + '",'+
-        '"solution": "' + solution + '",'+
         '"solutionStatement": "' + solutionStatement + '",'+
         '"status": "' + status + '",'+
         '"subtitle": "' + subtitle + '",'+

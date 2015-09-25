@@ -101,10 +101,10 @@ public class QualificationDatabase {
 		Query query = session.createQuery(getAllQuery);
 
 		List<Qualification> quals = query.list();
-
+		List<Qualification> duplicateQuals = quals;
 		//Remove any confidential quals
-		for (int i =0; i<quals.size(); i++){
-			if (quals.get(i).getStatus().equals(Status.confidential)){
+		for (int i =0; i<duplicateQuals.size(); i++){
+			if (duplicateQuals.get(i).getStatus().equals(Status.confidential)){
 				quals.remove(i);
 			}
 		}
@@ -290,8 +290,13 @@ public class QualificationDatabase {
 		}
 
 		List<Qualification> quals = adminGroup.getQuals();
-
+		List<Qualification> duplicateQuals = quals;
 		//removing inactive quals
+		for(int i =0; i < duplicateQuals.size(); i++){
+			if(duplicateQuals.get(i).isActive() == false){
+				quals.remove(i);
+			}
+		}		//removing inactive quals
 		for (int i = 0; i<quals.size(); i++){
 			if (quals.get(i).isActive() == false){
 				quals.remove(i);
@@ -319,8 +324,14 @@ public class QualificationDatabase {
 			throw new DatabaseRetrievalException("Project Group with id " + projectGroupId + " could not be found, so can't retrieve qualifications");
 		}
 
-		List<Qualification> quals = projectGroup.getQuals();
+		List<Qualification> quals = projectGroup.getQuals();;
+		List<Qualification> duplicateQuals = quals;
 		//removing inactive quals
+		for(int i =0; i < duplicateQuals.size(); i++){
+			if(duplicateQuals.get(i).isActive() == false){
+				quals.remove(i);
+			}
+		}		//removing inactive quals
 		for (int i = 0; i<quals.size(); i++){
 			if (quals.get(i).isActive() == false){
 				quals.remove(i);
@@ -349,10 +360,10 @@ public class QualificationDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so can't retrieve qualifications");
 		}
 		List<Qualification> quals = account.getAccountsQual();
-
+		List<Qualification> duplicateQuals = quals;
 		//removing inactive quals
-		for(int i =0; i < quals.size(); i++){
-			if(quals.get(i).isActive() == false){
+		for(int i =0; i < duplicateQuals.size(); i++){
+			if(duplicateQuals.get(i).isActive() == false){
 				quals.remove(i);
 			}
 		}
