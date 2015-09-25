@@ -9,10 +9,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 public class Industry {
+	
+	public enum IndustryName{
+		consumerBusiness, energyAndResources, financialServices, lifeScienceAndHealthCare, 
+		manufacturing, primary, publicSector, realEstate, technologyMediaAndTelecommunications
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int industryId;
-	private String industryName;
+	private IndustryName industryName;
 	
 	public int getIndustryId() {
 		return industryId;
@@ -22,11 +27,11 @@ public class Industry {
 		this.industryId = industryId;
 	}
 	
-	public String getIndustryName() {
+	public IndustryName getIndustryName() {
 		return industryName;
 	}
 	
-	public void setIndustryName(String industryName) {
+	public void setIndustryName(IndustryName industryName) {
 		this.industryName = industryName;
 	}
 	

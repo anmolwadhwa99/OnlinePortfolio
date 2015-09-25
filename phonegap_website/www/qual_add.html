@@ -46,10 +46,6 @@
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
-    <!-- Autocomplete for input text - typeahead and bloodhound bundled together -->
-    <script type="application/javascript" src="js/typeahead.bundle.js"></script>
-    <link rel="stylesheet" href="css/typeahead.css"/>
-
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
     <script>
@@ -107,7 +103,7 @@
 
             insertQual(true, isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
-                    'solutionStatement', status, projSubtitle, emailAction, websiteAction,
+                    status, projSubtitle, emailAction, websiteAction,
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
@@ -174,7 +170,7 @@
 
             updateQual(qualId, true, isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
-                    'solutionStatement', status, projSubtitle, emailAction, websiteAction,
+                    status, projSubtitle, emailAction, websiteAction,
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
@@ -217,9 +213,6 @@
         }
     </script>
     <script type="application/javascript">
-        $(window).resize(function(){
-            resizeAutocompletes();
-        });
         $(document).ready(function(){
 
             // Wrapping of default alert
@@ -241,7 +234,7 @@
 
             $('#ddExistingProdServ').select2({width:"style"});
             $('#ddExistingLogo').select2({width:"style"});
-            $('#ddAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Qual"});
+            $('#ddAdminGroups').append('<option></option>').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Qual"});
 
             $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
             $('#ddExistingLogo').append('<option value=\"imgs/noPreview.png\" >' + 'No Logo (No image will be displayed)' + '</option>');
@@ -250,9 +243,21 @@
             $('#ddExistingLogo').val("imgs/noPreview.png").trigger("change");
 
 
-            var tags = []; // TODO load tags with existing tags
+            var tags = [{id: '123', text:'test'}]; // TODO load tags with existing tags
             //e.g. tags = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
-            $('#qual_tags').select2({width:"style", tags:true, placeholder:"Select existing tags or enter new ones", data:tags});
+            $('#qual_tags').append('<option></option>').select2({width:"style", tags:true, placeholder:"Select existing tags or enter new ones", data:tags});
+
+            var industry = [{id:'consumerBusiness', text:'Consumer Business'}, {id:'energyAndResources', text:'Energy And Resources'},
+                {id:'financialServices', text:'Financial Services'}, {id:'lifeScienceAndHealthCare', text:'Life Science And Health Care'},
+                {id:'manufacturing', text:'Manufacturing'}, {id:'primary', text:'Primary'}, {id:'publicSector', text:'Public Sector'},
+                {id:'realEstate', text:'Real Estate'}, {id:'technologyMediaAndTelecommunications', text:'Technology Media And Telecommunications'}];
+            $('#qual_industry').append('<option></option>').select2({width:"style", placeholder:"Select Industry", data:industry});
+
+            var serviceline = [{id:'audit', text:'Audit'}, {id:'deloittePrivate', text:'Deloitte Private'},
+                {id:'financialAdvisory', text:'Financial Advisory'}, {id:'humanCapital', text:'Human Capital'},
+                {id:'operations', text:'Operations'},{id:'risk', text:'Risk'},{id:'strategy', text:'Strategy'},
+                {id:'tax', text:'Tax'},{id:'technology', text:'Technology'}];
+            $('#qual_service_line').append('<option></option>').select2({width:"style", placeholder:"Select Serviceline", data:serviceline});
 
             getAllProjectImages(function () {
                 var prodServs = this;
@@ -278,58 +283,6 @@
                 });
             });
 
-            <!-- Autocomplete for Industry and Serviceline -->
-            var substringMatcher = function(strs) {
-                return function findMatches(q, cb) {
-                    var matches, substrRegex;
-
-                    // an array that will be populated with substring matches
-                    matches = [];
-
-                    // regex used to determine if a string contains the substring `q`
-                    substrRegex = new RegExp(q, 'i');
-
-                    // iterate through the pool of strings and for any string that
-                    // contains the substring `q`, add it to the `matches` array
-                    $.each(strs, function(i, str) {
-                        if (substrRegex.test(str)) {
-                            matches.push(str);
-                        }
-                    });
-
-                    cb(matches);
-                };
-            };
-
-            var industries = ['consulting']; // TODO need to get array of string containing all previously entered industries
-            var servicelines = ['testing']; // TODO need to get array of string containing all previously entered servicelines
-
-            $("#qual_industry").typeahead(
-                    {
-                        hint: true,
-                        highlight: true,
-                        minLength: 1
-                    },
-                    {
-                        name: 'industries',
-                        source: substringMatcher(industries)
-                    }
-            );
-
-            $("#qual_service_line").typeahead(
-                    {
-                        hint: true,
-                        highlight: true,
-                        minLength: 1
-                    },
-                    {
-                        name: 'servicelines',
-                        source: substringMatcher(servicelines)
-                    }
-            );
-            resizeAutocompletes(); // fixing width issues
-            <!-- Autocomplete ends -->
-
             var qual_id = sessionStorage.getItem("dup_qual_id");
             if (qual_id != null) {
                 $('#btnReset').prop('disabled', true); // Disabling reset for now as would clear entire form instead of resetting to original values
@@ -341,13 +294,13 @@
                     $("#qual_anonymous_name").val(qual.qual_anonymous);
                     $("#qual_email").val(qual.emailButton);
                     $("#qual_website").val(qual.websiteButton);
-                    $("#qual_industry").val(qual.industry);
+                    $("#qual_industry").val(qual.industry).trigger('change');
                     $("#qual_problems").val(qual.problemStatement);
-                    $("#qual_solutions").val(qual.solution);
+                    $("#qual_solutions").val(qual.solutionStatement);
                     $("#qual_challenges").val(qual.challengesFaced);
                     $("#qual_outcome").val(qual.outcomeStatement);
                     $("#qual_relevance").val(qual.relevanceToClient);
-                    $("#qual_service_line").val(qual.serviceLine);
+                    $("#qual_service_line").val(qual.serviceLine).trigger('change');
                     $('#qual_tags').val(qual.tags).trigger('change');
 
                     if(qual.isAnonymous == true){
@@ -391,13 +344,13 @@
                         $("#qual_anonymous_name").val(qual.qual_anonymous);
                         $("#qual_email").val(qual.emailButton);
                         $("#qual_website").val(qual.websiteButton);
-                        $("#qual_industry").val(qual.industry);
+                        $("#qual_industry").val(qual.industry).trigger('change');
                         $("#qual_problems").val(qual.problemStatement);
-                        $("#qual_solutions").val(qual.solution);
+                        $("#qual_solutions").val(qual.solutionStatement);
                         $("#qual_challenges").val(qual.challengesFaced);
                         $("#qual_outcome").val(qual.outcomeStatement);
                         $("#qual_relevance").val(qual.relevanceToClient);
-                        $("#qual_service_line").val(qual.serviceLine);
+                        $("#qual_service_line").val(qual.serviceLine).trigger('change');
                         $('#qual_tags').val(qual.tags).trigger('change');
 
                         if(qual.isAnonymous == true){
@@ -441,14 +394,6 @@
             $('.prod_serv_progress').hide();
 
             $('.client_logo_progress').hide();
-        }
-
-        function resizeAutocompletes(){
-            var inputWidth = $('#qual_email').width();
-            $('#div_industry').find(':input').width(inputWidth);
-
-            var inputWidth2 = $('#select2-qual_tags-container').width();
-            $('#div_service_line').find(':input').width(inputWidth2);
         }
     </script>
 </head>
@@ -607,9 +552,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <div id="div_industry">
-                            <input id="qual_industry" type="text" class="typeahead form-control" placeholder="Industry">
-                        </div>
+                        <select id="qual_industry" style="width:100%;" class="form-control" required>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -678,9 +622,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_service_line">Service Line: </label>
-                <div id="div_service_line">
-                    <input id="qual_service_line" type="text"  class="typeahead form-control" placeholder="Serviceline" required/>
-                </div>
+                <select id="qual_service_line" style="width:100%;" class="form-control" required>
+                </select>
             </div>
         </div>
     </div>
