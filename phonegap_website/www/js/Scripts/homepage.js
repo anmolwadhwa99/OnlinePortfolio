@@ -541,6 +541,9 @@ function getQuals(){
 }
 
 function getClients() {
+
+    HoldOn.open();
+
     var htmlStr ="<h1 id='heading' class='col-md-10'>Clients</h1>";
 
     getAllClients(function () {
@@ -560,10 +563,16 @@ function getClients() {
         }
 
         $("#clients").html(htmlStr)
+
+        HoldOn.close();
     });
+
+
 }
 
 function getProjectforClient(id, clientName){
+
+    HoldOn.open();
 
     getProjectsByClient(id,function(){
         var projects = this;
@@ -583,6 +592,8 @@ function getProjectforClient(id, clientName){
         htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
         htmlClientProject = htmlStr;
         $("#clients").html(htmlStr);
+
+            HoldOn.close();
 
     });
 
