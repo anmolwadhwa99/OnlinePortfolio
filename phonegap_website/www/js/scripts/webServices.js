@@ -103,7 +103,7 @@ function Account(x){
 function AdminGroup(x){
     this.id = x.adminGroupId;
     this.name = x.adminGroupName;
-    this.isActive = x.isActive;
+    this.isActive = x.active;
 
     this.getInfo = function(){
         return this.id + "\n" + this.name;
