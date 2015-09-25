@@ -103,7 +103,7 @@
 
             insertQual(true, isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
-                    'solutionStatement', status, projSubtitle, emailAction, websiteAction,
+                    status, projSubtitle, emailAction, websiteAction,
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
@@ -170,7 +170,7 @@
 
             updateQual(qualId, true, isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
-                    'solutionStatement', status, projSubtitle, emailAction, websiteAction,
+                    status, projSubtitle, emailAction, websiteAction,
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
@@ -294,13 +294,13 @@
                     $("#qual_anonymous_name").val(qual.qual_anonymous);
                     $("#qual_email").val(qual.emailButton);
                     $("#qual_website").val(qual.websiteButton);
-                    $("#qual_industry").val(qual.industry);
+                    $("#qual_industry").val(qual.industry).trigger('change');
                     $("#qual_problems").val(qual.problemStatement);
-                    $("#qual_solutions").val(qual.solution);
+                    $("#qual_solutions").val(qual.solutionStatement);
                     $("#qual_challenges").val(qual.challengesFaced);
                     $("#qual_outcome").val(qual.outcomeStatement);
                     $("#qual_relevance").val(qual.relevanceToClient);
-                    $("#qual_service_line").val(qual.serviceLine);
+                    $("#qual_service_line").val(qual.serviceLine).trigger('change');
                     $('#qual_tags').val(qual.tags).trigger('change');
 
                     if(qual.isAnonymous == true){
@@ -344,13 +344,13 @@
                         $("#qual_anonymous_name").val(qual.qual_anonymous);
                         $("#qual_email").val(qual.emailButton);
                         $("#qual_website").val(qual.websiteButton);
-                        $("#qual_industry").val(qual.industry);
+                        $("#qual_industry").val(qual.industry).trigger('change');
                         $("#qual_problems").val(qual.problemStatement);
-                        $("#qual_solutions").val(qual.solution);
+                        $("#qual_solutions").val(qual.solutionStatement);
                         $("#qual_challenges").val(qual.challengesFaced);
                         $("#qual_outcome").val(qual.outcomeStatement);
                         $("#qual_relevance").val(qual.relevanceToClient);
-                        $("#qual_service_line").val(qual.serviceLine);
+                        $("#qual_service_line").val(qual.serviceLine).trigger('change');
                         $('#qual_tags').val(qual.tags).trigger('change');
 
                         if(qual.isAnonymous == true){
