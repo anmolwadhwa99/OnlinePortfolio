@@ -16,7 +16,7 @@ public class QualData extends Server{
 			jsonQual.put("problemStatement", qual.getProblemStatement());
 			jsonQual.put("challengesFaced", qual.getChallengesFaced());
 			jsonQual.put("solutionStatement", qual.getSolutionStatement());
-			jsonQual.put("relavenceToClient", qual.getRelevanceToClient());
+			jsonQual.put("relevanceToClient", qual.getRelevanceToClient());
 			jsonQual.put("outcomeStatement", qual.getOutcomeStatement());
 			jsonQual.put("subtitle", qual.getSubtitle());
 			jsonQual.put("isAnonymous", qual.isAnonymous());
@@ -53,7 +53,7 @@ public class QualData extends Server{
 		eaSports.setServiceLine("Technology");
 		eaSports.setStatus(Status.open);
 		eaSports.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
-		eaSports.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792695/Homer.png");
+		eaSports.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
 		qualData.addQual(eaSports);
 		
 		//Apple
@@ -67,7 +67,7 @@ public class QualData extends Server{
 		apple.setServiceLine("Technology");
 		apple.setStatus(Status.confidential);
 		apple.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
-		apple.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792771/Louis.png");
+		apple.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
 		qualData.addQual(apple);
 		
 		//AVG
@@ -80,7 +80,7 @@ public class QualData extends Server{
 		avg.setRelevanceToClient("The result: centralized content management and promotion management with rapid optimization, multivariate testing, and localization, advanced user segmentation, targeting, and personalization capabilities, enterprise class product management platform for managing complicated product bundles, vouchers, and discounting on a region by region basis, scalability and flexibility for assimilation of new products and business lines and integrated customer service for shopping cart management, promotions, and cross/up-selling over the phone or through the web.");
 		avg.setServiceLine("Consulting");
 		avg.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
-		avg.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792694/Trump.jpg");
+		avg.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
 		qualData.addQual(avg);
 		
 		//Large Oil and Gas
@@ -93,7 +93,7 @@ public class QualData extends Server{
 		oilAndGas.setRelevanceToClient("Since the launch of the new solution, our client has established a consistent digital experience across brands, products, geographies and communication channels for both internal and external F&L customers, Streamlined order management experience enhanced by a rigorous back office rules-engine and product catalog logic and Robust account management functionality to empower customers to self-serve.");
 		oilAndGas.setServiceLine("Consulting");
 		oilAndGas.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
-		oilAndGas.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442792691/Heisenberg.jpg");
+		oilAndGas.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
 		qualData.addQual(oilAndGas);
 		
 		
