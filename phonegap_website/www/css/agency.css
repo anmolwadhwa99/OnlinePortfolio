@@ -960,7 +960,7 @@ ul.social-buttons li a:active {
 
 }
 
-.portfolio-modal .close-modal:hover {
+.portfolio-modal .close-modal i:hover {
     opacity: .3;
 }
 
