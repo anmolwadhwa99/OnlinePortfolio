@@ -59,42 +59,50 @@
             };
 
             var qual_id = sessionStorage.getItem("qual_id");
+            var account_id = sessionStorage.getItem("account_id");
             var htmlStr = "";
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
                 var clientName = "";
 
-                if(qual.isAnonymous){
-                    clientName = qual.qual_anonymous;
-                }else {
-                    clientName = qual.clientName;
-                }
+                getAccountById(account_id, function() {
+                    var account = this;
+                    if (account.isAdmin) {
+                        clientName = qual.clientName;
+                    } else {
+                        if (qual.isAnonymous) {
+                            clientName = qual.anonymousName;
+                        } else {
+                            clientName = qual.clientName;
+                        }
+                    }
 
-                var image = "";
+
+                    var image = "";
 
 
-                if (qual.projectImage == null) {
-                    if (qual.clientImage == null) {
+                    if (qual.projectImage == null) {
+                        if (qual.clientImage == null) {
 //                        image = "imgs/noPreview.png";
+                            image = "";
+                        } else {
+                            image = qual.clientImage;
+                        }
+//                    image = "imgs/noPreview.png";
                         image = "";
                     } else {
-                        image = qual.clientImage;
+                        image = qual.projectImage;
                     }
-//                    image = "imgs/noPreview.png";
-                    image = "";
-                }else{
-                    image = qual.projectImage;
-                }
 
-                parent.$('#client-logo').attr('src', qual.clientImage);
+                    parent.$('#client-logo').attr('src', qual.clientImage);
 
-                parent.$('#qual-projectName').text(qual.projectName);
+                    parent.$('#qual-projectName').text(qual.projectName);
 
 
-                htmlStr += " \
+                    htmlStr += " \
             <div class='col-md-6' > \
                 <div class='image-upload' > \
-                        <img style=\"max-width: 100%; max-height: 100%;\"id='qual_product_service_img' class='img-rounded fill' src='"+ image+"' /> \
+                        <img style=\"max-width: 100%; max-height: 100%;\"id='qual_product_service_img' class='img-rounded fill' src='" + image + "' /> \
                 </div> \
             </div> \
             <div class='col-md-6' style=\"background-color: #dcdcdc;padding-bottom: 20px;padding-top: 20px;\"> \
@@ -103,143 +111,142 @@
                         <h4 class='subheading'>Client Name:</h4> \
                     </div>\
                     <div class='col-md-9 col-xs-6'> \
-                        <p>"+clientName+"</p>\
+                        <p>" + clientName + "</p>\
                     </div>\
                 </div>";
 
 
-                if(qual.subtitle != null){
-                    htmlStr += "\
+                    if (qual.subtitle != null) {
+                        htmlStr += "\
                 <div class='row'> \
                     <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>Subtitle:</h4> \
                     </div>\
                     <div class='col-md-9 col-xs-6'> \
-                        <p>"+qual.subtitle+"</p>\
+                        <p>" + qual.subtitle + "</p>\
                     </div>\
                 </div>"
-                }
+                    }
 
-                if(qual.industry != null){
-                    htmlStr += "\
+                    if (qual.industry != null) {
+                        htmlStr += "\
                 <div class='row'>\
                     <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>Industry:</h4> \
                     </div>\
                     <div class='col-md-9 col-xs-6'> \
-                        <p>"+qual.industry+"</p>\
+                        <p>" + qual.industry + "</p>\
                     </div>\
                 </div>"
-                }
+                    }
 
-                if(qual.serviceLine != null){
-                    htmlStr += "\
+                    if (qual.serviceLine != null) {
+                        htmlStr += "\
                 <div class='row'>\
                     <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>Service Line:</h4> \
                     </div>\
                     <div class='col-md-9 col-xs-6'> \
-                        <p>"+qual.serviceLine+"</p>\
+                        <p>" + qual.serviceLine + "</p>\
                     </div>\
                 </div>"
-                }
+                    }
 
-                if(qual.status != null){
-                    htmlStr += "\
+                    if (qual.status != null) {
+                        htmlStr += "\
                 <div class='row'> \
                     <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>Status:</h4> \
                     </div>\
                     <div class='col-md-9 col-xs-6'> \
-                        <p style=\"text-transform: capitalize\">"+qual.status+"</p>\
+                        <p style=\"text-transform: capitalize\">" + qual.status + "</p>\
                     </div>\
                 </div>"
-                }
+                    }
 
-                htmlStr += "<div class='row'>";
+                    htmlStr += "<div class='row'>";
 
-                var ext = false;
-                if(qual.emailButton != null || qual.websiteButton != null){
-                    ext = true;
-                    htmlStr += "<div class='col-md-3 col-xs-6'> \
+                    var ext = false;
+                    if (qual.emailButton != null || qual.websiteButton != null) {
+                        ext = true;
+                        htmlStr += "<div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>External Links:</h4> \
                     </div>";
-                }
+                    }
 
-                if(qual.emailButton != null){
-                    htmlStr += "\
+                    if (qual.emailButton != null) {
+                        htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
                     <a href='mailto:" + qual.emailButton + "' class='external-link'><span class='fa fa-envelope-o fa-1x'></span>\
                     <span class='slightly-left'>Email</span>\
                     </a>\
                             </div>";
-                }
+                    }
 
-                if(qual.websiteButton != null){
-                    htmlStr += "\
+                    if (qual.websiteButton != null) {
+                        htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
                     <a href='" + qual.websiteButton + "' target=\"_blank\" class='external-link'><i class='fa fa-external-link fa-1x'></i>\
                     <span class='slightly-left'>View Website</span>\
                     </a>\
                             </div>";
-                }
-                if (ext){
+                    }
+                    if (ext) {
+                        htmlStr += "</div>";
+                    }
+
                     htmlStr += "</div>";
-                }
 
-                htmlStr += "</div>";
-
-                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Problem Statement:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.problemStatement+"</p>\
+                            <p>" + qual.problemStatement + "</p>\
                             <div style='padding-bottom: 15px;'></div>\
                         </div>";
 
-                if(qual.challengesFaced != null){
-                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                    if (qual.challengesFaced != null) {
+                        htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Challenges Faced:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.challengesFaced+"</p>\
+                            <p>" + qual.challengesFaced + "</p>\
                             <div style='padding-bottom: 15px;'></div>\
                         </div>";
-                }
+                    }
 
-                if(qual.solutionStatement != null){
-                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                    if (qual.solutionStatement != null) {
+                        htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Solution:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.solutionStatement+"</p>\
+                            <p>" + qual.solutionStatement + "</p>\
                             <div style='padding-bottom: 15px;'></div>\
                         </div>";
-                }
+                    }
 
-                if(qual.outcomeStatement != null){
-                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                    if (qual.outcomeStatement != null) {
+                        htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Outcome:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.outcomeStatement+"</p>\
+                            <p>" + qual.outcomeStatement + "</p>\
                             <div style='padding-bottom: 15px;'></div>\
                         </div>";
-                }
+                    }
 
-                if(qual.relevanceToClient != null){
-                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                    if (qual.relevanceToClient != null) {
+                        htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Relevance to Client:</h4> \
                         </div>\
                         <div class='col-md-12 col-xs-12'> \
-                            <p>"+qual.relevanceToClient+"</p>\
+                            <p>" + qual.relevanceToClient + "</p>\
                             <div style='padding-bottom: 15px;'></div>\
                         </div>";
-                }
+                    }
 
 
-
-                htmlStr += "</div> ";
+                    htmlStr += "</div> ";
 
 //                $('#btnDuplicate').click(duplicateQual(qual_id));
 
@@ -254,7 +261,8 @@
 //                htmlStr += "<div class='col-md-2'><button type='button' class='btn btn-lg' data-dismiss='modal'>" +
 //                "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
 
-                $('#modal_body').html(htmlStr);
+                    $('#modal_body').html(htmlStr);
+                })
 
 
 
