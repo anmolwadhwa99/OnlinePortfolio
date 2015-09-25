@@ -340,8 +340,8 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     //        w = 'auto';
     //    }
 
-        $('#itemPic').css('width', '100%');
-        $('#itemPic').css('height', 'auto');
+    $('#itemPic').css('width', '100%');
+    $('#itemPic').css('height', 'auto');
     //}, 100);
 
 
@@ -353,12 +353,13 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     }
 
     var editFunction = "";
+    var inClientTab = false;
     if(type == 'project'){
 
     }else if(type == 'qual'){
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
-
+        inClientTab = true;
     }
 
 
@@ -371,23 +372,27 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             </div>";
 
     if (!isClient) {
-        str += "\<div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
-                <i class='fa fa-plus fa-3x'></i>\
-            </div>\
+        str += "\
             <div class='portfolio-hover-content editIcon' " + editFunction + " >\
-                    <i class='fa fa-pencil fa-3x'></i>\
-            </div>\
-            <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
-                    <i class = 'fa fa-trash-o fa-3x'> </i>\
+                <i class='fa fa-pencil fa-3x'></i>\
+            </div>";
+        if (!inClientTab) {
+            str += "<div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                <i class='fa fa-plus fa-3x'></i>\
+            </div>";
+        }
+
+        str +="<div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
+                <i class = 'fa fa-trash-o fa-3x'> </i>\
             </div>";
     }
     str +="</div>\
     <div class=\"portfolio-image\">\
     <img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">" +
-        "</div>\
-            </a> \
-            <div class='portfolio-caption'> \
-                <h4>"+name+"</h4> \
+    "</div>\
+        </a> \
+        <div class='portfolio-caption'> \
+            <h4>"+name+"</h4> \
             </div>\
         </div>";
 
