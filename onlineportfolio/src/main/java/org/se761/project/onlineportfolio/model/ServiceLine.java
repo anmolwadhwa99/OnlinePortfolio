@@ -9,10 +9,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 public class ServiceLine {
+	
+	public enum DeloitteServiceLine{
+		audit, deloittePrivate, financialAdvisory, humanCapital, operations,
+		risk, strategy, tax, technology;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int serviceId;
-	private String serviceLineName;
+	private DeloitteServiceLine serviceLineName;
 	
 	public int getServiceId() {
 		return serviceId;
@@ -22,11 +28,11 @@ public class ServiceLine {
 		this.serviceId = serviceId;
 	}
 	
-	public String getServiceLineName() {
+	public DeloitteServiceLine getServiceLineName() {
 		return serviceLineName;
 	}
 	
-	public void setServiceLineName(String serviceLineName) {
+	public void setServiceLineName(DeloitteServiceLine serviceLineName) {
 		this.serviceLineName = serviceLineName;
 	}
 	
