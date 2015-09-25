@@ -46,6 +46,8 @@
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
+    <!-- Autocomplete for input text - typeahead and bloodhound bundled together -->
+    <script type="application/javascript" src="js/typeahead.bundle.js"></script>
 
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
@@ -266,6 +268,57 @@
                     }
                 });
             });
+
+            <!-- Autocomplete for Industry and Serviceline -->
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substringRegex;
+
+                    // an array that will be populated with substring matches
+                    matches = [];
+
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, str) {
+                        if (substrRegex.test(str)) {
+                            matches.push(str);
+                        }
+                    });
+
+                    cb(matches);
+                };
+            };
+
+            var industries = []; // TODO need to get array of string containing all previously entered industries
+            var servicelines = []; // TODO need to get array of string containing all previously entered servicelines
+
+            $("#qual_industry .typeahead").typeahead(
+                    {
+                        hint: true,
+                        highlight: true,
+                        minLength: 1
+                    },
+                    {
+                        name: 'industries',
+                        source: substringMatcher(industries)
+                    }
+            );
+
+            $("#qual_service_line .typeahead").typeahead(
+                    {
+                        hint: true,
+                        highlight: true,
+                        minLength: 1
+                    },
+                    {
+                        name: 'servicelines',
+                        source: substringMatcher(servicelines)
+                    }
+            );
+            <!-- Autocomplete ends -->
 
             var qual_id = sessionStorage.getItem("dup_qual_id");
             if (qual_id != null) {
@@ -536,7 +589,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
+                        <input id="qual_industry" type="text" class="typeahead form-control" placeholder="Industry">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -605,7 +658,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_service_line">Service Line: </label>
-                <textarea id="qual_service_line" rows="1" class="form-control" placeholder="Service Line"
+                <textarea id="qual_service_line" rows="1" class="typeahead form-control" placeholder="Service Line"
                           required></textarea>
             </div>
         </div>
