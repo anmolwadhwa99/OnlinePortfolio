@@ -158,7 +158,6 @@
                 window.location.replace('index.html');
             });
 
-            document.getElementById("divArchiveAlert").style.display = 'none';
             //this is to hide the div containing the notification of "qual added to cart"
             document.getElementById("divAddToCartAlert").style.display = 'none';
         });
@@ -168,11 +167,12 @@
             $('#form_body').text('This will be deleted. This can only be undone by a superuser. Are you sure?');
 
             if(archiveType == "CLIENT"){
-                confirmAction(itemID, "Heads Up!", "error", "CLIENT", "Client successfully archived!");
+                confirmAction(itemID, "Heads Up!", "Deleting a client can only be undone by a superuser. Are you sure?" ,"error", "CLIENT", "Client successfully archived!");
             }else if(archiveType == "PROJECT"){
-                confirmAction(itemID, "Heads Up!", "error", "PROJECT", "Project successfully archived!")
+                confirmAction(itemID, "Heads Up!", "Deleting a project can only be undone by a superuser. Are you sure?", "error", "PROJECT", "Project successfully archived!")
             }else if(archiveType == "QUAL"){
-                confirmAction(itemID, "Heads Up!", "error", "QUAL", "Qual successfully archived!");
+                confirmAction(itemID, "Heads Up!", "Deleting a qual can only be undone by a superuser. Are you sure?", "error", "QUAL", "Qual successfully archived!");
+
             }
         };
 
@@ -182,12 +182,30 @@
 
     </script>
     <script>
-        function confirmAction(item_id, notice_title, notice_type, submit_option, success_message) {
+
+        function successMessage(notice_title, notice_text){
+            new PNotify({
+                title: notice_title,
+                text: notice_text,
+                type: 'success'
+            });
+        }
+
+        function successMessageCart(nQuals){
+            new PNotify({
+                title: "Success",
+                text: " " +nQuals + " have been successfully been added to the cart",
+                type: 'success'
+            });
+        }
+
+        function confirmAction(item_id, notice_title, notice_text, notice_type, submit_option) {
             var notice = new PNotify({
-                title: 'Confirmation Needed',
-                text: 'Are you sure?',
-                icon: 'glyphicon glyphicon-question-sign',
+                title: notice_title,
+                text: notice_text,
+                icon: true,
                 hide: false,
+                type: notice_type,
                 confirm: {
                     confirm: true
                 },
@@ -201,19 +219,28 @@
             }).get().on('pnotify.confirm', function () {
                 if (submit_option == "CLIENT") {
                     archiveClient(item_id);
-                    location.reload();
+                    successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
+                    timeout();
                 }
                 else if (submit_option == "PROJECT") {
                     archiveProject(item_id);
-                    location.reload();
+                    successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
+                    timeout();
                 }
                 else if (submit_option == "QUAL") {
                     archiveQual(item_id);
-                    location.reload();
+                    successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
+                    timeout();
+
                 }
             }).on('pnotify.cancel', function () {
 
             });
+        }
+        function timeout() {
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
         }
 
         function cleanseForm(){
@@ -539,21 +566,6 @@
     <div class="container" style="margin: 0px; padding: 0px; width: inherit;">
         <!-- Services Section -->
         <div class="row">
-            <div class="col-md-12">
-                <div id="divArchiveAlert" class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">x</span>
-                    </button>
-                    <h3 id="archiveHeading">Delete</h3>
-
-                    <p id="archiveMessage" class="body"> Are you sure you want to delete this item?</p>
-
-                    <p>
-                        <button id="confirmButton" type="button" class="btn btn-danger">CONFIRM</button>
-                        <button id="cancelButton" type="button" class="btn btn-default">CANCEL</button>
-                    </p>
-                </div>
-            </div>
         </div>
 
         <div class="row">
@@ -614,11 +626,9 @@
                     <img class="logo-image" src="" id="client-logo">
                 </div>
                 <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
-                <div class="close-modal" data-dismiss="modal">
-                    <i class="fa fa-times fa-5x"></i>
-                </div>
-                <div id="btnDuplicate" class="close-modal further_right" onclick="">
-                    <i class="fa fa-clipboard fa-3x vertical_center"></i>
+                <div class="close-modal">
+                    <i id="btnDuplicate" class="fa fa-clipboard fa-4x"></i>
+                    <i class="fa fa-times fa-5x" data-dismiss="modal"></i>
                 </div>
             </div>
             <div class="modal-body" id="modal_body">
