@@ -245,6 +245,11 @@
             $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
             $('#ddExistingLogo').val("imgs/noPreview.png").trigger("change");
 
+
+            var tags = []; // TODO load tags with existing tags
+            //e.g. tags = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+            $('#qual_tags').select2({width:"style", tags:true, placeholder:"Select existing tags or enter new ones", data:tags});
+
             getAllProjectImages(function () {
                 var prodServs = this;
                 $.each(prodServs, function(i, val){
@@ -338,7 +343,7 @@
                     $("#qual_outcome").val(qual.outcomeStatement);
                     $("#qual_relevance").val(qual.relevanceToClient);
                     $("#qual_service_line").val(qual.serviceLine);
-                    $('#qual_tags').val(qual.tags);
+                    $('#qual_tags').val(qual.tags).trigger('change');
 
                     if(qual.isAnonymous == true){
                         $('#qual_is_not_anonymous').attr('checked', false);
@@ -388,7 +393,7 @@
                         $("#qual_outcome").val(qual.outcomeStatement);
                         $("#qual_relevance").val(qual.relevanceToClient);
                         $("#qual_service_line").val(qual.serviceLine);
-                        $('#qual_tags').val(qual.tags);
+                        $('#qual_tags').val(qual.tags).trigger('change');
 
                         if(qual.isAnonymous == true){
                             $('#qual_is_not_anonymous').attr('checked', false);
@@ -651,8 +656,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_tags">Tags: </label>
-                <textarea id="qual_tags" rows="1" class="form-control" placeholder="Tag1, Tag2, Tag3...."
-                          required></textarea>
+                <select id="qual_tags" style="width:100%;" class="form-control" required>
+                </select>
             </div>
         </div>
         <div class="col-md-6">
