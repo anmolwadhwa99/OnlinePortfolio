@@ -1026,7 +1026,7 @@ body {
 body{ background: #FFFFFF; padding:50px}
 
 nav {
-    background: #222;
+    background: #000052;
     display: block;
     height: 100%;
     overflow: auto;
@@ -1145,7 +1145,7 @@ body.nav-expanded {
     opacity: 1;
 }
 a.nav-expander {
-    background: none repeat scroll 0 0 #222;
+    background: none repeat scroll 0 0 #000052;
     color: #FFFFFF;
     display: block;
     font-size: 15px;
@@ -1211,6 +1211,6 @@ h4 {
 }
 
 .navbar-inverse {
-    background-color: #000052;
-    border-color: #000052;
+    background-color: #002776;
+    border-color: #002776;
 }
