@@ -64,11 +64,15 @@
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
                 var clientName = "";
+                var anonymousName = "";
 
                 getAccountById(account_id, function() {
                     var account = this;
                     if (account.isAdmin) {
                         clientName = qual.clientName;
+                        if(qual.isAnonymous){
+                            anonymousName = qual.anonymousName;
+                        }
                     } else {
                         if (qual.isAnonymous) {
                             clientName = qual.anonymousName;
@@ -115,6 +119,16 @@
                     </div>\
                 </div>";
 
+                    if(anonymousName != ""){
+                        htmlStr += "<div class='row'> \
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Anonymous Name:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>" + anonymousName + "</p>\
+                    </div>\
+                </div>";
+                    }
 
                     if (qual.subtitle != null) {
                         htmlStr += "\
