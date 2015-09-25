@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
+import org.se761.project.onlineportfolio.model.ServiceLine.DeloitteServiceLine;
 
 public class AdminData extends Server {
 	
@@ -15,7 +16,7 @@ public class AdminData extends Server {
 		JSONObject jsonAdmin = new JSONObject();
 		try {
 			jsonAdmin.put("adminGroupName", adminGroup.getAdminGroupName());
-			jsonAdmin.put("isActive", adminGroup.isActive());
+			jsonAdmin.put("active", adminGroup.isActive());
 
 
 		} catch (JSONException e) {
@@ -30,9 +31,17 @@ public class AdminData extends Server {
 
 	public static void main(String[] args) {
 		AdminData adminData = new AdminData();
-		AdminGroup adminGroup = new AdminGroup();
-		adminGroup.setAdminGroupName("Technology");
-		adminData.addAdminGroup(adminGroup);
+		AdminGroup technology = new AdminGroup();
+		technology.setAdminGroupName(DeloitteServiceLine.technology);
+		adminData.addAdminGroup(technology);
+		
+		AdminGroup risk = new AdminGroup();
+		risk.setAdminGroupName(DeloitteServiceLine.risk);
+		
+		AdminGroup strategy = new AdminGroup();
+		strategy.setAdminGroupName(DeloitteServiceLine.strategy);
+		adminData.addAdminGroup(strategy);
+
 
 	}
 
