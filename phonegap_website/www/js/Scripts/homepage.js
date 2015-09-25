@@ -231,86 +231,86 @@ function archiveClient(clientId){
     document.getElementById("divArchiveAlert").style.display = 'none';
 };
 
-function confirmArchive(archiveType, itemID){
-    var title;
-    var message;
-
-    //take the user to the top of the screen
-    $('html, body').animate({ scrollTop: 0 }, 'fast');
-
-    if(archiveType == "CLIENT"){
- //       document.getElementById("divArchiveAlert").style.display = 'block';
- //       document.getElementById("confirmButton").addEventListener("click", function(){
- //           archiveClient(itemID);
- //       });
- //       document.getElementById("cancelButton").addEventListener("click", function(){
- //           document.getElementById("divArchiveAlert").style.display = 'none';
- //       });
- //       title = "";
- //       message = "";
-        (new PNotify({
-            title: 'Confirmation Needed',
-            text: 'Are you sure?',
-            icon: 'glyphicon glyphicon-question-sign',
-            hide: false,
-            confirm: {
-                confirm: true
-            },
-            buttons: {
-                closer: false,
-                sticker: false
-            },
-            history: {
-                history: false
-            }
-        })).get().on('pnotify.confirm', function() {
-                alert('Ok, cool.');
-            }).on('pnotify.cancel', function() {
-                alert('Oh ok. Chicken, I see.');
-            });
-
-
-    }else if(archiveType == "PROJECT"){
-        document.getElementById("divArchiveAlert").style.display = 'block';
-        document.getElementById("confirmButton").addEventListener("click", function(){
-            archiveProject(itemID);
-        });
-        document.getElementById("cancelButton").addEventListener("click", function(){
-            document.getElementById("divArchiveAlert").style.display = 'none';
-        });
-    }else if(archiveType == "QUAL"){
-        //document.getElementById("divArchiveAlert").style.display = 'block';
-        //document.getElementById("confirmButton").addEventListener("click", function(){
-        //    archiveQual(itemID);
-        //});
-        //document.getElementById("cancelButton").addEventListener("click", function(){
-        //    document.getElementById("divArchiveAlert").style.display = 'none';
-        //});
-        (new PNotify({
-            title: 'Confirmation Needed',
-            text: 'Are you sure?',
-            icon: 'glyphicon glyphicon-question-sign',
-            hide: false,
-            confirm: {
-                confirm: true
-            },
-            buttons: {
-                closer: false,
-                sticker: false
-            },
-            history: {
-                history: false
-            }
-        })).get().on('pnotify.confirm', function() {
-                alert('Ok, cool.');
-            }).on('pnotify.cancel', function() {
-                alert('Oh ok. Chicken, I see.');
-            });
-
-    }else{
-        return; // Default if somehow unknown type
-    }
-}
+//function confirmArchive(archiveType, itemID){
+//    var title;
+//    var message;
+//
+//    //take the user to the top of the screen
+//    $('html, body').animate({ scrollTop: 0 }, 'fast');
+//
+//    if(archiveType == "CLIENT"){
+//// //       document.getElementById("divArchiveAlert").style.display = 'block';
+// //       document.getElementById("confirmButton").addEventListener("click", function(){
+// //           archiveClient(itemID);
+// //       });
+// //       document.getElementById("cancelButton").addEventListener("click", function(){
+// //           document.getElementById("divArchiveAlert").style.display = 'none';
+// //       });
+// //       title = "";
+// //       message = "";
+//        (new PNotify({
+//            title: 'Confirmation Needed',
+//            text: 'Are you sure?',
+//            icon: 'glyphicon glyphicon-question-sign',
+//            hide: false,
+//            confirm: {
+//                confirm: true
+//            },
+//            buttons: {
+//                closer: false,
+//                sticker: false
+//            },
+//            history: {
+//                history: false
+//            }
+//        })).get().on('pnotify.confirm', function() {
+//                alert('Ok, cool.');
+//            }).on('pnotify.cancel', function() {
+//                alert('Oh ok. Chicken, I see.');
+//            });
+//
+//
+//    }else if(archiveType == "PROJECT"){
+//        document.getElementById("divArchiveAlert").style.display = 'block';
+//        document.getElementById("confirmButton").addEventListener("click", function(){
+//            archiveProject(itemID);
+//        });
+//        document.getElementById("cancelButton").addEventListener("click", function(){
+//            document.getElementById("divArchiveAlert").style.display = 'none';
+//        });
+//    }else if(archiveType == "QUAL"){
+//        //document.getElementById("divArchiveAlert").style.display = 'block';
+//        //document.getElementById("confirmButton").addEventListener("click", function(){
+//        //    archiveQual(itemID);
+//        //});
+//        //document.getElementById("cancelButton").addEventListener("click", function(){
+//        //    document.getElementById("divArchiveAlert").style.display = 'none';
+//        //});
+//        (new PNotify({
+//            title: 'Confirmation Needed',
+//            text: 'Are you sure?',
+//            icon: 'glyphicon glyphicon-question-sign',
+//            hide: false,
+//            confirm: {
+//                confirm: true
+//            },
+//            buttons: {
+//                closer: false,
+//                sticker: false
+//            },
+//            history: {
+//                history: false
+//            }
+//        })).get().on('pnotify.confirm', function() {
+//                alert('Ok, cool.');
+//            }).on('pnotify.cancel', function() {
+//                alert('Oh ok. Chicken, I see.');
+//            });
+//
+//    }else{
+//        return; // Default if somehow unknown type
+//    }
+//}
 
 function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
     // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
