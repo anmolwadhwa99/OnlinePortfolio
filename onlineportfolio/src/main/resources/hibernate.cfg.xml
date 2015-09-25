@@ -35,5 +35,8 @@
 		<mapping class="org.se761.project.onlineportfolio.model.Qualification" />
 		<mapping class="org.se761.project.onlineportfolio.model.ProjectGroup"/>
 		<mapping class="org.se761.project.onlineportfolio.model.Image"/>
+		<mapping class="org.se761.project.onlineportfolio.model.Industry"/>
+		<mapping class="org.se761.project.onlineportfolio.model.ServiceLine"/>
+		<mapping class="org.se761.project.onlineportfolio.model.Tag"/>
 	</session-factory>
 </hibernate-configuration>
