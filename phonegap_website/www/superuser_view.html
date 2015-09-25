@@ -42,9 +42,6 @@
     <!-- JS functions to communicate with WS -->
     <script src="js/scripts/webServices.js"></script>
 
-    <!-- Parent iFrame Resizer script -->
-    <script src="js/iframeResizer.min.js"></script>
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -72,6 +69,9 @@
     <script src="js/pace.min.js"></script>
     <link href="css/atom.css" rel="stylesheet">
 
+    <!-- Parent iFrame Resizer script -->
+    <script src="js/iframeResizer.min.js"></script>
+
     <!-- Superuser View Specific styles -->
     <style type="text/css">
         @media (max-width: 991px) {
@@ -85,6 +85,17 @@
             }
         }
     </style>
+
+    <script>
+        $(document).ready(function(){
+            $('#frameQual').iFrameResize();
+
+            $('#qualModal').on('hidden.bs.modal', function () {
+                $('#frameQual').attr('src', '');
+                $('#qualModalLabel').text("");
+            });
+        });
+    </script>
 
     <!-- Superuser View Functions -->
     <script type="application/javascript">
@@ -345,8 +356,8 @@
                         }
 
                         var anonymousName = "";
-                        if(val.projectName){ // TODO Change to anonymousName
-                            anonymousName = val.projectName;
+                        if(val.anonymousName){
+                            anonymousName = val.anonymousName;
                         }
 
                         var anonymousState = "false";
@@ -372,7 +383,9 @@
                             disableDeactive = "disabled=\"disabled\"";
                         }
 
+                        // TODO add tooltip to edit for when editing a deactivated qual
                         table.row.add([projectName,subtitle,clientName,anonymousName,anonymousState,qualStatus,
+                                '<button type="button" '+disableDeactive+' data-toggle="modal" data-target="#qualModal" class="btn" onclick="editQual('+val.qualId+')"><span class="fa fa-pencil"><span class="sr-only">Edit</span></span></button>',
                             active,'<button type="button" class="btn" '+disableReactive+'  onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
                             '<button type="button" class="btn" '+disableDeactive+'  onclick="loadDeactQual('+val.qualId+')"><span class="glyphicon glyphicon-trash"><span class="sr-only">Delete</span></span></button>']).draw(false);
 
@@ -443,6 +456,20 @@
                     });
                 }
             });
+        }
+    </script>
+
+    <script>
+        function addQual(){
+            $('#qualModalLabel').text("Add New Qual");
+            $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
+        }
+
+        function editQual(qual_id){
+            console.log(qual_id);
+            sessionStorage.setItem("edit_qual_id", qual_id); // Setting edit qual id
+            $('#qualModalLabel').text("Edit Existing Qual"); // Changing Title of modal
+            $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
         }
     </script>
 
@@ -732,6 +759,25 @@
     </div>
 </div><!--/.modal -->
 
+<!-- Add/Edit/Duplicate Qual Modal -->
+<div class="qualModal modal fade" id="qualModal" tabindex="-1" role="dialog" aria-labelledby="qualModalLabel">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                        class="fa fa-times fa-2x"></i></button>
+                <h4 class="modal-title" id="qualModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <iframe id="frameQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer hidden">
+                <button id="btnQualModalClose" type="button" class="hidden btn btn-default" data-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -806,6 +852,7 @@
                         <th>Anonymous Name</th>
                         <th>Anonymous?</th>
                         <th>Public?</th>
+                        <th>Edit</th>
                         <th>Active?</th>
                         <th>Reactivate</th>
                         <th>Delete</th>
