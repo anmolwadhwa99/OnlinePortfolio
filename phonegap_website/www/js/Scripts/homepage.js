@@ -79,6 +79,7 @@ function search(){
 }
 
 function showResults(toShow, tab) {
+
     $('#resultLI').toggleClass('open', toShow);
     if (toShow == false) {
         $("#searchBox").val("");
@@ -114,6 +115,8 @@ function showResults(toShow, tab) {
     }
 
     getEverything();
+
+
 }
 
 function createProjectGroup(projectName) {
@@ -180,6 +183,8 @@ function getProjects(account_id){
             $("#projects").html(htmlStr);
         });
     });
+
+
 }
 
 function generatePassword() {
@@ -429,7 +434,7 @@ function addProjectQualsToGroup(projectID){
 }
 
 function openQualsForProject(projectID, projectName) {
-    getQualsByProject(projectID, function(){
+    openQualsForProject(projectID, function(){
 
         var quals = this;
 
@@ -622,6 +627,8 @@ function addToCart(qID, m){
 
 function loadTab(tab) {
 
+    HoldOn.open();
+
     if (tab == "#quals") {
         $('#clients').removeClass('active'); // remove active class from tabs
         $('#projects').removeClass('active'); // remove active class from tabs
@@ -646,6 +653,10 @@ function loadTab(tab) {
     }
 
     getEverything();
+
+    setTimeout(function(){
+        HoldOn.close();
+    },2000);
 
 }
 

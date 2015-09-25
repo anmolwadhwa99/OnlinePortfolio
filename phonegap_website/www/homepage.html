@@ -29,6 +29,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/select2.min.css" rel="stylesheet">
@@ -60,12 +62,11 @@
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
-    <!--Loading screen-->
-    <script src="js/pace.min.js"></script>
-    <link href="css/atom.css" rel="stylesheet">
 
     <script type="application/javascript">
         $(document).ready(function () {
+
+            HoldOn.open();
 
             // Wrapping of default alert
             window.alert = function (message) {
@@ -174,6 +175,11 @@
                 confirmAction(itemID, "Heads Up!", "error", "QUAL", "Qual successfully archived!");
             }
         };
+
+        setTimeout(function(){
+            HoldOn.close();
+        },2000);
+
     </script>
     <script>
         function confirmAction(item_id, notice_title, notice_type, submit_option, success_message) {
@@ -638,4 +644,5 @@
 <script src="js/agency.js"></script>
 
 </body>
+<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 </html>
