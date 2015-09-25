@@ -148,6 +148,8 @@
 
         function getQuals(){
             getAllPublicQuals(function(){
+
+
                 var quals = this; //The list of public quals
 
                 var htmlStr="<ul class=\"slides\"> ";
@@ -164,7 +166,6 @@
                     );
 
                 }
-
                 htmlStr += "</ul>";
                 $("#quals").html(htmlStr);
 
@@ -233,7 +234,7 @@
             return "<li>\
                         <div style=\"background-image: url('" + image + "'); background-size: contain; border: none; background-repeat: no-repeat\"> \
                           <a class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + ")' > \
-                          <img>\
+                          <img style='border: none'>\
                           </a> \
                         </div>\
                     </li>"
