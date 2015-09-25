@@ -46,10 +46,6 @@
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
 
-    <!-- Autocomplete for input text - typeahead and bloodhound bundled together -->
-    <script type="application/javascript" src="js/typeahead.bundle.js"></script>
-    <link rel="stylesheet" href="css/typeahead.css"/>
-
     <script src="js/iframeResizer.contentWindow.min.js"></script>
 
     <script>
@@ -217,9 +213,6 @@
         }
     </script>
     <script type="application/javascript">
-        $(window).resize(function(){
-            resizeAutocompletes();
-        });
         $(document).ready(function(){
 
             // Wrapping of default alert
@@ -277,58 +270,6 @@
                     }
                 });
             });
-
-            <!-- Autocomplete for Industry and Serviceline -->
-            var substringMatcher = function(strs) {
-                return function findMatches(q, cb) {
-                    var matches, substrRegex;
-
-                    // an array that will be populated with substring matches
-                    matches = [];
-
-                    // regex used to determine if a string contains the substring `q`
-                    substrRegex = new RegExp(q, 'i');
-
-                    // iterate through the pool of strings and for any string that
-                    // contains the substring `q`, add it to the `matches` array
-                    $.each(strs, function(i, str) {
-                        if (substrRegex.test(str)) {
-                            matches.push(str);
-                        }
-                    });
-
-                    cb(matches);
-                };
-            };
-
-            var industries = ['consulting']; // TODO need to get array of string containing all previously entered industries
-            var servicelines = ['testing']; // TODO need to get array of string containing all previously entered servicelines
-
-            $("#qual_industry").typeahead(
-                    {
-                        hint: true,
-                        highlight: true,
-                        minLength: 1
-                    },
-                    {
-                        name: 'industries',
-                        source: substringMatcher(industries)
-                    }
-            );
-
-            $("#qual_service_line").typeahead(
-                    {
-                        hint: true,
-                        highlight: true,
-                        minLength: 1
-                    },
-                    {
-                        name: 'servicelines',
-                        source: substringMatcher(servicelines)
-                    }
-            );
-            resizeAutocompletes(); // fixing width issues
-            <!-- Autocomplete ends -->
 
             var qual_id = sessionStorage.getItem("dup_qual_id");
             if (qual_id != null) {
@@ -441,14 +382,6 @@
             $('.prod_serv_progress').hide();
 
             $('.client_logo_progress').hide();
-        }
-
-        function resizeAutocompletes(){
-            var inputWidth = $('#qual_email').width();
-            $('#div_industry').find(':input').width(inputWidth);
-
-            var inputWidth2 = $('#select2-qual_tags-container').width();
-            $('#div_service_line').find(':input').width(inputWidth2);
         }
     </script>
 </head>
@@ -607,9 +540,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <div id="div_industry">
-                            <input id="qual_industry" type="text" class="typeahead form-control" placeholder="Industry">
-                        </div>
+                        <input id="qual_industry" type="text" class="form-control" placeholder="Industry">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -678,9 +609,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_service_line">Service Line: </label>
-                <div id="div_service_line">
-                    <input id="qual_service_line" type="text"  class="typeahead form-control" placeholder="Serviceline" required/>
-                </div>
+                <input id="qual_service_line" type="text"  class="form-control" placeholder="Serviceline" required/>
             </div>
         </div>
     </div>
