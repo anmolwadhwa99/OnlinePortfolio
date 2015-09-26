@@ -67,5 +67,18 @@ public class ProjectGroupResource {
 		return projectGroupService.reactivateProjectGroup(projectGroupId);
 	}
 	
+	@GET 
+	@Path("/admin/{adminGroupId}")
+	public List<ProjectGroup> getProjectGroupsFromAdmin(@PathParam("adminGroupId") int adminGroupId){
+		return projectGroupService.getProjectGroupFromAdmin(adminGroupId);
+	}
+	
+	@POST
+	@Path("/admin/{adminGroupId}/{projGroupId}")
+	public ProjectGroup addProjectGroupToAdmin(@PathParam("adminGroupId") int adminGroupId, @PathParam("projGroupId") int projGroupId){
+		return projectGroupService.addProjectGroupToAdmin(adminGroupId, projGroupId);
+	}
+	
+	
 
 }
