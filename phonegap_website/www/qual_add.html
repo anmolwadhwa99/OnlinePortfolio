@@ -277,7 +277,7 @@
                var groups = this;
                 $.each(groups, function(i, val){
                     // There should always be atleast one admin group available
-                    if(val.isActive == 'true') {
+                    if(val.isActive == true) {
                         $('#ddAdminGroups').append('<option value="' + val.id + '">' + val.name + '</option>');
                     }
                 });
@@ -561,7 +561,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_industry">Industry: </label>
-                        <select id="qual_industry" style="width:100%;" class="form-control" required>
+                        <select id="qual_industry" style="width:100%;" class="form-control">
                         </select>
                     </div>
                 </div>
@@ -624,14 +624,14 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_tags">Tags: </label>
-                <select id="qual_tags" style="width:100%;" class="form-control" required>
+                <select id="qual_tags" style="width:100%;" class="form-control">
                 </select>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="qual_service_line">Service Line: </label>
-                <select id="qual_service_line" style="width:100%;" class="form-control" required>
+                <select id="qual_service_line" style="width:100%;" class="form-control">
                 </select>
             </div>
         </div>
