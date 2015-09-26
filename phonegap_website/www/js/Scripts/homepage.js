@@ -441,7 +441,7 @@ function addProjectQualsToGroup(projectID){
 }
 
 function openQualsForProject(projectID, projectName) {
-    openQualsForProject(projectID, function(){
+    getQualsByProject(projectID, function(){
 
         var quals = this;
 
