@@ -78,7 +78,7 @@ public class ServiceLineDatabase {
 			for(ServiceLine s : services){
 				if(service.getServiceLineName().equals(s.getServiceLineName())){
 					closeSessionFactory();
-					throw new DatabaseRetrievalException("Service line with the same name already exists in the database");
+					return null;
 				}
 			}
 		}

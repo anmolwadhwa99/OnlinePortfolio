@@ -26,9 +26,21 @@ public class ProjectData extends Server{
 
 	public static void main(String[] args) {
 		ProjectData projectData = new ProjectData();
-		ProjectGroup projectGroup = new ProjectGroup();
-		projectGroup.setProjGroupName("Project Group 2");
-		projectData.addProjectData(projectGroup);
+		ProjectGroup eaGaming = new ProjectGroup();
+		eaGaming.setProjGroupName("EA Operations");
+		projectData.addProjectData(eaGaming);
+		
+		ProjectGroup appleMobile = new ProjectGroup();
+		appleMobile.setProjGroupName("Apple Mobile");
+		projectData.addProjectData(appleMobile);
+		
+		ProjectGroup avgProject = new ProjectGroup();
+		avgProject.setProjGroupName("AVG Project");
+		projectData.addProjectData(avgProject);
+		
+		ProjectGroup gasProject = new ProjectGroup();
+		gasProject.setProjGroupName("Gas Project");
+		projectData.addProjectData(gasProject);
 	}
 
 }

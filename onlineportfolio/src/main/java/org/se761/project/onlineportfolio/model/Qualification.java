@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.se761.project.onlineportfolio.model.Industry.IndustryName;
+import org.se761.project.onlineportfolio.model.ServiceLine.DeloitteServiceLine;
 
 
 
@@ -59,7 +61,7 @@ public class Qualification {
 	
 	private String emailButton;
 	private String websiteButton;
-	private String industry; //e.g. Financial Services, Education, etc.
+	private IndustryName industry; //e.g. Financial Services, Education, etc.
 	
 	@Column(columnDefinition="TEXT")
 	private String tags;
@@ -71,7 +73,7 @@ public class Qualification {
 	private String projectImage;
 	
 	private Status status; //either "open" or "confidential"
-	private String serviceLine; //e.g. auditing, consulting, etc
+	private DeloitteServiceLine serviceLine; //e.g. auditing, consulting, etc
 
 
 	//TODO
@@ -113,8 +115,8 @@ public class Qualification {
 			String outcomeStatement, String subtitle, boolean isAnonymous,
 			String anonymousName, boolean isActive, String emailButton,
 			String websiteButton, List<AdminGroup> adminGroups,
-			List<ProjectGroup> projGroups, String industry, String tags,
-			Status status, String serviceLine) {
+			List<ProjectGroup> projGroups, IndustryName industry, String tags,
+			Status status, DeloitteServiceLine serviceLine) {
 		super();
 		this.qualId = qualId;
 		this.projectName = projectName;
@@ -309,13 +311,13 @@ public class Qualification {
 
 
 
-	public String getIndustry() {
+	public IndustryName getIndustry() {
 		return industry;
 	}
 
 
 
-	public void setIndustry(String industry) {
+	public void setIndustry(IndustryName industry) {
 		this.industry = industry;
 	}
 
@@ -345,13 +347,13 @@ public class Qualification {
 
 
 
-	public String getServiceLine() {
+	public DeloitteServiceLine getServiceLine() {
 		return serviceLine;
 	}
 
 
 
-	public void setServiceLine(String serviceLine) {
+	public void setServiceLine(DeloitteServiceLine serviceLine) {
 		this.serviceLine = serviceLine;
 	}
 

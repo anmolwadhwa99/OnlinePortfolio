@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.se761.project.onlineportfolio.model.ServiceLine.DeloitteServiceLine;
 
 @XmlRootElement
 @Entity
@@ -27,7 +28,7 @@ public class AdminGroup {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int adminGroupId;
 	
-	private String adminGroupName;
+	private DeloitteServiceLine adminGroupName;
 	private boolean isActive = true; //be default
 	
 	
@@ -47,7 +48,7 @@ public class AdminGroup {
 
 	}
 
-	public AdminGroup(int adminGroupId, String adminGroupName) {
+	public AdminGroup(int adminGroupId, DeloitteServiceLine adminGroupName) {
 		super();
 		this.adminGroupId = adminGroupId;
 		this.adminGroupName = adminGroupName;
@@ -89,11 +90,11 @@ public class AdminGroup {
 		this.adminGroupId = adminGroupId;
 	}
 
-	public String getAdminGroupName() {
+	public DeloitteServiceLine getAdminGroupName() {
 		return adminGroupName;
 	}
 
-	public void setAdminGroupName(String adminGroupName) {
+	public void setAdminGroupName(DeloitteServiceLine adminGroupName) {
 		this.adminGroupName = adminGroupName;
 	}
 

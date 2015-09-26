@@ -79,7 +79,7 @@ public class IndustryDatabase {
 			for(Industry i : industries){
 				if(industry.getIndustryName().equals(i.getIndustryName())){
 					closeSessionFactory();
-					throw new DatabaseRetrievalException("Industry with the same name already exists in the database");
+					return null;
 				}
 			}
 		}

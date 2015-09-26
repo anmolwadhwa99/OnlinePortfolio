@@ -2,18 +2,23 @@
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <script>
-        var account = sessionStorage.getItem("account_id");
-        if(! account){ // if not defined (i.e. value is undefined or null)
-            location.replace("index.html");
-        }else{
-            var isAdmin = sessionStorage.getItem("isAdmin");
-            if(! isAdmin || isAdmin == "false"){ // if not defined or false
-                location.replace("homepage_client.html");
-            }
-        }
-    </script>
+    <!--<script>-->
+        <!--var account = sessionStorage.getItem("account_id");-->
+        <!--if(! account){ // if not defined (i.e. value is undefined or null)-->
+            <!--location.replace("index.html");-->
+        <!--}else{-->
+            <!--var isAdmin = sessionStorage.getItem("isAdmin");-->
+            <!--if(! isAdmin || isAdmin == "false"){ // if not defined or false-->
+                <!--location.replace("homepage_client.html");-->
+            <!--}-->
+        <!--}-->
+    <!--</script>-->
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,6 +72,8 @@
         $(document).ready(function () {
 
             HoldOn.open();
+
+            showDD();
 
             // Wrapping of default alert
             window.alert = function (message) {
@@ -182,7 +189,6 @@
 
     </script>
     <script>
-
         function successMessage(notice_title, notice_text){
             new PNotify({
                 title: notice_title,
@@ -250,9 +256,34 @@
             $('#form_submit').text("").removeClass('btn-primary btn-danger');
         }
     </script>
+    <script>
+        function hideDD(){
+            $('#div_clientDD').hide();
+            $('#div_clientTB').show();
+        }
+        function showDD(){
+            $('#div_clientTB').hide();
+            $('#div_clientDD').show();
+        }
+    </script>
 </head>
 
 <body id="page-top" class="index">
+
+<script>
+    var account = sessionStorage.getItem("account_id");
+    if(! account){ // if not defined (i.e. value is undefined or null)
+        alert("Please Login");
+        location.replace("index.html");
+    }else{
+        var isAdmin = sessionStorage.getItem("isAdmin");
+        if(! isAdmin || isAdmin == "false"){ // if not defined or false
+            alert("Sorry you do not have access to this page");
+            location.replace("homepage_client.html");
+        }
+    }
+</script>
+
 
 <div id="form_notice" style="display: none;">
     <form action method="POST" class="pf-form">
@@ -318,21 +349,26 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="radio col-sm-3">
-                            <label><input type="radio" id="existingClientSelect" style="text-align: left;"
-                                          class="control-label" name="clientRadio">Existing Client</label>
+                        <div class="col-md-12">
+                            <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" id="existingClientSelect" onchange="showDD();" name="clientRadio" checked="checked"/>
+                                    Select Existing Client
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" id="newClientSelect" onchange="hideDD();" name="clientRadio"/>
+                                    Enter New Client
+                                </label>
+                            </div>
                         </div>
-                        <div class="col-sm-9" style="padding-bottom: 15px;">
+                    </div>
+                    <div class="form-group">
+                        <div id="div_clientDD" class="col-md-12" style="padding-bottom: 15px;">
                             <select id="clientDropdown" class="form-control"
-                                    style="width: 100% !important;height:34px !important;">
+                                    style="width: 100%;">
                             </select>
                         </div>
-                        <div class="radio col-sm-3">
-                            <label><input type="radio" id="newClientSelect" class="control-label" for="modalClientName"
-                                          name="clientRadio">Client
-                                Name</label>
-                        </div>
-                        <div class="col-sm-9">
+                        <div id="div_clientTB" class="col-md-12">
                             <input type="text" class="form-control" id="modalClientName"/>
                         </div>
                     </div>
@@ -355,13 +391,12 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create Client</h4>
+                <h4 id="client_modal_heading" class="modal-title">Create Client</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" id="createClientForm">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="modalClientName">Client Name</label>
-
+                        <label class="col-sm-3 control-label"  for="modalClientName">Client Name</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="clientName" value=""/>
                         </div>
@@ -554,7 +589,7 @@
                     };
                 })
 
-                $("#clientDropdown").select2({data: res});
+                $("#clientDropdown").select2({width:"style",data: res});
             });
         });
     });
@@ -622,8 +657,7 @@
     <div class="modal-dialog modal-xl" role="document" style= "position: fixed;">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="logo-modal">
-                    <img class="logo-image" src="" id="client-logo">
+                <div id='client-logo'class="logo-modal portfolio-image ">
                 </div>
                 <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
                 <div class="close-modal">

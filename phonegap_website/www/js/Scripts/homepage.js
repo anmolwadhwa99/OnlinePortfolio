@@ -17,13 +17,16 @@ function search(){
         toShow =  true;
 
         searchResults = doSearch(text, allQuals, allClients, allProjects);
+    }else{
+        showResults(false);
+        return;
     }
-
-    var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
-
 
     var resUL = $('#resultUL');
     resUL.empty();
+
+
+    var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
     resUL.width(len);
 
     if(searchResults.length == 0){
@@ -340,8 +343,8 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     //        w = 'auto';
     //    }
 
-        $('#itemPic').css('width', '100%');
-        $('#itemPic').css('height', 'auto');
+    $('#itemPic').css('width', '100%');
+    $('#itemPic').css('height', 'auto');
     //}, 100);
 
 
@@ -353,12 +356,14 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     }
 
     var editFunction = "";
+    var inClientTab = false;
     if(type == 'project'){
 
     }else if(type == 'qual'){
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
-
+        inClientTab = true;
+        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"editClient(' + editFunc + ')\"';
     }
 
 
@@ -371,26 +376,29 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             </div>";
 
     if (!isClient) {
-        str += "\<div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
-                <i class='fa fa-plus fa-3x'></i>\
-            </div>\
+        str += "\
             <div class='portfolio-hover-content editIcon' " + editFunction + " >\
-                    <i class='fa fa-pencil fa-3x'></i>\
-            </div>\
-            <div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
-                    <i class = 'fa fa-trash-o fa-3x'> </i>\
+                <i class='fa fa-pencil fa-3x'></i>\
+            </div>";
+        if (!inClientTab) {
+            str += "<div class='portfolio-hover-content addIcon' onclick=" + addFunc + ">\
+                <i class='fa fa-plus fa-3x'></i>\
+            </div>";
+        }
+
+        str +="<div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
+                <i class = 'fa fa-trash-o fa-3x'> </i>\
             </div>";
     }
     str +="</div>\
-    <div class=\"portfolio-image\">\
-    <img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">" +
-        "</div>\
-            </a> \
-            <div class='portfolio-caption'> \
-                <h4>"+name+"</h4> \
+    <div class=\"portfolio-image\" style='background-image: url(\"" + image +"\")'>\
+    </div>\
+        </a> \
+        <div class='portfolio-caption'> \
+            <h4>"+name+"</h4> \
             </div>\
         </div>";
-
+//<img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">\
     return str;
 }
 
@@ -434,7 +442,7 @@ function addProjectQualsToGroup(projectID){
 }
 
 function openQualsForProject(projectID, projectName) {
-    openQualsForProject(projectID, function(){
+    getQualsByProject(projectID, function(){
 
         var quals = this;
 
@@ -706,9 +714,22 @@ function addQual(){
 }
 
 function editQual(qual_id){
-    console.log(qual_id);
     sessionStorage.setItem("edit_qual_id", qual_id); // Setting edit qual id
     $('#qualModalLabel').text("Edit Existing Qual"); // Changing Title of modal
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }
 
+function editClient(account_id) {
+    getAccountById(account_id, function() {
+        var account = this;
+        $("#client_modal_heading").html("Edit Client");
+        $("#clientName").val(account.accountName);
+        $("#qual_colour_primary").val(account.primaryColour);
+        $("qual_colour_secondary").val(account.secondaryColour);
+        var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+            "The password for the client is: <strong>"+account.password +"</strong>"
+        $("#passwordAlert").html(htmlStr);
+        $("#passwordAlert").attr('style', '');
+    });
+
+}

@@ -56,7 +56,7 @@ h6 {
     font-weight: 700;
 }
 
-h7 {
+.h7 {
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
 }
@@ -433,11 +433,18 @@ section h3.section-subheading {
     transition: all ease .5s;
 }
 
-#portfolio .portfolio-image {
+.portfolio-image {
     line-height: 210px;
     height: 210px;
-    background: #D4CECE;
+    /*background: #D4CECE;*/
+    background-color: #ffffff;
+    background-size: contain !important;
+    border: none ;
+    background-repeat: no-repeat !important;
+    background-position-x: center !important;
+    background-position-y: center !important;
 }
+
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
     opacity: 1;
@@ -963,6 +970,7 @@ ul.social-buttons li a:active {
 .portfolio-modal .close-modal i:hover {
     opacity: .3;
 }
+
 
 .portfolio-modal .close-modal .lr {
     z-index: 1051;
