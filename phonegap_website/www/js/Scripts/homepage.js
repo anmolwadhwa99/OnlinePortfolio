@@ -431,11 +431,30 @@ function addProjectQualsToGroup(projectID){
 
         var quals = this;
 
+        var numOfQuals = quals.length;
+
         for(i = 0; i< quals.length; i++) {
             addToCart(quals[i].qualId, quals[i].projectName);
         }
 
+        // displaying notification to user that qual has been added to cart
+        if(numOfQuals > 0) {
+            new PNotify({
+                title: "Success",
+                text: " " + numOfQuals + " quals have been added to the cart",
+                type: 'success'
+            });
+        }else{
+            new PNotify({
+                title: "Alert",
+                text: "Project did not have any quals to add",
+                type: 'error'
+            });
+        }
+
     });
+
+
 }
 
 function openQualsForProject(projectID, projectName) {
@@ -630,23 +649,12 @@ function addToCart(qID, m){
     // displaying notification to user that qual has been added to cart
 
     var notice = new PNotify({
-        title: "The following Qual has been added to the cart:",
-        text: m,
+        title: "Success",
+        text: "Qual "+m+" has been added to the cart",
         icon: false,
         hide: false,
-        type: 'success',
-        confirm: {
-            confirm: true
-        },
-        buttons: {
-            closer: false,
-            sticker: false
-        },
-        history: {
-            history: false
-        }
+        type: 'success'
     });
-
 }
 
 function toggleDropdown(id){
