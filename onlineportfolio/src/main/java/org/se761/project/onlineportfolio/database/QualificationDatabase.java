@@ -14,7 +14,7 @@ import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.Image;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
 import org.se761.project.onlineportfolio.model.Qualification;
-import org.se761.project.onlineportfolio.model.Status;
+
 
 public class QualificationDatabase {
 
@@ -107,7 +107,6 @@ public class QualificationDatabase {
 		for (int i =0; i<duplicateQuals.size(); i++){
 			System.out.println(duplicateQuals.get(i).getStatus());
 			if ((duplicateQuals.get(i).getStatus().toString().equals("confidential")) 
-				|| duplicateQuals.get(i).getStatus().equals(Status.confidential)
 					|| (duplicateQuals.get(i).isActive() == false)) {
 				quals.remove(i);
 			}
