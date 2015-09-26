@@ -72,7 +72,7 @@ public class Qualification {
 	@Column(columnDefinition="TEXT")
 	private String projectImage;
 	
-	private Status status; //either "open" or "confidential"
+	private Status status = Status.confidential; //either "open" or "confidential"
 	private DeloitteServiceLine serviceLine; //e.g. auditing, consulting, etc
 
 
