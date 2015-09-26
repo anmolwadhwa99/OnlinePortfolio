@@ -140,6 +140,10 @@ function Results(){
 }
 
 function doSearch(str, quals, clients, projects){
+
+    if (str === ''){
+        return [];
+    }
     str = str.toLowerCase();
 
     var resultArray = [];

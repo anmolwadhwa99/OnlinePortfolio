@@ -17,13 +17,16 @@ function search(){
         toShow =  true;
 
         searchResults = doSearch(text, allQuals, allClients, allProjects);
+    }else{
+        showResults(false);
+        return;
     }
-
-    var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
-
 
     var resUL = $('#resultUL');
     resUL.empty();
+
+
+    var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
     resUL.width(len);
 
     if(searchResults.length == 0){
