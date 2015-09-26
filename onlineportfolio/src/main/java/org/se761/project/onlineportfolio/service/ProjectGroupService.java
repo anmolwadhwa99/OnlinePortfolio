@@ -62,5 +62,18 @@ public class ProjectGroupService {
 	public ProjectGroup reactivateProjectGroup(int projGroupId){
 		return projGroupDb.reactivateProjGroup(projGroupId);
 	}
-
+	
+	/**
+	 * Get all project groups associated with an admin group
+	 */
+	public List<ProjectGroup> getProjectGroupFromAdmin(int adminGroupId){
+		return projGroupDb.getProjectGroupForAdmin(adminGroupId);
+	}
+	 
+	/**
+	 * Add a project group to an admin group
+	 */
+	public ProjectGroup addProjectGroupToAdmin(int adminGroupId, int projGroupId){
+		return projGroupDb.addProjectGroupToAdmin(adminGroupId, projGroupId);
+	}
 }

@@ -40,6 +40,10 @@ public class ProjectGroup {
 			inverseJoinColumns = { @JoinColumn(name = "account_id") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Account> accountsProj = new ArrayList<Account>();
+	
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "projectGroups", cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
 
 	
 	public boolean isActive() {
@@ -84,5 +88,16 @@ public class ProjectGroup {
 	public void setAccountsProj(List<Account> accountsProj) {
 		this.accountsProj = accountsProj;
 	}
+
+	@XmlTransient
+	public List<AdminGroup> getAdminGroups() {
+		return adminGroups;
+	}
+
+	public void setAdminGroups(List<AdminGroup> adminGroups) {
+		this.adminGroups = adminGroups;
+	}
+	
+	
 	
 }
