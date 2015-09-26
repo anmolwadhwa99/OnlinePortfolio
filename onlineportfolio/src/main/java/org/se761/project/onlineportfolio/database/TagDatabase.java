@@ -80,7 +80,7 @@ public class TagDatabase {
 			for(Tag t : tags){
 				if(tag.getTagName().equals(t.getTagName())){
 					closeSessionFactory();
-					throw new DatabaseRetrievalException("Tag with the same name already exists in the database");
+					return null;
 				}
 			}
 		}
