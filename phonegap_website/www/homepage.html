@@ -458,9 +458,9 @@
                 <li><a href="index.html" id="logoutUser" style="color: white"
                        onclick="javascript: sessionStorage.clear();">Logout <span
                         class="glyphicon glyphicon-log-out"></span></a></li>
-                <li class="dropdown active">
+                <li id="options" class="dropdown active">
 
-                    <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown" style="background-color: #002776;"> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown" style="background-color: #002776;" onclick="toggleDropdown('options')"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#" data-toggle="modal" data-target="#qualModal" onclick="addQual();">New Qual</a>
                         </li>

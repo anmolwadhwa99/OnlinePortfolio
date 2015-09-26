@@ -644,6 +644,10 @@ function addToCart(qID, m){
     }
 }
 
+function toggleDropdown(id){
+    $('#' +id).toggleClass('open');
+}
+
 function loadTab(tab) {
 
     HoldOn.open();
