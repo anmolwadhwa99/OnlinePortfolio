@@ -345,7 +345,7 @@
                     <div class="form-group">
                         <div id="div_clientDD" class="col-md-12" style="padding-bottom: 15px;">
                             <select id="clientDropdown" class="form-control"
-                                    style="width: 100% !important;height:34px !important;">
+                                    style="width: 100%;">
                             </select>
                         </div>
                         <div id="div_clientTB" class="col-md-12">
@@ -570,7 +570,7 @@
                     };
                 })
 
-                $("#clientDropdown").select2({data: res});
+                $("#clientDropdown").select2({width:"style",data: res});
             });
         });
     });
