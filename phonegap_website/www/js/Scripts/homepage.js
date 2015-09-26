@@ -363,6 +363,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
         inClientTab = true;
+        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"editClient(' + editFunc + ')\"';
     }
 
 
@@ -713,9 +714,22 @@ function addQual(){
 }
 
 function editQual(qual_id){
-    console.log(qual_id);
     sessionStorage.setItem("edit_qual_id", qual_id); // Setting edit qual id
     $('#qualModalLabel').text("Edit Existing Qual"); // Changing Title of modal
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }
 
+function editClient(account_id) {
+    getAccountById(account_id, function() {
+        var account = this;
+        $("#client_modal_heading").html("Edit Client");
+        $("#clientName").val(account.accountName);
+        $("#qual_colour_primary").val(account.primaryColour);
+        $("qual_colour_secondary").val(account.secondaryColour);
+        var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+            "The password for the client is: <strong>"+account.password +"</strong>"
+        $("#passwordAlert").html(htmlStr);
+        $("#passwordAlert").attr('style', '');
+    });
+
+}
