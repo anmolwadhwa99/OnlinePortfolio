@@ -226,17 +226,14 @@ function createClient(clientName, primaryColour, secondaryColour){
 
 function archiveQual(qualId){
     deleteQual(qualId);
-    document.getElementById("divArchiveAlert").style.display = 'none';
 };
 
 function archiveProject(projectId){
     deleteProjectGroup(projectId);
-    document.getElementById("divArchiveAlert").style.display = 'none';
 };
 
 function archiveClient(clientId){
     deleteAccount(clientId);
-    document.getElementById("divArchiveAlert").style.display = 'none';
 };
 
 //function confirmArchive(archiveType, itemID){

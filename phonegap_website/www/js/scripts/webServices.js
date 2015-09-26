@@ -487,7 +487,7 @@ function insertQual(isActive, isAnonymous, challengesFaced, clientName, industry
             var qual = new Qual(json);
 
             if (typeof callback == 'function'){
-                callback.apply(qual.id);
+                callback.apply(qual.qualId);
             }
 
         }
