@@ -105,8 +105,10 @@ public class QualificationDatabase {
 		
 		//Remove any confidential and inactive quals
 		for (int i =0; i<duplicateQuals.size(); i++){
-			if (duplicateQuals.get(i).getStatus().equals(Status.confidential) || 
-					(duplicateQuals.get(i).isActive() == false)) {
+			System.out.println(duplicateQuals.get(i).getStatus());
+			if ((duplicateQuals.get(i).getStatus().toString().equals("confidential")) 
+				|| duplicateQuals.get(i).getStatus().equals(Status.confidential)
+					|| (duplicateQuals.get(i).isActive() == false)) {
 				quals.remove(i);
 			}
 		}
