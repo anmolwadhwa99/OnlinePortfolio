@@ -397,7 +397,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             <h4>"+name+"</h4> \
             </div>\
         </div>";
-//<img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">" +
+//<img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">\
     return str;
 }
 
