@@ -143,7 +143,7 @@
         function viewQual(qual_id){
             console.log(qual_id);
             sessionStorage.setItem("qual_id", qual_id);
-            $('#frameViewQual').attr('src', 'view_qual.html');
+            $('#frameViewQual').attr('src', 'view_public_qual.html');
         }
 
         function getQuals(){
@@ -232,7 +232,7 @@
         function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
 
             return "<li>\
-                        <div style=\"background-image: url('" + image + "'); background-size: contain; border: none; background-repeat: no-repeat\"> \
+                        <div class = 'portfolio-image' style=\"background-image: url('" + image + "'); background-color: transparent;\"> \
                           <a class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + ")' > \
                           <img style='border: none'>\
                           </a> \
@@ -290,7 +290,7 @@
 
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
-    <section class="slider" style="padding-top: 0px; padding-bottom: 50px;">
+    <section id ="portfolio" class="slider" style="padding-top: 0px; padding-bottom: 50px;">
         <div class="flexslider carousel">
             <div id="scroller">
                 <div class="innerScrollArea" id="quals">
@@ -334,11 +334,9 @@
                     <img class="logo-image" src="" id="client-logo">
                 </div>
                 <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
-                <div class="close-modal" data-dismiss="modal">
-                    <i class="fa fa-times fa-5x"></i>
-                </div>
-                <div id="btnDuplicate" class="close-modal further_right">
-                    <i class="fa fa-clipboard fa-3x vertical_center"></i>
+                <div class="close-modal">
+                    <i id="btnDuplicate" class="fa fa-clipboard fa-4x"></i>
+                    <i class="fa fa-times fa-5x" data-dismiss="modal"></i>
                 </div>
             </div>
             <div class="modal-body" id="modal_body">

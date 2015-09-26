@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>View Qual</title>
+    <link rel=" shortcut icon" href="imgs/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+    <link href="css/select2.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/scripts/webServices.js" ></script>
+    <script src="js/scripts/view_qual.js" ></script>
+
+    <script src="js/iframeResizer.contentWindow.min.js"></script>
+
+    <!--pNotify related links-->
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
+
+    <script type="application/javascript">
+        $(document).ready(function(){ // this is a jQuery function -> $(document).ready()
+            HoldOn.open();
+            // Wrapping of default alert
+            window.alert = function(message) {
+                new PNotify({
+                    title: 'Alert',
+                    text: message,
+                    type: alert_type,
+                    opacity: .8,
+                    nonblock: {
+                        nonblock: true,
+                        nonblock_opacity: .2
+                    },
+                    buttons: {
+                        show_on_nonblock: true
+                    }
+                });
+            };
+
+            var qual_id = sessionStorage.getItem("qual_id");
+            var account_id = sessionStorage.getItem("account_id");
+            var htmlStr = "";
+            getQualById(qual_id, function(){
+                var qual = this; // gets the qual info
+                var clientName = "";
+                var anonymousName = "";
+
+                if (qual.isAnonymous) {
+                    clientName = qual.anonymousName;
+                } else {
+                    clientName = qual.clientName;
+                }
+
+                var image = "";
+
+
+                if (qual.projectImage == null) {
+                    if (qual.clientImage == null) {
+//                        image = "imgs/noPreview.png";
+                        image = "";
+                    } else {
+                        image = qual.clientImage;
+                    }
+//                    image = "imgs/noPreview.png";
+                    image = "";
+                } else {
+                    image = qual.projectImage;
+                }
+
+                parent.$('#client-logo').attr('src', qual.clientImage);
+
+                parent.$('#qual-projectName').text(qual.projectName);
+
+
+                htmlStr += " \
+            <div class='col-md-6' > \
+                <div class='image-upload' > \
+                        <img style=\"max-width: 100%; max-height: 100%;\"id='qual_product_service_img' class='img-rounded fill' src='" + image + "' /> \
+                </div> \
+            </div> \
+            <div class='col-md-6' style=\"background-color: #dcdcdc;padding-bottom: 20px;padding-top: 20px;\"> \
+                <div class='row'> \
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Client Name:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>" + clientName + "</p>\
+                    </div>\
+                </div>";
+
+                if(anonymousName != ""){
+                    htmlStr += "<div class='row'> \
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Anonymous Name:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>" + anonymousName + "</p>\
+                    </div>\
+                </div>";
+                }
+
+                if (qual.subtitle != null) {
+                    htmlStr += "\
+                <div class='row'> \
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Subtitle:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>" + qual.subtitle + "</p>\
+                    </div>\
+                </div>"
+                }
+
+                if (qual.industry != null) {
+                    htmlStr += "\
+                <div class='row'>\
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Industry:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>" + qual.industry + "</p>\
+                    </div>\
+                </div>"
+                }
+
+                if (qual.serviceLine != null) {
+                    htmlStr += "\
+                <div class='row'>\
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Service Line:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p>" + qual.serviceLine + "</p>\
+                    </div>\
+                </div>"
+                }
+
+                if (qual.status != null) {
+                    htmlStr += "\
+                <div class='row'> \
+                    <div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>Status:</h4> \
+                    </div>\
+                    <div class='col-md-9 col-xs-6'> \
+                        <p style=\"text-transform: capitalize\">" + qual.status + "</p>\
+                    </div>\
+                </div>"
+                }
+
+                htmlStr += "<div class='row'>";
+
+                var ext = false;
+                if (qual.emailButton != null || qual.websiteButton != null) {
+                    ext = true;
+                    htmlStr += "<div class='col-md-3 col-xs-6'> \
+                        <h4 class='subheading'>External Links:</h4> \
+                    </div>";
+                }
+
+                if (qual.emailButton != null) {
+                    htmlStr += "\
+                    <div class='col-md-3 vertical_center_2'>\
+                    <a href='mailto:" + qual.emailButton + "' class='external-link'><span class='fa fa-envelope-o fa-1x'></span>\
+                    <span class='slightly-left'>Email</span>\
+                    </a>\
+                            </div>";
+                }
+
+                if (qual.websiteButton != null) {
+                    htmlStr += "\
+                    <div class='col-md-3 vertical_center_2'>\
+                    <a href='" + qual.websiteButton + "' target=\"_blank\" class='external-link'><i class='fa fa-external-link fa-1x'></i>\
+                    <span class='slightly-left'>View Website</span>\
+                    </a>\
+                            </div>";
+                }
+                if (ext) {
+                    htmlStr += "</div>";
+                }
+
+                htmlStr += "</div>";
+
+                htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Problem Statement:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>" + qual.problemStatement + "</p>\
+                            <div style='padding-bottom: 15px;'></div>\
+                        </div>";
+
+                if (qual.challengesFaced != null) {
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Challenges Faced:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>" + qual.challengesFaced + "</p>\
+                            <div style='padding-bottom: 15px;'></div>\
+                        </div>";
+                }
+
+                if (qual.solutionStatement != null) {
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Solution:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>" + qual.solutionStatement + "</p>\
+                            <div style='padding-bottom: 15px;'></div>\
+                        </div>";
+                }
+
+                if (qual.outcomeStatement != null) {
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Outcome:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>" + qual.outcomeStatement + "</p>\
+                            <div style='padding-bottom: 15px;'></div>\
+                        </div>";
+                }
+
+                if (qual.relevanceToClient != null) {
+                    htmlStr += "<div class='col-md-12 col-xs-12'> \
+                            <h4 class='subheading2'>Relevance to Client:</h4> \
+                        </div>\
+                        <div class='col-md-12 col-xs-12'> \
+                            <p>" + qual.relevanceToClient + "</p>\
+                            <div style='padding-bottom: 15px;'></div>\
+                        </div>";
+                }
+
+
+                htmlStr += "</div> ";
+
+//                $('#btnDuplicate').click(duplicateQual(qual_id));
+
+//                htmlStr += "<div class='row'><div class='col-md-2'> \
+//                            <div class='form-group'> \
+//                                <button type='button' class='btn btn-lg' onclick='duplicateQual("+qual_id+")'><span \
+//                                class='glyphicon glyphicon-copy'></span> Duplicate \
+//                                </button> \
+//                            </div> \
+//                        </div>";
+
+//                htmlStr += "<div class='col-md-2'><button type='button' class='btn btn-lg' data-dismiss='modal'>" +
+//                "<i class='fa fa-times'></i>Close Qual</button></div></div></div>";
+
+                $('#modal_body').html(htmlStr);
+            })
+
+
+
+        });
+
+        setTimeout(function(){
+            HoldOn.close();
+        },2000);
+
+        });
+
+
+
+    </script>
+
+</head>
+
+
+<body style="padding:20px;" >
+<div class="row">
+    <div class="modal-body" id="modal_body"></div>
+</div>
+</body>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
+
+</html>

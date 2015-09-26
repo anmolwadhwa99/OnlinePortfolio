@@ -2,14 +2,21 @@
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script>
         var account = sessionStorage.getItem("account_id");
         if(! account){ // if not defined (i.e. value is undefined or null)
+            alert("Please login to access");
             location.replace("index.html");
         }else{
             var isAdmin = sessionStorage.getItem("isAdmin");
             if( isAdmin == "true"){ // if not defined or false
+                alert("Sorry you do not have access to this page");
                 location.replace("homepage.html");
             }
         }
@@ -395,11 +402,9 @@
                     <img class="logo-image" src="" id="client-logo">
                 </div>
                 <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
-                <div class="close-modal" data-dismiss="modal">
-                    <i class="fa fa-times fa-5x"></i>
-                </div>
-                <div id="btnDuplicate" class="close-modal further_right">
-                    <i class="fa fa-clipboard fa-3x vertical_center"></i>
+                <div class="close-modal">
+                    <i id="btnDuplicate" class="fa fa-clipboard fa-4x"></i>
+                    <i class="fa fa-times fa-5x" data-dismiss="modal"></i>
                 </div>
             </div>
             <div class="modal-body" id="modal_body">
@@ -408,7 +413,6 @@
         </div>
     </div>
 </div>
-
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
