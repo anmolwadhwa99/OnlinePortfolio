@@ -42,6 +42,13 @@ public class AdminGroup {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "adminGroups", cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Qualification> quals = new ArrayList<Qualification>();
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "AdminGroupAccess", joinColumns = { 
+			@JoinColumn(name = "admin_group_id")}, 
+			inverseJoinColumns = { @JoinColumn(name = "proj_group_id") })
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<ProjectGroup> projectGroups = new ArrayList<ProjectGroup>();
 
 	
 	public AdminGroup(){
@@ -97,5 +104,16 @@ public class AdminGroup {
 	public void setAdminGroupName(DeloitteServiceLine adminGroupName) {
 		this.adminGroupName = adminGroupName;
 	}
+	
+	@XmlTransient
+	public List<ProjectGroup> getProjectGroups() {
+		return projectGroups;
+	}
+
+	public void setProjectGroups(List<ProjectGroup> projectGroups) {
+		this.projectGroups = projectGroups;
+	}
+	
+	
 
 }
