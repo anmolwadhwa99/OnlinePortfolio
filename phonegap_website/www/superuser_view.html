@@ -65,6 +65,9 @@
     <link rel="stylesheet" href="css/pnotify.custom.min.css"/>
     <link rel="stylesheet" href="css/pform.css"/>
 
+    <!-- Show/Hide Password -->
+    <script type="application/javascript" src="js/hideShowPassword.min.js"></script>
+
     <!--Loading screen-->
     <script src="js/pace.min.js"></script>
     <link href="css/atom.css" rel="stylesheet">
@@ -620,6 +623,12 @@
             loadProjectGroupsTable(tableProjects);
             loadClientsTable(tableClients);
 
+            // Delaying instantiation of plugin for when modal is shown
+            $('#modalAdmin').on('shown.bs.modal', function(event){
+                // Password not shown and inner toggle is created
+                $('#admin_pw').hideShowPassword(false, true);
+            });
+
             <!-- Refreshing modals on hide -->
             $('#modalAG').on('hidden.bs.modal', function (event){
                 $('#modalTitleAG').text("");
@@ -725,7 +734,7 @@
                     </div>
                     <div class="form-group">
                         <label for="admin_pw" class="control-label">Password: </label>
-                        <input type="text" id="admin_pw" class="form-control">
+                        <input type="password" id="admin_pw" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="selectAdminGroups">Admin Groups:</label>
