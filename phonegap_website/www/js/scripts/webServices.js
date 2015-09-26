@@ -658,6 +658,7 @@ function assignQualToAdminGroup(agId, qId){
     var methodURL = url + _qual + _ag + "/" + agId + "/" + qId;
     var method = "POST";
 
+    console.log(qId);
     var req = createRequest();
 
     if (req){
@@ -685,7 +686,7 @@ function assignQualToAdminGroup(agId, qId){
         '"adminGroupId": ' + agId + ''+
         '}';
     console.log(x);
-    req.send(x);
+    req.send();
 }
 
 function assignQualToProjectGroup(pgId, qId){

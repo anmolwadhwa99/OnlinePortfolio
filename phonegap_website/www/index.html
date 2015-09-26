@@ -135,6 +135,11 @@
                             HoldOn.close();
                         }
                     });
+
+                    getAdminGroupsByAccount(account.accountId, function(){
+                        var adminGroup = this;
+                        sessionStorage.setItem("adminGroupID", adminGroup.id);
+                    })
                 }
             });
 
