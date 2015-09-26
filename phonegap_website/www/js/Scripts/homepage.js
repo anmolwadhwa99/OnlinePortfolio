@@ -390,7 +390,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             </div>";
     }
     str +="</div>\
-    <div class=\"portfolio-image contain-img\" style='background-image: url(\"" + image +"\")'>\
+    <div class=\"portfolio-image\" style='background-image: url(\"" + image +"\")'>\
     </div>\
         </a> \
         <div class='portfolio-caption'> \

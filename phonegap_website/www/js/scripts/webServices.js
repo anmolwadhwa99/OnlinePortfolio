@@ -59,10 +59,7 @@ function Qual(x){
 function ProjectGroup(x){
     this.id = x.projGroupId;
     this.projectGroupName = x.projGroupName;
-    this.primaryColour = x.primaryColour;
-    this.secondaryColour = x.secondaryColour;
-    this.accentColour = x.accentColour;
-    this.isActive = x.isActive;
+    this.isActive = x.active;
     //this.quals = x.quals;
     //this.accountsProj = x.accountsProj;
 
@@ -70,9 +67,6 @@ function ProjectGroup(x){
 
         return this.id + "\n" +
             this.projectGroupName + "\n" +
-            this.primaryColour+ "\n" +
-            this.secondaryColour + "\n" +
-            this.accentColour + "\n" +
             this.isActive;
         //this.quals + "\n" +
         //this.accountsProj;
