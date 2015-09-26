@@ -726,6 +726,7 @@ function resetProjID(){
 }
 
 function addQual(){
+    sessionStorage.setItem("add_qual", "Y");
     $('#qualModalLabel').text("Add New Qual");
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }
