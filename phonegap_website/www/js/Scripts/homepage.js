@@ -632,16 +632,24 @@ function addToCart(qID, m){
 
     // displaying notification to user that qual has been added to cart
 
-    //take the user to the top of the screen
-    $('html, body').animate({ scrollTop: 0 }, 'fast');
+    var notice = new PNotify({
+        title: "The following Qual has been added to the cart:",
+        text: m,
+        icon: false,
+        hide: false,
+        type: 'success',
+        confirm: {
+            confirm: true
+        },
+        buttons: {
+            closer: false,
+            sticker: false
+        },
+        history: {
+            history: false
+        }
+    });
 
-    if(qID != null) {
-        document.getElementById("divAddToCartAlert").style.display = 'block';
-        $("#displayQualName").text(m);
-        document.getElementById("addToCartOkButton").addEventListener("click", function () {
-            document.getElementById("divAddToCartAlert").style.display = 'none';
-        });
-    }
 }
 
 function toggleDropdown(id){
