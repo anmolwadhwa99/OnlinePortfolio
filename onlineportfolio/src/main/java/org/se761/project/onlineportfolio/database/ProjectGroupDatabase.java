@@ -153,6 +153,7 @@ public class ProjectGroupDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
+		List<ProjectGroup> tempList = new ArrayList<ProjectGroup>();
 		Account account = (Account) session.get(Account.class, accountId);
 
 		if(account == null){
@@ -161,17 +162,18 @@ public class ProjectGroupDatabase {
 		}
 
 		List<ProjectGroup> projectGroups = account.getProjGroups();
+		tempList = projectGroups;
 
 		//removing inactive project groups
 		for (int i = 0; i<projectGroups.size(); i++){
 			if (projectGroups.get(i).isActive() == false){
-				projectGroups.remove(i);
+				tempList.remove(i);
 			}
 		}
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		return projectGroups;
+		return tempList;
 
 	}
 
