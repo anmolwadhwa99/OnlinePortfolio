@@ -964,6 +964,12 @@ ul.social-buttons li a:active {
     opacity: .3;
 }
 
+.contain-img{
+    background-size: contain !important;
+    border: none ;
+    background-repeat: no-repeat !important;
+}
+
 .portfolio-modal .close-modal .lr {
     z-index: 1051;
     width: 1px;

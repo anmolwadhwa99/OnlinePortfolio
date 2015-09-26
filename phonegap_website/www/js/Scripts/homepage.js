@@ -390,15 +390,14 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             </div>";
     }
     str +="</div>\
-    <div class=\"portfolio-image\">\
-    <img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">" +
-    "</div>\
+    <div class=\"portfolio-image contain-img\" style='background-image: url(\"" + image +"\")'>\
+    </div>\
         </a> \
         <div class='portfolio-caption'> \
             <h4>"+name+"</h4> \
             </div>\
         </div>";
-
+//<img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">" +
     return str;
 }
 
