@@ -102,9 +102,11 @@ public class QualificationDatabase {
 
 		List<Qualification> quals = query.list();
 		List<Qualification> duplicateQuals = quals;
-		//Remove any confidential quals
+		
+		//Remove any confidential and inactive quals
 		for (int i =0; i<duplicateQuals.size(); i++){
-			if (duplicateQuals.get(i).getStatus().equals(Status.confidential)){
+			if (duplicateQuals.get(i).getStatus().equals(Status.confidential) || 
+					(duplicateQuals.get(i).isActive() == false)) {
 				quals.remove(i);
 			}
 		}
