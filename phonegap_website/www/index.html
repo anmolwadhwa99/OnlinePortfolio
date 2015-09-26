@@ -232,7 +232,7 @@
         function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
 
             return "<li>\
-                        <div style=\"background-image: url('" + image + "'); background-size: contain; border: none; background-repeat: no-repeat\"> \
+                        <div class = 'portfolio-image' style=\"background-image: url('" + image + "'); background-color: transparent;\"> \
                           <a class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + ")' > \
                           <img style='border: none'>\
                           </a> \
@@ -290,7 +290,7 @@
 
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
-    <section class="slider" style="padding-top: 0px; padding-bottom: 50px;">
+    <section id ="portfolio" class="slider" style="padding-top: 0px; padding-bottom: 50px;">
         <div class="flexslider carousel">
             <div id="scroller">
                 <div class="innerScrollArea" id="quals">
