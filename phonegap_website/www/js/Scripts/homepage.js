@@ -646,7 +646,7 @@ function addToCart(qID, m){
 
 function loadTab(tab) {
 
-    HoldOn.open();
+    //HoldOn.open();
 
     if (tab == "#quals") {
         $('#clients').removeClass('active'); // remove active class from tabs

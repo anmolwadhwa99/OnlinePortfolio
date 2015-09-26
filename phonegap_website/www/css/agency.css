@@ -433,7 +433,7 @@ section h3.section-subheading {
     transition: all ease .5s;
 }
 
-#portfolio .portfolio-image {
+.portfolio-image {
     line-height: 210px;
     height: 210px;
     /*background: #D4CECE;*/
