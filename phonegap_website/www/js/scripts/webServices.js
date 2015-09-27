@@ -1,5 +1,6 @@
 
-var url = "http://onlineportfolio.herokuapp.com/webapi";
+//var url = "http://onlineportfolio.herokuapp.com/webapi";
+var url = "http://localhost:8080/onlineportfolio/webapi";
 var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
@@ -79,7 +80,7 @@ function Account(x){
     this.password = x.password;
     this.isAdmin = x.admin;
     this.isSuperUser = x.superUser;
-    this.isActive = x.isActive;
+    this.isActive = x.active;
     this.primaryColour = x.primaryColour;
     this.secondaryColour = x.secondaryColour;
     this.accentColour = x.accentColour;

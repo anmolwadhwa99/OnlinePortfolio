@@ -8,11 +8,7 @@ import org.se761.project.onlineportfolio.model.ServiceLine.DeloitteServiceLine;
 
 public class AdminData extends Server {
 	
-	public AdminData(){
-		
-	}
-	
-	public void addAdminGroup(AdminGroup adminGroup){
+	public static void addAdminGroup(AdminGroup adminGroup){
 		JSONObject jsonAdmin = new JSONObject();
 		try {
 			jsonAdmin.put("adminGroupName", adminGroup.getAdminGroupName());
@@ -29,18 +25,19 @@ public class AdminData extends Server {
 		
 	}
 
-	public static void main(String[] args) {
-		AdminData adminData = new AdminData();
+	public static void createAdminGroups(){
+		
 		AdminGroup technology = new AdminGroup();
 		technology.setAdminGroupName(DeloitteServiceLine.technology);
-		adminData.addAdminGroup(technology);
+		addAdminGroup(technology);
 		
 		AdminGroup risk = new AdminGroup();
 		risk.setAdminGroupName(DeloitteServiceLine.risk);
+		addAdminGroup(risk);
 		
 		AdminGroup strategy = new AdminGroup();
 		strategy.setAdminGroupName(DeloitteServiceLine.strategy);
-		adminData.addAdminGroup(strategy);
+		addAdminGroup(strategy);
 
 
 	}

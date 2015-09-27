@@ -6,7 +6,7 @@ import org.se761.project.onlineportfolio.model.ProjectGroup;
 
 public class ProjectData extends Server{
 	
-	public void addProjectData(ProjectGroup projectGroup){
+	public static void addProjectData(ProjectGroup projectGroup){
 		JSONObject jsonProject = new JSONObject();
 		try {
 			jsonProject.put("projGroupName", projectGroup.getProjGroupName());
@@ -24,23 +24,22 @@ public class ProjectData extends Server{
 	}
 	
 
-	public static void main(String[] args) {
-		ProjectData projectData = new ProjectData();
+	public static void createProjectGroups() {
 		ProjectGroup eaGaming = new ProjectGroup();
 		eaGaming.setProjGroupName("EA Operations");
-		projectData.addProjectData(eaGaming);
+		addProjectData(eaGaming);
 		
 		ProjectGroup appleMobile = new ProjectGroup();
 		appleMobile.setProjGroupName("Apple Mobile");
-		projectData.addProjectData(appleMobile);
+		addProjectData(appleMobile);
 		
 		ProjectGroup avgProject = new ProjectGroup();
 		avgProject.setProjGroupName("AVG Project");
-		projectData.addProjectData(avgProject);
+		addProjectData(avgProject);
 		
 		ProjectGroup gasProject = new ProjectGroup();
 		gasProject.setProjGroupName("Gas Project");
-		projectData.addProjectData(gasProject);
+		addProjectData(gasProject);
 	}
 
 }

@@ -11,7 +11,7 @@ public class AccountData extends Server {
 		
 	}
 	
-	public void addAccount(Account account){
+	public static void addAccount(Account account){
 		JSONObject jsonAccount = new JSONObject();
 		try {
 			jsonAccount.put("accountName", account.getAccountName());
@@ -33,8 +33,7 @@ public class AccountData extends Server {
 		
 	}
 
-	public static void main(String[] args) {
-		AccountData accountData = new AccountData();
+	public static void createAccounts() {
 		Account superUser = new Account();
 		superUser.setAccountName("SuperUser");
 		superUser.setPassword("super");
@@ -44,18 +43,29 @@ public class AccountData extends Server {
 		superUser.setPrimaryColour("red");
 		superUser.setAccentColour("blue");
 		superUser.setSecondaryColour("green");
-		accountData.addAccount(superUser);
+		addAccount(superUser);
 		
 		Account admin = new Account();
-		admin.setAccountName("Admin");
-		admin.setPassword("admin");
+		admin.setAccountName("TechAdmin");
+		admin.setPassword("tech");
 		admin.setActive(true);
 		admin.setAdmin(true);
 		admin.setSuperUser(false);
 		admin.setPrimaryColour("red");
 		admin.setAccentColour("blue");
 		admin.setSecondaryColour("green");
-		accountData.addAccount(admin);
+		addAccount(admin);
+		
+		Account strat = new Account();
+		strat.setAccountName("StratAdmin");
+		strat.setPassword("strat");
+		strat.setActive(true);
+		strat.setAdmin(true);
+		strat.setSuperUser(false);
+		strat.setPrimaryColour("red");
+		strat.setAccentColour("blue");
+		strat.setSecondaryColour("green");
+		addAccount(strat);
 		
 		Account client = new Account();
 		client.setAccountName("Client");
@@ -66,7 +76,7 @@ public class AccountData extends Server {
 		client.setPrimaryColour("red");
 		client.setAccentColour("blue");
 		client.setSecondaryColour("green");
-		accountData.addAccount(client);
+		addAccount(client);
 
 	}
 

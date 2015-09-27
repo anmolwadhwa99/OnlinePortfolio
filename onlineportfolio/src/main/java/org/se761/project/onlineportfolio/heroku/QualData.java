@@ -9,7 +9,7 @@ import org.se761.project.onlineportfolio.model.ServiceLine.DeloitteServiceLine;
 public class QualData extends Server{
 	 
 	
-	public void addQual(Qualification qual){
+	private static void addQual(Qualification qual){
 		JSONObject jsonQual = new JSONObject();
 		try {
 			jsonQual.put("projectName", qual.getProjectName());
@@ -41,10 +41,9 @@ public class QualData extends Server{
 		
 	}
 
-	public static void main(String[] args) {
+	public static void createQuals(){
 		
 		//EA Sports 
-		QualData qualData = new QualData();
 		Qualification eaSports = new Qualification();
 		eaSports.setProjectName("Capability and Strategy Assessment and Sales Analytics");
 		eaSports.setClientName("EA Sports");
@@ -55,7 +54,9 @@ public class QualData extends Server{
 		eaSports.setStatus("open");
 		eaSports.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
 		eaSports.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
-		qualData.addQual(eaSports);
+		eaSports.setWebsiteButton("https://www.easports.com/");
+		eaSports.setEmailButton(dummyEmail);
+		addQual(eaSports);
 		
 		//Apple
 		Qualification apple = new Qualification();
@@ -69,7 +70,9 @@ public class QualData extends Server{
 		apple.setStatus("confidential");
 		apple.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
 		apple.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
-		qualData.addQual(apple);
+		apple.setWebsiteButton("http://www.apple.com/");
+		apple.setEmailButton(dummyEmail);
+		addQual(apple);
 		
 		//AVG
 		Qualification avg = new Qualification();
@@ -82,7 +85,9 @@ public class QualData extends Server{
 		avg.setServiceLine(DeloitteServiceLine.strategy);
 		avg.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
 		avg.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
-		qualData.addQual(avg);
+		avg.setWebsiteButton("http://www.avg.com/au-en/homepage");
+		avg.setEmailButton(dummyEmail);
+		addQual(avg);
 		
 		//Large Oil and Gas
 		Qualification oilAndGas = new Qualification();
@@ -95,7 +100,10 @@ public class QualData extends Server{
 		oilAndGas.setServiceLine(DeloitteServiceLine.operations);
 		oilAndGas.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
 		oilAndGas.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
-		qualData.addQual(oilAndGas);
+		oilAndGas.setEmailButton(dummyEmail);
+		oilAndGas.setStatus("open");
+		addQual(oilAndGas);
+		
 		
 		
 		//Random Qual 1

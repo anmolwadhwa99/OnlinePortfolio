@@ -1,5 +1,6 @@
 package org.se761.project.onlineportfolio.database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -101,7 +102,7 @@ public class QualificationDatabase {
 		Query query = session.createQuery(getAllQuery);
 
 		List<Qualification> quals = query.list();
-		List<Qualification> duplicateQuals = quals;
+		List<Qualification> duplicateQuals = new ArrayList<>(quals);
 		
 		//Remove any confidential and inactive quals
 		for (int i =0; i<duplicateQuals.size(); i++){
@@ -293,7 +294,7 @@ public class QualificationDatabase {
 		}
 
 		List<Qualification> quals = adminGroup.getQuals();
-		List<Qualification> duplicateQuals = quals;
+		List<Qualification> duplicateQuals = new ArrayList<>(quals);
 		//removing inactive quals
 		for(int i =0; i < duplicateQuals.size(); i++){
 			if(duplicateQuals.get(i).isActive() == false){
@@ -328,7 +329,7 @@ public class QualificationDatabase {
 		}
 
 		List<Qualification> quals = projectGroup.getQuals();;
-		List<Qualification> duplicateQuals = quals;
+		List<Qualification> duplicateQuals = new ArrayList<>(quals);;
 		//removing inactive quals
 		for(int i =0; i < duplicateQuals.size(); i++){
 			if(duplicateQuals.get(i).isActive() == false){
@@ -363,7 +364,7 @@ public class QualificationDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so can't retrieve qualifications");
 		}
 		List<Qualification> quals = account.getAccountsQual();
-		List<Qualification> duplicateQuals = quals;
+		List<Qualification> duplicateQuals = new ArrayList<>(quals);;
 		//removing inactive quals
 		for(int i =0; i < duplicateQuals.size(); i++){
 			if(duplicateQuals.get(i).isActive() == false){
