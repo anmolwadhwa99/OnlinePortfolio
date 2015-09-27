@@ -70,7 +70,7 @@ public class QualData extends Server{
 		apple.setServiceLine(DeloitteServiceLine.technology);
 		apple.setEmailButton("dgop507@aucklanduni.ac.nz");
 		apple.setWebsiteButton("http://www.google.co.nz");
-		apple.setStatus("confidential");
+		apple.setStatus("open");
 		apple.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
 		apple.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
 		qualData.addQual(apple);
