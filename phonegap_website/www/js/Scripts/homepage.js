@@ -661,6 +661,10 @@ function toggleDropdown(id){
     $('#' +id).toggleClass('open');
 }
 
+function clearModalPic(){
+    $('#client-logo').css('background', 'url("")');
+}
+
 function loadTab(tab) {
 
     HoldOn.open();

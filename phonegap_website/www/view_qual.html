@@ -122,7 +122,8 @@
                 </div>";
 
                     if(anonymousName != ""){
-                        htmlStr += "<div class='row'> \
+                        htmlStr += "\
+                <div class='row'> \
                     <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>Anonymous Name:</h4> \
                     </div>\
@@ -180,12 +181,14 @@
                 </div>"
                     }
 
-                    htmlStr += "<div class='row'>";
+                    htmlStr += "" +
+                "<div id='test' class='row'>";
 
                     var ext = false;
                     if (qual.emailButton != null || qual.websiteButton != null) {
                         ext = true;
-                        htmlStr += "<div class='col-md-3 col-xs-6'> \
+                        htmlStr += "\
+                    <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>External Links:</h4> \
                     </div>";
                     }
@@ -193,23 +196,22 @@
                     if (qual.emailButton != null) {
                         htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
-                    <a href='mailto:" + qual.emailButton + "' class='external-link'><span class='fa fa-envelope-o fa-1x'></span>\
-                    <span class='slightly-left'>Email</span>\
-                    </a>\
-                            </div>";
+                        <a href='mailto:" + qual.emailButton + "' class='external-link'><span class='fa fa-envelope-o fa-1x'></span>\
+                        <span class='slightly-left'>Email</span>\
+                        </a>\
+                    </div>";
                     }
 
                     if (qual.websiteButton != null) {
                         htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
-                    <a href='" + qual.websiteButton + "' target=\"_blank\" class='external-link'><i class='fa fa-external-link fa-1x'></i>\
-                    <span class='slightly-left'>View Website</span>\
-                    </a>\
-                            </div>";
+                        <a href='" + qual.websiteButton + "' target=\"_blank\" class='external-link'><i class='fa fa-external-link fa-1x'></i>\
+                        <span class='slightly-left'>View Website</span>\
+                        </a>\
+                    </div>";
                     }
-                    if (ext) {
-                        htmlStr += "</div>";
-                    }
+                        htmlStr += "" +
+                    "</div>";
 
                     htmlStr += "</div>";
 
