@@ -130,10 +130,10 @@
 
             var adminGroups = $('#selectAdminGroups').val();
 
-            insertAccount(true, acName, pw, isSuperUser, function(){
+            insertAccount(true, acName, pw, isSuperUser, '#fff','#000', pw, function(){
                 var act = this;
                 $.each(adminGroups, function(i, val) {
-                    assignAccountToAdminGroup(val, act.accountId); // Assigning account to each selected group
+                    assignAccountToAdminGroup(val, act); // Assigning account to each selected group
                 });
             });
         }
