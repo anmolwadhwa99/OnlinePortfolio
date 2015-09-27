@@ -654,6 +654,38 @@ function assignQualToAccount(acId, qId){
     req.send(x);
 }
 
+function assignProjectToAdminGroup(agId, pId){
+    var methodURL = url + _pg + _ag + "/" + agId + "/" + pId;
+    var method = "POST";
+
+    console.log(methodURL);
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var qual = new Qual(json);
+
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    //var x = '{'+
+    //    '"proId": ' + qId + ','+
+    //    '"adminGroupId": ' + agId + ''+
+    //    '}';
+    console.log();
+    req.send();
+}
+
 function assignQualToAdminGroup(agId, qId){
     var methodURL = url + _qual + _ag + "/" + agId + "/" + qId;
     var method = "POST";
