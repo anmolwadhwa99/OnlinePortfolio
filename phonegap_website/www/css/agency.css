@@ -1074,24 +1074,24 @@ body.nav-expanded {
     padding-top: 12px;
 }
 
-.main-menu li {
+.main-menu .qual {
     border-bottom: 1px solid #323949;
     margin-left: 20px;
     font-size: 18px;
     padding: 12px;
 }
 
-.main-menu li a {
+.main-menu .qual a {
     color: #6F7D8C;
     text-decoration: none;
 }
 
-.main-menu li a:hover {
+.main-menu .qual a:hover {
     color: #FFFFFF;
     text-decoration: none;
 }
 
-.main-menu li .sub-nav {
+.main-menu .qual .sub-nav {
     border-bottom: 0px;
     padding: 4px;
 }
@@ -1134,7 +1134,7 @@ body.nav-expanded {
     margin-right: 0px;
 }
 
-.main-menu li > a > span.icon {
+.main-menu .qual > a > span.icon {
     float: left;
     margin: 0.1em 1.7em -0.1em 0;
     opacity: 0;
@@ -1146,12 +1146,17 @@ body.nav-expanded {
 
 }
 
-.main-menu li > a:hover > span.icon {
+.main-menu .qual > a:hover > span.icon {
     float: left;
     margin: 0.1em 0.8em -0.1em 0;
     margin-right: 15px;
     opacity: 1;
 }
+
+.qual {
+    overflow: auto;
+}
+
 a.nav-expander {
     background: none repeat scroll 0 0 #000052;
     color: #FFFFFF;
