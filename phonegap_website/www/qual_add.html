@@ -38,6 +38,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
@@ -240,6 +241,8 @@
     <script type="application/javascript">
         $(document).ready(function(){
 
+            HoldOn.open();
+
             // Wrapping of default alert
             window.alert = function(message) {
                 new PNotify({
@@ -429,6 +432,11 @@
             abc.value = string;
             return abc
         }
+
+        setTimeout(function(){
+            HoldOn.close();
+        },2000);
+
     </script>
 </head>
 
@@ -770,4 +778,5 @@
     });
 </script>
 </body>
+<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 </html>
