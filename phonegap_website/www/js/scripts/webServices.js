@@ -661,7 +661,7 @@ function assignProjectToAdminGroup(agId, pId){
     var methodURL = url + _pg + _ag + "/" + agId + "/" + pId;
     var method = "POST";
 
-    console.log(methodURL);
+    console.log("Grouo "+agId+" PROJ "+pId);
     var req = createRequest();
 
     if (req){
