@@ -116,7 +116,7 @@
                 $.each(groups, function(i, val){
                     console.log(val);
                     // There should always be atleast one admin group available
-                    if(val.isActive == 'true') {
+                    if(val.isActive || val.isActive == "true") {
                         $('#selectAdminGroups').append('<option value="' + val.id + '">' + val.name + '</option>');
                     }
                 });
