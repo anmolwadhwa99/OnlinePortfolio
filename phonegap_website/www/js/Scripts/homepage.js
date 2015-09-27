@@ -226,17 +226,14 @@ function createClient(clientName, primaryColour, secondaryColour){
 
 function archiveQual(qualId){
     deleteQual(qualId);
-    document.getElementById("divArchiveAlert").style.display = 'none';
 };
 
 function archiveProject(projectId){
     deleteProjectGroup(projectId);
-    document.getElementById("divArchiveAlert").style.display = 'none';
 };
 
 function archiveClient(clientId){
     deleteAccount(clientId);
-    document.getElementById("divArchiveAlert").style.display = 'none';
 };
 
 //function confirmArchive(archiveType, itemID){
@@ -434,11 +431,30 @@ function addProjectQualsToGroup(projectID){
 
         var quals = this;
 
+        var numOfQuals = quals.length;
+
         for(i = 0; i< quals.length; i++) {
             addToCart(quals[i].qualId, quals[i].projectName);
         }
 
+        // displaying notification to user that qual has been added to cart
+        if(numOfQuals > 0) {
+            new PNotify({
+                title: "Success",
+                text: " " + numOfQuals + " quals have been added to the cart",
+                type: 'success'
+            });
+        }else{
+            new PNotify({
+                title: "Alert",
+                text: "Project did not have any quals to add",
+                type: 'error'
+            });
+        }
+
     });
+
+
 }
 
 function openQualsForProject(projectID, projectName) {
@@ -632,20 +648,21 @@ function addToCart(qID, m){
 
     // displaying notification to user that qual has been added to cart
 
-    //take the user to the top of the screen
-    $('html, body').animate({ scrollTop: 0 }, 'fast');
-
-    if(qID != null) {
-        document.getElementById("divAddToCartAlert").style.display = 'block';
-        $("#displayQualName").text(m);
-        document.getElementById("addToCartOkButton").addEventListener("click", function () {
-            document.getElementById("divAddToCartAlert").style.display = 'none';
-        });
-    }
+    var notice = new PNotify({
+        title: "Success",
+        text: "Qual "+m+" has been added to the cart",
+        icon: false,
+        hide: false,
+        type: 'success'
+    });
 }
 
 function toggleDropdown(id){
     $('#' +id).toggleClass('open');
+}
+
+function clearModalPic(){
+    $('#client-logo').css('background', 'url("")');
 }
 
 function loadTab(tab) {
@@ -713,6 +730,7 @@ function resetProjID(){
 }
 
 function addQual(){
+    sessionStorage.setItem("add_qual", "Y");
     $('#qualModalLabel').text("Add New Qual");
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }

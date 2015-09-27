@@ -5,6 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <script>
+        var account = sessionStorage.getItem("account_id");
+        if(! account){ // if not defined (i.e. value is undefined or null)
+            alert("Please login first");
+            location.replace("index.html");
+        }else{
+            var isAdmin = sessionStorage.getItem("isAdmin");
+            if(! isAdmin || isAdmin == "false"){ // if not defined or false
+                alert("Sorry you do not have access to this page");
+                location.replace("homepage_client.html");
+            }else{
+                var addStatus = sessionStorage.getItem("add_qual");
+                sessionStorage.removeItem("add_qual");
+                var editId = sessionStorage.getItem("edit_qual_id");
+                var dupId = sessionStorage.getItem("dup_qual_id");
+                // if not (adding qual) or (editing qual) or (duplicating qual) then block access
+                // Also shouldn't be able to do multiple operations at the sametime (i.e. add and edit, or edit and dup)
+                if(!((addStatus && ! editId && ! dupId) || (! addStatus && editId && ! dupId) || (! addStatus && ! editId && dupId))){
+                    alert("Please use the supplied add/edit/duplicate qual buttons to access the qual page");
+                    location.replace("homepage.html");
+                }
+            }
+        }
+    </script>
+
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -103,7 +128,7 @@
 
             insertQual(true, isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
-                    status, projSubtitle, emailAction, websiteAction,
+                    access, projSubtitle, emailAction, websiteAction,
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
@@ -170,7 +195,7 @@
 
             updateQual(qualId, true, isAnonymous, challenges, clientName, industry,
                     tags, outcome, problem, projName, relevance, serviceLine, solution,
-                    status, projSubtitle, emailAction, websiteAction,
+                    access, projSubtitle, emailAction, websiteAction,
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 

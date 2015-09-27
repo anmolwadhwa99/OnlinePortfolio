@@ -168,7 +168,7 @@
             });
 
             //this is to hide the div containing the notification of "qual added to cart"
-            document.getElementById("divAddToCartAlert").style.display = 'none';
+//            document.getElementById("divAddToCartAlert").style.display = 'none';
         });
 
         function confirmArchive(archiveType, itemID){
@@ -226,19 +226,21 @@
                 }
             }).get().on('pnotify.confirm', function () {
                 if (submit_option == "CLIENT") {
-                    archiveClient(item_id);
                     successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
                     timeout();
+                    archiveClient(item_id);
+
                 }
                 else if (submit_option == "PROJECT") {
-                    archiveProject(item_id);
                     successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
                     timeout();
+                    archiveProject(item_id);
+
                 }
                 else if (submit_option == "QUAL") {
-                    archiveQual(item_id);
                     successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
                     timeout();
+                    archiveQual(item_id);
 
                 }
             }).on('pnotify.cancel', function () {
@@ -593,22 +595,22 @@
         <div class="row">
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div id="divAddToCartAlert" class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">x</span>
-                    </button>
-                    <h3 id="addToCartAlertHeading">The following qual(s) has been added to cart</h3>
+        <!--<div class="row">-->
+            <!--<div class="col-md-12">-->
+                <!--<div id="divAddToCartAlert" class="alert alert-success alert-dismissible" role="alert">-->
+                    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+                        <!--<span aria-hidden="true">x</span>-->
+                    <!--</button>-->
+                    <!--<h3 id="addToCartAlertHeading">The following qual(s) has been added to cart</h3>-->
 
-                    <p id="displayQualName" class="body"></p><br/>
+                    <!--<p id="displayQualName" class="body"></p><br/>-->
 
-                    <p>
-                        <button id="addToCartOkButton" type="button" class="btn btn-success">OK</button>
-                    </p>
-                </div>
-            </div>
-        </div>
+                    <!--<p>-->
+                        <!--<button id="addToCartOkButton" type="button" class="btn btn-success">OK</button>-->
+                    <!--</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="row">
 
@@ -652,7 +654,7 @@
                 <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
                 <div class="close-modal">
                     <i id="btnDuplicate" class="fa fa-clipboard fa-4x"></i>
-                    <i class="fa fa-times fa-5x" data-dismiss="modal"></i>
+                    <i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>
                 </div>
             </div>
             <div class="modal-body" id="modal_body">

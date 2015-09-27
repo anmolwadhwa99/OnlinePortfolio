@@ -572,8 +572,8 @@ function reactivateQual(id){
 
 function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, industry
     , tags, outcomeStatement, problemStatement, projectName, relevanceToClient, serviceLine
-    , solutionStatement, status, subtitle, email, website, callback){
-    var methodURL = url + _qual + "/" + id;
+    , solutionStatement, status, subtitle, email, website, clientLogo, projLogo, callback){
+    var methodURL = url + _qual;
     var method = "PUT";
 
     var req = createRequest();
@@ -599,6 +599,7 @@ function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, indu
     req.open(method, methodURL, true);
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
+        '"qualId": ' + id + ','+
         '"isActive": ' + isActive + ','+
         '"isAnonymous": ' + isAnonymous + ','+
         '"challengesFaced": "' + challengesFaced + '",'+
@@ -613,10 +614,12 @@ function updateQual(id, isActive, isAnonymous, challengesFaced, clientName, indu
         '"solutionStatement": "' + solutionStatement + '",'+
         '"status": "' + status + '",'+
         '"subtitle": "' + subtitle + '",'+
+        '"clientImage": "' + clientLogo + '",'+
+        '"projectImage": "' + projLogo + '",'+
         '"emailButton": "' + email + '",'+
         '"websiteButton":"' + website + '"'+
         '}';
-    req.send();
+    req.send(x);
 
 }
 
