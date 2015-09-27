@@ -302,7 +302,7 @@
         }
 
         function loadAdminsTable(table){
-            getAllAccounts(function (){
+            getAllAdmins(function (){
                 var admins = this;
                 if(admins.length > 0 && admins !== null){
                     $.each(admins, function(i, val){
@@ -311,6 +311,8 @@
                         if(val.isSuperUser){
                             superuser = val.isSuperUser;
                         }
+
+                        console.log(val.isActive);
 
                         var active = "false";
                         if(val.isActive){
@@ -345,7 +347,7 @@
                 if(quals.length > 0 && quals !== null) {
                     $.each(quals, function (i, val) {
 
-                        console.log(val.isActive);
+                        //console.log(val.isActive);
 
                         var projectName = "";
                         if(val.projectName){
@@ -378,7 +380,7 @@
                         }
 
                         var active = "false";
-                        if(val.isActive){
+                        if(val.isActive || val.isActive == "true"){
                             active = val.isActive;
                         }
 
