@@ -52,6 +52,8 @@ public class QualData extends Server{
 		eaSports.setRelevanceToClient("We used our assessment to develop a comprehensive 3-year CRM roadmap and incorporate it into the annual operating plan. The roadmap created internal alignment on CRM definition, vision, and priorities and extended vision to the technical environment required to enable and support the priorities and gained CIO support and sponsorship.");
 		eaSports.setServiceLine(DeloitteServiceLine.technology);
 		eaSports.setStatus("open");
+		eaSports.setEmailButton("dgop507@aucklanduni.ac.nz");
+		eaSports.setWebsiteButton("http://www.google.co.nz");
 		eaSports.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
 		eaSports.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
 		eaSports.setWebsiteButton("https://www.easports.com/");
@@ -67,7 +69,9 @@ public class QualData extends Server{
 		apple.setSolutionStatement("Have developed their very first Apple Online Store more than ten years ago and since then, we’ve contributed to a number of key Apple websites and services, including iTunes, Print Service, the Apple Online Store, and the Apple Online iPhone app. Our work boils down to a long-standing partnership with one of the world’s most recognizable brands.");
 		apple.setRelevanceToClient("Our work for Apple exemplifies our ability to tackle large, scalable, enterprise, and service oriented architecture projects - skills that directly apply to building backend services for supporting mobile apps.");
 		apple.setServiceLine(DeloitteServiceLine.technology);
-		apple.setStatus("confidential");
+		apple.setEmailButton("dgop507@aucklanduni.ac.nz");
+		apple.setWebsiteButton("http://www.google.co.nz");
+		apple.setStatus("open");
 		apple.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
 		apple.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
 		apple.setWebsiteButton("http://www.apple.com/");
@@ -83,6 +87,8 @@ public class QualData extends Server{
 		avg.setSolutionStatement("Deloitte provided strategic guidance, program management. Adobe CQ WCM development, hybris e-commerce development, middleware/integration development, and testing services to AVG to help scale their digital platform to serve over 300M global customers.");
 		avg.setRelevanceToClient("The result: centralized content management and promotion management with rapid optimization, multivariate testing, and localization, advanced user segmentation, targeting, and personalization capabilities, enterprise class product management platform for managing complicated product bundles, vouchers, and discounting on a region by region basis, scalability and flexibility for assimilation of new products and business lines and integrated customer service for shopping cart management, promotions, and cross/up-selling over the phone or through the web.");
 		avg.setServiceLine(DeloitteServiceLine.strategy);
+		avg.setEmailButton("dgop507@aucklanduni.ac.nz");
+		avg.setWebsiteButton("http://www.google.co.nz");
 		avg.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
 		avg.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
 		avg.setWebsiteButton("http://www.avg.com/au-en/homepage");
@@ -98,6 +104,8 @@ public class QualData extends Server{
 		oilAndGas.setSolutionStatement("Deloitte assisted our client in delivering a digital platform that supported online business and new customer acquisition, starting in Thailand, Singapore and Malaysia. To accomplish these goals, the team built a responsive B2B site on hybris technology and Real-time integrations with backend applications like SAP and Siebel CRM using SAP Process Orchestration (PO) as the ESB layer.");
 		oilAndGas.setRelevanceToClient("Since the launch of the new solution, our client has established a consistent digital experience across brands, products, geographies and communication channels for both internal and external F&L customers, Streamlined order management experience enhanced by a rigorous back office rules-engine and product catalog logic and Robust account management functionality to empower customers to self-serve.");
 		oilAndGas.setServiceLine(DeloitteServiceLine.operations);
+		oilAndGas.setEmailButton("dgop507@aucklanduni.ac.nz");
+		oilAndGas.setWebsiteButton("http://www.google.co.nz");
 		oilAndGas.setClientImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
 		oilAndGas.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
 		oilAndGas.setEmailButton(dummyEmail);

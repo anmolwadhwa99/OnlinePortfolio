@@ -103,11 +103,12 @@ public class QualificationDatabase {
 
 		List<Qualification> quals = query.list();
 		List<Qualification> duplicateQuals = new ArrayList<>(quals);
+
 		
 		//Remove any confidential and inactive quals
 		for (int i =0; i<duplicateQuals.size(); i++){
 			System.out.println(duplicateQuals.get(i).getStatus());
-			if ((duplicateQuals.get(i).getStatus().toString().equals("confidential")) 
+			if ((duplicateQuals.get(i).getStatus().toString().equalsIgnoreCase("confidential")) 
 					|| (duplicateQuals.get(i).isActive() == false)) {
 				quals.remove(i);
 			}
@@ -295,6 +296,7 @@ public class QualificationDatabase {
 
 		List<Qualification> quals = adminGroup.getQuals();
 		List<Qualification> duplicateQuals = new ArrayList<>(quals);
+
 		//removing inactive quals
 		for(int i =0; i < duplicateQuals.size(); i++){
 			if(duplicateQuals.get(i).isActive() == false){
@@ -330,6 +332,7 @@ public class QualificationDatabase {
 
 		List<Qualification> quals = projectGroup.getQuals();;
 		List<Qualification> duplicateQuals = new ArrayList<>(quals);;
+
 		//removing inactive quals
 		for(int i =0; i < duplicateQuals.size(); i++){
 			if(duplicateQuals.get(i).isActive() == false){
@@ -365,6 +368,7 @@ public class QualificationDatabase {
 		}
 		List<Qualification> quals = account.getAccountsQual();
 		List<Qualification> duplicateQuals = new ArrayList<>(quals);;
+
 		//removing inactive quals
 		for(int i =0; i < duplicateQuals.size(); i++){
 			if(duplicateQuals.get(i).isActive() == false){

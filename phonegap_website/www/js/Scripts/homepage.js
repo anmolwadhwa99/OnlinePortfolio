@@ -143,6 +143,8 @@ function createProjectGroup(projectName) {
                 });
             }
             linkQualsAndProject();
+            var adminGroupID = sessionStorage.getItem("adminGroupID");
+            assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
     }else{
         linkQualsAndProject();
