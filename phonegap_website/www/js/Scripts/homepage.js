@@ -1,6 +1,7 @@
 //Searches for quals, projects, clients or whatever it does
 
 var accountId = -1;
+var adminGroupID = -1;
 var isClient = false;
 var isSuperUser = false;
 
@@ -166,28 +167,38 @@ function getProjects(account_id){
         isClient = !account.isAdmin;
         isSuperUser = account.isSuperUser;
 
-        getProjectsByClient(account_id, function() {
-            var projects = this;
-            var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
+        if(!isClient){
+            getAdminGroupsByAccount(accountId, function(){
+                adminGroupID = this[0].id;
+                getProjectsByAdminGroup(adminGroupID, processProjects);
+            })
+        }else{
+            getProjectsByClient(account_id, processProjects);
 
-            for(i = 0; i< projects.length; i++){
-
-                htmlStr += addPortfolioItem(
-                    '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
-                    '\"addProjectQualsToGroup('+projects[i].id+')\"',
-                    projects[i].id,
-                    projects[i].projectGroupName,
-                    '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
-                    "",
-                    "",
-                    'project'
-                )
-            }
-            $("#projects").html(htmlStr);
-        });
+        }
     });
 
 
+}
+
+function processProjects(){
+    var projects = this;
+    var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
+
+    for(i = 0; i< projects.length; i++){
+
+        htmlStr += addPortfolioItem(
+            '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
+            '\"addProjectQualsToGroup('+projects[i].id+')\"',
+            projects[i].id,
+            projects[i].projectGroupName,
+            '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
+            "",
+            "",
+            'project'
+        )
+    }
+    $("#projects").html(htmlStr);
 }
 
 function generatePassword() {
@@ -529,39 +540,46 @@ function viewQual(qual_id){
     //    duplicateQual(qual_id);
     //    event.preventDefault();
     //});
-    document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
+    if(!isClient) {
+        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
+        $('#viewButtons').prepend(dup);
+        //document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
+    }
     $('#frameViewQual').attr('src', 'view_qual.html');
 }
 
 function getQuals(){
-    getQualsByAccount(accountId, function(){
-        var quals = this;
-        alert_type = "info";
+    if (isClient) {
+        getQualsByAccount(accountId, processQuals);
+    }else{
+        getQualsByAdminGroup(adminGroupID, processQuals)
+    }
+}
 
-        var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
+function processQuals(){
+    var quals = this;
+    alert_type = "info";
 
-        getAccountById(accountId, function(){
-            var account = this;
-            if (account.isAdmin == true){
-                htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
-            }
-        });
+    var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
-        for (i = 0; i < quals.length; i++) {
-            htmlStr += addPortfolioItem(
-                quals[i].qualId,
-                '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
-                quals[i].qualId,
-                quals[i].projectName,
-                '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
-                quals[i].clientImage,
-                quals[i].projectImage,
-                'qual'
-            );
-        }
-        $("#quals").html(htmlStr)
+    if (!isClient){
+        htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
+    }
 
-    });
+    for (i = 0; i < quals.length; i++) {
+        htmlStr += addPortfolioItem(
+            quals[i].qualId,
+            '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
+            quals[i].qualId,
+            quals[i].projectName,
+            '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
+            quals[i].clientImage,
+            quals[i].projectImage,
+            'qual'
+        );
+    }
+    $("#quals").html(htmlStr)
+
 }
 
 function getClients() {
@@ -617,7 +635,7 @@ function getProjectforClient(id, clientName){
         htmlClientProject = htmlStr;
         $("#clients").html(htmlStr);
 
-            HoldOn.close();
+        HoldOn.close();
 
     });
 

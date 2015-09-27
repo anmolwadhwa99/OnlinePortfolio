@@ -1428,6 +1428,39 @@ function getProjectsByClient(cId, callback){
     req.send();
 }
 
+function getProjectsByAdminGroup(agId, callback){
+    var methodURL = url + _pg + _ag + "/" + agId;
+    var method = "GET";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var projects = [];
+
+            var json = JSON.parse(resp);
+
+            for (i = 0; i < json.length; i++ ){
+                projects.push(new ProjectGroup(json[i]));
+            }
+
+            if(typeof callback == 'function'){
+
+                callback.apply(projects);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+    req.send();
+}
+
 function getAllProjectGroups(callback) {
     var methodURL = url + "/projectGroup";
     var method = "GET";

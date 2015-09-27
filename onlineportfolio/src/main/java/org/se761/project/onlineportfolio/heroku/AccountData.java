@@ -75,7 +75,7 @@ public class AccountData extends Server {
 		client.setSuperUser(false);
 		client.setPrimaryColour("red");
 		client.setAccentColour("blue");
-		client.setSecondaryColour("green");
+		client.setSecondaryColour("white");
 		addAccount(client);
 
 	}
