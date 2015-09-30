@@ -409,18 +409,33 @@
 
             // Event listeners for checking that, if anonymous qual that client name does not occur
             // And if occurs, then disable submit button
-            $("#qual_problems").addEventListener("blur", validateAnon(this));
-            $("#qual_challenges").addEventListener("blur", validateAnon(this));
-            $("#qual_solution").addEventListener("blur", validateAnon(this));
-            $("#qual_outcome").addEventListener("blur", validateAnon(this));
-            $("#qual_relevance").addEventListener("blur", validateAnon(this));
+            $("#qual_problems").addEventListener("blur", validateAnon("qual_problems"));
+            $("#qual_challenges").addEventListener("blur", validateAnon("qual_challenges"));
+            $("#qual_solution").addEventListener("blur", validateAnon("qual_solution"));
+            $("#qual_outcome").addEventListener("blur", validateAnon("qual_outcome"));
+            $("#qual_relevance").addEventListener("blur", validateAnon("qual_relevance"));
         });
 
         // Validating that the specified element, does not contain the anon name when qual is anonymous
-        function validateAnon(elementTextarea){
+        function validateAnon(elementId){
             var clientName = $("#qual_client_name").val();
             var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
             var anonymousName = $("#qual_anonymous_name").val();
+
+            // No point if no client name yet set. Client Name is required
+            if (clientName.length < 0){
+                return;
+            }else if(! isAnonymous){
+                return;
+            }
+
+            // Disable submit button if contains client name
+            // TODO Verify that its not already disabled
+            if($('#'+elementId).contains(clientName)){
+
+            }
+            // TODO Only enable submit if not already currently disabled
+            // I.e. client name was mentioned in problem statement but not in solution
         }
 
         function SelectProdServ(url) {
