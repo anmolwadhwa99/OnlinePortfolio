@@ -81,8 +81,8 @@
 
         function addQual() {
             var projName = $("#qual_project_name").val();
-            var projSubtitle = $("#qual_client_name").val();
-            var clientName = $("#qual_project_sub").val();
+            var projSubtitle = $("#qual_project_sub").val();
+            var clientName = $("#qual_client_name").val();
             var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
             var anonymousName = $("#qual_anonymous_name").val();
 
@@ -147,8 +147,8 @@
         function modifyQual() {
             var qualId = $('#qual_id').val();
             var projName = $("#qual_project_name").val();
-            var projSubtitle = $("#qual_client_name").val();
-            var clientName = $("#qual_project_sub").val();
+            var projSubtitle = $("#qual_project_sub").val();
+            var clientName = $("#qual_client_name").val();
             var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
             var anonymousName = $("#qual_anonymous_name").val();
 
@@ -418,7 +418,7 @@
 
         // Validating that the specified element, does not contain the anon name when qual is anonymous
         function validateAnon(elementTextarea){
-            var clientName = $("#qual_project_sub").val();
+            var clientName = $("#qual_client_name").val();
             var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
             var anonymousName = $("#qual_anonymous_name").val();
         }
