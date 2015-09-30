@@ -233,9 +233,22 @@
     <script type="application/javascript">
         function requireAnonName() {
             document.getElementById('qual_anonymous_name').required = true;
+
+            $("#qual_problems").addEventListener("blur", validateAnon("qual_problems"));
+            $("#qual_challenges").addEventListener("blur", validateAnon("qual_challenges"));
+            $("#qual_solution").addEventListener("blur", validateAnon("qual_solution"));
+            $("#qual_outcome").addEventListener("blur", validateAnon("qual_outcome"));
+            $("#qual_relevance").addEventListener("blur", validateAnon("qual_relevance"));
+
         }
         function optionalAnonName() {
             document.getElementById('qual_anonymous_name').required = false;
+
+            $("#qual_problems").removeEventListener("blur", validateAnon("qual_problems"));
+            $("#qual_challenges").removeEventListener("blur", validateAnon("qual_challenges"));
+            $("#qual_solution").removeEventListener("blur", validateAnon("qual_solution"));
+            $("#qual_outcome").removeEventListener("blur", validateAnon("qual_outcome"));
+            $("#qual_relevance").removeEventListener("blur", validateAnon("qual_relevance"));
         }
     </script>
     <script type="application/javascript">
@@ -420,7 +433,7 @@
         function validateAnon(elementId){
             var clientName = $("#qual_client_name").val();
             var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
-            var anonymousName = $("#qual_anonymous_name").val();
+            var anonymousName = $("#qual_anonymous_name").val(); // Could be used to replace all occurrences of the client name
 
             // No point if no client name yet set. Client Name is required
             if (clientName.length < 0){
@@ -432,10 +445,17 @@
             // Disable submit button if contains client name
             // TODO Verify that its not already disabled
             if($('#'+elementId).contains(clientName)){
+                $('#btn_submit').prop('disabled', true);
 
+                invalidAnon = true; // Global variable, to ensure that do not overwrite another failed location
             }
-            // TODO Only enable submit if not already currently disabled
-            // I.e. client name was mentioned in problem statement but not in solution
+            else{
+                // Only enable submit if not already currently disabled
+                // I.e. client name was mentioned in problem statement but not in solution
+                if(! invalidAnon) {
+                    $('#btn_submit').prop('disabled', false);
+                }
+            }
         }
 
         function SelectProdServ(url) {
@@ -702,7 +722,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <button type="submit" class="btn btn-block btn-success"><span
+                <button id="btn_submit" type="submit" class="btn btn-block btn-success"><span
                         class="glyphicon glyphicon-floppy-disk"></span> Submit
                 </button>
             </div>
