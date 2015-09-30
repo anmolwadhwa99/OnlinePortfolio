@@ -422,40 +422,84 @@
 
             // Event listeners for checking that, if anonymous qual that client name does not occur
             // And if occurs, then disable submit button
-            $("#qual_problems").addEventListener("blur", validateAnon("qual_problems"));
-            $("#qual_challenges").addEventListener("blur", validateAnon("qual_challenges"));
-            $("#qual_solution").addEventListener("blur", validateAnon("qual_solution"));
-            $("#qual_outcome").addEventListener("blur", validateAnon("qual_outcome"));
-            $("#qual_relevance").addEventListener("blur", validateAnon("qual_relevance"));
+            $("#qual_problems").addEventListener("blur", validateAnon());
+            $("#qual_challenges").addEventListener("blur", validateAnon());
+            $("#qual_solution").addEventListener("blur", validateAnon());
+            $("#qual_outcome").addEventListener("blur", validateAnon());
+            $("#qual_relevance").addEventListener("blur", validateAnon());
         });
 
-        // Validating that the specified element, does not contain the anon name when qual is anonymous
-        function validateAnon(elementId){
+        // Validating that all possible locations do not contain the anon name when qual is anonymous
+        function validateAnon(){
             var clientName = $("#qual_client_name").val();
             var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
             var anonymousName = $("#qual_anonymous_name").val(); // Could be used to replace all occurrences of the client name
 
-            // No point if no client name yet set. Client Name is required
-            if (clientName.length < 0){
+            // No point to continue if client name not yet set. Client Name is required
+            if (clientName.length < 0)
+            {
                 return;
-            }else if(! isAnonymous){
+            }
+            else if(! isAnonymous)
+            {
                 return;
             }
 
-            // Disable submit button if contains client name
-            // TODO Verify that its not already disabled
-            if($('#'+elementId).contains(clientName)){
+            // TODO Fix the issue with .contains function
+            // Disable submit button if any location contains client name
+            if($("#qual_problems").contains(clientName))
+            {
+                show_stack_bar_bottom("Problem Statement");
                 $('#btn_submit').prop('disabled', true);
+            }
+            else if ($("#qual_challenges").contains(clientName))
+            {
+                show_stack_bar_bottom("Challenges Statement");
+                $('#btn_submit').prop('disabled', true);
+            }
+            else if($("#qual_solution").contains(clientName))
+            {
+                show_stack_bar_bottom("Solutions Statement");
+                $('#btn_submit').prop('disabled', true);
+            }
+            else if($("#qual_outcome").contains(clientName))
+            {
+                show_stack_bar_bottom("Outcome Statement");
+                $('#btn_submit').prop('disabled', true);
+            }
+            else if($("#qual_relevance").contains(clientName))
+            {
+                show_stack_bar_bottom("Relevance to Client");
+                $('#btn_submit').prop('disabled', true);
+            }
+            else
+            {
+                // All locations are valid
+                $('#btn_submit').prop('disabled', false);
+            }
+        }
 
-                invalidAnon = true; // Global variable, to ensure that do not overwrite another failed location
-            }
-            else{
-                // Only enable submit if not already currently disabled
-                // I.e. client name was mentioned in problem statement but not in solution
-                if(! invalidAnon) {
-                    $('#btn_submit').prop('disabled', false);
+        function show_stack_bar_bottom(text) {
+            var opts = {
+                title: "Error - Invalid Anonymous Qual",
+                text: "Client name detected in " + text +'\nSubmission Disabled',
+                addclass: "stack-bar-bottom",
+                cornerclass: "",
+                width: "70%",
+                type: "error",
+                icon: true,
+                stack: stack_bar_bottom,
+                nonblock: {
+                    nonblock: false
+                },
+                buttons: {
+                    show_on_nonblock: true
+                },
+                history: {
+                    history: false
                 }
-            }
+            };
+            new PNotify(opts);
         }
 
         function SelectProdServ(url) {
