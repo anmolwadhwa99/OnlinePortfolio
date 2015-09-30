@@ -233,22 +233,9 @@
     <script type="application/javascript">
         function requireAnonName() {
             document.getElementById('qual_anonymous_name').required = true;
-
-            $("#qual_problems").addEventListener("blur", validateAnon("qual_problems"));
-            $("#qual_challenges").addEventListener("blur", validateAnon("qual_challenges"));
-            $("#qual_solution").addEventListener("blur", validateAnon("qual_solution"));
-            $("#qual_outcome").addEventListener("blur", validateAnon("qual_outcome"));
-            $("#qual_relevance").addEventListener("blur", validateAnon("qual_relevance"));
-
         }
         function optionalAnonName() {
             document.getElementById('qual_anonymous_name').required = false;
-
-            $("#qual_problems").removeEventListener("blur", validateAnon("qual_problems"));
-            $("#qual_challenges").removeEventListener("blur", validateAnon("qual_challenges"));
-            $("#qual_solution").removeEventListener("blur", validateAnon("qual_solution"));
-            $("#qual_outcome").removeEventListener("blur", validateAnon("qual_outcome"));
-            $("#qual_relevance").removeEventListener("blur", validateAnon("qual_relevance"));
         }
     </script>
     <script type="application/javascript">
@@ -419,87 +406,7 @@
                 }
                 sessionStorage.removeItem("edit_qual_id");
             }
-
-            // Event listeners for checking that, if anonymous qual that client name does not occur
-            // And if occurs, then disable submit button
-            $("#qual_problems").addEventListener("blur", validateAnon());
-            $("#qual_challenges").addEventListener("blur", validateAnon());
-            $("#qual_solution").addEventListener("blur", validateAnon());
-            $("#qual_outcome").addEventListener("blur", validateAnon());
-            $("#qual_relevance").addEventListener("blur", validateAnon());
         });
-
-        // Validating that all possible locations do not contain the anon name when qual is anonymous
-        function validateAnon(){
-            var clientName = $("#qual_client_name").val();
-            var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
-            var anonymousName = $("#qual_anonymous_name").val(); // Could be used to replace all occurrences of the client name
-
-            // No point to continue if client name not yet set. Client Name is required
-            if (clientName.length < 0)
-            {
-                return;
-            }
-            else if(! isAnonymous)
-            {
-                return;
-            }
-
-            // Disable submit button if any location contains client name
-            if($("#qual_problems").val().indexOf(clientName) !== -1)
-            {
-                show_stack_bar_bottom("Problem Statement");
-                $('#btn_submit').prop('disabled', true);
-            }
-            else if ($("#qual_challenges").val().indexOf(clientName) !== -1)
-            {
-                show_stack_bar_bottom("Challenges Statement");
-                $('#btn_submit').prop('disabled', true);
-            }
-            else if($("#qual_solution").val().indexOf(clientName) !== -1)
-            {
-                show_stack_bar_bottom("Solutions Statement");
-                $('#btn_submit').prop('disabled', true);
-            }
-            else if($("#qual_outcome").val().indexOf(clientName) !== -1)
-            {
-                show_stack_bar_bottom("Outcome Statement");
-                $('#btn_submit').prop('disabled', true);
-            }
-            else if($("#qual_relevance").val().indexOf(clientName) !== -1)
-            {
-                show_stack_bar_bottom("Relevance to Client");
-                $('#btn_submit').prop('disabled', true);
-            }
-            else
-            {
-                // All locations are valid
-                $('#btn_submit').prop('disabled', false);
-            }
-        }
-
-        function show_stack_bar_bottom(text) {
-            var opts = {
-                title: "Error - Invalid Anonymous Qual",
-                text: "Client name detected in " + text +'\nSubmission Disabled',
-                addclass: "stack-bar-bottom",
-                cornerclass: "",
-                width: "70%",
-                type: "error",
-                icon: true,
-                stack: stack_bar_bottom,
-                nonblock: {
-                    nonblock: false
-                },
-                buttons: {
-                    show_on_nonblock: true
-                },
-                history: {
-                    history: false
-                }
-            };
-            new PNotify(opts);
-        }
 
         function SelectProdServ(url) {
             $('#prod_serv_img').attr('src', url);
