@@ -445,29 +445,28 @@
                 return;
             }
 
-            // TODO Fix the issue with .contains function
             // Disable submit button if any location contains client name
-            if($("#qual_problems").contains(clientName))
+            if($("#qual_problems").val().indexOf(clientName) !== -1)
             {
                 show_stack_bar_bottom("Problem Statement");
                 $('#btn_submit').prop('disabled', true);
             }
-            else if ($("#qual_challenges").contains(clientName))
+            else if ($("#qual_challenges").val().indexOf(clientName) !== -1)
             {
                 show_stack_bar_bottom("Challenges Statement");
                 $('#btn_submit').prop('disabled', true);
             }
-            else if($("#qual_solution").contains(clientName))
+            else if($("#qual_solution").val().indexOf(clientName) !== -1)
             {
                 show_stack_bar_bottom("Solutions Statement");
                 $('#btn_submit').prop('disabled', true);
             }
-            else if($("#qual_outcome").contains(clientName))
+            else if($("#qual_outcome").val().indexOf(clientName) !== -1)
             {
                 show_stack_bar_bottom("Outcome Statement");
                 $('#btn_submit').prop('disabled', true);
             }
-            else if($("#qual_relevance").contains(clientName))
+            else if($("#qual_relevance").val().indexOf(clientName) !== -1)
             {
                 show_stack_bar_bottom("Relevance to Client");
                 $('#btn_submit').prop('disabled', true);
