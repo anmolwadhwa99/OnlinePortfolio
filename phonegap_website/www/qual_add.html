@@ -406,7 +406,22 @@
                 }
                 sessionStorage.removeItem("edit_qual_id");
             }
+
+            // Event listeners for checking that, if anonymous qual that client name does not occur
+            // And if occurs, then disable submit button
+            $("#qual_problems").addEventListener("blur", validateAnon(this));
+            $("#qual_challenges").addEventListener("blur", validateAnon(this));
+            $("#qual_solution").addEventListener("blur", validateAnon(this));
+            $("#qual_outcome").addEventListener("blur", validateAnon(this));
+            $("#qual_relevance").addEventListener("blur", validateAnon(this));
         });
+
+        // Validating that the specified element, does not contain the anon name when qual is anonymous
+        function validateAnon(elementTextarea){
+            var clientName = $("#qual_project_sub").val();
+            var isAnonymous = $('#qual_is_not_anonymous').is(':checked');
+            var anonymousName = $("#qual_anonymous_name").val();
+        }
 
         function SelectProdServ(url) {
             $('#prod_serv_img').attr('src', url);
