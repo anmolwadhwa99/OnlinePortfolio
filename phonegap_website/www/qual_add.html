@@ -430,6 +430,13 @@
 
         function checkURL (abc) {
             var string = abc.value;
+            console.log(string);
+            console.log(string.length);
+
+            if(string.length <= 0){
+                return string; // Do nothing if string is empty
+            }
+
             if (!~string.indexOf("http")){
                 string = "http://" + string;
             }
