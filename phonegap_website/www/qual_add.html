@@ -237,9 +237,29 @@
     <script type="application/javascript">
         function requireAnonName() {
             document.getElementById('qual_anonymous_name').required = true;
+
+            addRules();
         }
         function optionalAnonName() {
             document.getElementById('qual_anonymous_name').required = false;
+
+            removeRules();
+        }
+
+        function addRules(){
+            $('#qual_problems').rules('add', {"validAnon":true}); // Turns the rule on globally
+//            $('#qual_challenges').rules('add', {"validAnon":true});
+//            $('#qual_solution').rules('add', {"validAnon":true});
+//            $('#qual_outcome').rules('add', {"validAnon":true});
+//            $('#qual_relevance').rules('add', {"validAnon":true});
+        }
+
+        function removeRules(){
+            $('#qual_problems').rules('remove'); // Turns the rule off globally
+//            $('#qual_challenges').rules('remove');
+//            $('#qual_solution').rules('remove');
+//            $('#qual_outcome').rules('remove');
+//            $('#qual_relevance').rules('remove');
         }
     </script>
     <script type="application/javascript">
@@ -787,6 +807,43 @@
         input: false,
         badge: false
     });
+
+    $.validator.addMethod("validAnon", function(value, element){
+        //console.log(element);
+
+        var client = $('#qual_client_name').val();
+
+        if(element.id == "qual_client_name"){
+            console.log("Ignoring");
+            return true;
+        }
+
+        console.log(value);
+        console.log(client);
+
+        if(! client || client.length <= 0){
+            return true; // No point validating if no client name yet entered
+        }
+        else if(! value || value.length <= 0){
+            return true; // No point validating if specific element has no text
+        }
+        else{
+            console.log(value);
+            console.log(client);
+
+            // If element contains the specified value then return false
+            if(value.toLowerCase().indexOf(client.toLowerCase()) >= 0)
+            {
+                console.log("Failed");
+                return false;
+            }
+            else
+            {
+                console.log("Passed");
+                return true;
+            }
+        }
+    }, "Anonymous Qual's cannot contain the Client Name");
 
     // jQueryValidation
     $('#qual_add_form').validate({
