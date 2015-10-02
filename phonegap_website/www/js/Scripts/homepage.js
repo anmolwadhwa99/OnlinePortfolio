@@ -810,3 +810,8 @@ function editClient(account_id) {
 
 }
 
+function timeout() {
+    setTimeout(function () {
+        location.reload();
+    }, 2000);
+}
