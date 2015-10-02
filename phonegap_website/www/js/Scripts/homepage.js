@@ -454,7 +454,7 @@ function addProjectQualsToGroup(projectID){
         if(numOfQuals > 0) {
             new PNotify({
                 title: "Success",
-                text: " " + numOfQuals + " quals have been added to the cart",
+                text: " " + numOfQuals + " qual(s) have been added to the cart",
                 type: 'success'
             });
         }else{
@@ -704,7 +704,7 @@ function addToCart(qID, m){
 
     var notice = new PNotify({
         title: "Success",
-        text: "Qual "+m+" has been added to the cart",
+        text: "1 Qual has been added to the cart",
         icon: false,
         hide: false,
         type: 'success'
@@ -809,3 +809,4 @@ function editClient(account_id) {
     });
 
 }
+
