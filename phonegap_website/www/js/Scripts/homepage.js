@@ -457,12 +457,14 @@ function addProjectQualsToGroup(projectID){
                 text: " " + numOfQuals + " qual(s) have been added to the cart",
                 type: 'success'
             });
+            timeout();
         }else{
             new PNotify({
                 title: "Alert",
                 text: "Project did not have any quals to add",
                 type: 'error'
             });
+            timeout();
         }
 
     });
@@ -709,6 +711,8 @@ function addToCart(qID, m){
         hide: false,
         type: 'success'
     });
+
+    timeout();
 }
 
 function toggleDropdown(id){
