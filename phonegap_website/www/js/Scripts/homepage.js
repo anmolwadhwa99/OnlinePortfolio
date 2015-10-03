@@ -711,7 +711,7 @@ function addToCart(qID, m){
         type: 'success'
     });
 
-    timeout();
+    //timeout();
 }
 
 function toggleDropdown(id){
