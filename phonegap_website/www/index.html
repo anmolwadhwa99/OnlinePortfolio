@@ -119,19 +119,24 @@
 
                 var account = this;
 
+
                 if (account != null) {
 
                     sessionStorage.setItem("account_id", account.accountId);
 
                     getAccountById(account.accountId, function () {
                         var account = this;
+
+                        var isClient = !account.isAdmin;
+                        var isSuperUser = account.isSuperUser;
+
                         sessionStorage.setItem("superuserStatus", account.isSuperUser);
                         sessionStorage.setItem("isAdmin", account.isAdmin);
                         if (account.isAdmin == true) {
                             getAdminGroupsByAccount(account.accountId, function(){
                                 var adminGroup = this;
-                                alert("setAG "+adminGroup.id);
-                                sessionStorage.setItem("adminGroupID", adminGroup.id);
+//                                alert("setAG "+this[0].id);
+                                sessionStorage.setItem("adminGroupID", this[0].id);
                             });
                             location.replace("homepage.html");
                             HoldOn.close();

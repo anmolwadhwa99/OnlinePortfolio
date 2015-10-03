@@ -1,5 +1,8 @@
 package org.se761.project.onlineportfolio.heroku;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.se761.project.onlineportfolio.model.Account;
@@ -7,11 +10,9 @@ import org.se761.project.onlineportfolio.model.Qualification;
 
 public class AccountData extends Server {
 	
-	public AccountData(){
-		
-	}
+	private static Map<String, Integer> ids = new HashMap<>(); 
 	
-	public static void addAccount(Account account){
+	public static void addAccount(String name, Account account){
 		JSONObject jsonAccount = new JSONObject();
 		try {
 			jsonAccount.put("accountName", account.getAccountName());
@@ -29,11 +30,17 @@ public class AccountData extends Server {
 		}
 		
 		String inputURL = SERVER_ADDRESS + ACCOUNT_URL;
-		Server.HTTPPostMethod(inputURL, jsonAccount);
+		String response = Server.HTTPPostMethod(inputURL, jsonAccount);
+		try {
+			JSONObject json = new JSONObject(response);
+			ids.put(name, json.getInt("accountId"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
-	public static void createAccounts() {
+	public static Map<String, Integer> createAccounts() {
 		Account superUser = new Account();
 		superUser.setAccountName("SuperUser");
 		superUser.setPassword("super");
@@ -43,7 +50,7 @@ public class AccountData extends Server {
 		superUser.setPrimaryColour("red");
 		superUser.setAccentColour("blue");
 		superUser.setSecondaryColour("green");
-		addAccount(superUser);
+		addAccount("ac_Super", superUser);
 		
 		Account admin = new Account();
 		admin.setAccountName("TechAdmin");
@@ -54,7 +61,7 @@ public class AccountData extends Server {
 		admin.setPrimaryColour("red");
 		admin.setAccentColour("blue");
 		admin.setSecondaryColour("green");
-		addAccount(admin);
+		addAccount("ac_TechAdmin", admin);
 		
 		Account strat = new Account();
 		strat.setAccountName("StratAdmin");
@@ -65,7 +72,7 @@ public class AccountData extends Server {
 		strat.setPrimaryColour("red");
 		strat.setAccentColour("blue");
 		strat.setSecondaryColour("green");
-		addAccount(strat);
+		addAccount("ac_StratAdmin", strat);
 		
 		Account client = new Account();
 		client.setAccountName("Client");
@@ -76,8 +83,9 @@ public class AccountData extends Server {
 		client.setPrimaryColour("red");
 		client.setAccentColour("blue");
 		client.setSecondaryColour("white");
-		addAccount(client);
-
+		addAccount("ac_Client", client);
+		
+		return ids;
 	}
 
 }

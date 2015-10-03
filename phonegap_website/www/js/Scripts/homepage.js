@@ -143,7 +143,6 @@ function createProjectGroup(projectName) {
                 });
             }
             linkQualsAndProject();
-            var adminGroupID = sessionStorage.getItem("adminGroupID");
             assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
     }else{
@@ -678,6 +677,34 @@ function addToCart(qID, m, isProject){
             type: 'success'
         });
     }
+
+    //var ul = document.getElementById("ProjectCart");
+    //var li = document.createElement("li");
+    //var a = document.createElement("a");
+    //a.setAttribute("href", "#");
+    //li.id = "deleteQual";
+    //
+    //var span = document.createElement("span");
+    //span.setAttribute("class","icon");
+    //
+    //a.appendChild(span);
+    //a.appendChild(document.createTextNode(m));
+    //
+    //
+    //li.appendChild(a);
+    //li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
+    //li.setAttribute("id", m); // added line
+    //ul.appendChild(li);
+
+    // displaying notification to user that qual has been added to cart
+
+    var notice = new PNotify({
+        title: "Success",
+        text: "1 Qual has been added to the cart",
+        icon: false,
+        hide: false,
+        type: 'success'
+    });
 
     //timeout();
 }
