@@ -4,6 +4,7 @@ var accountId = -1;
 var adminGroupID = -1;
 var isClient = false;
 var isSuperUser = false;
+var sucessfulQuals = 0;
 
 var imported = document.createElement('script');
 imported.src = 'js/pnotify.custom.min.js';
@@ -443,22 +444,26 @@ function addProjectQualsToGroup(projectID){
 
         var quals = this;
 
-        var numOfQuals = quals.length;
+        sucessfulQuals = quals.length;
 
         for(i = 0; i< quals.length; i++) {
             addToCart(quals[i].qualId, quals[i].projectName, true);
         }
 
+        var qualOrQuals = sucessfulQuals === 1 ? " qual has " : " quals have ";
 
-        var qualOrQuals = numOfQuals === 1 ? " qual has " : " quals have ";
 
-        new PNotify({
-            title: "Success",
-            text: numOfQuals + qualOrQuals + "been added to the cart",
-            icon: true,
-            hide: true,
-            type: 'success'
-        });
+        if(sucessfulQuals > 0) {
+            console.log(sucessfulQuals);
+            new PNotify({
+                title: "Success",
+                text: sucessfulQuals + qualOrQuals + "been added to the cart",
+                icon: true,
+                hide: true,
+                type: 'success'
+            });
+        }
+        sucessfulQuals = 0;
     });
 
 }
@@ -644,6 +649,9 @@ function addToCart(qID, m, isProject){
     for(var id in qualsToAdd){
         if(qualsToAdd[id] == qID){
             duplicate = true;
+            if(isProject){
+                sucessfulQuals = sucessfulQuals - 1;
+            }
         }
 
     }
@@ -681,20 +689,25 @@ function addToCart(qID, m, isProject){
 
 
 
-        var notice = new PNotify({
-            title: "Success",
-            text: "1 Qual has been added to the cart",
-            icon: false,
-            hide: true,
-            type: 'success'
-        });
+        if(!isProject) {
+            var notice = new PNotify({
+                title: "Success",
+                text: "1 Qual has been added to the cart",
+                icon: false,
+                hide: true,
+                type: 'success'
+            });
+        }
     }else{
-        var notice = new PNotify({
-            title: "Oops",
-            text: "Qual already added to cart",
-            icon: false,
-            hide: true,
-            type: 'error'
+        getQualById(qID, function() {
+            var qual = this;
+            var notice = new PNotify({
+                title: "Oops",
+                text: qual.projectName+" has already added to cart",
+                icon: false,
+                hide: true,
+                type: 'error'
+            });
         });
     }
 
