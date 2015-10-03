@@ -12,8 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Server {
-
-	public final static String SERVER_ADDRESS = /*"https://onlineportfolio.herokuapp.com/webapi/";/*/"http://localhost:8080/onlineportfolio/webapi/";
+	/*"https://onlineportfolio.herokuapp.com/webapi/";//*/
+	public final static String SERVER_ADDRESS = "http://localhost:8080/onlineportfolio/webapi/";
 	public final static String QUALS_URL = "qual/";
 	public final static String ACCOUNT_URL = "account/";
 	public final static String ADMIN_URL = "admin/";

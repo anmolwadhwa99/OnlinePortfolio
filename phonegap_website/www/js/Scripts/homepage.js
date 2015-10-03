@@ -137,10 +137,11 @@ function createProjectGroup(projectName) {
                 assignAccountToProjectGroup(projGroupID, clientID, function() {})
             } else if ($('#newClientSelect').is(':checked') == true) {
                 var accountName = $("#modalClientName").val();
-                insertAccount(false, accountName, "password", false, function () {
+                insertAccount(false, accountName, generatePassword() , false,"red", "white", function () {
                     assignAccountToProjectGroup(projGroupID, this, function () {
                     })
                 });
+
             }
             linkQualsAndProject();
             assignProjectToAdminGroup(adminGroupID, projGroupID);
@@ -523,6 +524,8 @@ function duplicateQual(qual_id){
     console.log(qual_id);
     sessionStorage.clear();
     sessionStorage.setItem("dup_qual_id", qual_id);
+    sessionStorage.setItem("account_id", accountId);
+
     location.href = 'qual_add.html';
 }
 
@@ -535,8 +538,13 @@ function viewQual(qual_id){
     //    event.preventDefault();
     //});
     if(!isClient) {
-        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
-        $('#viewButtons').prepend(dup);
+
+        var icon = document.getElementById("btnDuplicate");
+
+        if (!icon) {
+            var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
+            $('#viewButtons').prepend(dup);
+        }
         //document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
     }
     $('#frameViewQual').attr('src', 'view_qual.html');
