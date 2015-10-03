@@ -135,11 +135,12 @@
                         if (account.isAdmin == true) {
                             getAdminGroupsByAccount(account.accountId, function(){
                                 var adminGroup = this;
-//                                alert("setAG "+this[0].id);
+                                console.log("setAG "+this[0].id);
                                 sessionStorage.setItem("adminGroupID", this[0].id);
+                                location.replace("homepage.html");
+                                HoldOn.close();
                             });
-                            location.replace("homepage.html");
-                            HoldOn.close();
+
                         } else {
                             location.replace("homepage_client.html");
                             HoldOn.close();
