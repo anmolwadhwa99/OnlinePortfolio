@@ -368,7 +368,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     var editFunction = "";
     var inClientTab = false;
     if(type == 'project'){
-
+        editFunction = 'data-toggle=\"modal\" data-target=\"#createProjModal\" onclick=\"editProject(' + editFunc + ')\"';
     }else if(type == 'qual'){
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
@@ -811,9 +811,19 @@ function editClient(account_id) {
         $("#passwordAlert").html(htmlStr);
         $("#passwordAlert").attr('style', '');
     });
-
 }
 
+function editProject(project_id) {
+    getProjectById(project_id, function() {
+        var project = this;
+        $("#project_modal_title").html("Edit Project");
+        $("#projName").val(project.projectGroupName);
+        getAccountsByProjectGroup(project_id, function () {
+            var account = this;
+            $("#clientDropdown").select2("val", "'"+account.accountId+"'");
+        });
+    });
+}
 function timeout() {
     setTimeout(function () {
         location.reload();
