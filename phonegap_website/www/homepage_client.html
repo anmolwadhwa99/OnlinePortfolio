@@ -209,23 +209,6 @@
         getProjects(account_id);
         getEverything();
 
-        $('#createProjBtn').click(function(e){
-            e.preventDefault();
-            var projName = $('#projName').val();
-            var clientName = $("#clientName").val();
-            $('#createProjModal').modal('hide');
-            createProjectGroup(projName);
-
-        });
-
-        $('#createClientBtn').click(function(e){
-            e.preventDefault();
-            var clientName = $("#clientName").val();
-            $("#clientName").val("");
-            $('#createClientModal').modal('hide');
-            createClient(clientName);
-        });
-
         $(window).on('shown.bs.modal', function() {
 
             getAllClients(function () {
