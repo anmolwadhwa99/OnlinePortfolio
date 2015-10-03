@@ -1,6 +1,7 @@
 package org.se761.project.onlineportfolio.database;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -162,18 +163,19 @@ public class AdminGroupDatabase {
 		}
 		
 		List<AdminGroup> adminGroups = qual.getAdminGroups();
+		List<AdminGroup> temp = new ArrayList<AdminGroup>(adminGroups);
 		
 		//removing inactive admin groups
 		for (int i = 0; i<adminGroups.size(); i++){
 			if (adminGroups.get(i).isActive() == false){
-				adminGroups.remove(i);
+				temp.remove(i);
 			}
 		}
 		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		return adminGroups;
+		return temp;
 	}
 	
 	/**
