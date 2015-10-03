@@ -892,7 +892,7 @@ function getAllClients(callback){
     req.send();
 }
 
-function insertAccount(isAdmin, acName, pw, isSuperUser, primaryColour, secondaryColour, password, callback){
+function insertAccount(isAdmin, acName, pw, isSuperUser, primaryColour, secondaryColour, callback){
     var methodURL = url + _ac;
     var method = "POST";
 
@@ -924,7 +924,6 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, primaryColour, secondar
         '"password": "' + pw + '",'+
         '"primaryColour": "' + primaryColour + '",'+
         '"secondaryColour": "' + secondaryColour + '",'+
-        '"password": "' + password + '",'+
         '"isSuperUser": ' + isSuperUser +
         '}';
 

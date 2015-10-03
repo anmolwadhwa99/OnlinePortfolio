@@ -4,6 +4,7 @@ var accountId = -1;
 var adminGroupID = -1;
 var isClient = false;
 var isSuperUser = false;
+var sucessfulQuals = 0;
 
 var imported = document.createElement('script');
 imported.src = 'js/pnotify.custom.min.js';
@@ -137,10 +138,10 @@ function createProjectGroup(projectName) {
                 assignAccountToProjectGroup(projGroupID, clientID, function() {})
             } else if ($('#newClientSelect').is(':checked') == true) {
                 var accountName = $("#modalClientName").val();
-                insertAccount(false, accountName, "password", false, function () {
-                    assignAccountToProjectGroup(projGroupID, this, function () {
-                    })
+                insertAccount(false, accountName, generatePassword() , false,"red", "white", function () {
+                    assignAccountToProjectGroup(projGroupID, this, function (){})
                 });
+
             }
             linkQualsAndProject();
             assignProjectToAdminGroup(adminGroupID, projGroupID);
@@ -440,21 +441,26 @@ function addProjectQualsToGroup(projectID){
 
         var quals = this;
 
-        var numOfQuals = quals.length;
+        sucessfulQuals = quals.length;
 
         for(i = 0; i< quals.length; i++) {
             addToCart(quals[i].qualId, quals[i].projectName, true);
         }
 
-        var qualOrQuals = numOfQuals === 1 ? " qual has " : " quals have ";
+        var qualOrQuals = sucessfulQuals === 1 ? " qual has " : " quals have ";
 
-        new PNotify({
-            title: "Success",
-            text: numOfQuals + qualOrQuals + "been added to the cart",
-            icon: true,
-            hide: true,
-            type: 'success'
-        });
+
+        if(sucessfulQuals > 0) {
+            console.log(sucessfulQuals);
+            new PNotify({
+                title: "Success",
+                text: sucessfulQuals + qualOrQuals + "been added to the cart",
+                icon: true,
+                hide: true,
+                type: 'success'
+            });
+        }
+        sucessfulQuals = 0;
     });
 
 }
@@ -520,6 +526,8 @@ function duplicateQual(qual_id){
     console.log(qual_id);
     sessionStorage.clear();
     sessionStorage.setItem("dup_qual_id", qual_id);
+    sessionStorage.setItem("account_id", accountId);
+
     location.href = 'qual_add.html';
 }
 
@@ -528,8 +536,14 @@ function viewQual(qual_id){
     sessionStorage.setItem("qual_id", qual_id);
 
     if(!isClient) {
-        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
-        $('#viewButtons').prepend(dup);
+
+        var icon = document.getElementById("btnDuplicate");
+
+        if (!icon) {
+            var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
+            $('#viewButtons').prepend(dup);
+        }
+        //document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
     }
     $('#frameViewQual').attr('src', 'view_qual.html');
 }
@@ -631,43 +645,72 @@ function getProjectforClient(id, clientName){
 // m = name of qual, used as html element id
 function addToCart(qID, m, isProject){
 
-    qualsToAdd.push(qID);
+    var duplicate = false;
+    for(var id in qualsToAdd){
+        if(qualsToAdd[id] == qID){
+            duplicate = true;
+            if(isProject){
+                sucessfulQuals = sucessfulQuals - 1;
+            }
+        }
 
-    var root = document.getElementById("ProjectCart");
-    var div = document.createElement("div");
-    var spanDiv = document.createElement("div");
-    var textDiv = document.createElement("div");
-    div.setAttribute('class', 'qual');
-    spanDiv.setAttribute('class', 'col-md-1');
-    textDiv.setAttribute('class', 'col-md-10');
+    }
+    if(duplicate == false){
+        qualsToAdd.push(qID);
 
-    var a = document.createElement("a");
-    a.setAttribute("href", "#");
-    div.id = "deleteQual";
+        var root = document.getElementById("ProjectCart");
+        var div = document.createElement("div");
+        var spanDiv = document.createElement("div");
+        var textDiv = document.createElement("div");
+        div.setAttribute('class', 'qual');
+        spanDiv.setAttribute('class', 'col-md-1');
+        textDiv.setAttribute('class', 'col-md-10');
+
+        var a = document.createElement("a");
+        a.setAttribute("href", "#");
+        div.id = "deleteQual";
 
     var span = document.createElement("span");
     span.setAttribute("class","icon");
 
-    spanDiv.appendChild(span);
-    textDiv.appendChild(document.createTextNode(m));
+        var span = document.createElement("span");
+        span.setAttribute("class","icon");
 
-    a.appendChild(spanDiv);
-    a.appendChild(textDiv);
-    div.appendChild(a);
-    div.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
-    div.setAttribute("id", m); // added line
-    root.appendChild(div);
+        spanDiv.appendChild(span);
+        textDiv.appendChild(document.createTextNode(m));
 
-    var notice = null;
-    if(!isProject) {
-        new PNotify({
-            title: "Success",
-            text: "1 qual has been added to the cart",
-            icon: true,
-            hide: true,
-            type: 'success'
+
+        a.appendChild(spanDiv);
+        a.appendChild(textDiv);
+        div.appendChild(a);
+        div.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
+        div.setAttribute("id", m); // added line
+        root.appendChild(div);
+
+
+
+        if(!isProject) {
+            var notice = new PNotify({
+                title: "Success",
+                text: "1 Qual has been added to the cart",
+                icon: false,
+                hide: true,
+                type: 'success'
+            });
+        }
+    }else{
+        getQualById(qID, function() {
+            var qual = this;
+            var notice = new PNotify({
+                title: "Oops",
+                text: qual.projectName+" has already added to cart",
+                icon: false,
+                hide: true,
+                type: 'error'
+            });
         });
     }
+
 
     //timeout();
 }

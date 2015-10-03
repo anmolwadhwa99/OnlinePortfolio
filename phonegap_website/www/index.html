@@ -136,11 +136,12 @@
                         if (account.isAdmin == true) {
                             getAdminGroupsByAccount(account.accountId, function(){
                                 var adminGroup = this;
-//                                alert("setAG "+this[0].id);
+                                console.log("setAG "+this[0].id);
                                 sessionStorage.setItem("adminGroupID", this[0].id);
+                                location.replace("homepage.html");
+                                HoldOn.close();
                             });
-                            location.replace("homepage.html");
-                            HoldOn.close();
+
                         } else {
                             location.replace("homepage_client.html");
                             HoldOn.close();
@@ -246,7 +247,7 @@
         function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
 
             return "<li>\
-                        <div class = 'portfolio-image' style=\"background-image: url('" + image + "'); background-color: transparent;\"> \
+                        <div class = 'portfolio-image' style=\"background-image: url('" + image + "'); background-color: white;\"> \
                           <a class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + ")' > \
                           <img style='border: none'>\
                           </a> \

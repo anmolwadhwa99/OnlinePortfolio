@@ -102,18 +102,21 @@ public class QualificationDatabase {
 		Query query = session.createQuery(getAllQuery);
 
 		List<Qualification> quals = query.list();
-		List<Qualification> duplicateQuals = new ArrayList<>(quals);
+		List<Integer> indicies = new ArrayList<>(); 
 
 		
 		//Remove any confidential and inactive quals
-		for (int i =0; i<duplicateQuals.size(); i++){
-			System.out.println(duplicateQuals.get(i).getStatus());
-			if ((duplicateQuals.get(i).getStatus().toString().equalsIgnoreCase("confidential")) 
-					|| (duplicateQuals.get(i).isActive() == false)) {
-				quals.remove(i);
+		for (int i =0; i < quals.size(); i++){
+			System.out.println(quals.get(i).getStatus());
+			if ((quals.get(i).getStatus().equalsIgnoreCase("confidential")) 
+					|| (quals.get(i).isActive() == false)) {
+				indicies.add(i);
+				System.out.println(quals.size());
 			}
 		}
 
+		removeFromList(indicies, quals);
+		
 		//Check if list is empty
 		if(quals.size() == 0){
 			closeSessionFactory();
@@ -123,6 +126,17 @@ public class QualificationDatabase {
 		session.close();
 		closeSessionFactory();
 		return quals;
+	}
+	
+	private void removeFromList(List<Integer> indicies, List toRemove){
+		
+		int index, count = 0;
+		
+		for(int i = 0; i < indicies.size(); i++){
+			index = indicies.get(i) - count;
+			toRemove.remove(index);
+			count++;
+		}
 	}
 
 	/**
@@ -295,19 +309,22 @@ public class QualificationDatabase {
 		}
 
 		List<Qualification> quals = adminGroup.getQuals();
-		List<Qualification> duplicateQuals = new ArrayList<>(quals);
+		List<Integer> indicies = new ArrayList<>();
 
 		//removing inactive quals
-		for(int i =0; i < duplicateQuals.size(); i++){
-			if(duplicateQuals.get(i).isActive() == false){
-				quals.remove(i);
+		for(int i =0; i < quals.size(); i++){
+			if(quals.get(i).isActive() == false){
+				indicies.add(i);
 			}
-		}		//removing inactive quals
-		for (int i = 0; i<quals.size(); i++){
-			if (quals.get(i).isActive() == false){
-				quals.remove(i);
-			}
-		}
+		}		
+		
+		removeFromList(indicies, quals);
+		//removing inactive quals
+//		for (int i = 0; i<quals.size(); i++){
+//			if (quals.get(i).isActive() == false){
+//				quals.remove(i);
+//			}
+//		}
 
 		session.getTransaction().commit();
 		session.close();
@@ -331,19 +348,22 @@ public class QualificationDatabase {
 		}
 
 		List<Qualification> quals = projectGroup.getQuals();;
-		List<Qualification> duplicateQuals = new ArrayList<>(quals);;
+		List<Integer> indicies = new ArrayList();
 
 		//removing inactive quals
-		for(int i =0; i < duplicateQuals.size(); i++){
-			if(duplicateQuals.get(i).isActive() == false){
-				quals.remove(i);
+		for(int i =0; i < quals.size(); i++){
+			if(quals.get(i).isActive() == false){
+				indicies.add(i);
 			}
-		}		//removing inactive quals
-		for (int i = 0; i<quals.size(); i++){
-			if (quals.get(i).isActive() == false){
-				quals.remove(i);
-			}
-		}
+		}		
+		
+		removeFromList(indicies, quals);
+//		//removing inactive quals
+//		for (int i = 0; i<quals.size(); i++){
+//			if (quals.get(i).isActive() == false){
+//				quals.remove(i);
+//			}
+//		}
 
 		session.getTransaction().commit();
 		session.close();
@@ -367,14 +387,17 @@ public class QualificationDatabase {
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so can't retrieve qualifications");
 		}
 		List<Qualification> quals = account.getAccountsQual();
-		List<Qualification> duplicateQuals = new ArrayList<>(quals);;
+		List<Integer> indicies = new ArrayList();
 
 		//removing inactive quals
-		for(int i =0; i < duplicateQuals.size(); i++){
-			if(duplicateQuals.get(i).isActive() == false){
-				quals.remove(i);
+		for(int i =0; i < quals.size(); i++){
+			if(quals.get(i).isActive() == false){
+				indicies.add(i);
 			}
 		}
+		
+		removeFromList(indicies, quals);
+		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
