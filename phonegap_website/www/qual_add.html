@@ -144,8 +144,8 @@
                             });
                         }
 
-                        var agId = sessionStorage.getItem("adminGroupID");
-                        assignQualToAdminGroup(agId, qual);
+//                        var agId = sessionStorage.getItem("adminGroupID");
+//                        assignQualToAdminGroup(agId, qual);
 
                         closeModal();
                     }
@@ -208,9 +208,11 @@
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
-                        $.each(adminGroups, function (i, val) {
-                            assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
-                        });
+                        if (adminGroups != null) {
+                            $.each(adminGroups, function (i, val) {
+                                assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
+                            });
+                        }
 
                         closeModal();
                     }
