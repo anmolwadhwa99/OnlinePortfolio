@@ -570,7 +570,7 @@ function processQuals(){
     var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
     if (!isClient){
-        htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' onclick=\"window.location.href='qual_add.html'\" >Add New Qual</button></div><br>";
+        htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button></div><br>";
     }
 
     for (i = 0; i < quals.length; i++) {
