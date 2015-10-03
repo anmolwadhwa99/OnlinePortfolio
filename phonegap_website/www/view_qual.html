@@ -106,12 +106,13 @@
 
 
                     htmlStr += " \
-            <div class='col-md-6' > \
+            <div class='row'>\
+            <div class='col-md-6 vcenter' > \
                 <div class='image-upload' > \
                         <img style=\"max-width: 300px; max-height: 100%;display: block;margin: auto;padding: 10px;\"id='qual_product_service_img' class='img-rounded fill' src='" + image + "' /> \
-                </div> \
-            </div> \
-            <div class='col-md-6' style=\"background-color: #dcdcdc;padding-bottom: 20px;padding-top: 20px;\"> \
+                </div>\
+            </div><!--\
+            --><div class='col-md-6 vcenter' style=\"background-color: #dcdcdc;padding-bottom: 20px;padding-top: 20px;\"> \
                 <div class='row'> \
                     <div class='col-md-3 col-xs-6'> \
                         <h4 class='subheading'>Client Name:</h4> \
@@ -213,7 +214,7 @@
                         htmlStr += "" +
                     "</div>";
 
-                    htmlStr += "</div>";
+                    htmlStr += "</div></div>";
 
                     htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Problem Statement:</h4> \
