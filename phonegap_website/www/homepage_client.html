@@ -77,23 +77,6 @@
 
             HoldOn.open();
 
-            // Wrapping of default alert
-            window.alert = function(message) {
-                new PNotify({
-                    title: 'Alert',
-                    text: message,
-                    type: alert_type,
-                    opacity: .8,
-                    nonblock: {
-                        nonblock: true,
-                        nonblock_opacity: .2
-                    },
-                    buttons: {
-                        show_on_nonblock: true
-                    }
-                });
-            };
-
             $('#frameQualAdd').iFrameResize();
             $('#frameCreateProj').iFrameResize();
             $('#frameCreateClient').iFrameResize();
@@ -201,11 +184,6 @@
                 "background-color":primary.toString(),
                 "border-color":secondary.toString()
             });
-
-//            $(".btn-info").css({
-//                "background-color":primary.toString(),
-//                "border-color":secondary.toString()
-//            });
 
             $("body").css({
                 "color":primary.toString()
