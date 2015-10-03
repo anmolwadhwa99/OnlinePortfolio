@@ -714,10 +714,6 @@ function addToCart(qID, m, isProject){
     //timeout();
 }
 
-function toggleDropdown(id){
-    $('#' +id).toggleClass('open');
-}
-
 function clearModalPic(){
     $('#client-logo').css('background', 'url("")');
 }
