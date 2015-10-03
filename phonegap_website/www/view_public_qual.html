@@ -88,7 +88,9 @@
                     image = qual.projectImage;
                 }
 
-                parent.$('#client-logo').attr('src', qual.clientImage);
+                //parent.$('#client-logo').attr('src', qual.clientImage);
+                parent.$('#client-logo').css("background", "url("+qual.clientImage+")");
+                parent.$('#client-logo').css("height", "12%");
 
                 parent.$('#qual-projectName').text(qual.projectName);
 
