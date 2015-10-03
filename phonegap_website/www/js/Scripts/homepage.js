@@ -447,28 +447,19 @@ function addProjectQualsToGroup(projectID){
         var numOfQuals = quals.length;
 
         for(i = 0; i< quals.length; i++) {
-            addToCart(quals[i].qualId, quals[i].projectName);
+            addToCart(quals[i].qualId, quals[i].projectName, true);
         }
 
-        // displaying notification to user that qual has been added to cart
-        if(numOfQuals > 0) {
-            new PNotify({
-                title: "Success",
-                text: " " + numOfQuals + " qual(s) have been added to the cart",
-                type: 'success'
-            });
-            timeout();
-        }else{
-            new PNotify({
-                title: "Alert",
-                text: "Project did not have any quals to add",
-                type: 'error'
-            });
-            timeout();
-        }
+        var qualOrQuals = numOfQuals === 1 ? " qual has " : " quals have ";
 
+        new PNotify({
+            title: "Success",
+            text: numOfQuals + qualOrQuals + "been added to the cart",
+            icon: true,
+            hide: true,
+            type: 'success'
+        });
     });
-
 
 }
 
@@ -647,7 +638,7 @@ function getProjectforClient(id, clientName){
 
 // qID = Qual ID
 // m = name of qual, used as html element id
-function addToCart(qID, m){
+function addToCart(qID, m, isProject){
 
     qualsToAdd.push(qID);
 
@@ -663,12 +654,6 @@ function addToCart(qID, m){
     a.setAttribute("href", "#");
     div.id = "deleteQual";
 
-//
-//<a href="#">
-//    <div class="col-md-1"><span class="icon"></span></div>
-//    <div class="col-md-10">Scaling service across the globe</div>
-//    </a>
-
     var span = document.createElement("span");
     span.setAttribute("class","icon");
 
@@ -683,36 +668,18 @@ function addToCart(qID, m){
     div.setAttribute("id", m); // added line
     root.appendChild(div);
 
+    var notice = null;
+    if(!isProject) {
+        new PNotify({
+            title: "Success",
+            text: "Qual "+m+" has been added to the cart",
+            icon: true,
+            hide: true,
+            type: 'success'
+        });
+    }
 
-    //var ul = document.getElementById("ProjectCart");
-    //var li = document.createElement("li");
-    //var a = document.createElement("a");
-    //a.setAttribute("href", "#");
-    //li.id = "deleteQual";
-    //
-    //var span = document.createElement("span");
-    //span.setAttribute("class","icon");
-    //
-    //a.appendChild(span);
-    //a.appendChild(document.createTextNode(m));
-    //
-    //
-    //li.appendChild(a);
-    //li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
-    //li.setAttribute("id", m); // added line
-    //ul.appendChild(li);
-
-    // displaying notification to user that qual has been added to cart
-
-    var notice = new PNotify({
-        title: "Success",
-        text: "1 Qual has been added to the cart",
-        icon: false,
-        hide: false,
-        type: 'success'
-    });
-
-    timeout();
+    //timeout();
 }
 
 function toggleDropdown(id){
