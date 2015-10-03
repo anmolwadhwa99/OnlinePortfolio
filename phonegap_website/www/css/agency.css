@@ -102,6 +102,12 @@ h6 {
     transform: translateY(25%);
 }
 
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
 .btn-primary {
     border-color: #fed136;
     text-transform: uppercase;

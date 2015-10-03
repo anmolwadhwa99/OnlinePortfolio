@@ -89,6 +89,7 @@ public class InsertDummyData extends Server{
 
 		//Assign Account to AdminGroup---------------------
 		aDB.addAccountToAdminGroup(ag_tech, ac_TechAdmin);
+		aDB.addAccountToAdminGroup(ag_tech, ac_Super);
 		aDB.addAccountToAdminGroup(ag_strategy, ac_StratAdmin);
 
 		//Assign Project to AdminGroup---------------------

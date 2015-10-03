@@ -77,23 +77,6 @@
 
             HoldOn.open();
 
-            // Wrapping of default alert
-            window.alert = function(message) {
-                new PNotify({
-                    title: 'Alert',
-                    text: message,
-                    type: alert_type,
-                    opacity: .8,
-                    nonblock: {
-                        nonblock: true,
-                        nonblock_opacity: .2
-                    },
-                    buttons: {
-                        show_on_nonblock: true
-                    }
-                });
-            };
-
             $('#frameQualAdd').iFrameResize();
             $('#frameCreateProj').iFrameResize();
             $('#frameCreateClient').iFrameResize();
@@ -116,6 +99,8 @@
 
             $('#viewQualModal').on('hidden.bs.modal', function () {  //NEED
                 $('#frameViewQual').attr('src', '');
+                $('#client-logo').attr('src', '');
+                $('#qual-projectName').text('');
             });
 
             document.getElementById("divArchiveAlert").style.display = 'none';
@@ -143,83 +128,6 @@
     </ul>
 </nav>
 
-<div id="createProjModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create Project</h4>
-            </div>
-            <div class="modal-body">
-                <iframe id="frameCreateProj" src="" width="100%" scrolling="no" frameborder="0"></iframe>
-                <form class="form-horizontal" role="form" id="createProjForm">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="projName">Project Name</label>
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="projName"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="radio col-sm-3">
-                            <label><input type="radio" id="existingClientSelect" style="text-align: left;"
-                                          class="control-label" name="clientRadio">Existing
-                                Client</label>
-                        </div>
-                        <div class="col-sm-9" style="padding-bottom: 15px;">
-                            <select id="clientDropdown" class="form-control"
-                                    style="width: 100% !important;height:34px !important;">
-                            </select>
-                        </div>
-                        <div class="radio col-sm-3">
-                            <label><input type="radio" id="newClientSelect" class=" control-label" for="modalClientName"
-                                          name="clientRadio">Client
-                                Name</label>
-                        </div>
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="modalClientName"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="createProjBtn">Create</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div id="createClientModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create Client</h4>
-            </div>
-            <div class="modal-body">
-                <iframe id="frameCreateClient" src="" width="100%" scrolling="no" frameborder="0"></iframe>
-                <form class="form-horizontal" role="form" id="createClientForm">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="modalClientName">Client Name</label>
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="clientName" value=""/>
-                        </div>
-                    </div>
-                </form>
-                <!--<iframe id="frameQualAdd" src="qual_add.html" width="100%" scrolling="no" frameborder="0"></iframe>-->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <div class="navbar navbar-inverse navbar-fixed-top">
 
     <div class="container-fluid">
@@ -229,8 +137,6 @@
                 <li id="space" style="width: 0em"></li>
             </ul>
         </div>
-
-
 
         <div class="col-sm-5 spec_vertical_center" style="padding-left: 36px;">
             <div  class="input-group stylish-input-group">
@@ -278,11 +184,6 @@
                 "background-color":primary.toString(),
                 "border-color":secondary.toString()
             });
-
-//            $(".btn-info").css({
-//                "background-color":primary.toString(),
-//                "border-color":secondary.toString()
-//            });
 
             $("body").css({
                 "color":primary.toString()
@@ -410,17 +311,16 @@
                 <div id='client-logo'class="logo-modal portfolio-image ">
                 </div>
                 <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
-                <div>
-                    <div id="viewButtons" class="close-modal">
-                        <i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>
-                    </div>
+                <div id="viewButtons" class="close-modal">
+                    <i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>
                 </div>
-                <div class="modal-body" id="modal_body">
-                    <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
-                </div>
+            </div>
+            <div class="modal-body" id="modal_body">
+                <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
