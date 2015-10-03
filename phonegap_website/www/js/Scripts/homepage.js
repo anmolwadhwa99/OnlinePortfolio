@@ -659,7 +659,6 @@ function addToCart(qID, m, isProject){
     spanDiv.appendChild(span);
     textDiv.appendChild(document.createTextNode(m));
 
-
     a.appendChild(spanDiv);
     a.appendChild(textDiv);
     div.appendChild(a);
@@ -671,40 +670,12 @@ function addToCart(qID, m, isProject){
     if(!isProject) {
         new PNotify({
             title: "Success",
-            text: "Qual "+m+" has been added to the cart",
+            text: "1 qual has been added to the cart",
             icon: true,
             hide: true,
             type: 'success'
         });
     }
-
-    //var ul = document.getElementById("ProjectCart");
-    //var li = document.createElement("li");
-    //var a = document.createElement("a");
-    //a.setAttribute("href", "#");
-    //li.id = "deleteQual";
-    //
-    //var span = document.createElement("span");
-    //span.setAttribute("class","icon");
-    //
-    //a.appendChild(span);
-    //a.appendChild(document.createTextNode(m));
-    //
-    //
-    //li.appendChild(a);
-    //li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
-    //li.setAttribute("id", m); // added line
-    //ul.appendChild(li);
-
-    // displaying notification to user that qual has been added to cart
-
-    var notice = new PNotify({
-        title: "Success",
-        text: "1 Qual has been added to the cart",
-        icon: false,
-        hide: false,
-        type: 'success'
-    });
 
     //timeout();
 }
