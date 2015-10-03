@@ -1,5 +1,8 @@
 package org.se761.project.onlineportfolio.heroku;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.se761.project.onlineportfolio.database.AccountDatabase;
 import org.se761.project.onlineportfolio.database.AdminGroupDatabase;
 import org.se761.project.onlineportfolio.database.ProjectGroupDatabase;
@@ -7,36 +10,60 @@ import org.se761.project.onlineportfolio.database.QualificationDatabase;
 
 
 public class InsertDummyData extends Server{
+	
+
+	private static Map<String, Integer> q_ids = new HashMap<>();
+	private static Map<String, Integer> ac_ids = new HashMap<>();
+	private static Map<String, Integer> ag_ids = new HashMap<>();
+	private static Map<String, Integer> pg_ids = new HashMap<>();
 
 	public static void main(String[] args) {
 
-		QualData.createQuals();
-		AccountData.createAccounts();
-		AdminData.createAdminGroups();
-		ProjectData.createProjectGroups();
+		q_ids = QualData.createQuals();
+		ac_ids = AccountData.createAccounts();
+		ag_ids = AdminData.createAdminGroups();
+		pg_ids = ProjectData.createProjectGroups();
+		
+//		
+//		for (Map.Entry<String, Integer> entry : q_ids.entrySet()){
+//		    System.out.println(entry.getKey() + "/" + entry.getValue());
+//		}
+//		
+//		for (Map.Entry<String, Integer> entry : ac_ids.entrySet()){
+//		    System.out.println(entry.getKey() + "/" + entry.getValue());
+//		}
+//		
+//		for (Map.Entry<String, Integer> entry : ag_ids.entrySet()){
+//		    System.out.println(entry.getKey() + "/" + entry.getValue());
+//		}
+//		
+//		for (Map.Entry<String, Integer> entry : pg_ids.entrySet()){
+//		    System.out.println(entry.getKey() + "/" + entry.getValue());
+//		}
+		
 		createLinks();
 	}
 
 
 	private static void createLinks(){
-		int proj_EA = 1;
-		int proj_Apple = 2;
-		int proj_Avg = 3;
-		int proj_Gas = 4;
+		int proj_EA = pg_ids.get("proj_EA");
+		int proj_Apple = pg_ids.get("proj_Apple");
+		int proj_Avg = pg_ids.get("proj_Avg");
+		int proj_Gas = pg_ids.get("proj_Gas");
 
-		int qual_EA = 1;
-		int qual_Apple = 2;
-		int qual_avg = 3;
-		int qual_gas = 4;
+		int qual_EA = q_ids.get("qual_EA");
+		int qual_Apple = q_ids.get("qual_Apple");
+		int qual_avg = q_ids.get("qual_avg");
+		int qual_gas = q_ids.get("qual_gas");
 
-		int ac_Super = 1;
-		int ac_TechAdmin = 2;
-		int ac_StratAdmin = 3;
-		int ac_Client = 4;
+		int ac_Super = ac_ids.get("ac_Super");
+		int ac_TechAdmin = ac_ids.get("ac_TechAdmin");
+		int ac_StratAdmin = ac_ids.get("ac_StratAdmin");
+		int ac_Client = ac_ids.get("ac_Client");
 
-		int ag_tech = 1;
-		int ag_risk = 2;
-		int ag_strategy = 3;
+		int ag_tech = ag_ids.get("ag_tech");
+		int ag_risk = ag_ids.get("ag_risk");
+		int ag_strategy = ag_ids.get("ag_strategy");
 
 		QualificationDatabase qDB = new QualificationDatabase();
 		AccountDatabase aDB = new AccountDatabase();
