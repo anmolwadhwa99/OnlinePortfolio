@@ -530,14 +530,9 @@ function viewQual(qual_id){
     console.log(qual_id);
     sessionStorage.setItem("qual_id", qual_id);
 
-    //$('#btnDuplicate').addEventListener("click", function(event) {
-    //    duplicateQual(qual_id);
-    //    event.preventDefault();
-    //});
     if(!isClient) {
         var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
         $('#viewButtons').prepend(dup);
-        //document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
     }
     $('#frameViewQual').attr('src', 'view_qual.html');
 }
