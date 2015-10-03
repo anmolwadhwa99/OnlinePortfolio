@@ -523,11 +523,12 @@ function openPrevClientProj(){
 
 function duplicateQual(qual_id){
     console.log(qual_id);
-    sessionStorage.clear();
+    //sessionStorage.clear();
     sessionStorage.setItem("dup_qual_id", qual_id);
-    sessionStorage.setItem("account_id", accountId);
+ //   sessionStorage.setItem("account_id", accountId);
 
-    location.href = 'qual_add.html';
+    $('#frameQual').attr('src', 'qual_add.html');
+    //location.href = 'qual_add.html';
 }
 
 function viewQual(qual_id){
