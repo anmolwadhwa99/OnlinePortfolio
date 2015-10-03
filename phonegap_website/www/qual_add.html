@@ -12,7 +12,7 @@
             location.replace("index.html");
         }else{
             var isAdmin = sessionStorage.getItem("isAdmin");
-            if(! isAdmin || isAdmin == false){ // if not defined or false
+            if(! (isAdmin == null) && isAdmin == false){ // if not defined or false
                 alert("Sorry you do not have access to this page");
                 location.replace("homepage_client.html");
             }else{

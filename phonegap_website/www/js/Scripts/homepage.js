@@ -454,7 +454,6 @@ function addProjectQualsToGroup(projectID){
 
 
         if(sucessfulQuals > 0) {
-            console.log(sucessfulQuals);
             new PNotify({
                 title: "Success",
                 text: sucessfulQuals + qualOrQuals + "been added to the cart",
