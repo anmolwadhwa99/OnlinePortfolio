@@ -1,13 +1,12 @@
 
-var url = "http://onlineportfolio.herokuapp.com/webapi";
-//var url = "http://localhost:8080/onlineportfolio/webapi";
+//var url = "http://onlineportfolio.herokuapp.com/webapi";
+var url = "http://localhost:8080/onlineportfolio/webapi";
 var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
 var _pg = "/projectGroup";
 var _proj = "/project";
 var _img = "/image";
-
 
 
 function Qual(x){

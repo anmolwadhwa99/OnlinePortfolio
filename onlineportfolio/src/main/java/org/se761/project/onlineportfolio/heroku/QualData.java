@@ -1,5 +1,8 @@
 package org.se761.project.onlineportfolio.heroku;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.se761.project.onlineportfolio.model.Qualification;
@@ -7,9 +10,10 @@ import org.se761.project.onlineportfolio.model.ServiceLine.DeloitteServiceLine;
 
 
 public class QualData extends Server{
-	 
 	
-	private static void addQual(Qualification qual){
+	private static Map<String, Integer> ids = new HashMap<>();  
+	
+	private static void addQual(String name, Qualification qual){
 		JSONObject jsonQual = new JSONObject();
 		try {
 			jsonQual.put("projectName", qual.getProjectName());
@@ -37,11 +41,16 @@ public class QualData extends Server{
 		}
 		
 		String inputURL = SERVER_ADDRESS + QUALS_URL;
-		Server.HTTPPostMethod(inputURL, jsonQual);
-		
+		String response = Server.HTTPPostMethod(inputURL, jsonQual);
+		try {
+			JSONObject json = new JSONObject(response);
+			ids.put(name, json.getInt("qualId"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public static void createQuals(){
+	public static Map<String, Integer> createQuals(){
 		
 		//EA Sports 
 		Qualification eaSports = new Qualification();
@@ -58,7 +67,7 @@ public class QualData extends Server{
 		eaSports.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/EASports.png");
 		eaSports.setWebsiteButton("https://www.easports.com/");
 		eaSports.setEmailButton(dummyEmail);
-		addQual(eaSports);
+		addQual("qual_EA", eaSports);
 		
 		//Apple
 		Qualification apple = new Qualification();
@@ -76,7 +85,8 @@ public class QualData extends Server{
 		apple.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831885/Apple.jpg");
 		apple.setWebsiteButton("http://www.apple.com/");
 		apple.setEmailButton(dummyEmail);
-		addQual(apple);
+		addQual("qual_Apple", apple);
+		
 		
 		//AVG
 		Qualification avg = new Qualification();
@@ -93,7 +103,7 @@ public class QualData extends Server{
 		avg.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831889/AVG.jpg");
 		avg.setWebsiteButton("http://www.avg.com/au-en/homepage");
 		avg.setEmailButton(dummyEmail);
-		addQual(avg);
+		addQual("qual_avg", avg);
 		
 		//Large Oil and Gas
 		Qualification oilAndGas = new Qualification();
@@ -110,9 +120,9 @@ public class QualData extends Server{
 		oilAndGas.setProjectImage("http://res.cloudinary.com/onlineportfolio/image/upload/v1442831891/Oil_Gas.jpg");
 		oilAndGas.setEmailButton(dummyEmail);
 		oilAndGas.setStatus("open");
-		addQual(oilAndGas);
+		addQual("qual_gas", oilAndGas);
 		
-		
+
 		
 		//Random Qual 1
 //		Qualification qual1 = new Qualification();
@@ -156,6 +166,7 @@ public class QualData extends Server{
 		
 		
 
+		return ids;
 	}
 
 }
