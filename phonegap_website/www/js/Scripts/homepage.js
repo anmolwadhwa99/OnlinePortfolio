@@ -446,28 +446,20 @@ function addProjectQualsToGroup(projectID){
         var numOfQuals = quals.length;
 
         for(i = 0; i< quals.length; i++) {
-            addToCart(quals[i].qualId, quals[i].projectName);
+            addToCart(quals[i].qualId, quals[i].projectName, true);
         }
 
-        // displaying notification to user that qual has been added to cart
-        if(numOfQuals > 0) {
-            new PNotify({
-                title: "Success",
-                text: " " + numOfQuals + " qual(s) have been added to the cart",
-                type: 'success'
-            });
-            //timeout();
-        }else{
-            new PNotify({
-                title: "Alert",
-                text: "Project did not have any quals to add",
-                type: 'error'
-            });
-            //timeout();
-        }
 
+        var qualOrQuals = numOfQuals === 1 ? " qual has " : " quals have ";
+
+        new PNotify({
+            title: "Success",
+            text: numOfQuals + qualOrQuals + "been added to the cart",
+            icon: true,
+            hide: true,
+            type: 'success'
+        });
     });
-
 
 }
 
@@ -646,7 +638,7 @@ function getProjectforClient(id, clientName){
 
 // qID = Qual ID
 // m = name of qual, used as html element id
-function addToCart(qID, m){
+function addToCart(qID, m, isProject){
 
     var duplicate = false;
     for(var id in qualsToAdd){
@@ -670,6 +662,8 @@ function addToCart(qID, m){
         a.setAttribute("href", "#");
         div.id = "deleteQual";
 
+    var span = document.createElement("span");
+    span.setAttribute("class","icon");
 
         var span = document.createElement("span");
         span.setAttribute("class","icon");
