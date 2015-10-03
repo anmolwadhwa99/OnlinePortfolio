@@ -194,10 +194,12 @@ public class AdminGroupDatabase {
 		}
 		
 		List<AdminGroup> adminGroups = account.getAdminGroup();
+		List<AdminGroup> temp = new ArrayList<AdminGroup>(adminGroups);
+		
 		//removing inactive admin groups
 		for (int i = 0; i<adminGroups.size(); i++){
 			if (adminGroups.get(i).isActive() == false){
-				adminGroups.remove(i);
+				temp.remove(i);
 			}
 		}
 		
@@ -205,7 +207,7 @@ public class AdminGroupDatabase {
 		session.close();
 		closeSessionFactory();
 		
-		return adminGroups;
+		return temp;
 	}
 	
 	/**
