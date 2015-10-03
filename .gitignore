@@ -78,3 +78,5 @@ local.properties
 .metadata/.mylyn/repositories.xml.zip
 
 .idea
+
+onlineportfolio/src/main/java/org/se761/project/onlineportfolio/heroku/Server.java
