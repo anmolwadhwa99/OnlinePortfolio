@@ -1105,7 +1105,7 @@ function getAccountsByQual(qId, callback){
 
             if(typeof callback == 'function'){
 
-                callback.apply(acs);
+                callback.apply(acs[0]);
             }
 
         }
