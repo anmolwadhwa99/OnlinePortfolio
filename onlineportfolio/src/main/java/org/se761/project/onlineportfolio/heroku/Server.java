@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 public class Server {
 	/*"https://onlineportfolio.herokuapp.com/webapi/";//*/
+
 	public final static String SERVER_ADDRESS = "http://localhost:8080/onlineportfolio/webapi/";
 	public final static String QUALS_URL = "qual/";
 	public final static String ACCOUNT_URL = "account/";

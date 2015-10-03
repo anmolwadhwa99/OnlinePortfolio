@@ -450,6 +450,7 @@ function addProjectQualsToGroup(projectID){
             addToCart(quals[i].qualId, quals[i].projectName, true);
         }
 
+
         var qualOrQuals = numOfQuals === 1 ? " qual has " : " quals have ";
 
         new PNotify({
@@ -647,72 +648,64 @@ function getProjectforClient(id, clientName){
 // m = name of qual, used as html element id
 function addToCart(qID, m, isProject){
 
-    qualsToAdd.push(qID);
+    var duplicate = false;
+    for(var id in qualsToAdd){
+        if(qualsToAdd[id] == qID){
+            duplicate = true;
+        }
 
-    var root = document.getElementById("ProjectCart");
-    var div = document.createElement("div");
-    var spanDiv = document.createElement("div");
-    var textDiv = document.createElement("div");
-    div.setAttribute('class', 'qual');
-    spanDiv.setAttribute('class', 'col-md-1');
-    textDiv.setAttribute('class', 'col-md-10');
+    }
+    if(duplicate == false){
+        qualsToAdd.push(qID);
 
-    var a = document.createElement("a");
-    a.setAttribute("href", "#");
-    div.id = "deleteQual";
+        var root = document.getElementById("ProjectCart");
+        var div = document.createElement("div");
+        var spanDiv = document.createElement("div");
+        var textDiv = document.createElement("div");
+        div.setAttribute('class', 'qual');
+        spanDiv.setAttribute('class', 'col-md-1');
+        textDiv.setAttribute('class', 'col-md-10');
+
+        var a = document.createElement("a");
+        a.setAttribute("href", "#");
+        div.id = "deleteQual";
 
     var span = document.createElement("span");
     span.setAttribute("class","icon");
 
-    spanDiv.appendChild(span);
-    textDiv.appendChild(document.createTextNode(m));
+        var span = document.createElement("span");
+        span.setAttribute("class","icon");
+
+        spanDiv.appendChild(span);
+        textDiv.appendChild(document.createTextNode(m));
 
 
-    a.appendChild(spanDiv);
-    a.appendChild(textDiv);
-    div.appendChild(a);
-    div.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
-    div.setAttribute("id", m); // added line
-    root.appendChild(div);
+        a.appendChild(spanDiv);
+        a.appendChild(textDiv);
+        div.appendChild(a);
+        div.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
+        div.setAttribute("id", m); // added line
+        root.appendChild(div);
 
-    var notice = null;
-    if(!isProject) {
-        new PNotify({
+
+
+        var notice = new PNotify({
             title: "Success",
-            text: "Qual "+m+" has been added to the cart",
-            icon: true,
+            text: "1 Qual has been added to the cart",
+            icon: false,
             hide: true,
             type: 'success'
         });
+    }else{
+        var notice = new PNotify({
+            title: "Oops",
+            text: "Qual already added to cart",
+            icon: false,
+            hide: true,
+            type: 'error'
+        });
     }
 
-    //var ul = document.getElementById("ProjectCart");
-    //var li = document.createElement("li");
-    //var a = document.createElement("a");
-    //a.setAttribute("href", "#");
-    //li.id = "deleteQual";
-    //
-    //var span = document.createElement("span");
-    //span.setAttribute("class","icon");
-    //
-    //a.appendChild(span);
-    //a.appendChild(document.createTextNode(m));
-    //
-    //
-    //li.appendChild(a);
-    //li.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
-    //li.setAttribute("id", m); // added line
-    //ul.appendChild(li);
-
-    // displaying notification to user that qual has been added to cart
-
-    var notice = new PNotify({
-        title: "Success",
-        text: "1 Qual has been added to the cart",
-        icon: false,
-        hide: false,
-        type: 'success'
-    });
 
     //timeout();
 }
