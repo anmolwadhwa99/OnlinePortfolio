@@ -138,8 +138,7 @@ function createProjectGroup(projectName) {
             } else if ($('#newClientSelect').is(':checked') == true) {
                 var accountName = $("#modalClientName").val();
                 insertAccount(false, accountName, generatePassword() , false,"red", "white", function () {
-                    assignAccountToProjectGroup(projGroupID, this, function () {
-                    })
+                    assignAccountToProjectGroup(projGroupID, this, function (){})
                 });
 
             }

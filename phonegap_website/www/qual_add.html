@@ -12,7 +12,7 @@
             location.replace("index.html");
         }else{
             var isAdmin = sessionStorage.getItem("isAdmin");
-            if(! isAdmin || isAdmin == "false"){ // if not defined or false
+            if(! isAdmin || isAdmin == false){ // if not defined or false
                 alert("Sorry you do not have access to this page");
                 location.replace("homepage_client.html");
             }else{
@@ -142,6 +142,9 @@
                                 assignQualToAdminGroup(val, qual); // Assigning qual to each selected group
                             });
                         }
+
+                        var agId = sessionStorage.getItem("adminGroupID");
+                        assignQualToAdminGroup(agId, qual);
 
                         closeModal();
                     }
