@@ -175,11 +175,8 @@ function getProjects(account_id){
             })
         }else{
             getProjectsByClient(account_id, processProjects);
-
         }
     });
-
-
 }
 
 function processProjects(){
@@ -691,12 +688,14 @@ function loadTab(tab) {
         $('#clients').removeClass('active'); // remove active class from tabs
         $('#projects').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active');
+        $("#projects").html('');
         getQuals();
 
     } else if (tab == "#projects") {
         $('#clients').removeClass('active'); // remove active class from tabs
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
+        $("#projects").html('');
         getProjects(accountId);
 
 
@@ -704,6 +703,7 @@ function loadTab(tab) {
         $('#projects').removeClass('active'); // remove active class from tabs
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
+        $("#projects").html('');
         getClients();
 
     } else {
