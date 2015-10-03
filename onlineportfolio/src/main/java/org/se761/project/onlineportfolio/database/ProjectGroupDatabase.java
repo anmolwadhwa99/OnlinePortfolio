@@ -184,7 +184,7 @@ public class ProjectGroupDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		List<ProjectGroup> tempList = new ArrayList<ProjectGroup>();
+		
 
 		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
 
@@ -194,7 +194,7 @@ public class ProjectGroupDatabase {
 		}
 
 		List<ProjectGroup> projectGroups = adminGroup.getProjectGroups();
-		tempList = projectGroups;
+		List<ProjectGroup> tempList = new ArrayList<ProjectGroup>(projectGroups);
 
 		//remove inactive project groups
 		for(int i = 0; i <projectGroups.size(); i++){
