@@ -22,11 +22,11 @@
                 var dupId = sessionStorage.getItem("dup_qual_id");
                 // if not (adding qual) or (editing qual) or (duplicating qual) then block access
                 // Also shouldn't be able to do multiple operations at the sametime (i.e. add and edit, or edit and dup)
-                    if (!((addStatus && !editId && !dupId) || (!addStatus && editId && !dupId) || (!addStatus && !editId && dupId))) {
-                        console.log(addStatus + " " + editId + " " + dupId);
-                        alert("Please use the supplied add/edit/duplicate qual buttons to access the qual page");
-                        location.replace("homepage.html");
-                    }
+                if (!((addStatus && !editId && !dupId) || (!addStatus && editId && !dupId) || (!addStatus && !editId && dupId))) {
+                    console.log(addStatus + " " + editId + " " + dupId);
+                    alert("Please use the supplied add/edit/duplicate qual buttons to access the qual page");
+                    location.replace("homepage.html");
+                }
             }
         }
     </script>
@@ -445,7 +445,13 @@
             $('#client_logo_img').attr('src', url);
         }
 
-        function ResetImages(){
+        function ManualReset(){
+
+            $("#qual_industry").select2("val", "");
+            $("#ddAdminGroups").select2("val", "");
+            $("#qual_tags").select2("val", "");
+            $("#qual_service_line").select2("val", "");
+
             $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
             $('#ddExistingLogo').val("imgs/noPreview.png").trigger("change");
 
@@ -716,7 +722,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <button type="reset" id="btnReset" class="btn btn-block btn-danger" onclick="ResetImages();">
+                <button type="reset" id="btnReset" class="btn btn-block btn-danger" onclick="ManualReset();">
                     <span class="glyphicon glyphicon-repeat"></span> Reset
                 </button>
             </div>
