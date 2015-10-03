@@ -319,13 +319,6 @@ public class QualificationDatabase {
 		}		
 		
 		removeFromList(indicies, quals);
-		//removing inactive quals
-//		for (int i = 0; i<quals.size(); i++){
-//			if (quals.get(i).isActive() == false){
-//				quals.remove(i);
-//			}
-//		}
-
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
@@ -358,13 +351,6 @@ public class QualificationDatabase {
 		}		
 		
 		removeFromList(indicies, quals);
-//		//removing inactive quals
-//		for (int i = 0; i<quals.size(); i++){
-//			if (quals.get(i).isActive() == false){
-//				quals.remove(i);
-//			}
-//		}
-
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
