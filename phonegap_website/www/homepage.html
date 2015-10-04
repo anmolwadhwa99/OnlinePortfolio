@@ -594,18 +594,13 @@
 
         $('#createProjBtn').click(function (e) {
             HoldOn.open();
-
             e.preventDefault();
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
-            //$('#createProjModal').modal('hide');
             createProjectGroup(projName);
-
             setTimeout(function(){
-                location.reload();
                 HoldOn.close();
             },2000);
-
         });
 
         getAccountById(account_id, function() {
@@ -640,7 +635,7 @@
               $("#updateClientBtn").prop('disabled', true);
 
             setTimeout(function(){
-//                location.reload();
+//              location.reload();
                 HoldOn.close();
             },2000);
 
