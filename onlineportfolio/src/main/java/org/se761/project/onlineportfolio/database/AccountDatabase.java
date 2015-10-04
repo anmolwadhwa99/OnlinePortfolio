@@ -15,6 +15,7 @@ import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.Account;
 import org.se761.project.onlineportfolio.model.AdminGroup;
 import org.se761.project.onlineportfolio.model.ProjectGroup;
+import org.se761.project.onlineportfolio.model.Qualification;
 
 
 public class AccountDatabase {
@@ -374,6 +375,28 @@ public class AccountDatabase {
 		}
 		throw new InvalidPasswordException("Incorrect Password");
 		
+	}
+	
+	/**
+	 * Delete account from database
+	 */
+	public Account removeAccountFromDB(int accountId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Account account = (Account) session.get(Account.class, accountId);
+
+		if(account == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found.");
+		}
+
+		
+		session.delete(account);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return account;
 	}
 
 }

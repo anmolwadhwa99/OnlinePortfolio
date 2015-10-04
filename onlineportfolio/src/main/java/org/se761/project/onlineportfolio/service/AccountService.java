@@ -77,10 +77,18 @@ public class AccountService {
 	}
 	
 	/**
-	 * Deletes an account 
+	 * Archive an account 
 	 */
 	public Account removeAccount(int accountId){
 		Account account = accountDatabase.removeAccount(accountId);
+		return account;
+	}
+	
+	/**
+	 * Deletes an account 
+	 */
+	public Account removeAccountFromDB(int accountId){
+		Account account = accountDatabase.removeAccountFromDB(accountId);
 		return account;
 	}
 	
