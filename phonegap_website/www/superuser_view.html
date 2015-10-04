@@ -138,14 +138,19 @@
             });
         }
         function updateAdmin(){
+            var id = $('#admin_id').val();
             var acName = $('#admin_name').val();
             var pw = $('#admin_pw').val();
             var isSuperUser = $('#admin_special').is(':checked');
 
             var adminGroups = $('#selectAdminGroups').val();
 
-            alert_type = "info";
-            alert("Updating admin: " + acName + "\nPassword: " + pw + "\nSuperuser Status: " + isSuperUser + "\nAdmin Groups: " + adminGroups);
+            updateAccount(id, true, true, acName, pw, isSuperUser, '#fff', '#000', function(){
+                var act = this;
+                $.each(adminGroups, function(i, val) {
+                    assignAccountToAdminGroup(val, act); // Assigning account to each selected group
+                });
+            });
         }
         function loadAdminAdd(){
             $('#modalAdminTitle').text("Add Admin Account");
