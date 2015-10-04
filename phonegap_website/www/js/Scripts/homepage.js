@@ -2,7 +2,15 @@
 
 var accountId = -1;
 var adminGroupID = -1;
-var isClient = false;
+var isAdmin = sessionStorage.getItem("isAdmin", account.isAdmin);
+var isClient;
+if(isAdmin == 'true'){
+    isClient = false;
+    console.log("client false? "+isClient);
+}else {
+    isClient = true;
+    console.log("client true? "+isClient);
+}
 var isSuperUser = false;
 var sucessfulQuals = 0;
 var tempClientId = -1;
@@ -186,7 +194,8 @@ function getProjects(account_id){
     getAccountById(account_id, function() {
         var account = this;
 
-        isClient = !account.isAdmin;
+        //isClient = !account.isAdmin;
+        //console.log("first "+isClient);
         isSuperUser = account.isSuperUser;
 
         if(!isClient){
@@ -786,10 +795,18 @@ function getEverything(){
     adminGroupID = sessionStorage.getItem("adminGroupID");
     accountId = sessionStorage.getItem("account_id");
 
+    if(isClient){
+        getQualsByAccount(accountId, function(){
+            allQuals = this;
+        });
+    }else{
     getQualsByAdminGroup(adminGroupID,function(){
         allQuals = this;
     });
+    }
 
+    //isClient = !account.isAdmin;
+    //console.log("client "+isClient);
     if (isClient){
         //it's actually by account but named client for some reason :/
         getProjectsByClient(accountId, function () {
