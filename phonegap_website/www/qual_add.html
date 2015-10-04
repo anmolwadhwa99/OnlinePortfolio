@@ -87,6 +87,7 @@
         }
 
         function addQual() {
+            HoldOn.open();
             var projName = $("#qual_project_name").val();
             var projSubtitle = $("#qual_project_sub").val();
             var clientName = $("#qual_client_name").val();
@@ -152,6 +153,13 @@
                         closeModal();
                     }
             );
+
+//             Dismissing loading screen
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
+
         }
 
         function modifyQual() {
