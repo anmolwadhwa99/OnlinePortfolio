@@ -134,7 +134,7 @@
                 </div>";
                     }
 
-                    if (qual.subtitle != null) {
+                    if (qual.subtitle != null && qual.subtitle != "") {
                         htmlStr += "\
                 <div class='row'> \
                     <div class='col-md-3 col-xs-6'> \
@@ -146,7 +146,7 @@
                 </div>"
                     }
 
-                    if (qual.industry != null) {
+                    if (qual.industry != null && qual.industry != "") {
                         htmlStr += "\
                 <div class='row'>\
                     <div class='col-md-3 col-xs-6'> \
@@ -158,7 +158,7 @@
                 </div>"
                     }
 
-                    if (qual.serviceLine != null) {
+                    if (qual.serviceLine != null && qual.serviceLine != "") {
                         htmlStr += "\
                 <div class='row'>\
                     <div class='col-md-3 col-xs-6'> \
@@ -170,7 +170,7 @@
                 </div>"
                     }
 
-                    if (qual.status != null) {
+                    if (qual.status != null && qual.status != "") {
                         htmlStr += "\
                 <div class='row'> \
                     <div class='col-md-3 col-xs-6'> \
@@ -186,7 +186,7 @@
                 "<div id='test' class='row'>";
 
                     var ext = false;
-                    if (qual.emailButton != null || qual.websiteButton != null) {
+                    if ((qual.emailButton != null && qual.emailButton != "" ) || (qual.websiteButton != null && qual.websiteButton != "")) {
                         ext = true;
                         htmlStr += "\
                     <div class='col-md-3 col-xs-6'> \
@@ -194,7 +194,7 @@
                     </div>";
                     }
 
-                    if (qual.emailButton != null) {
+                    if (qual.emailButton != null && qual.emailButton != "") {
                         htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
                         <a href='mailto:" + qual.emailButton + "' class='external-link'><span class='fa fa-envelope-o fa-1x'></span>\
@@ -203,7 +203,7 @@
                     </div>";
                     }
 
-                    if (qual.websiteButton != null) {
+                    if (qual.websiteButton != null && qual.websiteButton != "") {
                         htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
                         <a href='" + qual.websiteButton + "' target=\"_blank\" class='external-link'><i class='fa fa-external-link fa-1x'></i>\
@@ -224,7 +224,7 @@
                             <div style='padding-bottom: 15px;'></div>\
                         </div>";
 
-                    if (qual.challengesFaced != null) {
+                    if (qual.challengesFaced != null && qual.challengesFaced != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Challenges Faced:</h4> \
                         </div>\
@@ -234,7 +234,7 @@
                         </div>";
                     }
 
-                    if (qual.solutionStatement != null) {
+                    if (qual.solutionStatement != null && qual.solutionStatement != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Solution:</h4> \
                         </div>\
@@ -244,7 +244,7 @@
                         </div>";
                     }
 
-                    if (qual.outcomeStatement != null) {
+                    if (qual.outcomeStatement != null && qual.outcomeStatement != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Outcome:</h4> \
                         </div>\
@@ -254,7 +254,7 @@
                         </div>";
                     }
 
-                    if (qual.relevanceToClient != null) {
+                    if (qual.relevanceToClient != null && qual.relevanceToClient != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Relevance to Client:</h4> \
                         </div>\
