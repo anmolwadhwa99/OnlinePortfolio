@@ -503,6 +503,7 @@ function addProjectQualsToGroup(projectID){
 }
 
 function openQualsForProject(projectID, projectName) {
+    HoldOn.open();
     getQualsByProject(projectID, function(){
 
         var quals = this;
@@ -524,6 +525,10 @@ function openQualsForProject(projectID, projectName) {
         $("#heading").html(projectName);
 
     });
+
+    setTimeout(function(){
+        HoldOn.close();
+    },2000);
 
 
 }
