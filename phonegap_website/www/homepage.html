@@ -316,8 +316,8 @@
 
 <nav id="projectCartNav">
     <div class="list-unstyled main-menu" id="ProjectCart">
-        <div class="row" style="margin-left: auto">
-            <button id="qualCollection" type='submit' class='btn btn-lg' data-toggle="modal" style="display: block;margin: 0 auto;"
+        <div class="row margin-rl" style="border-bottom: 1px solid #323949;margin-bottom: 0px;padding-bottom: 15px;">
+            <button id="qualCollection" type='submit' class='btn btn-primary' data-toggle="modal" style="display: block;margin: 0 auto;float: right;"
                     data-target="#createProjModal">Create Project
             </button>
             <a class="pull-right" href="#" id="nav-close"></a>
@@ -593,11 +593,18 @@
         getEverything();
 
         $('#createProjBtn').click(function (e) {
+            HoldOn.open();
+
             e.preventDefault();
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
             //$('#createProjModal').modal('hide');
             createProjectGroup(projName);
+
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
 
         });
 
@@ -613,6 +620,7 @@
         });
 
         $('#updateClientBtn').click(function (e) {
+            HoldOn.open();
             e.preventDefault();
             getAccountById(tempClientId, function(){
                 var account = this;
@@ -630,6 +638,11 @@
 //            $('#updateClientModal').modal('hide') //Hides Modal when user clicks update
               $("#updateClientBtn").prop('disabled', true);
 
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
+
         });
 
         $('#createClientBtn').click(function (e) {
@@ -639,7 +652,7 @@
             var primaryColour = $("#qual_colour_primary").val();
             var secondaryColour = $("#qual_colour_secondary").val();
             $("#clientName").val("");
-            var clientPw = createClient(clientName, primaryColour, secondaryColour);
+            var clientPw = createClient(clientName, primaryColour, secondaryColour, function() { loadTab("#clients") });
             var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 

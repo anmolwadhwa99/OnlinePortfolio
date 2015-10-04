@@ -156,18 +156,14 @@ function createProjectGroup(projectName) {
                 var primaryColour = $("#client_colour_primary2").val();
                 var secondaryColour = $("#client_colour_secondary2").val();
                 $("#modalClientName").val("");
-                var clientPw = createClient(clientName, primaryColour, secondaryColour);
+                var clientPw = createClient(clientName, primaryColour, secondaryColour, function() {assignAccountToProjectGroup(projGroupID, this, function (){}); loadTab("#projects")});
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 
                 $("#passwordAlert2").html(htmlStr);
                 $("#passwordAlert2").show();
                 $("#createProjBtn").prop('disabled', true);
-                insertAccount(false, clientName, clientPw , false, primaryColour, secondaryColour, function () {
-                    assignAccountToProjectGroup(projGroupID, this, function (){})
-                });
             }
-            linkQualsAndProject();
             assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
     }else{
@@ -245,14 +241,14 @@ function verifyAccount2(password) {
     });
 }
 
-function createClient(clientName, primaryColour, secondaryColour){
+function createClient(clientName, primaryColour, secondaryColour, insideInsertAcc){
     var password = generatePassword();
     while (verifyAccount2(password) == false) {
         password = generatePassword();
     }
 
     insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
-        loadTab('#clients');
+        insideInsertAcc();
     });
 
     return password;
@@ -493,7 +489,7 @@ function openQualsForProject(projectID, projectName) {
 
         var quals = this;
 
-        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-primary btn-lg pull-right col-md-2' onclick='getProjects(accountId)'>Back To Projects</button><br>";
         for(i = 0; i< quals.length; i++){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
@@ -506,7 +502,6 @@ function openQualsForProject(projectID, projectName) {
                 'qual'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects(accountId)'>Back To Projects</button></div><br>";
         $("#projects").html(htmlStr);
         $("#heading").html(projectName);
 
@@ -587,7 +582,7 @@ function processQuals(){
     var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
     if (!isClient){
-        htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button></div><br>";
+        htmlStr += "<button type='submit' style='margin-top: 20px;' class='btn btn-primary vcenter btn-lg pull-right col-md-2' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button><br>";
     }
 
     for (i = 0; i < quals.length; i++) {
@@ -642,7 +637,7 @@ function getProjectforClient(id, clientName){
 
     getProjectsByClient(id,function(){
         var projects = this;
-        var htmlStr ="<h1 id='heading' class='col-md-10'>"+clientName+"\'s Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>"+clientName+"\'s Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-primary btn-lg pull-right col-md-2' onclick='getClients()'>Back To Clients</button><br>";
         for(i = 0; i< projects.length; i++){
             htmlStr += addPortfolioItem(
                 '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
@@ -655,7 +650,6 @@ function getProjectforClient(id, clientName){
                 'project'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
         htmlClientProject = htmlStr;
         $("#clients").html(htmlStr);
 
