@@ -712,6 +712,7 @@ function assignQualToAdminGroup(agId, qId){
 
             if (typeof callback == 'function'){
                 callback.apply(qual.id);
+                alert('Added qual to admin group');
             }
 
         }
