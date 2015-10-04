@@ -663,7 +663,7 @@
                 $('#modalAdminTitle').text("");
                 $('#modalAdminConfirmAdd').hide();
                 $('#modalAdminConfirmEdit').hide();
-                $('#selectAdminGroups').select2('data', null);
+                $('#selectAdminGroups').find('option').remove().end().val(null).trigger("change");
             });
             $('#modalAdminConfirmAdd').hide();
             $('#modalAdminConfirmEdit').hide();
