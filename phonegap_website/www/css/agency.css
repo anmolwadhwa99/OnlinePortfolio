@@ -1233,3 +1233,16 @@ h4 {
     background-color: #002776;
     border-color: #002776;
 }
+
+.margin-rl {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.margin-tb {
+    margin-top: 20px;
+    margin-bottom: 20px;}
