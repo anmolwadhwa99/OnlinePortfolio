@@ -846,6 +846,8 @@ function editQual(qual_id){
 }
 
 function updateClientDetails(account_id) {
+    $("#updateClientBtn").prop('disabled', false);
+
     getAccountById(account_id, function() {
         var account = this;
         tempClientId = account_id;
@@ -857,7 +859,7 @@ function updateClientDetails(account_id) {
         $("#update_clientName").val(account.accountName);
         $("#update_qual_colour_primary").val(account.primaryColour);
         $("update_qual_colour_secondary").val(account.secondaryColour);
-        var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+        var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='loadTab('#clients')'><span aria-hidden='true'>&times;</span></button>" +
             "The password for the client is: <strong>"+account.password +"</strong>"
         $("#update_passwordAlert").html(htmlStr);
         $("#update_passwordAlert").attr('style', '');
