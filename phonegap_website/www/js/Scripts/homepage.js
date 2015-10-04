@@ -547,8 +547,7 @@ function openQualsForClientProject(projectID, projectName) {
     getQualsByProject(projectID, function(){
 
         var quals = this;
-
-        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-lg btn-primary pull-right col-md-2' onclick='openPrevClientProj()'>Back To Project</button><br>";
         for(i = 0; i< quals.length; i++){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
@@ -561,7 +560,6 @@ function openQualsForClientProject(projectID, projectName) {
                 'qual'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
         $("#clients").html(htmlStr);
         $("#heading").html(projectName);
 
