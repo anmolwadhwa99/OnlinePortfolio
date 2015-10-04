@@ -57,7 +57,7 @@ public class ProjectGroupDatabase {
 	}
 
 	/**
-	 * Delete project group from database
+	 * Archive project group from database
 	 */
 	public ProjectGroup deleteProjGroup(int projGroupId){
 		openSessionFactory();
@@ -72,6 +72,28 @@ public class ProjectGroupDatabase {
 
 		projGroup.setActive(false);
 		session.saveOrUpdate(projGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return projGroup;
+	}
+	
+	/**
+	 * Delete project group from database
+	 */
+	public ProjectGroup deleteProjGroupFromDB(int projGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		ProjectGroup projGroup = (ProjectGroup) session.get(ProjectGroup.class, projGroupId);
+
+		if(projGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Project group with id " + projGroupId + " could not be found.");
+		}
+
+
+		session.delete(projGroup);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

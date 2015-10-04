@@ -17,10 +17,18 @@ public class ProjectGroupService {
 	}
 	
 	/**
-	 * Delete project group
+	 * Archive project group
 	 */
 	public ProjectGroup deleteProjGroup(int projGroupId){
 		ProjectGroup projGroup = projGroupDb.deleteProjGroup(projGroupId);
+		return projGroup;
+	}
+	
+	/**
+	 * Delete project group
+	 */
+	public ProjectGroup deleteProjGroupFromDB(int projGroupId){
+		ProjectGroup projGroup = projGroupDb.deleteProjGroupFromDB(projGroupId);
 		return projGroup;
 	}
 	

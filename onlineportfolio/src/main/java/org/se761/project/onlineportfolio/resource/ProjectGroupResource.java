@@ -55,6 +55,13 @@ public class ProjectGroupResource {
 		
 	}
 	
+	@DELETE
+	@Path("/delete/{projectGroupId}")
+	public ProjectGroup deleteProjectGroupFromDB(@PathParam("projectGroupId") int projectGroupId){
+		return projectGroupService.deleteProjGroupFromDB(projectGroupId);
+		
+	}
+	
 	@PUT
 	public ProjectGroup editProjectGroupDetails(ProjectGroup projectGroup){
 		return projectGroupService.editProjectGroupDetails(projectGroup);
