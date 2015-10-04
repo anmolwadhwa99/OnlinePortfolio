@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <script>
         var account = sessionStorage.getItem("account_id");
         if(! account){ // if not defined (i.e. value is undefined or null)
@@ -45,15 +47,15 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
 
-    <script src="js/scripts/webServices.js"></script>
+    <script src="js/Scripts/webServices.js"></script>
     <script src="js/select2.min.js"></script>
-    <script src="js/scripts/homepage.js"></script>
+    <script src="js/Scripts/homepage.js"></script>
 
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
 
     <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <script src="js/bootstrap.min.js"></script>
     <link href="css/agency.css" rel="stylesheet">
 
@@ -223,19 +225,19 @@
             }).get().on('pnotify.confirm', function () {
                 if (submit_option == "CLIENT") {
                     successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveClient(item_id);
 
                 }
                 else if (submit_option == "PROJECT") {
                     successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveProject(item_id);
 
                 }
                 else if (submit_option == "QUAL") {
                     successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveQual(item_id);
 
                 }
@@ -447,7 +449,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
+                <button type="button" class="btn btn-primary" id="updateClientBtn">Update</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -540,7 +542,7 @@
         });
 
         getAccountById(account_id, function() {
-           var account = this;
+            var account = this;
             if (account.isSuperUser == true) {
                 var htmlStr = "<button id='superAdminBtn' class='btn spec_vertical_center'>Access Super User</button>";
                 $("#superAdminDiv").html(htmlStr);
@@ -563,6 +565,26 @@
             $("#passwordAlert").html(htmlStr);
             $("#passwordAlert").show();
             $("#createClientBtn").prop('disabled', true);
+        });
+
+        $('#updateClientBtn').click(function (e) {
+            e.preventDefault();
+
+            getAccountById(tempClientId, function(){
+                var account = this;
+                var clientName = $("#clientName").val();
+                var primaryColour = $("#qual_colour_primary").val();
+                var secondaryColour = $("#qual_colour_secondary").val();
+                var clientPw = updateClient(tempClientId, false, account.isActive, clientName, account.password, false, primaryColour, secondaryColour);
+                var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                        "Client "+clientName + " has been modified! The password for the client is: <strong>"+account.password +"</strong>"
+
+                $("#passwordAlert").html(htmlStr);
+                $("#passwordAlert").show();
+            });
+
+            $('#createClientModal').modal('hide') //Hides Modal when user clicks update
+
         });
 
         var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
@@ -664,6 +686,10 @@
             </div>
             <div class="modal-body" id="modal_body">
                 <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer hidden">
+                <button id="btnQualModalClose1" type="button" class="hidden btn btn-default" data-dismiss="modal">Close
+                </button>
             </div>
         </div>
     </div>

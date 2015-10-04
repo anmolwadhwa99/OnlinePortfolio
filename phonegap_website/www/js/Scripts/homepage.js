@@ -5,6 +5,7 @@ var adminGroupID = -1;
 var isClient = false;
 var isSuperUser = false;
 var sucessfulQuals = 0;
+var tempClientId = -1;
 
 var imported = document.createElement('script');
 imported.src = 'js/pnotify.custom.min.js';
@@ -14,6 +15,8 @@ function search(){
     var text = $("#searchBox").val();
     var toShow = false;
     var searchResults = [];
+    var resUL = $('#resultUL');
+    resUL.empty();
 
     if (text.length > 0) {
         toShow =  true;
@@ -24,14 +27,24 @@ function search(){
         return;
     }
 
-    var resUL = $('#resultUL');
-    resUL.empty();
-
-
     var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
     resUL.width(len);
 
     if(searchResults.length == 0){
+        showResults(true);
+        var r_li = document.createElement('li');
+        var r_a = document.createElement("a");
+        var r_span = document.createElement("span");
+
+        r_a.setAttribute("href", "#");
+        r_span.setAttribute("style", "color: #909090");
+        r_span.appendChild(document.createTextNode("Your search returned no results"));
+
+
+        r_a.appendChild(r_span);
+
+        r_li.appendChild(r_a);
+        resUL.append(r_li);
         return;
     }
 
@@ -115,8 +128,9 @@ function showResults(toShow, tab) {
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
 
-    } else {
-        error("invalid tab");
+    //} else {
+        //error('invalid tab');
+       //return;
     }
 
     getEverything();
@@ -380,7 +394,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
         inClientTab = true;
-        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"editClient(' + editFunc + ')\"';
+        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"updateClientDetails(' + editFunc + ')\"';
     }
 
 
@@ -537,7 +551,8 @@ function duplicateQual(qual_id){
     sessionStorage.setItem("dup_qual_id", qual_id);
  //   sessionStorage.setItem("account_id", accountId);
 
-    $('#frameQual').attr('src', 'qual_add.html');
+    //document.getElementById('frameQual').src = document.getElementById('qual_add.html').src
+    $('#frameViewQual').attr('src', 'qual_add.html');
     //location.href = 'qual_add.html';
 }
 
@@ -547,12 +562,11 @@ function viewQual(qual_id){
 
     if(!isClient) {
 
-        var icon = document.getElementById("btnDuplicate");
 
-        if (!icon) {
-            var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
-            $('#viewButtons').prepend(dup);
-        }
+        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
+
+        $("#btnDuplicate").remove();
+        $('#viewButtons').prepend(dup);
         //document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
     }
     $('#frameViewQual').attr('src', 'view_qual.html');
@@ -773,14 +787,23 @@ var allProjects = [], allQuals = [], allClients = [];
 //need to get these according the the account
 function getEverything(){
 
-    getQualsByAccount(accountId,function(){
+    adminGroupID = sessionStorage.getItem("adminGroupID");
+    accountId = sessionStorage.getItem("account_id");
+
+    getQualsByAdminGroup(adminGroupID,function(){
         allQuals = this;
     });
 
-    //it's actually by account but named client for some reason :/
-    getProjectsByClient(accountId,function(){
-        allProjects = this;
-    });
+    if (isClient){
+        //it's actually by account but named client for some reason :/
+        getProjectsByClient(accountId, function () {
+            allProjects = this;
+        });
+    }else {
+        getProjectsByAdminGroup(adminGroupID, function () {
+            allProjects = this;
+        });
+    }
 
     getAccountById(accountId, function(){
         if(this.isAdmin){
@@ -808,9 +831,10 @@ function editQual(qual_id){
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }
 
-function editClient(account_id) {
+function updateClientDetails(account_id) {
     getAccountById(account_id, function() {
         var account = this;
+        tempClientId = account_id;
         $("#client_modal_heading").html("Edit Client");
         $("#clientName").val(account.accountName);
         $("#client_colour_primary").val(account.primaryColour);
@@ -821,6 +845,7 @@ function editClient(account_id) {
         $("#passwordAlert").attr('style', '');
     });
 }
+
 
 function editProject(project_id) {
     getProjectById(project_id, function() {

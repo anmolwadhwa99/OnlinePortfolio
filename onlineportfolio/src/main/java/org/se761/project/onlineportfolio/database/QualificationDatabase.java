@@ -111,7 +111,7 @@ public class QualificationDatabase {
 			if ((quals.get(i).getStatus().equalsIgnoreCase("confidential")) 
 					|| (quals.get(i).isActive() == false)) {
 				indicies.add(i);
-				System.out.println(quals.size());
+//				System.out.println(quals.size());
 			}
 		}
 
