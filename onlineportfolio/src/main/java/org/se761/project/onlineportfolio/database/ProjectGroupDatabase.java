@@ -230,7 +230,7 @@ public class ProjectGroupDatabase {
 		}
 
 		List<ProjectGroup> projectGroups = adminGroup.getProjectGroups();
-		List<Integer> indicies = new ArrayList<>();
+		List<Integer> indicies = new ArrayList();
 
 		//remove inactive project groups
 		for(int i = 0; i <projectGroups.size(); i++){
