@@ -503,6 +503,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Heads Up!</strong> Please use CTRL Shift V / ⌘CMD Shift V to paste formatted content from PowerPoint, Word, etc
 </div>
+
 <form id="qual_add_form" action="javascript:addQual();" class="container-fluid" >
     <input type="hidden" id="qual_id">
     <div class="row">
@@ -551,7 +552,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="qual_project_name">Project Name: </label>
+                                <label for="qual_project_name">Project Name: *</label>
                                 <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name"
                                        required autofocus>
                             </div>
@@ -564,7 +565,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="qual_client_name">Client Name: </label>
+                                <label for="qual_client_name">Client Name: *</label>
                                 <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name"
                                        required>
                             </div>
@@ -688,7 +689,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="qual_problems">Problem Statement: </label>
+                <label for="qual_problems">Problem Statement: *</label>
                 <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement"
                           required></textarea>
             </div>
