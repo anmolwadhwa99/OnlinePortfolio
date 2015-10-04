@@ -104,12 +104,21 @@ public class AccountResource {
 	}
 	
 	/**
-	 * Delete an account
+	 * Archive an account
 	 */
 	@DELETE
 	@Path("/{accountId}")
 	public Account deleteAccount(@PathParam("accountId") int accountId){
 		return accountService.removeAccount(accountId);
+	}
+	
+	/**
+	 * Delete an account
+	 */
+	@DELETE
+	@Path("/delete/{accountId}")
+	public Account deleteAccountFromDB(@PathParam("accountId") int accountId){
+		return accountService.removeAccountFromDB(accountId);
 	}
 	
 	/**
