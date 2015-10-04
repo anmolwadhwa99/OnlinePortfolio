@@ -5,6 +5,7 @@ var adminGroupID = -1;
 var isClient = false;
 var isSuperUser = false;
 var sucessfulQuals = 0;
+var tempClientId = -1;
 
 var imported = document.createElement('script');
 imported.src = 'js/pnotify.custom.min.js';
@@ -370,7 +371,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
         inClientTab = true;
-        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"editClient(' + editFunc + ')\"';
+        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"updateClientDetails(' + editFunc + ')\"';
     }
 
 
@@ -798,9 +799,10 @@ function editQual(qual_id){
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }
 
-function editClient(account_id) {
+function updateClientDetails(account_id) {
     getAccountById(account_id, function() {
         var account = this;
+        tempClientId = account_id;
         $("#client_modal_heading").html("Edit Client");
         $("#clientName").val(account.accountName);
         $("#qual_colour_primary").val(account.primaryColour);
@@ -811,6 +813,7 @@ function editClient(account_id) {
         $("#passwordAlert").attr('style', '');
     });
 }
+
 
 function editProject(project_id) {
     getProjectById(project_id, function() {

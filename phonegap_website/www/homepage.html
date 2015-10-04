@@ -221,27 +221,27 @@
                     history: false
                 }
             }).get().on('pnotify.confirm', function () {
-                if (submit_option == "CLIENT") {
-                    successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
-                    archiveClient(item_id);
+                        if (submit_option == "CLIENT") {
+                            successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
+                            //timeout();
+                            archiveClient(item_id);
 
-                }
-                else if (submit_option == "PROJECT") {
-                    successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
-                    archiveProject(item_id);
+                        }
+                        else if (submit_option == "PROJECT") {
+                            successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
+                            //timeout();
+                            archiveProject(item_id);
 
-                }
-                else if (submit_option == "QUAL") {
-                    successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
-                    archiveQual(item_id);
+                        }
+                        else if (submit_option == "QUAL") {
+                            successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
+                            //timeout();
+                            archiveQual(item_id);
 
-                }
-            }).on('pnotify.cancel', function () {
+                        }
+                    }).on('pnotify.cancel', function () {
 
-            });
+                    });
         }
         function timeout() {
             setTimeout(function () {
@@ -443,7 +443,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
+                <button type="button" class="btn btn-primary" id="updateClientBtn">Update</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -536,7 +536,7 @@
         });
 
         getAccountById(account_id, function() {
-           var account = this;
+            var account = this;
             if (account.isSuperUser == true) {
                 var htmlStr = "<button id='superAdminBtn' class='btn spec_vertical_center'>Access Super User</button>";
                 $("#superAdminDiv").html(htmlStr);
@@ -546,18 +546,24 @@
             }
         });
 
-        $('#createClientBtn').click(function (e) {
+        $('#updateClientBtn').click(function (e) {
             e.preventDefault();
-            var clientName = $("#clientName").val();
-            var primaryColour = $("#qual_colour_primary").val();
-            var secondaryColour = $("#qual_colour_secondary").val();
-            $("#clientName").val("");
-            var clientPw = createClient(clientName, primaryColour, secondaryColour);
-            var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                    "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 
-            $("#passwordAlert").html(htmlStr);
-            $("#passwordAlert").show();
+
+            getAccountById(tempClientId, function(){
+                var account = this;
+                var clientName = $("#clientName").val();
+                var primaryColour = $("#qual_colour_primary").val();
+                var secondaryColour = $("#qual_colour_secondary").val();
+                var clientPw = updateClient(tempClientId, false, account.isActive, clientName, account.password, false, primaryColour, secondaryColour);
+                var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                        "Client "+clientName + " has been modified! The password for the client is: <strong>"+account.password +"</strong>"
+
+                $("#passwordAlert").html(htmlStr);
+                $("#passwordAlert").show();
+            });
+
+
         });
 
         var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
