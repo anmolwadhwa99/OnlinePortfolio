@@ -1,6 +1,7 @@
 
-//var url = "http://onlineportfolio.herokuapp.com/webapi";
-var url = "http://localhost:8080/onlineportfolio/webapi";
+var url = "http://onlineportfolio.herokuapp.com/webapi";
+//var url = "http://localhost:8080/onlineportfolio/webapi";
+var url = "http://q-hub.herokuapp.com/webapi"
 var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
@@ -711,6 +712,7 @@ function assignQualToAdminGroup(agId, qId){
 
             if (typeof callback == 'function'){
                 callback.apply(qual.id);
+                alert('Added qual to admin group');
             }
 
         }
