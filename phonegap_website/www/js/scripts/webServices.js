@@ -919,12 +919,12 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, primaryColour, secondar
 
     req.setRequestHeader("Content-type","application/json");
     var x = '{'+
-        '"isAdmin": ' + isAdmin + ','+
+        '"admin": ' + isAdmin + ','+
         '"accountName": "' + acName + '",'+
         '"password": "' + pw + '",'+
         '"primaryColour": "' + primaryColour + '",'+
         '"secondaryColour": "' + secondaryColour + '",'+
-        '"isSuperUser": ' + isSuperUser +
+        '"superUser": ' + isSuperUser +
         '}';
 
 
