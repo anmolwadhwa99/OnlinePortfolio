@@ -158,7 +158,12 @@ function createProjectGroup(projectName) {
             var radioVal = $('input[name="clientRadio"]:checked').val();
             if (radioVal === "existing") {
                     clientID = $("#clientDropdown").val();
-                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
+                    assignAccountToProjectGroup(projGroupID, clientID, function() {});
+                    for (i = 0; i < qualsToAdd.length; i++) {
+                        var tempId = qualsToAdd[i];
+                        assignQualToAccount(clientID, tempId, function() {});
+                    }
+                qualsToAdd.splice(0, qualsToAdd.length);
             } else {
                 var clientName = $("#modalClientName").val();
                 var primaryColour = $("#client_colour_primary2").val();
@@ -167,10 +172,10 @@ function createProjectGroup(projectName) {
                 var clientPw = createClient(clientName, primaryColour, secondaryColour, true, projGroupID, "#projects");
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
-
                 $("#passwordAlert2").html(htmlStr);
                 $("#passwordAlert2").show();
                 $("#createProjBtn").prop('disabled', true);
+
             }
             assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
@@ -185,7 +190,6 @@ function linkQualsAndProject(){
         var tempId = qualsToAdd[i];
         assignQualToProjectGroup(projGroupID, tempId);
     }
-    qualsToAdd.splice(0, qualsToAdd.length);
 }
 
 function getProjects(account_id){
@@ -263,9 +267,15 @@ function createClient(clientName, primaryColour, secondaryColour, PGCreated, PGI
     }
 
     insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
+        var account = this;
         if (PGCreated === true) {
             assignAccountToProjectGroup(PGID, this, function (){});
+            for (i = 0; i < qualsToAdd.length; i++) {
+                var tempId = qualsToAdd[i];
+                assignQualToAccount(account.accountId, tempId, function() {});
+            }
         }
+        qualsToAdd.splice(0, qualsToAdd.length);
         loadTab(tabToLoad);
     });
 
