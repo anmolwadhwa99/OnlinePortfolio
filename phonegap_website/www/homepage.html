@@ -529,11 +529,18 @@
         getEverything();
 
         $('#createProjBtn').click(function (e) {
+            HoldOn.open();
+
             e.preventDefault();
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
             $('#createProjModal').modal('hide');
             createProjectGroup(projName);
+
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
 
         });
 
@@ -549,6 +556,7 @@
         });
 
         $('#updateClientBtn').click(function (e) {
+            HoldOn.open();
             e.preventDefault();
 
 
@@ -566,6 +574,11 @@
             });
 
             $('#createClientModal').modal('hide') //Hides Modal when user clicks update
+
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
 
         });
 
