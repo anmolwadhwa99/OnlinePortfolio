@@ -874,10 +874,14 @@ function editProject(project_id) {
     getProjectById(project_id, function() {
         var project = this;
         $("#project_modal_title").html("Edit Project");
+        $("#createProjBtn").prop('disabled', false);
+        $("#createProjBtn").html('Update');
         $("#projName").val(project.projectGroupName);
+        console.log(project_id);
+
         getAccountsByProjectGroup(project_id, function () {
             var account = this;
-            $("#clientDropdown").select2("val", "'"+account.accountId+"'");
+            $("#clientDropdown").select2("val", account.accountId);
         });
     });
 }
