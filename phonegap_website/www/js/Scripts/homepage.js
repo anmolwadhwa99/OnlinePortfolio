@@ -527,7 +527,8 @@ function duplicateQual(qual_id){
     sessionStorage.setItem("dup_qual_id", qual_id);
  //   sessionStorage.setItem("account_id", accountId);
 
-    $('#frameQual').attr('src', 'qual_add.html');
+    //document.getElementById('frameQual').src = document.getElementById('qual_add.html').src
+    $('#frameViewQual').attr('src', 'qual_add.html');
     //location.href = 'qual_add.html';
 }
 
