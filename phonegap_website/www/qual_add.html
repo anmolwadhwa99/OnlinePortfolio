@@ -82,6 +82,8 @@
     <script>
         function closeModal(){
             window.parent.$('#btnQualModalClose').click(); // Clicking close button to dismiss modal
+            window.parent.$('#btnQualModalClose1').click();
+
         }
 
         function addQual() {
@@ -213,6 +215,7 @@
                                 assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
                             });
                         }
+
 
                         closeModal();
                     }

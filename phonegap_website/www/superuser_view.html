@@ -35,13 +35,15 @@
     <!-- JQuery -->
     <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
 
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+
     <!-- DataTables -->
     <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
     <script type="text/javascript" src="DataTables/datatables.min.js"></script>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+
     <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
 
     <!-- Additional Fonts and Icons -->
@@ -138,14 +140,19 @@
             });
         }
         function updateAdmin(){
+            var id = $('#admin_id').val();
             var acName = $('#admin_name').val();
             var pw = $('#admin_pw').val();
             var isSuperUser = $('#admin_special').is(':checked');
 
             var adminGroups = $('#selectAdminGroups').val();
 
-            alert_type = "info";
-            alert("Updating admin: " + acName + "\nPassword: " + pw + "\nSuperuser Status: " + isSuperUser + "\nAdmin Groups: " + adminGroups);
+            updateAccount(id, true, true, acName, pw, isSuperUser, '#fff', '#000', function(){
+                var act = this;
+                $.each(adminGroups, function(i, val) {
+                    assignAccountToAdminGroup(val, act); // Assigning account to each selected group
+                });
+            });
         }
         function loadAdminAdd(){
             $('#modalAdminTitle').text("Add Admin Account");
@@ -656,7 +663,7 @@
                 $('#modalAdminTitle').text("");
                 $('#modalAdminConfirmAdd').hide();
                 $('#modalAdminConfirmEdit').hide();
-                $('#selectAdminGroups').select2('data', null);
+                $('#selectAdminGroups').find('option').remove().end().val(null).trigger("change");
             });
             $('#modalAdminConfirmAdd').hide();
             $('#modalAdminConfirmEdit').hide();

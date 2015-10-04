@@ -934,7 +934,7 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, primaryColour, secondar
 
 function updateAccount(id ,isAdmin, isActive, acName, pw, isSuperUser, primaryColour, secondaryColour, callback){
     var methodURL = url + _ac;
-    var method = "POST";
+    var method = "PUT";
 
     var req = createRequest();
 

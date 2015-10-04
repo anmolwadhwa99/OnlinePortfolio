@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <script>
         var account = sessionStorage.getItem("account_id");
@@ -46,15 +47,15 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
 
-    <script src="js/scripts/webServices.js"></script>
+    <script src="js/Scripts/webServices.js"></script>
     <script src="js/select2.min.js"></script>
-    <script src="js/scripts/homepage.js"></script>
+    <script src="js/Scripts/homepage.js"></script>
 
     <script type="application/javascript" src="js/raphael-min.js"></script>
     <script type="application/javascript" src="js/colorwheel.js"></script>
 
     <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <script src="js/bootstrap.min.js"></script>
     <link href="css/agency.css" rel="stylesheet">
 
@@ -224,19 +225,19 @@
             }).get().on('pnotify.confirm', function () {
                 if (submit_option == "CLIENT") {
                     successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveClient(item_id);
 
                 }
                 else if (submit_option == "PROJECT") {
                     successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveProject(item_id);
 
                 }
                 else if (submit_option == "QUAL") {
                     successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveQual(item_id);
 
                 }
@@ -261,10 +262,14 @@
         function hideDD(){
             $('#div_clientDD').hide();
             $('#div_clientTB').show();
+//            $('#div_clientC').show();
+//            $('#div_clientA').show();
         }
         function showDD(){
             $('#div_clientTB').hide();
             $('#div_clientDD').show();
+//            $('#div_clientC').hide();
+//            $('#div_clientA').hide();
         }
     </script>
 </head>
@@ -351,14 +356,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div id="div_clientDD" class="col-md-12" style="padding-bottom: 15px;">
-                            <select id="clientDropdown" class="form-control"
-                                    style="width: 100%;">
-                            </select>
-                        </div>
-                        <div id="div_clientTB" class="col-md-12">
+                    <div id="div_clientDD" class="col-md-12 no-padding" style="padding-bottom: 15px;">
+                        <select id="clientDropdown" class="form-control"
+                                style="width: 100%;">
+                        </select>
+                    </div>
+                    <div  id="div_clientTB">
+                        <div class="col-md-12 no-padding">
                             <input type="text" class="form-control" id="modalClientName"/>
+                        </div>
+                        <div  class="col-md-12 margin-tb alert alert-info alert-dismissible" role="alert">
+                            Please be mindful of the two colour combinations and the contrast between them.
+                        </div>
+                        <div  class="row">
+                            <div id="primary_color_wheel2" class="col-md-6 col-xs-8">
+                                <label for="qual_colour_primary2">Primary Colour: </label>
+                                <input id="qual_colour_primary2" type="text" maxlength="7" style="max-width: 100px;"
+                                       class="form-control" value="#091D5D" placeholder="#091D5D">
+
+                                <div class="colorwheel"></div>
+                            </div>
+                            <div id="secondary_color_wheel2" class="col-md-6 col-xs-8">
+                                <label for="qual_colour_secondary2">Secondary Colour: </label>
+                                <input id="qual_colour_secondary2" type="text" maxlength="7" style="max-width: 100px;"
+                                       class="form-control" value="#DDD2B5" placeholder="#DDD2B5">
+
+                                <div class="colorwheel"></div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -421,7 +445,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
+                <button type="button" class="btn btn-primary" id="updateClientBtn">Update</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -514,7 +538,7 @@
         });
 
         getAccountById(account_id, function() {
-           var account = this;
+            var account = this;
             if (account.isSuperUser == true) {
                 var htmlStr = "<button id='superAdminBtn' class='btn spec_vertical_center'>Access Super User</button>";
                 $("#superAdminDiv").html(htmlStr);
@@ -524,18 +548,24 @@
             }
         });
 
-        $('#createClientBtn').click(function (e) {
+        $('#updateClientBtn').click(function (e) {
             e.preventDefault();
-            var clientName = $("#clientName").val();
-            var primaryColour = $("#qual_colour_primary").val();
-            var secondaryColour = $("#qual_colour_secondary").val();
-            $("#clientName").val("");
-            var clientPw = createClient(clientName, primaryColour, secondaryColour);
-            var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                    "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 
-            $("#passwordAlert").html(htmlStr);
-            $("#passwordAlert").show();
+
+            getAccountById(tempClientId, function(){
+                var account = this;
+                var clientName = $("#clientName").val();
+                var primaryColour = $("#qual_colour_primary").val();
+                var secondaryColour = $("#qual_colour_secondary").val();
+                var clientPw = updateClient(tempClientId, false, account.isActive, clientName, account.password, false, primaryColour, secondaryColour);
+                var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                        "Client "+clientName + " has been modified! The password for the client is: <strong>"+account.password +"</strong>"
+
+                $("#passwordAlert").html(htmlStr);
+                $("#passwordAlert").show();
+            });
+
+
         });
 
         var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
@@ -543,6 +573,12 @@
 
         var secondaryCW = Raphael.colorwheel($("#secondary_color_wheel .colorwheel"), 150, 256);
         secondaryCW.input($("#qual_colour_secondary")[0]);
+
+        var primaryCW2 = Raphael.colorwheel($("#primary_color_wheel2 .colorwheel"), 150, 256);
+        primaryCW2.input($("#qual_colour_primary2")[0]);
+
+        var secondaryCW2 = Raphael.colorwheel($("#secondary_color_wheel2 .colorwheel"), 150, 256);
+        secondaryCW2.input($("#qual_colour_secondary2")[0]);
 
         var vnSpace = $('#space');
         var hnSpace = $('#hiddenSpace');
@@ -631,6 +667,10 @@
             </div>
             <div class="modal-body" id="modal_body">
                 <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer hidden">
+                <button id="btnQualModalClose1" type="button" class="hidden btn btn-default" data-dismiss="modal">Close
+                </button>
             </div>
         </div>
     </div>
