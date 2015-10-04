@@ -87,6 +87,7 @@
         }
 
         function addQual() {
+            HoldOn.open();
             var projName = $("#qual_project_name").val();
             var projSubtitle = $("#qual_project_sub").val();
             var clientName = $("#qual_client_name").val();
@@ -152,6 +153,13 @@
                         closeModal();
                     }
             );
+
+//             Dismissing loading screen
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
+
         }
 
         function modifyQual() {
@@ -159,7 +167,6 @@
             var projName = $("#qual_project_name").val();
             var projSubtitle = $("#qual_project_sub").val();
             var clientName = $("#qual_client_name").val();
-            var isAnonymous = $('#qual_is_anonymous').is(':checked');
             var anonymousName = $("#qual_anonymous_name").val();
 
             var access = $('input[name=qual_public_access]:checked').val();
@@ -291,6 +298,12 @@
                     }
                 });
             };
+
+            $('#btn_submit').click(function(){
+               
+
+
+            });
 
             $('#ddExistingProdServ').select2({width:"style"});
             $('#ddExistingLogo').select2({width:"style"});
@@ -453,7 +466,7 @@
         }
 
         function ManualReset(){
-
+            HoldOn.open();
             $("#qual_industry").select2("val", "");
             $("#ddAdminGroups").select2("val", "");
             $("#qual_tags").select2("val", "");
@@ -465,6 +478,12 @@
             $('.prod_serv_progress').hide();
 
             $('.client_logo_progress').hide();
+
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
+
         }
 
         function checkURL (abc) {
@@ -495,6 +514,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Heads Up!</strong> Please use CTRL Shift V / ⌘CMD Shift V to paste formatted content from PowerPoint, Word, etc
 </div>
+
 <form id="qual_add_form" action="javascript:addQual();" class="container-fluid" >
     <input type="hidden" id="qual_id">
     <div class="row">
@@ -543,7 +563,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="qual_project_name">Project Name: </label>
+                                <label for="qual_project_name">Project Name: *</label>
                                 <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name"
                                        required autofocus>
                             </div>
@@ -556,7 +576,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="qual_client_name">Client Name: </label>
+                                <label for="qual_client_name">Client Name: *</label>
                                 <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name"
                                        required>
                             </div>
@@ -680,7 +700,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="qual_problems">Problem Statement: </label>
+                <label for="qual_problems">Problem Statement: *</label>
                 <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement"
                           required></textarea>
             </div>

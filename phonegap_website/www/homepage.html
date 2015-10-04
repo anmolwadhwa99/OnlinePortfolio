@@ -316,8 +316,8 @@
 
 <nav id="projectCartNav">
     <div class="list-unstyled main-menu" id="ProjectCart">
-        <div class="row" style="margin-left: auto">
-            <button id="qualCollection" type='submit' class='btn btn-lg' data-toggle="modal" style="display: block;margin: 0 auto;"
+        <div class="row margin-rl" style="border-bottom: 1px solid #323949;margin-bottom: 0px;padding-bottom: 15px;">
+            <button id="qualCollection" type='submit' class='btn btn-primary' data-toggle="modal" style="display: block;margin: 0 auto;float: right;"
                     data-target="#createProjModal">Create Project
             </button>
             <a class="pull-right" href="#" id="nav-close"></a>
@@ -593,11 +593,18 @@
         getEverything();
 
         $('#createProjBtn').click(function (e) {
+            HoldOn.open();
+
             e.preventDefault();
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
             //$('#createProjModal').modal('hide');
             createProjectGroup(projName);
+
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
 
         });
 
@@ -613,6 +620,7 @@
         });
 
         $('#updateClientBtn').click(function (e) {
+            HoldOn.open();
             e.preventDefault();
             getAccountById(tempClientId, function(){
                 var account = this;
@@ -629,6 +637,11 @@
 
 //            $('#updateClientModal').modal('hide') //Hides Modal when user clicks update
               $("#updateClientBtn").prop('disabled', true);
+
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
 
         });
 
@@ -670,12 +683,6 @@
 
         var secondaryCW = Raphael.colorwheel($("#update_secondary_color_wheel .colorwheel"), 150, 256);
         secondaryCW.input($("#update_qual_colour_secondary")[0]);
-
-        var primaryCW2 = Raphael.colorwheel($("#update_primary_color_wheel2 .colorwheel"), 150, 256);
-        primaryCW2.input($("#update_qual_colour_primary2")[0]);
-
-        var secondaryCW2 = Raphael.colorwheel($("#update_secondary_color_wheel2 .colorwheel"), 150, 256);
-        secondaryCW2.input($("#update_qual_colour_secondary2")[0]);
 
 //--------------------------------------------------------------------------------------------------------------
 
@@ -757,14 +764,24 @@
 <div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl" role="document" style= "position: fixed;">
         <div class="modal-content">
-            <div class="modal-header">
-                <div id='client-logo'class="logo-modal portfolio-image ">
+
+            <div class="row modal-header">
+                <div id='client-logo' class="col-md-3 logo-modal portfolio-image">
                 </div>
-                <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
-                <div id="viewButtons" class="close-modal">
+                <h3 id="qual-projectName" class="col-md-6"></h3>
+                <div id="viewButtons" class="col-md-3 close-modal">
                     <i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>
                 </div>
             </div>
+
+            <!--<div class="modal-header">-->
+                <!--<div id='client-logo'class="logo-modal portfolio-image ">-->
+                <!--</div>-->
+                <!--<h3 id="qual-projectName" class="viewQual-modalHeader"></h3>-->
+                <!--<div id="viewButtons" class="close-modal">-->
+                    <!--<i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="modal-body" id="modal_body">
                 <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
