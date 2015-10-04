@@ -156,18 +156,14 @@ function createProjectGroup(projectName) {
                 var primaryColour = $("#client_colour_primary2").val();
                 var secondaryColour = $("#client_colour_secondary2").val();
                 $("#modalClientName").val("");
-                var clientPw = createClient(clientName, primaryColour, secondaryColour);
+                var clientPw = createClient(clientName, primaryColour, secondaryColour, function() {assignAccountToProjectGroup(projGroupID, this, function (){}); loadTab("#projects")});
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 
                 $("#passwordAlert2").html(htmlStr);
                 $("#passwordAlert2").show();
                 $("#createProjBtn").prop('disabled', true);
-                insertAccount(false, clientName, clientPw , false, primaryColour, secondaryColour, function () {
-                    assignAccountToProjectGroup(projGroupID, this, function (){})
-                });
             }
-            linkQualsAndProject();
             assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
     }else{
@@ -245,14 +241,14 @@ function verifyAccount2(password) {
     });
 }
 
-function createClient(clientName, primaryColour, secondaryColour){
+function createClient(clientName, primaryColour, secondaryColour, insideInsertAcc){
     var password = generatePassword();
     while (verifyAccount2(password) == false) {
         password = generatePassword();
     }
 
     insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
-        loadTab('#clients');
+        insideInsertAcc();
     });
 
     return password;
