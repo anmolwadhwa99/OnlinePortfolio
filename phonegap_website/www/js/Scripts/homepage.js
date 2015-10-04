@@ -131,8 +131,9 @@ function showResults(toShow, tab) {
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
 
-    } else {
-       return;
+    //} else {
+        //error('invalid tab');
+       //return;
     }
 
     getEverything();
@@ -779,14 +780,23 @@ var allProjects = [], allQuals = [], allClients = [];
 //need to get these according the the account
 function getEverything(){
 
-    getQualsByAccount(accountId,function(){
+    adminGroupID = sessionStorage.getItem("adminGroupID");
+    accountId = sessionStorage.getItem("account_id");
+
+    getQualsByAdminGroup(adminGroupID,function(){
         allQuals = this;
     });
 
-    //it's actually by account but named client for some reason :/
-    getProjectsByClient(accountId,function(){
-        allProjects = this;
-    });
+    if (isClient){
+        //it's actually by account but named client for some reason :/
+        getProjectsByClient(accountId, function () {
+            allProjects = this;
+        });
+    }else {
+        getProjectsByAdminGroup(adminGroupID, function () {
+            allProjects = this;
+        });
+    }
 
     getAccountById(accountId, function(){
         if(this.isAdmin){
