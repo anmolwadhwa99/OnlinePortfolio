@@ -339,18 +339,18 @@
                         <label class="col-sm-3 control-label">Project Name</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="projName"/>
+                            <input type="text" class="form-control" id="projName" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
                             <div class="btn-group btn-group-justified" data-toggle="buttons">
                                 <label class="btn btn-default active">
-                                    <input type="radio" id="existingClientSelect" onchange="showDD();" name="clientRadio" checked="checked"/>
+                                    <input type="radio" id="existingClientSelect" value="existing" onchange="showDD();" name="clientRadio" checked="checked"/>
                                     Select Existing Client
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" id="newClientSelect" onchange="hideDD();" name="clientRadio"/>
+                                    <input type="radio" id="newClientSelect" value="new" onchange="hideDD();" name="clientRadio"/>
                                     Enter New Client
                                 </label>
                             </div>
@@ -363,26 +363,30 @@
                     </div>
                     <div  id="div_clientTB">
                         <div class="col-md-12 no-padding">
-                            <input type="text" class="form-control" id="modalClientName"/>
+                            <input type="text" class="form-control" id="modalClientName"placeholder="Client name"/>
                         </div>
                         <div  class="col-md-12 margin-tb alert alert-info alert-dismissible" role="alert">
                             Please be mindful of the two colour combinations and the contrast between them.
                         </div>
                         <div  class="row">
                             <div id="primary_color_wheel2" class="col-md-6 col-xs-8">
-                                <label for="qual_colour_primary2">Primary Colour: </label>
-                                <input id="qual_colour_primary2" type="text" maxlength="7" style="max-width: 100px;"
+                                <label for="client_colour_primary2">Primary Colour: </label>
+                                <input id="client_colour_primary2" type="text" maxlength="7" style="max-width: 100px;"
                                        class="form-control" value="#091D5D" placeholder="#091D5D">
 
                                 <div class="colorwheel"></div>
                             </div>
                             <div id="secondary_color_wheel2" class="col-md-6 col-xs-8">
-                                <label for="qual_colour_secondary2">Secondary Colour: </label>
-                                <input id="qual_colour_secondary2" type="text" maxlength="7" style="max-width: 100px;"
+                                <label for="client_colour_secondary2">Secondary Colour: </label>
+                                <input id="client_colour_secondary2" type="text" maxlength="7" style="max-width: 100px;"
                                        class="form-control" value="#DDD2B5" placeholder="#DDD2B5">
 
                                 <div class="colorwheel"></div>
                             </div>
+                        </div>
+                        <div style="height: 15px;"></div>
+                        <div style="display: none" id="passwordAlert2" class="alert alert-success alert-dismissible" role="alert">
+
                         </div>
                     </div>
                 </form>
@@ -409,7 +413,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" id="createClientForm">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"  for="modalClientName">Client Name</label>
+                        <label class="col-sm-3 control-label"  for="modalClientName" placeholder="Client name">Client Name</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="clientName" value=""/>
                         </div>
@@ -420,15 +424,15 @@
                 </div>
                 <div class="row">
                     <div id="primary_color_wheel" class="col-md-6 col-xs-8">
-                        <label for="qual_colour_primary">Primary Colour: </label>
-                        <input id="qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
+                        <label for="client_colour_primary">Primary Colour: </label>
+                        <input id="client_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
                                class="form-control" value="#091D5D" placeholder="#091D5D">
 
                         <div class="colorwheel"></div>
                     </div>
                     <div id="secondary_color_wheel" class="col-md-6 col-xs-8">
-                        <label for="qual_colour_secondary">Secondary Colour: </label>
-                        <input id="qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
+                        <label for="client_colour_secondary">Secondary Colour: </label>
+                        <input id="client_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
                                class="form-control" value="#DDD2B5" placeholder="#DDD2B5">
 
                         <div class="colorwheel"></div>
@@ -445,6 +449,62 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createClientBtn">Create</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="updateClientModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="update_client_modal_heading" class="modal-title">Update Client</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="updateClientForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"  for="modalClientName">Client Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="update_clientName" value=""/>
+                        </div>
+                    </div>
+                </form>
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    Please be mindful of the two colour combinations and the contrast between them.
+                </div>
+                <div class="row">
+                    <div id="update_primary_color_wheel" class="col-md-6 col-xs-8">
+                        <label for="update_qual_colour_primary">Primary Colour: </label>
+                        <input id="update_qual_colour_primary" type="text" maxlength="7" style="max-width: 100px;"
+                               class="form-control" value="#091D5D" placeholder="#091D5D">
+
+                        <div class="colorwheel"></div>
+                    </div>
+                    <div id="update_secondary_color_wheel" class="col-md-6 col-xs-8">
+                        <label for="update_qual_colour_secondary">Secondary Colour: </label>
+                        <input id="update_qual_colour_secondary" type="text" maxlength="7" style="max-width: 100px;"
+                               class="form-control" value="#DDD2B5" placeholder="#DDD2B5">
+
+                        <div class="colorwheel"></div>
+                    </div>
+
+                </div>
+                <div style="height: 15px;"></div>
+                <div style="display: none" id="update_passwordAlert" class="alert alert-success alert-dismissible" role="alert">
+
+                </div>
+                </form>
+
+                <!--<iframe id="frameQualAdd" src="qual_add.html" width="100%" scrolling="no" frameborder="0"></iframe>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="updateClientBtn">Update</button>
             </div>
         </div>
@@ -453,6 +513,10 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+
+
+
 <div class="navbar navbar-inverse navbar-fixed-top">
 
     <div class="container-fluid">
@@ -534,7 +598,7 @@
             e.preventDefault();
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
-            $('#createProjModal').modal('hide');
+            //$('#createProjModal').modal('hide');
             createProjectGroup(projName);
 
             setTimeout(function(){
@@ -558,22 +622,21 @@
         $('#updateClientBtn').click(function (e) {
             HoldOn.open();
             e.preventDefault();
-
-
             getAccountById(tempClientId, function(){
                 var account = this;
-                var clientName = $("#clientName").val();
-                var primaryColour = $("#qual_colour_primary").val();
-                var secondaryColour = $("#qual_colour_secondary").val();
+                var clientName = $("#update_clientName").val();
+                var primaryColour = $("#update_qual_colour_primary").val();
+                var secondaryColour = $("#update_qual_colour_secondary").val();
                 var clientPw = updateClient(tempClientId, false, account.isActive, clientName, account.password, false, primaryColour, secondaryColour);
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                        "Client "+clientName + " has been modified! The password for the client is: <strong>"+account.password +"</strong>"
+                        clientName + " has been modified! The password for the client is: <strong>"+account.password +"</strong>"
 
-                $("#passwordAlert").html(htmlStr);
-                $("#passwordAlert").show();
+                $("#update_passwordAlert").html(htmlStr);
+                $("#update_passwordAlert").show();
             });
 
-            $('#createClientModal').modal('hide') //Hides Modal when user clicks update
+//            $('#updateClientModal').modal('hide') //Hides Modal when user clicks update
+              $("#updateClientBtn").prop('disabled', true);
 
             setTimeout(function(){
                 location.reload();
@@ -582,17 +645,53 @@
 
         });
 
+        $('#createClientBtn').click(function (e) {
+            e.preventDefault();
+
+            var clientName = $("#clientName").val();
+            var primaryColour = $("#qual_colour_primary").val();
+            var secondaryColour = $("#qual_colour_secondary").val();
+            $("#clientName").val("");
+            var clientPw = createClient(clientName, primaryColour, secondaryColour, function() { loadTab("#clients") });
+            var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                    clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
+
+            $("#passwordAlert").html(htmlStr);
+            $("#passwordAlert").show();
+
+//            $('#createClientModal').modal('hide') //Hides Modal when user clicks update
+              $("#createClientBtn").prop('disabled', true);
+        });
+
+//--------------------------------------------------------------------------------------------------------------
+//These are for the create Modal
         var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
-        primaryCW.input($("#qual_colour_primary")[0]);
+        primaryCW.input($("#client_colour_primary")[0]);
 
         var secondaryCW = Raphael.colorwheel($("#secondary_color_wheel .colorwheel"), 150, 256);
-        secondaryCW.input($("#qual_colour_secondary")[0]);
+        secondaryCW.input($("#client_colour_secondary")[0]);
 
         var primaryCW2 = Raphael.colorwheel($("#primary_color_wheel2 .colorwheel"), 150, 256);
-        primaryCW2.input($("#qual_colour_primary2")[0]);
+        primaryCW2.input($("#client_colour_primary2")[0]);
 
         var secondaryCW2 = Raphael.colorwheel($("#secondary_color_wheel2 .colorwheel"), 150, 256);
-        secondaryCW2.input($("#qual_colour_secondary2")[0]);
+        secondaryCW2.input($("#client_colour_secondary2")[0]);
+//--------------------------------------------------------------------------------------------------------------
+//These are for the update Modal
+        var primaryCW = Raphael.colorwheel($("#update_primary_color_wheel .colorwheel"), 150, 256);
+        primaryCW.input($("#update_qual_colour_primary")[0]);
+
+        var secondaryCW = Raphael.colorwheel($("#update_secondary_color_wheel .colorwheel"), 150, 256);
+        secondaryCW.input($("#update_qual_colour_secondary")[0]);
+
+        var primaryCW2 = Raphael.colorwheel($("#update_primary_color_wheel2 .colorwheel"), 150, 256);
+        primaryCW2.input($("#update_qual_colour_primary2")[0]);
+
+        var secondaryCW2 = Raphael.colorwheel($("#update_secondary_color_wheel2 .colorwheel"), 150, 256);
+        secondaryCW2.input($("#update_qual_colour_secondary2")[0]);
+
+//--------------------------------------------------------------------------------------------------------------
+
 
         var vnSpace = $('#space');
         var hnSpace = $('#hiddenSpace');

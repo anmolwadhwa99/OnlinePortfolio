@@ -147,17 +147,23 @@ function createProjectGroup(projectName) {
 
             linkQualsAndProject();
             var clientID;
-            if ($('#existingClientSelect').is(':checked') == true) {
-                clientID = $("#clientDropdown").val();
-                assignAccountToProjectGroup(projGroupID, clientID, function() {})
-            } else if ($('#newClientSelect').is(':checked') == true) {
-                var accountName = $("#modalClientName").val();
-                insertAccount(false, accountName, generatePassword() , false,"red", "white", function () {
-                    assignAccountToProjectGroup(projGroupID, this, function (){})
-                });
+            var radioVal = $('input[name="clientRadio"]:checked').val();
+            if (radioVal === "existing") {
+                    clientID = $("#clientDropdown").val();
+                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
+            } else {
+                var clientName = $("#modalClientName").val();
+                var primaryColour = $("#client_colour_primary2").val();
+                var secondaryColour = $("#client_colour_secondary2").val();
+                $("#modalClientName").val("");
+                var clientPw = createClient(clientName, primaryColour, secondaryColour, function() {assignAccountToProjectGroup(projGroupID, this, function (){}); loadTab("#projects")});
+                var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                    "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 
+                $("#passwordAlert2").html(htmlStr);
+                $("#passwordAlert2").show();
+                $("#createProjBtn").prop('disabled', true);
             }
-            linkQualsAndProject();
             assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
     }else{
@@ -235,14 +241,14 @@ function verifyAccount2(password) {
     });
 }
 
-function createClient(clientName, primaryColour, secondaryColour){
+function createClient(clientName, primaryColour, secondaryColour, insideInsertAcc){
     var password = generatePassword();
     while (verifyAccount2(password) == false) {
         password = generatePassword();
     }
 
-    insertAccount(false, clientName, 'qwerty', false, primaryColour, secondaryColour, password, function(){
-        loadTab('#clients');
+    insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
+        insideInsertAcc();
     });
 
     return password;
@@ -384,7 +390,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
         inClientTab = true;
-        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"updateClientDetails(' + editFunc + ')\"';
+        editFunction = 'data-toggle=\"modal\" data-target=\"#updateClientModal\" onclick=\"updateClientDetails(' + editFunc + ')\"';
     }
 
 
@@ -825,14 +831,18 @@ function updateClientDetails(account_id) {
     getAccountById(account_id, function() {
         var account = this;
         tempClientId = account_id;
+
+        console.log("tempID = " + tempClientId);
+
         $("#client_modal_heading").html("Edit Client");
-        $("#clientName").val(account.accountName);
-        $("#qual_colour_primary").val(account.primaryColour);
-        $("qual_colour_secondary").val(account.secondaryColour);
+
+        $("#update_clientName").val(account.accountName);
+        $("#update_qual_colour_primary").val(account.primaryColour);
+        $("update_qual_colour_secondary").val(account.secondaryColour);
         var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
             "The password for the client is: <strong>"+account.password +"</strong>"
-        $("#passwordAlert").html(htmlStr);
-        $("#passwordAlert").attr('style', '');
+        $("#update_passwordAlert").html(htmlStr);
+        $("#update_passwordAlert").attr('style', '');
     });
 }
 

@@ -16,7 +16,6 @@
 
     <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
 
-
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
     <link href="css/carousel.css" rel="stylesheet">
@@ -61,8 +60,9 @@
     <!--Loading screen-->
     <!--<script src="js/pace.min.js"></script>-->
     <!--<link href="css/atom.css" rel="stylesheet">-->
-
-
+    <!--pNotify related links-->
+    <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
+    <link rel="stylesheet" media="all" href="css/pnotify.custom.min.css"/>
 
     <!-- iFrame Resizing Parent -->
     <script src="js/iframeResizer.min.js"></script>
@@ -119,9 +119,15 @@
 
 
                 var account = this;
-
-
-                if (account != null) {
+                if(!(account instanceof Account)) {
+                    var notice = new PNotify({
+                        title: "ERROR",
+                        text: "Incorrect password. Please try again.",
+                        icon: true,
+                        hide: true,
+                        type: 'error'
+                    });
+                } else {
 
                     sessionStorage.setItem("account_id", account.accountId);
 
