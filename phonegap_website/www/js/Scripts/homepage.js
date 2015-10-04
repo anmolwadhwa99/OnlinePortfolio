@@ -489,7 +489,7 @@ function openQualsForProject(projectID, projectName) {
 
         var quals = this;
 
-        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-primary btn-lg pull-right col-md-2' onclick='getProjects(accountId)'>Back To Projects</button><br>";
         for(i = 0; i< quals.length; i++){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
@@ -502,7 +502,6 @@ function openQualsForProject(projectID, projectName) {
                 'qual'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getProjects(accountId)'>Back To Projects</button></div><br>";
         $("#projects").html(htmlStr);
         $("#heading").html(projectName);
 
@@ -583,7 +582,7 @@ function processQuals(){
     var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
     if (!isClient){
-        htmlStr += "<div class='row-md-12'><button type='submit' class='btn btn-lg pull-right' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button></div><br>";
+        htmlStr += "<button type='submit' style='margin-top: 20px;' class='btn btn-primary vcenter btn-lg pull-right col-md-2' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button><br>";
     }
 
     for (i = 0; i < quals.length; i++) {
@@ -638,7 +637,7 @@ function getProjectforClient(id, clientName){
 
     getProjectsByClient(id,function(){
         var projects = this;
-        var htmlStr ="<h1 id='heading' class='col-md-10'>"+clientName+"\'s Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>"+clientName+"\'s Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-primary btn-lg pull-right col-md-2' onclick='getClients()'>Back To Clients</button><br>";
         for(i = 0; i< projects.length; i++){
             htmlStr += addPortfolioItem(
                 '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
@@ -651,7 +650,6 @@ function getProjectforClient(id, clientName){
                 'project'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='getClients()'>Back To Clients</button></div><br>";
         htmlClientProject = htmlStr;
         $("#clients").html(htmlStr);
 
