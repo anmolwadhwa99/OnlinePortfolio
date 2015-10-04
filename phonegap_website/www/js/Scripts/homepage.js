@@ -2,8 +2,16 @@
 
 var accountId = -1;
 var adminGroupID = -1;
-var isClient = false;
-var isSuperUser = false;
+var isAdmin = sessionStorage.getItem("isAdmin");
+var isClient;
+if(isAdmin == 'true'){
+    isClient = false;
+    console.log("client false? "+isClient);
+}else {
+    isClient = true;
+    console.log("client true? "+isClient);
+}
+var isSuperUser = sessionStorage.getItem("superuserStatus");
 var sucessfulQuals = 0;
 var tempClientId = -1;
 
@@ -156,7 +164,7 @@ function createProjectGroup(projectName) {
                 var primaryColour = $("#client_colour_primary2").val();
                 var secondaryColour = $("#client_colour_secondary2").val();
                 $("#modalClientName").val("");
-                var clientPw = createClient(clientName, primaryColour, secondaryColour, function() {assignAccountToProjectGroup(projGroupID, this, function (){}); loadTab("#projects")});
+                var clientPw = createClient(clientName, primaryColour, secondaryColour, true, projGroupID, "#projects");
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 
@@ -181,12 +189,15 @@ function linkQualsAndProject(){
 }
 
 function getProjects(account_id){
+
+    HoldOn.open();
     accountId = account_id;
 
     getAccountById(account_id, function() {
         var account = this;
 
-        isClient = !account.isAdmin;
+        //isClient = !account.isAdmin;
+        //console.log("first "+isClient);
         isSuperUser = account.isSuperUser;
 
         if(!isClient){
@@ -198,6 +209,10 @@ function getProjects(account_id){
             getProjectsByClient(account_id, processProjects);
         }
     });
+    setTimeout(function(){
+        HoldOn.close();
+    },2000);
+
 }
 
 function processProjects(){
@@ -241,14 +256,17 @@ function verifyAccount2(password) {
     });
 }
 
-function createClient(clientName, primaryColour, secondaryColour, insideInsertAcc){
+function createClient(clientName, primaryColour, secondaryColour, PGCreated, PGID, tabToLoad){
     var password = generatePassword();
     while (verifyAccount2(password) == false) {
         password = generatePassword();
     }
 
     insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
-        insideInsertAcc();
+        if (PGCreated === true) {
+            assignAccountToProjectGroup(PGID, this, function (){});
+        }
+        loadTab(tabToLoad);
     });
 
     return password;
@@ -485,6 +503,7 @@ function addProjectQualsToGroup(projectID){
 }
 
 function openQualsForProject(projectID, projectName) {
+    HoldOn.open();
     getQualsByProject(projectID, function(){
 
         var quals = this;
@@ -506,6 +525,10 @@ function openQualsForProject(projectID, projectName) {
         $("#heading").html(projectName);
 
     });
+
+    setTimeout(function(){
+        HoldOn.close();
+    },2000);
 
 
 }
@@ -783,30 +806,32 @@ function getEverything(){
 
     adminGroupID = sessionStorage.getItem("adminGroupID");
     accountId = sessionStorage.getItem("account_id");
+    //isClient = sessionStorage.getItem("isAdmin");
 
-    getQualsByAdminGroup(adminGroupID,function(){
-        allQuals = this;
-    });
 
-    if (isClient){
+    //isClient = (isClient === "false") ? false : true;
+
+    if(isClient) {
+        getQualsByAccount(accountId, function () {
+            allQuals = this;
+        });
         //it's actually by account but named client for some reason :/
         getProjectsByClient(accountId, function () {
             allProjects = this;
         });
-    }else {
+    }else{
+        getQualsByAdminGroup(adminGroupID, function () {
+            allQuals = this;
+        });
+
         getProjectsByAdminGroup(adminGroupID, function () {
             allProjects = this;
         });
+
+        getAllClients(function(){
+            allClients = this;
+        });
     }
-
-    getAccountById(accountId, function(){
-        if(this.isAdmin){
-            getAllClients(function(){
-                allClients = this;
-            });
-        }
-    });
-
 }
 
 function resetProjID(){

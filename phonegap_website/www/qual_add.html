@@ -474,7 +474,7 @@
         }
 
         function ManualReset(){
-
+            HoldOn.open();
             $("#qual_industry").select2("val", "");
             $("#ddAdminGroups").select2("val", "");
             $("#qual_tags").select2("val", "");
@@ -486,6 +486,12 @@
             $('.prod_serv_progress').hide();
 
             $('.client_logo_progress').hide();
+
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
+
         }
 
         function checkURL (abc) {

@@ -915,7 +915,7 @@
             slider.container.empty().append(slider.slides);
           }
         }
-        // INFINITE LOOP && !CAROUSEL:
+        //INFINITE LOOP && !CAROUSEL:
         if (slider.vars.animationLoop && !carousel) {
           slider.cloneCount = 2;
           slider.cloneOffset = 1;
