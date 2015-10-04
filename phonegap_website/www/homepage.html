@@ -652,7 +652,7 @@
             var primaryColour = $("#qual_colour_primary").val();
             var secondaryColour = $("#qual_colour_secondary").val();
             $("#clientName").val("");
-            var clientPw = createClient(clientName, primaryColour, secondaryColour, function() { loadTab("#clients") });
+            var clientPw = createClient(clientName, primaryColour, secondaryColour, false, "", "#clients");
             var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
 
