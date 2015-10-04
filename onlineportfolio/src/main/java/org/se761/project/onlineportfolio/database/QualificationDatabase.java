@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.p4p.backpocketdriver.driverlog.exception.DriverLogException;
+import org.p4p.backpocketdriver.driverlog.model.UserDetails;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.Account;
@@ -153,7 +155,7 @@ public class QualificationDatabase {
 	}
 
 	/**
-	 * Delete qualification from database
+	 * Archive qualification from database
 	 */
 	public Qualification deleteQual(int qualId){
 		openSessionFactory();
@@ -173,6 +175,31 @@ public class QualificationDatabase {
 		closeSessionFactory();
 		return qual;
 	}
+	
+	
+	/**
+	 * Delete qualification from database
+	 */
+	public Qualification deleteQualFromDB(int qualId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Qualification qual = (Qualification) session.get(Qualification.class, qualId);
+
+		if(qual == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Qual with id " + qualId + " could not be found.");
+		}
+
+		
+		session.delete(qual);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return qual;
+	}
+	
+
 
 	/**
 	 * Reactivate qualification from database
@@ -319,6 +346,13 @@ public class QualificationDatabase {
 		}		
 		
 		removeFromList(indicies, quals);
+		//removing inactive quals
+//		for (int i = 0; i<quals.size(); i++){
+//			if (quals.get(i).isActive() == false){
+//				quals.remove(i);
+//			}
+//		}
+
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
@@ -351,6 +385,13 @@ public class QualificationDatabase {
 		}		
 		
 		removeFromList(indicies, quals);
+//		//removing inactive quals
+//		for (int i = 0; i<quals.size(); i++){
+//			if (quals.get(i).isActive() == false){
+//				quals.remove(i);
+//			}
+//		}
+
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();

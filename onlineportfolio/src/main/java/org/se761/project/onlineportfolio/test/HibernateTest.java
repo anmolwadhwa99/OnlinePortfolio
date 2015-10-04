@@ -23,13 +23,13 @@ public class HibernateTest {
 		ProjectGroupService projectService = new ProjectGroupService();
 		ImageDatabase imageDatabase = new ImageDatabase();
 		
-//		Qualification qual = new Qualification();
-//		qual.setClientName("Client 3");
-//		qual.setProblemStatement("This is a problem 3");
-//		qual.setProjectName("This is a project 3");
-//		qual.setRelevanceToClient("This is relevant 3");
+		Qualification qual = new Qualification();
+		qual.setClientName("Client 3");
+		qual.setProblemStatement("This is a problem 3");
+		qual.setProjectName("This is a project 3");
+		qual.setRelevanceToClient("This is relevant 3");
 //		
-//		qualService.addQual(qual);
+		qualService.addQual(qual);
 //		qualService.deleteQual(1);
 //		
 //		Image image = new Image();
@@ -43,7 +43,7 @@ public class HibernateTest {
 //		imageDatabase.addImageToQualification(1, 1);
 		
 		
-		imageDatabase.deleteImage(1);
+		//imageDatabase.deleteImage(1);
 		
 //		Account dheeraj = new Account();
 //		dheeraj.setAdmin(true);
