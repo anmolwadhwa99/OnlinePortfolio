@@ -764,14 +764,24 @@
 <div class="portfolio-modal modal fade" id="viewQualModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl" role="document" style= "position: fixed;">
         <div class="modal-content">
-            <div class="modal-header">
-                <div id='client-logo'class="logo-modal portfolio-image ">
+
+            <div class="row modal-header">
+                <div id='client-logo' class="col-md-3 logo-modal portfolio-image">
                 </div>
-                <h3 id="qual-projectName" class="viewQual-modalHeader"></h3>
-                <div id="viewButtons" class="close-modal">
+                <h3 id="qual-projectName" class="col-md-6"></h3>
+                <div id="viewButtons" class="col-md-3 close-modal">
                     <i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>
                 </div>
             </div>
+
+            <!--<div class="modal-header">-->
+                <!--<div id='client-logo'class="logo-modal portfolio-image ">-->
+                <!--</div>-->
+                <!--<h3 id="qual-projectName" class="viewQual-modalHeader"></h3>-->
+                <!--<div id="viewButtons" class="close-modal">-->
+                    <!--<i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="modal-body" id="modal_body">
                 <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
