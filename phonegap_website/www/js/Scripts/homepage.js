@@ -537,12 +537,11 @@ function viewQual(qual_id){
 
     if(!isClient) {
 
-        var icon = document.getElementById("btnDuplicate");
 
-        if (!icon) {
-            var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
-            $('#viewButtons').prepend(dup);
-        }
+        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
+
+        $("#btnDuplicate").remove();
+        $('#viewButtons').prepend(dup);
         //document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
     }
     $('#frameViewQual').attr('src', 'view_qual.html');
