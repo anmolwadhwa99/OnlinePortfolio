@@ -86,10 +86,18 @@ public class QualificationService {
 	
 	
 	/**
-	 * Delete a qualification 
+	 * Archive a qualification 
 	 */
 	public Qualification deleteQual(int qualId){
 		Qualification qual = qualDatabase.deleteQual(qualId);
+		return qual;
+	}
+	
+	/**
+	 * Delete a qualification 
+	 */
+	public Qualification deleteQualFromDB(int qualId){
+		Qualification qual = qualDatabase.deleteQualFromDB(qualId);
 		return qual;
 	}
 	

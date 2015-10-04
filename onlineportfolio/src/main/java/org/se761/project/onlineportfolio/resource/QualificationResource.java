@@ -116,12 +116,21 @@ public class QualificationResource {
 	
 	
 	/**
-	 * Delete an qualification
+	 * Archive qualification
 	 */
 	@DELETE
 	@Path("/{qualificationId}")
 	public Qualification deleteQualification(@PathParam("qualificationId") int qualificationId){
 		return qualificationService.deleteQual(qualificationId);
+	}
+	
+	/**
+	 * Delete an qualification
+	 */
+	@DELETE
+	@Path("/delete/{qualificationId}")
+	public Qualification deleteQualificationFromDB(@PathParam("qualificationId") int qualificationId){
+		return qualificationService.deleteQualFromDB(qualificationId);
 	}
 	
 	

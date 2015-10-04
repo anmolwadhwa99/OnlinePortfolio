@@ -8,8 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.p4p.backpocketdriver.driverlog.exception.DriverLogException;
-import org.p4p.backpocketdriver.driverlog.model.UserDetails;
 import org.se761.project.onlineportfolio.exception.DatabaseRetrievalException;
 import org.se761.project.onlineportfolio.exception.NotActiveException;
 import org.se761.project.onlineportfolio.model.Account;
