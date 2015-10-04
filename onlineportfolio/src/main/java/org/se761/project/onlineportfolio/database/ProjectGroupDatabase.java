@@ -77,7 +77,7 @@ public class ProjectGroupDatabase {
 		closeSessionFactory();
 		return projGroup;
 	}
-	
+
 	/**
 	 * Delete project group from database
 	 */
@@ -175,7 +175,7 @@ public class ProjectGroupDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		
+
 		Account account = (Account) session.get(Account.class, accountId);
 
 		if(account == null){
@@ -184,20 +184,34 @@ public class ProjectGroupDatabase {
 		}
 
 		List<ProjectGroup> projectGroups = account.getProjGroups();
-		List<ProjectGroup> tempList = new ArrayList<ProjectGroup>(projectGroups);
+		List<Integer> indicies = new ArrayList();
 
 		//removing inactive project groups
 		for (int i = 0; i<projectGroups.size(); i++){
 			if (projectGroups.get(i).isActive() == false){
-				tempList.remove(i);
+				indicies.add(i);
 			}
 		}
+		removeFromList(indicies, projectGroups);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		return tempList;
+		return projectGroups;
 
 	}
+
+
+	private void removeFromList(List<Integer> indicies, List toRemove){
+
+		int index, count = 0;
+
+		for(int i = 0; i < indicies.size(); i++){
+			index = indicies.get(i) - count;
+			toRemove.remove(index);
+			count++;
+		}
+	}
+
 
 	/**
 	 * Get all project groups associated with an admin group
@@ -206,7 +220,7 @@ public class ProjectGroupDatabase {
 		openSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		
+
 
 		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
 
@@ -216,19 +230,20 @@ public class ProjectGroupDatabase {
 		}
 
 		List<ProjectGroup> projectGroups = adminGroup.getProjectGroups();
-		List<ProjectGroup> tempList = new ArrayList<ProjectGroup>(projectGroups);
+		List<Integer> indicies = new ArrayList<>();
 
 		//remove inactive project groups
 		for(int i = 0; i <projectGroups.size(); i++){
 			if(projectGroups.get(i).isActive() == false){
-				tempList.remove(i);
+				indicies.add(i);
 			}
 		}
 
+		removeFromList(indicies, projectGroups);
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
-		return tempList;
+		return projectGroups;
 
 	}
 
@@ -276,14 +291,14 @@ public class ProjectGroupDatabase {
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Admin group with id " + adminGroupId + " could not be found");
 		}
-		
+
 		ProjectGroup projGroup = (ProjectGroup) session.get(ProjectGroup.class, projectGroupId);
-		
+
 		if(projGroup == null){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Project group with id " + projectGroupId + " could not be found");
 		}
-		
+
 		projGroup.getAdminGroups().add(adminGroup);
 		adminGroup.getProjectGroups().add(projGroup);
 		session.saveOrUpdate(projGroup);
