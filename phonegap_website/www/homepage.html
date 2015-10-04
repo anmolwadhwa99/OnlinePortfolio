@@ -223,19 +223,19 @@
             }).get().on('pnotify.confirm', function () {
                 if (submit_option == "CLIENT") {
                     successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveClient(item_id);
 
                 }
                 else if (submit_option == "PROJECT") {
                     successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveProject(item_id);
 
                 }
                 else if (submit_option == "QUAL") {
                     successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
-                    //timeout();
+                    timeout();
                     archiveQual(item_id);
 
                 }
