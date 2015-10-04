@@ -189,6 +189,8 @@ function linkQualsAndProject(){
 }
 
 function getProjects(account_id){
+
+    HoldOn.open();
     accountId = account_id;
 
     getAccountById(account_id, function() {
@@ -207,6 +209,10 @@ function getProjects(account_id){
             getProjectsByClient(account_id, processProjects);
         }
     });
+    setTimeout(function(){
+        HoldOn.close();
+    },2000);
+
 }
 
 function processProjects(){
