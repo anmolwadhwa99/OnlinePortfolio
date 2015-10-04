@@ -215,20 +215,33 @@ public class AdminGroupDatabase {
 		}
 		
 		List<AdminGroup> adminGroups = account.getAdminGroup();
-		List<AdminGroup> temp = new ArrayList<AdminGroup>(adminGroups);
+		List<Integer> indicies = new ArrayList();
 		
 		//removing inactive admin groups
 		for (int i = 0; i<adminGroups.size(); i++){
 			if (adminGroups.get(i).isActive() == false){
-				temp.remove(i);
+				indicies.add(i);
 			}
 		}
+		
+		removeFromList(indicies, adminGroups);
 		
 		session.getTransaction().commit();
 		session.close();
 		closeSessionFactory();
 		
-		return temp;
+		return adminGroups;
+	}
+	
+	private void removeFromList(List<Integer> indicies, List toRemove){
+		
+		int index, count = 0;
+		
+		for(int i = 0; i < indicies.size(); i++){
+			index = indicies.get(i) - count;
+			toRemove.remove(index);
+			count++;
+		}
 	}
 	
 	/**
