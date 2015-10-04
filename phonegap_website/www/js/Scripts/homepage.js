@@ -394,7 +394,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
     }else if(type == 'client'){
         inClientTab = true;
-        editFunction = 'data-toggle=\"modal\" data-target=\"#createClientModal\" onclick=\"updateClientDetails(' + editFunc + ')\"';
+        editFunction = 'data-toggle=\"modal\" data-target=\"#updateClientModal\" onclick=\"updateClientDetails(' + editFunc + ')\"';
     }
 
 
@@ -835,14 +835,23 @@ function updateClientDetails(account_id) {
     getAccountById(account_id, function() {
         var account = this;
         tempClientId = account_id;
+
+        console.log("tempID = " + tempClientId);
+
         $("#client_modal_heading").html("Edit Client");
+<<<<<<< Updated upstream
         $("#clientName").val(account.accountName);
         $("#client_colour_primary").val(account.primaryColour);
         $("client_colour_secondary").val(account.secondaryColour);
+=======
+        $("#update_clientName").val(account.accountName);
+        $("#update_qual_colour_primary").val(account.primaryColour);
+        $("update_qual_colour_secondary").val(account.secondaryColour);
+>>>>>>> Stashed changes
         var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
             "The password for the client is: <strong>"+account.password +"</strong>"
-        $("#passwordAlert").html(htmlStr);
-        $("#passwordAlert").attr('style', '');
+        $("#update_passwordAlert").html(htmlStr);
+        $("#update_passwordAlert").attr('style', '');
     });
 }
 
