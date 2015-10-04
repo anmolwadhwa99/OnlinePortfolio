@@ -932,6 +932,53 @@ function insertAccount(isAdmin, acName, pw, isSuperUser, primaryColour, secondar
     req.send(x);
 }
 
+function updateAccount(id ,isAdmin, isActive, acName, pw, isSuperUser, primaryColour, secondaryColour, callback){
+    var methodURL = url + _ac;
+    var method = "PUT";
+
+    var req = createRequest();
+
+    if (req){
+        req.onreadystatechange = function(){
+            if (req.readyState != 4) return;
+            if (req.status != 200) {
+                return null;
+            }
+            // Request successful, read the response
+            var resp = req.responseText;
+            var json = JSON.parse(resp);
+            var ac = new Account(json);
+
+            if (typeof callback == 'function'){
+                callback.apply(ac.accountId);
+            }
+
+        }
+    }
+    req.open(method, methodURL, true);
+
+    req.setRequestHeader("Content-type","application/json");
+    var x = '{'+
+        '"admin": ' + isAdmin + ','+
+        '"accountId": ' + id + ','+
+        '"accountName": "' + acName + '",'+
+        '"password": "' + pw + '",'+
+        '"primaryColour": "' + primaryColour + '",'+
+        '"secondaryColour": "' + secondaryColour + '",'+
+        '"active": "' + isActive + '",'+
+        '"superUser": ' + isSuperUser +
+        '}';
+
+    console.log(x);
+    req.send(x);
+}
+
+function updateClient(id ,isAdmin, isActive, acName, pw, isSuperUser, primaryColour, secondaryColour, callback){
+
+    updateAccount(id,isAdmin,isActive,acName,pw,isSuperUser,primaryColour,secondaryColour,callback);
+
+}
+
 function deleteAccount(id){
     var methodURL = url + _ac + "/" + id;
     var method = "DELETE";
