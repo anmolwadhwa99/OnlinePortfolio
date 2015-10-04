@@ -24,7 +24,7 @@
                 // Also shouldn't be able to do multiple operations at the sametime (i.e. add and edit, or edit and dup)
                 if (!((addStatus && !editId && !dupId) || (!addStatus && editId && !dupId) || (!addStatus && !editId && dupId))) {
                     console.log(addStatus + " " + editId + " " + dupId);
-                    alert("Please use the supplied add/edit/duplicate qual buttons to access the qual page");
+//                    alert("Please use the supplied add/edit/duplicate qual buttons to access the qual page");
                     location.replace("homepage.html");
                 }
             }
@@ -287,7 +287,7 @@
                 new PNotify({
                     title: 'Alert',
                     text: message,
-                    type: alert_type,
+                    type: 'error',
                     opacity: .8,
                     nonblock: {
                         nonblock: true,
@@ -299,9 +299,17 @@
                 });
             };
 
-            $('#btn_submit').click(function(){
-               
+            $('#btn_submit').click(function(e){
+                e.preventDefault();
+                var probStat = document.getElementById('prob_stat');
+                var clientName = document.getElementById('client_name');
+                var projectName = document.getElementById('project_name');
 
+                if(projectName == null || clientName == null || probStat == null){
+                    alert('Mandatory fields are necessary');
+                }else{
+                    addQual();
+                }
 
             });
 
@@ -352,7 +360,7 @@
             });
 
             getAllAdminGroups(function (){
-               var groups = this;
+                var groups = this;
                 $.each(groups, function(i, val){
                     // There should always be atleast one admin group available
                     if(val.isActive == true) {
@@ -509,7 +517,7 @@
     <strong>Heads Up!</strong> Please use CTRL Shift V / ⌘CMD Shift V to paste formatted content from PowerPoint, Word, etc
 </div>
 
-<form id="qual_add_form" action="javascript:addQual();" class="container-fluid" >
+<form id="qual_add_form" class="container-fluid" >
     <input type="hidden" id="qual_id">
     <div class="row">
         <div class="col-md-6">
@@ -557,7 +565,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="qual_project_name">Project Name: *</label>
+                                <label id="project_name" for="qual_project_name">Project Name: *</label>
                                 <input id="qual_project_name" type="text" class="form-control" placeholder="Project Name"
                                        required autofocus>
                             </div>
@@ -570,7 +578,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="qual_client_name">Client Name: *</label>
+                                <label id="client_name" for="qual_client_name">Client Name: *</label>
                                 <input id="qual_client_name" type="text" class="form-control" placeholder="Client Name"
                                        required>
                             </div>
@@ -694,7 +702,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="qual_problems">Problem Statement: *</label>
+                <label id="prob_stat" for="qual_problems">Problem Statement: *</label>
                 <textarea id="qual_problems" rows="3" class="form-control" placeholder="Problem Statement"
                           required></textarea>
             </div>
