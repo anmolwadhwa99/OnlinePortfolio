@@ -27,9 +27,6 @@ function search(){
         return;
     }
 
-
-
-
     var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
     resUL.width(len);
 
