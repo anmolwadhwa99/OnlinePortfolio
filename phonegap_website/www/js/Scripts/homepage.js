@@ -133,15 +133,25 @@ function createProjectGroup(projectName) {
 
             linkQualsAndProject();
             var clientID;
-            if ($('#existingClientSelect').is(':checked') == true) {
-                clientID = $("#clientDropdown").val();
-                assignAccountToProjectGroup(projGroupID, clientID, function() {})
-            } else if ($('#newClientSelect').is(':checked') == true) {
-                var accountName = $("#modalClientName").val();
-                insertAccount(false, accountName, generatePassword() , false,"red", "white", function () {
+            var radioVal = $('input[name="clientRadio"]:checked').val();
+            if (radioVal === "existing") {
+                    clientID = $("#clientDropdown").val();
+                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
+            } else {
+                var clientName = $("#modalClientName").val();
+                var primaryColour = $("#client_colour_primary2").val();
+                var secondaryColour = $("#client_colour_secondary2").val();
+                $("#modalClientName").val("");
+                var clientPw = createClient(clientName, primaryColour, secondaryColour);
+                var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                    "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
+
+                $("#passwordAlert2").html(htmlStr);
+                $("#passwordAlert2").show();
+                $("#createProjBtn").prop('disabled', true);
+                insertAccount(false, clientName, clientPw , false, primaryColour, secondaryColour, function () {
                     assignAccountToProjectGroup(projGroupID, this, function (){})
                 });
-
             }
             linkQualsAndProject();
             assignProjectToAdminGroup(adminGroupID, projGroupID);
@@ -227,7 +237,7 @@ function createClient(clientName, primaryColour, secondaryColour){
         password = generatePassword();
     }
 
-    insertAccount(false, clientName, 'qwerty', false, primaryColour, secondaryColour, password, function(){
+    insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
         loadTab('#clients');
     });
 
@@ -803,8 +813,8 @@ function editClient(account_id) {
         var account = this;
         $("#client_modal_heading").html("Edit Client");
         $("#clientName").val(account.accountName);
-        $("#qual_colour_primary").val(account.primaryColour);
-        $("qual_colour_secondary").val(account.secondaryColour);
+        $("#client_colour_primary").val(account.primaryColour);
+        $("client_colour_secondary").val(account.secondaryColour);
         var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
             "The password for the client is: <strong>"+account.password +"</strong>"
         $("#passwordAlert").html(htmlStr);
