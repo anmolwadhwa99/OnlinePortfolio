@@ -104,7 +104,7 @@ public class AdminGroupDatabase {
 	}
 
 	/**
-	 * Delete admin group from database
+	 * Archive admin group from database
 	 */
 	public AdminGroup deleteAdminGroup(int adminGroupId){
 		openSessionFactory();
@@ -125,6 +125,27 @@ public class AdminGroupDatabase {
 		return adminGroup;
 	}
 	
+	/**
+	 * Delete admin group from database
+	 */
+	public AdminGroup deleteAdminGroupFromDB(int adminGroupId){
+		openSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		AdminGroup adminGroup = (AdminGroup) session.get(AdminGroup.class, adminGroupId);
+
+		if(adminGroup == null){
+			closeSessionFactory();
+			throw new DatabaseRetrievalException("Admin Group with id " + adminGroupId + " could not be found.");
+		}
+
+
+		session.delete(adminGroup);
+		session.getTransaction().commit();
+		session.close();
+		closeSessionFactory();
+		return adminGroup;
+	}
 	/**
 	 * Reactivate an admin group from database
 	 */

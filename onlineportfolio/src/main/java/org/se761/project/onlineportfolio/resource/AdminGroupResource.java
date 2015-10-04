@@ -53,12 +53,21 @@ public class AdminGroupResource {
 	}
 	
 	/**
-	 * Delete admin group
+	 * Archive admin group
 	 */
 	@DELETE
 	@Path("/{adminGroupId}")
 	public AdminGroup deleteAdminGroup(@PathParam("adminGroupId") int adminGroupId){
 		return adminGroupService.deleteAdminGroup(adminGroupId);
+	}
+	
+	/**
+	 * Delete admin group from DB
+	 */
+	@DELETE
+	@Path("/delete/{adminGroupId}")
+	public AdminGroup deleteAdminGroupFromDB(@PathParam("adminGroupId") int adminGroupId){
+		return adminGroupService.deleteAdminGroupFromDB(adminGroupId);
 	}
 	
 	/**

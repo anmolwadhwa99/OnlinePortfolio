@@ -34,10 +34,18 @@ public class AdminGroupService {
 	}
 	
 	/**
-	 * Delete admin group 
+	 * Archive admin group 
 	 */
 	public AdminGroup deleteAdminGroup(int adminGroupId){
 		AdminGroup adminGroup = adminGroupDatabase.deleteAdminGroup(adminGroupId);
+		return adminGroup;
+	}
+	
+	/**
+	 * Delete admin group 
+	 */
+	public AdminGroup deleteAdminGroupFromDB(int adminGroupId){
+		AdminGroup adminGroup = adminGroupDatabase.deleteAdminGroupFromDB(adminGroupId);
 		return adminGroup;
 	}
 	
