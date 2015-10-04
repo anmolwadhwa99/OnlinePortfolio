@@ -15,6 +15,8 @@ function search(){
     var text = $("#searchBox").val();
     var toShow = false;
     var searchResults = [];
+    var resUL = $('#resultUL');
+    resUL.empty();
 
     if (text.length > 0) {
         toShow =  true;
@@ -25,14 +27,27 @@ function search(){
         return;
     }
 
-    var resUL = $('#resultUL');
-    resUL.empty();
+
 
 
     var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
     resUL.width(len);
 
     if(searchResults.length == 0){
+        showResults(true);
+        var r_li = document.createElement('li');
+        var r_a = document.createElement("a");
+        var r_span = document.createElement("span");
+
+        r_a.setAttribute("href", "#");
+        r_span.setAttribute("style", "color: #909090");
+        r_span.appendChild(document.createTextNode("Your search returned no results"));
+
+
+        r_a.appendChild(r_span);
+
+        r_li.appendChild(r_a);
+        resUL.append(r_li);
         return;
     }
 
@@ -117,7 +132,7 @@ function showResults(toShow, tab) {
         $(tab).addClass('active'); // add active class to clicked tab
 
     } else {
-        error("invalid tab");
+       return;
     }
 
     getEverything();
