@@ -101,7 +101,7 @@
                 $('input[name=signin_password]').val(saved);
             }
 
-            //Focuses on
+
 
             iFrameResize();//Content in iframe,determines the size of the iframe appropriatly.
 
@@ -111,21 +111,21 @@
 
         });
 
+        //Functionality for signing in
         function signin(){
             HoldOn.open();
-            var password = $('input[name=signin_password]').val();
+            var password = $('input[name=signin_password]').val(); //stores password into a variable
 
-            verifyAccount(password, function() {
-                if($('#cbRemember').is(':checked')){
+            verifyAccount(password, function() { //run verifcation on the account once verified run the callback function
+                if($('#cbRemember').is(':checked')){ //remembers the password if cbRemember is selected
                     window.localStorage.setItem('onlinePortfolioPass',password);
                 }
                 else{
-                    window.localStorage.removeItem('onlinePortfolioPass');
+                    window.localStorage.removeItem('onlinePortfolioPass'); //otherwise remove the password
                 }
 
-
-                var account = this;
-                if(!(account instanceof Account)) {
+                var account = this; //stores the account that was recieved when verify account was called in variable
+                if(!(account instanceof Account)) { // if account is not an instance of Account  the incorrect password was entered so throw pop up
                     var notice = new PNotify({
                         title: "ERROR",
                         text: "Incorrect password. Please try again.",
@@ -135,27 +135,30 @@
                     });
                 } else {
 
+                    //set the account ID
                     sessionStorage.setItem("account_id", account.accountId);
 
+                    //Get New Instance of account and store it in a variable
                     getAccountById(account.accountId, function () {
                         var account = this;
 
-                        var isClient = !account.isAdmin;
-                        var isSuperUser = account.isSuperUser;
+                        var isClient = !account.isAdmin; //boolean for if account isClient
+                        var isSuperUser = account.isSuperUser; //boolean for if account isSuperUser
 
                         sessionStorage.setItem("superuserStatus", account.isSuperUser);
                         sessionStorage.setItem("isAdmin", account.isAdmin);
+                        //if the account is an admin get all the AdminGroupsByAccount
                         if (account.isAdmin == true) {
                             getAdminGroupsByAccount(account.accountId, function(){
-                                var adminGroup = this;
+                                var adminGroup = this; //store the admin roup
                                 console.log("setAG "+this[0].id);
                                 sessionStorage.setItem("adminGroupID", this[0].id);
-                                location.replace("homepage.html");
-                                HoldOn.close();
+                                location.replace("homepage.html"); //changes to homepage.html
+                                HoldOn.close(); //close loading screen
                             });
 
                         } else {
-                            location.replace("homepage_client.html");
+                            location.replace("homepage_client.html"); //goes to the client view
                             HoldOn.close();
                         }
                     });
@@ -173,13 +176,15 @@
             $('#frameViewQual').attr('src', 'view_public_qual.html');
         }
 
+        //getQuals is reposonsible for getting all public quals for the filmstrip, it then uses a callback function
+        //to dynamically load these quals into the correct html code.
         function getQuals(){
             getAllPublicQuals(function(){
 
 
                 var quals = this; //The list of public quals
 
-                var htmlStr="<ul class=\"slides\"> ";
+                var htmlStr="<ul class=\"slides\"> "; //the htmlStr holds the string that will be loaded in the html dynamically.
 
 
                 for (i = 0; i < quals.length; i++) {
@@ -193,6 +198,7 @@
                     );
 
                 }
+
                 htmlStr += "</ul>";
                 $("#quals").html(htmlStr);
 
@@ -200,9 +206,11 @@
 
                 //Need to do all this AFTER we have loaded the images from webservice!!
 
+                //The following code is for the filmstrip, used to change the filmstrip content
+
                 var scroller = $('#scroller div.innerScrollArea');
                 var scrollerContent = scroller.children('ul');
-//                scrollerContent.children().clone().appendTo(scrollerContent);
+//                scrollerContent.children().clone().appendTo(scrollerContent);   Clones the children in filmstrip
                 var curX = 0;
                 scrollerContent.children().each(function(){
                     var $this = $(this);
@@ -258,6 +266,7 @@
 
         function addPortfolioItem(image,viewFunc, addFunc, editFunc, name, isClients, archiveFunc){
 
+            //Loads the images dynamically into the filmstrip
             return "<li>\
                         <div class = 'portfolio-image' style=\"background-image: url('" + image + "'); background-color: white;\"> \
                           <a class='portfolio-link' data-target='#viewQualModal' data-toggle='modal' onclick='viewQual(" + viewFunc + ")' > \
@@ -267,7 +276,7 @@
                     </li>"
         }
 
-//        <img src=" + '' + " style='width=100%; height=auto;'> \
+        //the following method is used to determine the default images that are used when images are not associated
         function determineItemImage(clientImage, projectImage, type){
 
             var image = "";
@@ -314,7 +323,8 @@
 
 <body style="background-color: #000052">
 
-
+<!-- This is the html code for the filmstrip container where all the code is dynamically loaded in
+and rendered-->
 <div id="filmStrip_Container" class="filmstrip-Wrapper">
 
     <section id ="portfolio" class="slider" style="padding-top: 0px; padding-bottom: 50px;">
