@@ -60,12 +60,16 @@
 
             var qual_id = sessionStorage.getItem("qual_id");
             var account_id = sessionStorage.getItem("account_id");
+
+            //The variable to store the content for the view qual depending on what information the Qual contains
             var htmlStr = "";
             getQualById(qual_id, function(){
                 var qual = this; // gets the qual info
                 var clientName = "";
                 var anonymousName = "";
 
+                //If the admin is viewing the qual then the anonymous name of the client is displayed
+                //But not for the client
                 getAccountById(account_id, function() {
                     var account = this;
                     if (account.isAdmin) {
@@ -82,34 +86,19 @@
                     }
 
 
-                    var image = "";
-
-
-                    if (qual.projectImage == null) {
-                        if (qual.clientImage == null) {
-//                        image = "imgs/noPreview.png";
-                            image = "";
-                        } else {
-                            image = qual.clientImage;
-                        }
-//                    image = "imgs/noPreview.png";
-                        image = "";
-                    } else {
-                        image = qual.projectImage;
-                    }
-
-//                    parent.$('#client-logo').attr('src', qual.clientImage);
+                    //Client logo
                     parent.$('#client-logo').css("background", "url("+qual.clientImage+")");
-//                    parent.$('#client-logo').css("height", "12%");
 
+                    //Project Name
                     parent.$('#qual-projectName').text(qual.projectName);
 
 
+                    //Display the product image and Client Name
                     htmlStr += " \
             <div class='row'>\
             <div class='col-md-6 vcenter' > \
                 <div class='image-upload' > \
-                        <img style=\"max-width: 300px; max-height: 100%;display: block;margin: auto;padding: 10px;\"id='qual_product_service_img' class='img-rounded fill' src='" + image + "' /> \
+                        <img style=\"max-width: 300px; max-height: 100%;display: block;margin: auto;padding: 10px;\"id='qual_product_service_img' class='img-rounded fill' src='" + qual.projectImage + "' /> \
                 </div>\
             </div><!--\
             --><div class='col-md-6 vcenter' style=\"background-color: #dcdcdc;padding-bottom: 20px;padding-top: 20px;\"> \
@@ -122,6 +111,7 @@
                     </div>\
                 </div>";
 
+                    //If it's admin and the Qual has an anonymous Client name then display it
                     if(anonymousName != ""){
                         htmlStr += "\
                 <div class='row'> \
@@ -134,6 +124,7 @@
                 </div>";
                     }
 
+                    //Display the subtitle the qual contains one
                     if (qual.subtitle != null && qual.subtitle != "") {
                         htmlStr += "\
                 <div class='row'> \
@@ -146,6 +137,7 @@
                 </div>"
                     }
 
+                    //Display the industry the qual contains one
                     if (qual.industry != null && qual.industry != "") {
                         htmlStr += "\
                 <div class='row'>\
@@ -158,6 +150,7 @@
                 </div>"
                     }
 
+                    //Display the service line the qual contains one
                     if (qual.serviceLine != null && qual.serviceLine != "") {
                         htmlStr += "\
                 <div class='row'>\
@@ -170,6 +163,7 @@
                 </div>"
                     }
 
+                    //Display the status if the qual contains one
                     if (qual.status != null && qual.status != "") {
                         htmlStr += "\
                 <div class='row'> \
@@ -194,6 +188,7 @@
                     </div>";
                     }
 
+                    //E-mail button that contains 'mail-to' action
                     if (qual.emailButton != null && qual.emailButton != "") {
                         htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
@@ -203,6 +198,7 @@
                     </div>";
                     }
 
+                    //Website button
                     if (qual.websiteButton != null && qual.websiteButton != "") {
                         htmlStr += "\
                     <div class='col-md-3 vertical_center_2'>\
@@ -216,6 +212,7 @@
 
                     htmlStr += "</div></div>";
 
+                    //Display the Problem Statement
                     htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Problem Statement:</h4> \
                         </div>\
@@ -224,6 +221,7 @@
                             <div style='padding-bottom: 15px;'></div>\
                         </div>";
 
+                    //Display the Challenges Faced if the qual contains it
                     if (qual.challengesFaced != null && qual.challengesFaced != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Challenges Faced:</h4> \
@@ -234,6 +232,7 @@
                         </div>";
                     }
 
+                    //Display the Solution Statement if the qual contains it
                     if (qual.solutionStatement != null && qual.solutionStatement != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Solution:</h4> \
@@ -244,6 +243,7 @@
                         </div>";
                     }
 
+                    //Display the Outcome Statement if the qual contains it
                     if (qual.outcomeStatement != null && qual.outcomeStatement != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Outcome:</h4> \
@@ -254,6 +254,7 @@
                         </div>";
                     }
 
+                    //Display Relevance to Client if the qual contains it
                     if (qual.relevanceToClient != null && qual.relevanceToClient != "") {
                         htmlStr += "<div class='col-md-12 col-xs-12'> \
                             <h4 class='subheading2'>Relevance to Client:</h4> \
@@ -267,6 +268,7 @@
 
                     htmlStr += "</div> ";
 
+                    //Add the html string to the modal content to display the relevant information
                     $('#modal_body').html(htmlStr);
                 })
 

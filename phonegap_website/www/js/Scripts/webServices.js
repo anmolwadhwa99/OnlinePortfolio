@@ -3,10 +3,12 @@ This is the file which connects the website with the web service and
 contains methods for each of the urls exposed by the web service.
  */
 
+
 // The web service location
 var url = "http://q-hub.herokuapp.com/webapi";
 //var url = "http://localhost:8080/onlineportfolio/webapi";
 //var url = "http://onlineportfolio.herokuapp.com/webapi";
+
 var _qual = "/qual";
 var _ac = "/account";
 var _ag = "/admin";
