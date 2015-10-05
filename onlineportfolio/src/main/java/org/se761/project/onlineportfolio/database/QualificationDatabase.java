@@ -1,6 +1,7 @@
 package org.se761.project.onlineportfolio.database;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -407,11 +408,41 @@ public class QualificationDatabase {
 
 		Account account = (Account) session.get(Account.class, accountId);
 
-		if(account == null){
+		if(account == null || account.isActive() == false){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found, so can't retrieve qualifications");
 		}
-		List<Qualification> quals = account.getAccountsQual();
+		
+		List<Qualification> quals = new ArrayList<Qualification>();
+		
+		//check if account is admin group
+		if (account.isAdmin() == true){
+			//create HashMap to store Qual's
+			HashMap<Integer, Qualification> qualHashMap= new HashMap<Integer, Qualification>();
+			
+			//get admin groups related to an account
+			List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
+			adminGroups = account.getAdminGroup();
+			
+			//add Qual's to HashMap
+			for (AdminGroup admin : adminGroups){
+				
+				//get Quals
+				quals = admin.getQuals();
+				
+				for (Qualification q: quals){
+					qualHashMap.put(q.getQualId(), q);
+				}
+			}
+			quals = new ArrayList<Qualification> (qualHashMap.values());
+				
+		}
+		
+		//else account is client
+		else{
+			quals = account.getAccountsQual();
+		}
+		
 		List<Integer> indicies = new ArrayList();
 
 		//removing inactive quals
