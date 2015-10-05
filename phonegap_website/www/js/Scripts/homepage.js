@@ -381,6 +381,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     var locHeight = 210;
     var locWidth = 295;
     var image = determineItemImage(clientImg, projectImg, type);
+    console.log("returned "+image);
 
     //var newImg = new Image();
     //newImg.src = image;
@@ -461,9 +462,11 @@ function determineItemImage(clientImage, projectImage, type){
 
     var image = "";
     if(type == 'qual'){
+        console.log("here qual  "+projectImage);
         if(projectImage == null){
             if(clientImage == null){
-                return "img/portfolio/startup-framework.png";
+                console.log("here returned "+image);
+                return "imgs/deloitte.jpg";
             }else{
                 return clientImage;
             }
