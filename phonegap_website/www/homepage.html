@@ -378,8 +378,8 @@
                         <div class="col-md-12 no-padding">
                             <input type="text" class="form-control" id="modalClientName"placeholder="Client name"/>
                         </div>
-                        <div  class="col-md-12 margin-tb alert alert-info alert-dismissible" role="alert">
-                            Please be mindful of the two colour combinations and the contrast between them.
+                        <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;padding-top: 20px;;" >
+                            <img src="img/preview.png"  alt="Client Preview" style="width:100%;height:auto;">
                         </div>
 
                         <!--The below div holds the primary and secondary color wheels when the user has clicked on creating
@@ -440,8 +440,8 @@
                         </div>
                     </div>
                 </form>
-                <div class="alert alert-info alert-dismissible" role="alert">
-                    Please be mindful of the two colour combinations and the contrast between them.
+                <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;padding-top: 20px;" >
+                    <img src="img/preview.png"  alt="Client Preview" style="width:100%;height:auto;">
                 </div>
 
                 <!--The below div holds the primary and secondary color wheels when the user has clicked on creating
@@ -503,8 +503,8 @@ details once submitted.-->
                         </div>
                     </div>
                 </form>
-                <div class="alert alert-info alert-dismissible" role="alert">
-                    Please be mindful of the two colour combinations and the contrast between them.
+                <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;padding-top: 20px;" >
+                    <img src="img/preview.png"  alt="Client Preview" style="width:100%;height:auto;">
                 </div>
                 <div class="row">
                     <div id="update_primary_color_wheel" class="col-md-6 col-xs-8">
@@ -684,8 +684,8 @@ it also has the right navigation bar which expands out from the right-->
             e.preventDefault();
 
             var clientName = $("#clientName").val();
-            var primaryColour = $("#qual_colour_primary").val();
-            var secondaryColour = $("#qual_colour_secondary").val();
+            var primaryColour = $("#client_colour_primary").val();
+            var secondaryColour = $("#client_colour_secondary").val();
             $("#clientName").val("");
             var clientPw = createClient(clientName, primaryColour, secondaryColour, false, "", "#clients");
             var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
