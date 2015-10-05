@@ -172,12 +172,12 @@
             alert("Updating admin group: " + ag_name);
         }
         function loadAGAdd(){
-            $('#modalTitleAG').text("Create Admin Group");
+            $('#modalAGTitle').text("Create Admin Group");
             $('#modalAGConfirmAdd').show();
         }
 
         function loadEditAG(id, name){
-            $('#modalTitleAG').text("Edit Admin Group");
+            $('#modalAGTitle').text("Edit Admin Group");
             $('#ag_name').val(name);
             $('#ag_id').val(id);
             $('#modalAGConfirmEdit').show();
@@ -738,7 +738,7 @@
         </div>
     </div>
 </div><!--/.modal -->
-<!-- Modal - Create Admin Group -->
+<!-- Modal - Create Admin -->
 <div class="modal fade" id="modalAdmin" tabindex="-1" role="dialog" aria-labelledby="modalAdminTitle">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -819,11 +819,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" >Qual App - Superuser Mode</a>
+                <a class="navbar-brand" >QHub - Superuser Mode</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse superNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a class="btn btn-link" href="homepage.html"><span class="glyphicon glyphicon-home"></span> Admin</a></li>
+                    <li class="active"><a class="btn btn-default" href="homepage.html"><span class="glyphicon glyphicon-home"></span> Admin</a></li>
                     <li><a class="btn btn-link" data-toggle="modal" data-target="#modalAG" onclick="loadAGAdd();"><span class="fa fa-users"></span> Add Admin Group</a></li>
                     <li><a class="btn btn-link" data-toggle="modal" data-target="#modalAdmin" onclick="loadAdminAdd();"><span class="fa fa-user-plus"></span> Add Admin Account</a></li>
                     <li><a class="btn btn-link" onclick="logout();"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
