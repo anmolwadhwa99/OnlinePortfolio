@@ -3,10 +3,8 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <script>
         var account = sessionStorage.getItem("account_id");
         if(! account){ // if not defined (i.e. value is undefined or null)
@@ -20,17 +18,15 @@
             }
         }
     </script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>Deloitte New Zealand </title>
     <link rel=" shortcut icon" href="imgs/favicon.ico">
-
-    <script src="js/jquery-2.1.4.min.js"></script>
 
     <link href="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/css/HoldOn.css" rel="stylesheet">
 
@@ -71,9 +67,9 @@
     <script type="application/javascript">
         $(document).ready(function () {
 
-            HoldOn.open();
+            HoldOn.open(); //Loading Screen
 
-            showDD();
+            showDD(); //Show dropdown
 
             // Wrapping of default alert
             window.alert = function (message) {
@@ -169,6 +165,7 @@
 //            document.getElementById("divAddToCartAlert").style.display = 'none';
         });
 
+        //Popup asking the user for confirmation on deleting a qual, client or project.
         function confirmArchive(archiveType, itemID){
             $('#form_submit').text('Delete').addClass("btn-danger");
             $('#form_body').text('This will be deleted. This can only be undone by a superuser. Are you sure?');
@@ -184,7 +181,7 @@
         };
 
         setTimeout(function(){
-            HoldOn.close();
+            HoldOn.close(); //Close the loading, gives control back to the user.
         },2000);
 
     </script>
@@ -197,6 +194,7 @@
             });
         }
 
+        //Message confirming to user that quals have been added to the cart
         function successMessageCart(nQuals){
             new PNotify({
                 title: "Success",
@@ -204,6 +202,10 @@
                 type: 'success'
             });
         }
+
+        //Confirming to the user that something has been succesfully been deleted,
+        //the main arguments of the method is the item id, the title of the notice and the text it will contain,
+
 
         function confirmAction(item_id, notice_title, notice_text, notice_type, submit_option) {
             var notice = new PNotify({
@@ -223,34 +225,37 @@
                     history: false
                 }
             }).get().on('pnotify.confirm', function () {
-                if (submit_option == "CLIENT") {
-                    successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
-                    timeout();
-                    archiveClient(item_id);
+                        if (submit_option == "CLIENT") {
+                            successMessage("Success", "The client has been sucessfully deleted. Please wait while we reload");
+                            timeout();
+                            archiveClient(item_id);
 
-                }
-                else if (submit_option == "PROJECT") {
-                    successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
-                    timeout();
-                    archiveProject(item_id);
+                        }
+                        else if (submit_option == "PROJECT") {
+                            successMessage("Success", "The project has been sucessfully deleted. Please wait while we reload");
+                            timeout();
+                            archiveProject(item_id);
 
-                }
-                else if (submit_option == "QUAL") {
-                    successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
-                    timeout();
-                    archiveQual(item_id);
+                        }
+                        else if (submit_option == "QUAL") {
+                            successMessage("Success", "The qual has been sucessfully deleted. Please wait while we reload");
+                            timeout();
+                            archiveQual(item_id);
 
-                }
-            }).on('pnotify.cancel', function () {
+                        }
+                    }).on('pnotify.cancel', function () {
 
-            });
+                    });
         }
+
+        //reloads the page after the set timeout of 2000ms
         function timeout() {
             setTimeout(function () {
                 location.reload();
             }, 2000);
         }
 
+        //clears a form of data
         function cleanseForm(){
             $('#form_title').text("");
             $('#form_body').text("");
@@ -259,12 +264,16 @@
         }
     </script>
     <script>
+
+        //Used to hide a dropdown associated wth the client
         function hideDD(){
             $('#div_clientDD').hide();
             $('#div_clientTB').show();
 //            $('#div_clientC').show();
 //            $('#div_clientA').show();
         }
+
+        //Ahows the dropdows associated with the client
         function showDD(){
             $('#div_clientTB').hide();
             $('#div_clientDD').show();
@@ -330,10 +339,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                        aria-hidden="true">&times;</span></button> <!--Close Modal Button-->
                 <h4 id="project_modal_title" class="modal-title">Create Project</h4>
             </div>
             <div class="modal-body">
+                <!--Create project form, allowing users to create a new project, this is in the right nav bar
+                Users have the option to assign the project to an exisiting client or create a new client-->
                 <form class="form-horizontal" role="form" id="createProjForm">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Project Name</label>
@@ -345,10 +356,12 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                <!--If Select exisiting client radio is selected, a dropdown will show (showDD()) will be called-->
                                 <label class="btn btn-default active">
                                     <input type="radio" id="existingClientSelect" value="existing" onchange="showDD();" name="clientRadio" checked="checked"/>
                                     Select Existing Client
                                 </label>
+                                <!--If Select Enter New Client radio is selected, the drop down will be hidden-->
                                 <label class="btn btn-default">
                                     <input type="radio" id="newClientSelect" value="new" onchange="hideDD();" name="clientRadio"/>
                                     Enter New Client
@@ -368,6 +381,9 @@
                         <div  class="col-md-12 margin-tb alert alert-info alert-dismissible" role="alert">
                             Please be mindful of the two colour combinations and the contrast between them.
                         </div>
+
+                        <!--The below div holds the primary and secondary color wheels when the user has clicked on creating
+                        a project and selected a new client, the colors will be assigned to the new client created.-->
                         <div  class="row">
                             <div id="primary_color_wheel2" class="col-md-6 col-xs-8">
                                 <label for="client_colour_primary2">Primary Colour: </label>
@@ -391,6 +407,8 @@
                     </div>
                 </form>
             </div>
+
+            <!--footer for the modal -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="createProjBtn">Create</button>
@@ -402,12 +420,15 @@
 </div>
 <!-- /.modal -->
 
+
+<!-- The user can click the plus symbol on the top of the website and create a new client, this weill popup the
+ following client, which allows the user to define a name and the primary and secondary colors for that client.-->
 <div id="createClientModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                        aria-hidden="true">&times;</span></button> <!--Close the Modal i.e Cancel-->
                 <h4 id="client_modal_heading" class="modal-title">Create Client</h4>
             </div>
             <div class="modal-body">
@@ -415,13 +436,17 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label"  for="modalClientName" placeholder="Client name">Client Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="clientName" value=""/>
+                            <input type="text" class="form-control" id="clientName" value=""/> <!--input box for client name.-->
                         </div>
                     </div>
                 </form>
                 <div class="alert alert-info alert-dismissible" role="alert">
                     Please be mindful of the two colour combinations and the contrast between them.
                 </div>
+
+                <!--The below div holds the primary and secondary color wheels when the user has clicked on creating
+                a project and selected a new client, the colors will be assigned to the new client created.-->
+
                 <div class="row">
                     <div id="primary_color_wheel" class="col-md-6 col-xs-8">
                         <label for="client_colour_primary">Primary Colour: </label>
@@ -440,6 +465,7 @@
 
                 </div>
                 <div style="height: 15px;"></div>
+                <!--passwordAlert will tell the admin user what the new clients password is, this will be generated and displayed-->
                 <div style="display: none" id="passwordAlert" class="alert alert-success alert-dismissible" role="alert">
 
                 </div>
@@ -458,6 +484,8 @@
 </div>
 <!-- /.modal -->
 
+<!--Similar to the create client modal, this allows exactly the same functionality but it updates the clients
+details once submitted.-->
 <div id="updateClientModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -516,13 +544,15 @@
 
 
 
-
+<!--The header bar for the homepage, this has a searchbar which allows searching quals, Project, client
+this also has the log out button, the add plus dropdown button which holds 3 adds, addQual addProject and addClient
+it also has the right navigation bar which expands out from the right-->
 <div class="navbar navbar-inverse navbar-fixed-top">
 
     <div class="container-fluid">
-        <!--<div class="navbar-header">-->
-        <!--<a class="navbar-brand" href="#">WebSiteName</a>-->
-        <!--</div>-->
+
+        <!--The div below is the "qualShoppingCart" which expands out from the right, this has the createPorejct
+        button dynamically populated in it, and also hold all the quals added to it.-->
         <div class="navbar-header pull-right">
 
             <a id="nav-expander" class="nav-expander fixed" data-toggle="collapse" data-target=".temp">
@@ -532,11 +562,13 @@
 
         <div id="logoutButton" style="margin-right: 200px">
             <ul id="hiddenNew" class="nav navbar-nav navbar-right">
+                <!--Log out button, on click goes back to the index html and it also clears the session storage-->
                 <li><a href="index.html" id="logoutUser" style="color: white"
                        onclick="javascript: sessionStorage.clear();">Logout <span
                         class="glyphicon glyphicon-log-out"></span></a></li>
                 <li id="options" class="dropdown active">
 
+                    <!--Plus symbol dropdown button which gives the user of the 3 different dd options -->
                     <a href="#" class="dropdown-toggle fa fa-plus fa-lg white" data-toggle="dropdown" style="background-color: #002776;""> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#" data-toggle="modal" data-target="#qualModal" onclick="addQual();">New Qual</a>
@@ -588,25 +620,28 @@
             loadTab(target);
         });
 
-        var account_id = sessionStorage.getItem("account_id");
-        getProjects(account_id);
-        getEverything();
+        var account_id = sessionStorage.getItem("account_id"); // the admin account id
+        getProjects(account_id); //Gets all the projects associated with the admin account
+        getEverything(); //get everything else associated with the account.
 
+
+        //If the create proect button has been clicked the following functionality is carried out.
         $('#createProjBtn').click(function (e) {
-            HoldOn.open();
+            HoldOn.open(); //Loading Screen is shown
             e.preventDefault();
-            var projName = $('#projName').val();
-            var clientName = $("#clientName").val();
-            createProjectGroup(projName);
+            var projName = $('#projName').val(); // the value of the project name is stored
+            var clientName = $("#clientName").val(); // client name stored in a variable
+            createProjectGroup(projName); //The information is passed forward and stored on the webservice
             setTimeout(function(){
-                HoldOn.close();
+                HoldOn.close(); //loading screen closes after 2000ms
             },2000);
-            $("#createProjBtn").prop('disabled', true);
+            $("#createProjBtn").prop('disabled', true); //the button is disabled
         });
 
+        //getAccounts ID and the callback function stored the account in a variable
         getAccountById(account_id, function() {
             var account = this;
-            if (account.isSuperUser == true) {
+            if (account.isSuperUser == true) {  // if the accoun is a superuser display a special access button, dynamically loaded in the code
                 var htmlStr = "<button id='superAdminBtn' class='btn spec_vertical_center'>Access Super User</button>";
                 $("#superAdminDiv").html(htmlStr);
                 $("#superAdminBtn").click(function (e) {
@@ -615,16 +650,19 @@
             }
         });
 
+        //If the updateclientBtn is clicked
         $('#updateClientBtn').click(function (e) {
             HoldOn.open();
             e.preventDefault();
 
+            //getAccount by the clientId and the callback fucntion collects and updates the infomration on the webservice
             getAccountById(tempClientId, function(){
                 var account = this;
                 var clientName = $("#update_clientName").val();
                 var primaryColour = $("#update_qual_colour_primary").val();
                 var secondaryColour = $("#update_qual_colour_secondary").val();
                 var clientPw = updateClient(tempClientId, false, account.isActive, clientName, account.password, false, primaryColour, secondaryColour);
+                //Close button in htmlStr is loaded dynamically into html
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='loadTab('#clients')'><span aria-hidden='true'>&times;</span></button>" +
                         clientName + " has been modified! The password for the client is: <strong>"+account.password +"</strong>"
 
@@ -633,11 +671,10 @@
             });
 
 //            $('#updateClientModal').modal('hide') //Hides Modal when user clicks update
-              $("#updateClientBtn").prop('disabled', true);
+            $("#updateClientBtn").prop('disabled', true); //updateClientButton disabled
 
             setTimeout(function(){
-//              location.reload();
-                HoldOn.close();
+                HoldOn.close(); //Close the loading screen
             },2000);
 
 
@@ -658,11 +695,11 @@
             $("#passwordAlert").show();
 
 //            $('#createClientModal').modal('hide') //Hides Modal when user clicks update
-              $("#createClientBtn").prop('disabled', true);
+            $("#createClientBtn").prop('disabled', true);
         });
 
 //--------------------------------------------------------------------------------------------------------------
-//These are for the create Modal
+//These are for the create Modal to load the color wheel
         var primaryCW = Raphael.colorwheel($("#primary_color_wheel .colorwheel"), 150, 256);
         primaryCW.input($("#client_colour_primary")[0]);
 
@@ -675,7 +712,7 @@
         var secondaryCW2 = Raphael.colorwheel($("#secondary_color_wheel2 .colorwheel"), 150, 256);
         secondaryCW2.input($("#client_colour_secondary2")[0]);
 //--------------------------------------------------------------------------------------------------------------
-//These are for the update Modal
+//These are for the update Modal to load the colorwheel
         var primaryCW = Raphael.colorwheel($("#update_primary_color_wheel .colorwheel"), 150, 256);
         primaryCW.input($("#update_qual_colour_primary")[0]);
 
@@ -699,9 +736,6 @@
             </ul>\
         </li>';
 
-
-//        vnSpace.before(str);
-//        hnSpace.before(str);
 
         $(window).on('shown.bs.modal', function () {
 
@@ -772,15 +806,7 @@
                     <i class="fa fa-times fa-4x" data-dismiss="modal" onclick="clearModalPic()"></i>
                 </div>
             </div>
-
-            <!--<div class="modal-header">-->
-                <!--<div id='client-logo'class="logo-modal portfolio-image ">-->
-                <!--</div>-->
-                <!--<h3 id="qual-projectName" class="viewQual-modalHeader"></h3>-->
-                <!--<div id="viewButtons" class="close-modal">-->
-                    <!--<i class="fa fa-times fa-5x" data-dismiss="modal" onclick="clearModalPic()"></i>-->
-                <!--</div>-->
-            <!--</div>-->
+            
             <div class="modal-body" id="modal_body">
                 <iframe id="frameViewQual" src="" width="100%" scrolling="no" frameborder="0"></iframe>
             </div>
@@ -805,5 +831,4 @@
 <script src="js/agency.js"></script>
 <script src="js/cbpAnimatedHeader.js"></script>
 </body>
-<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
 </html>

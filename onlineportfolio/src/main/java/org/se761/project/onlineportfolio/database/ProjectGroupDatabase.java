@@ -1,6 +1,7 @@
 package org.se761.project.onlineportfolio.database;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -177,13 +178,42 @@ public class ProjectGroupDatabase {
 		session.beginTransaction();
 
 		Account account = (Account) session.get(Account.class, accountId);
-
-		if(account == null){
+		
+		
+		if(account == null || account.isActive() == false){
 			closeSessionFactory();
 			throw new DatabaseRetrievalException("Account with id " + accountId + " could not be found");
 		}
+		
+		List<ProjectGroup> projectGroups = new ArrayList<ProjectGroup>();
 
-		List<ProjectGroup> projectGroups = account.getProjGroups();
+		//Admin
+		if (account.isAdmin() == true){
+			HashMap<Integer, ProjectGroup> projectHashMap= new HashMap<Integer, ProjectGroup>();
+			
+			//get admin groups related to an account
+			List<AdminGroup> adminGroups = new ArrayList<AdminGroup>();
+			adminGroups = account.getAdminGroup();
+			
+			//add Projects to HashMap
+			for (AdminGroup admin : adminGroups){
+				
+				//get Projects
+				projectGroups = admin.getProjectGroups();
+				
+				for (ProjectGroup pg: projectGroups){
+					projectHashMap.put(pg.getProjGroupId(), pg);
+				}
+			}
+			projectGroups = new ArrayList<ProjectGroup> (projectHashMap.values());
+			
+		}
+		
+		//Client
+		else{
+			projectGroups = account.getProjGroups();
+		}
+		
 		List<Integer> indicies = new ArrayList();
 
 		//removing inactive project groups
