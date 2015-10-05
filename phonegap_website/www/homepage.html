@@ -594,18 +594,14 @@
 
         $('#createProjBtn').click(function (e) {
             HoldOn.open();
-
             e.preventDefault();
             var projName = $('#projName').val();
             var clientName = $("#clientName").val();
-            //$('#createProjModal').modal('hide');
             createProjectGroup(projName);
-
             setTimeout(function(){
-                location.reload();
                 HoldOn.close();
             },2000);
-
+            $("#createProjBtn").prop('disabled', true);
         });
 
         getAccountById(account_id, function() {
@@ -622,13 +618,14 @@
         $('#updateClientBtn').click(function (e) {
             HoldOn.open();
             e.preventDefault();
+
             getAccountById(tempClientId, function(){
                 var account = this;
                 var clientName = $("#update_clientName").val();
                 var primaryColour = $("#update_qual_colour_primary").val();
                 var secondaryColour = $("#update_qual_colour_secondary").val();
                 var clientPw = updateClient(tempClientId, false, account.isActive, clientName, account.password, false, primaryColour, secondaryColour);
-                var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='loadTab('#clients')'><span aria-hidden='true'>&times;</span></button>" +
                         clientName + " has been modified! The password for the client is: <strong>"+account.password +"</strong>"
 
                 $("#update_passwordAlert").html(htmlStr);
@@ -639,9 +636,10 @@
               $("#updateClientBtn").prop('disabled', true);
 
             setTimeout(function(){
-                location.reload();
+//              location.reload();
                 HoldOn.close();
             },2000);
+
 
         });
 
@@ -721,6 +719,7 @@
             });
         });
     });
+
 
 
 </script>

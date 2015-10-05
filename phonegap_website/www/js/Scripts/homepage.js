@@ -2,7 +2,7 @@
 
 var accountId = -1;
 var adminGroupID = -1;
-var isAdmin = sessionStorage.getItem("isAdmin", account.isAdmin);
+var isAdmin = sessionStorage.getItem("isAdmin");
 var isClient;
 if(isAdmin == 'true'){
     isClient = false;
@@ -11,7 +11,7 @@ if(isAdmin == 'true'){
     isClient = true;
     console.log("client true? "+isClient);
 }
-var isSuperUser = false;
+var isSuperUser = sessionStorage.getItem("superuserStatus");
 var sucessfulQuals = 0;
 var tempClientId = -1;
 
@@ -158,7 +158,12 @@ function createProjectGroup(projectName) {
             var radioVal = $('input[name="clientRadio"]:checked').val();
             if (radioVal === "existing") {
                     clientID = $("#clientDropdown").val();
-                    assignAccountToProjectGroup(projGroupID, clientID, function() {})
+                    assignAccountToProjectGroup(projGroupID, clientID, function() {});
+                    for (i = 0; i < qualsToAdd.length; i++) {
+                        var tempId = qualsToAdd[i];
+                        assignQualToAccount(clientID, tempId, function() {});
+                    }
+                qualsToAdd.splice(0, qualsToAdd.length);
             } else {
                 var clientName = $("#modalClientName").val();
                 var primaryColour = $("#client_colour_primary2").val();
@@ -167,10 +172,10 @@ function createProjectGroup(projectName) {
                 var clientPw = createClient(clientName, primaryColour, secondaryColour, true, projGroupID, "#projects");
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                     "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
-
                 $("#passwordAlert2").html(htmlStr);
                 $("#passwordAlert2").show();
                 $("#createProjBtn").prop('disabled', true);
+
             }
             assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
@@ -185,10 +190,11 @@ function linkQualsAndProject(){
         var tempId = qualsToAdd[i];
         assignQualToProjectGroup(projGroupID, tempId);
     }
-    qualsToAdd.splice(0, qualsToAdd.length);
 }
 
 function getProjects(account_id){
+
+    HoldOn.open();
     accountId = account_id;
 
     getAccountById(account_id, function() {
@@ -207,6 +213,10 @@ function getProjects(account_id){
             getProjectsByClient(account_id, processProjects);
         }
     });
+    setTimeout(function(){
+        HoldOn.close();
+    },2000);
+
 }
 
 function processProjects(){
@@ -257,9 +267,15 @@ function createClient(clientName, primaryColour, secondaryColour, PGCreated, PGI
     }
 
     insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
+        var account = this;
         if (PGCreated === true) {
             assignAccountToProjectGroup(PGID, this, function (){});
+            for (i = 0; i < qualsToAdd.length; i++) {
+                var tempId = qualsToAdd[i];
+                assignQualToAccount(account.accountId, tempId, function() {});
+            }
         }
+        qualsToAdd.splice(0, qualsToAdd.length);
         loadTab(tabToLoad);
     });
 
@@ -497,6 +513,7 @@ function addProjectQualsToGroup(projectID){
 }
 
 function openQualsForProject(projectID, projectName) {
+    HoldOn.open();
     getQualsByProject(projectID, function(){
 
         var quals = this;
@@ -519,6 +536,10 @@ function openQualsForProject(projectID, projectName) {
 
     });
 
+    setTimeout(function(){
+        HoldOn.close();
+    },2000);
+
 
 }
 
@@ -526,8 +547,7 @@ function openQualsForClientProject(projectID, projectName) {
     getQualsByProject(projectID, function(){
 
         var quals = this;
-
-        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
+        var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-lg btn-primary pull-right col-md-2' onclick='openPrevClientProj()'>Back To Project</button><br>";
         for(i = 0; i< quals.length; i++){
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
@@ -540,7 +560,6 @@ function openQualsForClientProject(projectID, projectName) {
                 'qual'
             );
         }
-        htmlStr += "<div class='col-md-12'><button type='submit' class='btn btn-lg pull-right' onclick='openPrevClientProj()'>Back To Project</button></div><br>";
         $("#clients").html(htmlStr);
         $("#heading").html(projectName);
 
@@ -795,38 +814,32 @@ function getEverything(){
 
     adminGroupID = sessionStorage.getItem("adminGroupID");
     accountId = sessionStorage.getItem("account_id");
+    //isClient = sessionStorage.getItem("isAdmin");
 
-    if(isClient){
-        getQualsByAccount(accountId, function(){
+
+    //isClient = (isClient === "false") ? false : true;
+
+    if(isClient) {
+        getQualsByAccount(accountId, function () {
             allQuals = this;
         });
-    }else{
-    getQualsByAdminGroup(adminGroupID,function(){
-        allQuals = this;
-    });
-    }
-
-    //isClient = !account.isAdmin;
-    //console.log("client "+isClient);
-    if (isClient){
         //it's actually by account but named client for some reason :/
         getProjectsByClient(accountId, function () {
             allProjects = this;
         });
-    }else {
+    }else{
+        getQualsByAdminGroup(adminGroupID, function () {
+            allQuals = this;
+        });
+
         getProjectsByAdminGroup(adminGroupID, function () {
             allProjects = this;
         });
+
+        getAllClients(function(){
+            allClients = this;
+        });
     }
-
-    getAccountById(accountId, function(){
-        if(this.isAdmin){
-            getAllClients(function(){
-                allClients = this;
-            });
-        }
-    });
-
 }
 
 function resetProjID(){
@@ -846,6 +859,8 @@ function editQual(qual_id){
 }
 
 function updateClientDetails(account_id) {
+    $("#updateClientBtn").prop('disabled', false);
+
     getAccountById(account_id, function() {
         var account = this;
         tempClientId = account_id;
@@ -857,7 +872,7 @@ function updateClientDetails(account_id) {
         $("#update_clientName").val(account.accountName);
         $("#update_qual_colour_primary").val(account.primaryColour);
         $("update_qual_colour_secondary").val(account.secondaryColour);
-        var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+        var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='loadTab('#clients')'><span aria-hidden='true'>&times;</span></button>" +
             "The password for the client is: <strong>"+account.password +"</strong>"
         $("#update_passwordAlert").html(htmlStr);
         $("#update_passwordAlert").attr('style', '');
@@ -869,10 +884,14 @@ function editProject(project_id) {
     getProjectById(project_id, function() {
         var project = this;
         $("#project_modal_title").html("Edit Project");
+        $("#createProjBtn").prop('disabled', false);
+        $("#createProjBtn").html('Update');
         $("#projName").val(project.projectGroupName);
+        console.log(project_id);
+
         getAccountsByProjectGroup(project_id, function () {
             var account = this;
-            $("#clientDropdown").select2("val", "'"+account.accountId+"'");
+            $("#clientDropdown").select2("val", account.accountId);
         });
     });
 }

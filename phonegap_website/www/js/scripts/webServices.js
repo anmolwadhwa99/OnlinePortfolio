@@ -1,7 +1,7 @@
 
 //var url = "http://q-hub.herokuapp.com/webapi";
-//var url = "http://localhost:8080/onlineportfolio/webapi";
-var url = "http://q-hub.herokuapp.com/webapi";
+var url = "http://localhost:8080/onlineportfolio/webapi";
+//var url = "http://q-hub.herokuapp.com/webapi";
 //var url = "http://onlineportfolio.herokuapp.com/webapi";
 var _qual = "/qual";
 var _ac = "/account";
@@ -1186,7 +1186,7 @@ function getAccountsByProjectGroup(pgId, callback){
 
             if(typeof callback == 'function'){
 
-                callback.apply(acs);
+                callback.apply(acs[0]);
             }
 
         }
