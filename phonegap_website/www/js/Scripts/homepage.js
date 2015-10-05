@@ -26,6 +26,7 @@ function search() {
     var resUL = $('#resultUL');
     resUL.empty();
 
+    // search if the string is not empty
     if (text.length > 0) {
         toShow = true;
 
@@ -38,6 +39,7 @@ function search() {
     var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
     resUL.width(len);
 
+    // if no search results  then let the user know that there are no results
     if (searchResults.length == 0) {
         showResults(true);
         var r_li = document.createElement('li');
@@ -56,6 +58,7 @@ function search() {
         return;
     }
 
+    // dynamically populate the number of rows based on the search results.
     for (i = 0; i < searchResults.length; i++) {
         var res = new Results();
         res = searchResults[i];
@@ -68,6 +71,8 @@ function search() {
         var h_ref = "#";
         var on_click = '';
         var toggle = '';
+
+        // go to the appropriate location for each individual result, e.g view the qual for quals etc
         switch (res.type.value) {
             case 0: // qual
                 h_ref = '#viewQualModal';
@@ -108,6 +113,7 @@ function showResults(toShow, tab) {
         $("#searchBox").val("");
     }
 
+    //load the tab based on the selected result
     if (tab == "#quals") {
         $('#clients').removeClass('active'); // remove active class from tabs
         $('#projects').removeClass('active'); // remove active class from tabs
