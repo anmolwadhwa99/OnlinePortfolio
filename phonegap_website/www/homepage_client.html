@@ -75,7 +75,7 @@
     <script type="application/javascript">
         $(document).ready(function () {
 
-            HoldOn.open();
+            HoldOn.open(); // opens the loading screen
 
             $('#frameQualAdd').iFrameResize();
             $('#frameCreateProj').iFrameResize();
@@ -107,7 +107,7 @@
         });
 
         setTimeout(function(){
-            HoldOn.close();
+            HoldOn.close(); //close the loading screen
         },2000);
 
     </script>
@@ -137,6 +137,8 @@
             </ul>
         </div>
 
+        <!-- The code represents the search bar, that is used to allow clients to search for quals that have
+        been assigned to them-->
         <div class="col-sm-5 spec_vertical_center" style="padding-left: 36px;">
             <div  class="input-group stylish-input-group">
                 <input id="searchBox" type="text" class="form-control"  placeholder="Search..." onkeyup="search()" >
@@ -171,13 +173,16 @@
             loadTab(target);
         });
 
-        var account_id = sessionStorage.getItem("account_id");
+        var account_id = sessionStorage.getItem("account_id"); //gets the account ID
+
+        //Webservices method get account by id is called and a callback function is used to manipulate the information
+        // that is returned from the call.
         getAccountById(account_id, function() {
 
             //dynamic rendering of client UI
             var account = this;
-            var primary = account.primaryColour;
-            var secondary = account.secondaryColour;
+            var primary = account.primaryColour; //loads the primary color
+            var secondary = account.secondaryColour; //loads the secondaryColour
 
             $(".navbar-inverse").css({
                 "background-color":primary.toString(),
@@ -197,6 +202,7 @@
 
             var vnSpace =  $('#space');
 
+            //Code dynamically loaded into the html
             str = '\
             <li><h7 style="color: '+secondary.toString()+';margin: 0; line-height: 50px">Welcome, '+account.accountName+'!</h7></li>\
             <li><a href="index.html" onclick="javascript: sessionStorage.clear();">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>\
@@ -210,6 +216,7 @@
 
         $(window).on('shown.bs.modal', function() {
 
+            //getAllClients webservices method is called and a callback function stores the returned clients in a variable
             getAllClients(function () {
                 var clients = this;
                 var htmlStr = "";
