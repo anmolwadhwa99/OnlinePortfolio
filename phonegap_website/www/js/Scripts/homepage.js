@@ -592,7 +592,7 @@ function viewQual(qual_id){
     if(!isClient) {
 
 
-        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
+        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-3x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
 
         $("#btnDuplicate").remove();
         $('#viewButtons').prepend(dup);
@@ -616,7 +616,7 @@ function processQuals(){
     var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
     if (!isClient){
-        htmlStr += "<button type='submit' style='margin-top: 20px;' class='btn btn-primary vcenter btn-lg pull-right col-md-2' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button><br>";
+        htmlStr += "<button type='submit' style='margin-top: 20px;margin-bottom: 15px' class='btn btn-primary vcenter btn-lg pull-right col-md-2' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button><br>";
     }
 
     for (i = 0; i < quals.length; i++) {
