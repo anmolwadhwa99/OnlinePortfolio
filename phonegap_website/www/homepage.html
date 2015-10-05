@@ -5,19 +5,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<script>-->
-        <!--var account = sessionStorage.getItem("account_id");-->
-        <!--if(! account){ // if not defined (i.e. value is undefined or null)-->
-            <!--alert("Please Login");-->
-            <!--location.replace("index.html");-->
-        <!--}else{-->
-            <!--var isAdmin = sessionStorage.getItem("isAdmin");-->
-            <!--if(! isAdmin || isAdmin == "false"){ // if not defined or false-->
-                <!--alert("Sorry you do not have access to this page");-->
-                <!--location.replace("homepage_client.html");-->
-            <!--}-->
-        <!--}-->
-    <!--</script>-->
+    <script>
+        var account = sessionStorage.getItem("account_id");
+        if(! account){ // if not defined (i.e. value is undefined or null)
+            alert("Please Login");
+            location.replace("index.html");
+        }else{
+            var isAdmin = sessionStorage.getItem("isAdmin");
+            if(! isAdmin || isAdmin == "false"){ // if not defined or false
+                alert("Sorry you do not have access to this page");
+                location.replace("homepage_client.html");
+            }
+        }
+    </script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
