@@ -114,6 +114,14 @@
 
             var adminGroups = $('#ddAdminGroups').val();
 
+            if(clientLogo == "imgs/noPreview.png"){
+                clientLogo = ""; // Changing no-preview to none
+            }
+
+            if(productServicesImage == "imgs/noPreview.png"){
+                productServicesImage = ""; // Changing no-preview to none
+            }
+
             console.log(projName);
             console.log(projSubtitle);
             console.log(clientName);
@@ -135,30 +143,55 @@
 
             console.log(adminGroups);
 
-//            insertQual(true, isAnonymous, challenges, clientName, industry,
-//                    tags, outcome, problem, projName, relevance, serviceLine, solution,
-//                    access, projSubtitle, emailAction, websiteAction,
-//                    clientLogo, productServicesImage, function () {
-//                        var qual = this;
-//
-//                        if (adminGroups != null) {
-//                            $.each(adminGroups, function (i, val) {
-//                                assignQualToAdminGroup(val, qual); // Assigning qual to each selected group
-//                            });
-//                        }
-//
-//                        var agId = sessionStorage.getItem("adminGroupID");
-//                        assignQualToAdminGroup(agId, qual);
-//
-//                        closeModal();
-//                    }
-//            );
+            insertQual(true, isAnonymous, challenges, clientName, industry,
+                    tags, outcome, problem, projName, relevance, serviceLine, solution,
+                    access, projSubtitle, emailAction, websiteAction,
+                    clientLogo, productServicesImage, function () {
+                        var qual = this;
 
-//             Dismissing loading screen
-//            setTimeout(function(){
-//                location.reload();
-//                HoldOn.close();
-//            },2000);
+                        var ags = JSON.parse(sessionStorage.getItem("adminGroups"));
+                        var agIDs = [];
+
+                        for(i = 0; i < ags.length; i++){
+                            agIDs.push(ags[i].id);
+                        }
+
+                        console.log(ags);
+                        console.log("prev:" + agIDs);
+
+
+
+                        if (adminGroups != null) {
+                            console.log("ag:" + adminGroups);
+                            $.each(adminGroups, function (i, val) {
+                                assignQualToAdminGroup(val, qual); // Assigning qual to each selected group
+                                for(i = 0; i < agIDs.length; i++) {
+
+                                    if (val == agIDs[i]) {
+                                        console.log("pos:" + i);
+                                        agIDs.splice(i, 1);
+                                    }
+                                }
+
+                            });
+                        }
+
+
+                        console.log("post:" + agIDs);
+
+                        for(i = 0; i < agIDs.length; i++) {
+                            assignQualToAdminGroup(agIDs[i], qual);
+                        }
+
+                        closeModal();
+                    }
+            );
+
+            // Dismissing loading screen
+            setTimeout(function(){
+                //location.reload();
+                HoldOn.close();
+            },2000);
 
         }
 
@@ -188,6 +221,14 @@
             var serviceLine = $("#qual_service_line").val();
 
             var adminGroups = $('#ddAdminGroups').val();
+
+            if(clientLogo == "imgs/noPreview.png"){
+                clientLogo = ""; // Changing no-preview to none
+            }
+
+            if(productServicesImage == "imgs/noPreview.png"){
+                productServicesImage = ""; // Changing no-preview to none
+            }
 
             console.log(qualId);
             console.log(projName);
@@ -222,7 +263,6 @@
                                 assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
                             });
                         }
-
 
                         closeModal();
                     }
@@ -379,8 +419,20 @@
                         $('#qual_public').attr('checked', true).trigger('click');
                     }
 
-                    $('#ddExistingProdServ').val(qual.projectImage).trigger("change");
-                    $('#ddExistingLogo').val(qual.clientImage).trigger("change");
+                    var clientLogo = qual.clientImage;
+
+                    var productServicesImage = qual.projectImage;
+
+                    if(clientLogo == ""){
+                        clientLogo = "imgs/noPreview.png"; // Changing none to no-preview
+                    }
+
+                    if(productServicesImage == ""){
+                        productServicesImage = "imgs/noPreview.png"; // Changing no-preview to none
+                    }
+
+                    $('#ddExistingProdServ').val(productServicesImage).trigger("change");
+                    $('#ddExistingLogo').val(clientLogo).trigger("change");
                 });
 
                 var groups = [];
@@ -429,8 +481,20 @@
                             $('#qual_public').attr('checked', true).trigger('click');
                         }
 
-                        $('#ddExistingProdServ').val(qual.projectImage).trigger("change");
-                        $('#ddExistingLogo').val(qual.clientImage).trigger("change");
+                        var clientLogo = qual.clientImage;
+
+                        var productServicesImage = qual.projectImage;
+
+                        if(clientLogo == ""){
+                            clientLogo = "imgs/noPreview.png"; // Changing none to no-preview
+                        }
+
+                        if(productServicesImage == ""){
+                            productServicesImage = "imgs/noPreview.png"; // Changing no-preview to none
+                        }
+
+                        $('#ddExistingProdServ').val(productServicesImage).trigger("change");
+                        $('#ddExistingLogo').val(clientLogo).trigger("change");
                     });
 
                     var groups = [];
