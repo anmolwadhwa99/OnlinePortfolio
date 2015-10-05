@@ -4,12 +4,12 @@ var accountId = -1;
 var adminGroupID = -1;
 var isAdmin = sessionStorage.getItem("isAdmin");
 var isClient;
-if(isAdmin == 'true'){
+if (isAdmin == 'true') {
     isClient = false;
-    console.log("client false? "+isClient);
-}else {
+    console.log("client false? " + isClient);
+} else {
     isClient = true;
-    console.log("client true? "+isClient);
+    console.log("client true? " + isClient);
 }
 var isSuperUser = sessionStorage.getItem("superuserStatus");
 var sucessfulQuals = 0;
@@ -19,7 +19,7 @@ var imported = document.createElement('script');
 imported.src = 'js/pnotify.custom.min.js';
 document.head.appendChild(imported);
 
-function search(){
+function search() {
     var text = $("#searchBox").val();
     var toShow = false;
     var searchResults = [];
@@ -27,10 +27,10 @@ function search(){
     resUL.empty();
 
     if (text.length > 0) {
-        toShow =  true;
+        toShow = true;
 
         searchResults = doSearch(text, allQuals, allClients, allProjects);
-    }else{
+    } else {
         showResults(false);
         return;
     }
@@ -38,7 +38,7 @@ function search(){
     var len = $('#searchBox').outerWidth() + $('#searchIcon').outerWidth();
     resUL.width(len);
 
-    if(searchResults.length == 0){
+    if (searchResults.length == 0) {
         showResults(true);
         var r_li = document.createElement('li');
         var r_a = document.createElement("a");
@@ -56,7 +56,7 @@ function search(){
         return;
     }
 
-    for(i = 0; i < searchResults.length ; i++) {
+    for (i = 0; i < searchResults.length; i++) {
         var res = new Results();
         res = searchResults[i];
         //console.log(res.value);
@@ -68,17 +68,17 @@ function search(){
         var h_ref = "#";
         var on_click = '';
         var toggle = '';
-        switch (res.type.value){
+        switch (res.type.value) {
             case 0: // qual
                 h_ref = '#viewQualModal';
                 toggle = 'modal';
-                on_click = 'viewQual(' + res.id +');showResults(' + false + ');';
+                on_click = 'viewQual(' + res.id + ');showResults(' + false + ');';
                 break;
             case 1: // project
                 on_click = 'openQualsForProject(' + res.id + ', "' + res.value + '");showResults(' + false + ',"' + '#projects' + '");';
                 break;
             case 2: // client
-                on_click = 'getProjectforClient(' + res.id + ', "'+ res.value + '");showResults(' + false + ',"' + '#clients' + '");';
+                on_click = 'getProjectforClient(' + res.id + ', "' + res.value + '");showResults(' + false + ',"' + '#clients' + '");';
                 break;
         }
 
@@ -86,13 +86,11 @@ function search(){
         a.setAttribute("onclick", on_click);
         a.setAttribute("data-toggle", toggle);
 
-
         span.setAttribute("style", "color: #909090");
         span.appendChild(document.createTextNode(res.type.name + ":"));
 
-
         a.appendChild(span);
-        a.appendChild(document.createTextNode( '\u00A0' + " "));
+        a.appendChild(document.createTextNode('\u00A0' + " "));
         a.appendChild(document.createTextNode(res.value));
 
         li.appendChild(a);
@@ -101,7 +99,6 @@ function search(){
     }
 
     showResults(toShow)
-
 }
 
 function showResults(toShow, tab) {
@@ -110,7 +107,6 @@ function showResults(toShow, tab) {
     if (toShow == false) {
         $("#searchBox").val("");
     }
-
 
     if (tab == "#quals") {
         $('#clients').removeClass('active'); // remove active class from tabs
@@ -136,19 +132,14 @@ function showResults(toShow, tab) {
         $('#quals').removeClass('active'); // remove active class from tabs
         $(tab).addClass('active'); // add active class to clicked tab
 
-    //} else {
-        //error('invalid tab');
-       //return;
     }
-
     getEverything();
-
-
 }
 
+//add project group to database
 function createProjectGroup(projectName) {
 
-    if (projGroupID == -1){
+    if (projGroupID == -1) {
 
         insertProjectGroup(projectName, function () {
             projGroupID = this; //gets the new project ID
@@ -156,78 +147,91 @@ function createProjectGroup(projectName) {
             linkQualsAndProject();
             var clientID;
             var radioVal = $('input[name="clientRadio"]:checked').val();
+
             if (radioVal === "existing") {
-                    clientID = $("#clientDropdown").val();
-                    assignAccountToProjectGroup(projGroupID, clientID, function() {});
-                    for (i = 0; i < qualsToAdd.length; i++) {
-                        var tempId = qualsToAdd[i];
-                        assignQualToAccount(clientID, tempId, function() {});
-                    }
+                clientID = $("#clientDropdown").val(); //get clientID from dropdown
+
+                //allocate project group to account
+                assignAccountToProjectGroup(projGroupID, clientID, function () {
+                });
+
+                //allocate each qual to the account
+                for (i = 0; i < qualsToAdd.length; i++) {
+                    var tempId = qualsToAdd[i];
+                    assignQualToAccount(clientID, tempId, function () {
+                    });
+                }
                 qualsToAdd.splice(0, qualsToAdd.length);
+
             } else {
+
+                //if new client, get info entered by user
                 var clientName = $("#modalClientName").val();
                 var primaryColour = $("#client_colour_primary2").val();
                 var secondaryColour = $("#client_colour_secondary2").val();
                 $("#modalClientName").val("");
                 var clientPw = createClient(clientName, primaryColour, secondaryColour, true, projGroupID, "#projects");
+
+                //display password to notify user
                 var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                    "Client "+clientName + " has been added! The password for the client is: <strong>"+clientPw +"</strong>"
+                    "Client " + clientName + " has been added! The password for the client is: <strong>" + clientPw + "</strong>"
                 $("#passwordAlert2").html(htmlStr);
                 $("#passwordAlert2").show();
-                $("#createProjBtn").prop('disabled', true);
+                $("#createProjBtn").prop('disabled', true); //disable button so project is not created again
 
             }
             assignProjectToAdminGroup(adminGroupID, projGroupID);
         });
-    }else{
+    } else {
         linkQualsAndProject();
     }
 
 }
 
-function linkQualsAndProject(){
+//assign quals to a project group
+function linkQualsAndProject() {
     for (i = 0; i < qualsToAdd.length; i++) {
         var tempId = qualsToAdd[i];
         assignQualToProjectGroup(projGroupID, tempId);
     }
 }
 
-function getProjects(account_id){
+//get projects depending on the user access
+function getProjects(account_id) {
 
     HoldOn.open();
     accountId = account_id;
 
-    getAccountById(account_id, function() {
+    getAccountById(account_id, function () {
         var account = this;
 
-        //isClient = !account.isAdmin;
-        //console.log("first "+isClient);
         isSuperUser = account.isSuperUser;
 
-        if(!isClient){
-            getAdminGroupsByAccount(accountId, function(){
+        if (!isClient) {
+            getAdminGroupsByAccount(accountId, function () {
                 adminGroupID = this[0].id;
                 getProjectsByAdminGroup(adminGroupID, processProjects);
             })
-        }else{
+        } else {
             getProjectsByClient(account_id, processProjects);
         }
     });
-    setTimeout(function(){
+    setTimeout(function () {
         HoldOn.close();
-    },2000);
+    }, 2000);
 
 }
 
-function processProjects(){
+//generate html for projects tab
+function processProjects() {
     var projects = this;
     var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1>";
 
-    for(i = 0; i< projects.length; i++){
+    for (i = 0; i < projects.length; i++) {
 
         htmlStr += addPortfolioItem(
-            '\"openQualsForProject('+projects[i].id+ ', \'' + projects[i].projectGroupName+'\')\"',
-            '\"addProjectQualsToGroup('+projects[i].id+')\"',
+            '\"openQualsForProject(' + projects[i].id + ', \'' + projects[i].projectGroupName + '\')\"',
+            '\"addProjectQualsToGroup(' + projects[i].id + ')\"',
             projects[i].id,
             projects[i].projectGroupName,
             '\"confirmArchive(\'PROJECT\'' + ", \'" + projects[i].id + '\')\"',
@@ -236,9 +240,10 @@ function processProjects(){
             'project'
         )
     }
-    $("#projects").html(htmlStr);
+    $("#projects").html(htmlStr); //load projects tab with generated html
 }
 
+//generates a random 4 digit password
 function generatePassword() {
     var length = 4,
         charset = "0123456789",
@@ -249,8 +254,9 @@ function generatePassword() {
     return retVal;
 }
 
+//checks if the account password exists already
 function verifyAccount2(password) {
-    verifyAccount(password, function() {
+    verifyAccount(password, function () {
         var account = this;
         if (account == null) {
             return false;
@@ -260,19 +266,25 @@ function verifyAccount2(password) {
     });
 }
 
-function createClient(clientName, primaryColour, secondaryColour, PGCreated, PGID, tabToLoad){
+//creates a client
+function createClient(clientName, primaryColour, secondaryColour, PGCreated, PGID, tabToLoad) {
     var password = generatePassword();
+
     while (verifyAccount2(password) == false) {
         password = generatePassword();
     }
 
-    insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function(){
+    insertAccount(false, clientName, password, false, primaryColour, secondaryColour, function () {
         var account = this;
+        //if a client is created in create project, assign the client to project group as well
         if (PGCreated === true) {
-            assignAccountToProjectGroup(PGID, this, function (){});
+            assignAccountToProjectGroup(PGID, this, function () {
+            });
+            //create links between quals and the client
             for (i = 0; i < qualsToAdd.length; i++) {
                 var tempId = qualsToAdd[i];
-                assignQualToAccount(account.accountId, tempId, function() {});
+                assignQualToAccount(account.accountId, tempId, function () {
+                });
             }
         }
         qualsToAdd.splice(0, qualsToAdd.length);
@@ -282,147 +294,50 @@ function createClient(clientName, primaryColour, secondaryColour, PGCreated, PGI
     return password;
 }
 
-function archiveQual(qualId){
+function archiveQual(qualId) {
     deleteQual(qualId);
 };
 
-function archiveProject(projectId){
+function archiveProject(projectId) {
     deleteProjectGroup(projectId);
 };
 
-function archiveClient(clientId){
+function archiveClient(clientId) {
     deleteAccount(clientId);
 };
 
-//function confirmArchive(archiveType, itemID){
-//    var title;
-//    var message;
-//
-//    //take the user to the top of the screen
-//    $('html, body').animate({ scrollTop: 0 }, 'fast');
-//
-//    if(archiveType == "CLIENT"){
-//// //       document.getElementById("divArchiveAlert").style.display = 'block';
-// //       document.getElementById("confirmButton").addEventListener("click", function(){
-// //           archiveClient(itemID);
-// //       });
-// //       document.getElementById("cancelButton").addEventListener("click", function(){
-// //           document.getElementById("divArchiveAlert").style.display = 'none';
-// //       });
-// //       title = "";
-// //       message = "";
-//        (new PNotify({
-//            title: 'Confirmation Needed',
-//            text: 'Are you sure?',
-//            icon: 'glyphicon glyphicon-question-sign',
-//            hide: false,
-//            confirm: {
-//                confirm: true
-//            },
-//            buttons: {
-//                closer: false,
-//                sticker: false
-//            },
-//            history: {
-//                history: false
-//            }
-//        })).get().on('pnotify.confirm', function() {
-//                alert('Ok, cool.');
-//            }).on('pnotify.cancel', function() {
-//                alert('Oh ok. Chicken, I see.');
-//            });
-//
-//
-//    }else if(archiveType == "PROJECT"){
-//        document.getElementById("divArchiveAlert").style.display = 'block';
-//        document.getElementById("confirmButton").addEventListener("click", function(){
-//            archiveProject(itemID);
-//        });
-//        document.getElementById("cancelButton").addEventListener("click", function(){
-//            document.getElementById("divArchiveAlert").style.display = 'none';
-//        });
-//    }else if(archiveType == "QUAL"){
-//        //document.getElementById("divArchiveAlert").style.display = 'block';
-//        //document.getElementById("confirmButton").addEventListener("click", function(){
-//        //    archiveQual(itemID);
-//        //});
-//        //document.getElementById("cancelButton").addEventListener("click", function(){
-//        //    document.getElementById("divArchiveAlert").style.display = 'none';
-//        //});
-//        (new PNotify({
-//            title: 'Confirmation Needed',
-//            text: 'Are you sure?',
-//            icon: 'glyphicon glyphicon-question-sign',
-//            hide: false,
-//            confirm: {
-//                confirm: true
-//            },
-//            buttons: {
-//                closer: false,
-//                sticker: false
-//            },
-//            history: {
-//                history: false
-//            }
-//        })).get().on('pnotify.confirm', function() {
-//                alert('Ok, cool.');
-//            }).on('pnotify.cancel', function() {
-//                alert('Oh ok. Chicken, I see.');
-//            });
-//
-//    }else{
-//        return; // Default if somehow unknown type
-//    }
-//}
+//renders item content
+function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type) {
 
-function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, clientImg, projectImg, type){
-    // var image = isClients ? "\"img/portfolio/roundicons.png\"" : "\"img/portfolio/startup-framework.png\"";
-
+    //height and width are fixed
     var locHeight = 210;
     var locWidth = 295;
     var image = determineItemImage(clientImg, projectImg, type);
-    console.log("returned "+image);
-
-    //var newImg = new Image();
-    //newImg.src = image;
-    //var heightLarger = false;
-
-    //setTimeout(function(){
-    //    var height = newImg.height;
-    //    var width = newImg.width;
-    //    heightLarger = (height >= locHeight);
-    //
-    //    var w = '100%';
-    //    var h = 'auto';
-    //    if (heightLarger){
-    //        h = '100%';
-    //        w = 'auto';
-    //    }
 
     $('#itemPic').css('width', '100%');
     $('#itemPic').css('height', 'auto');
-    //}, 100);
 
-
+    //add onclick for item for viewing
     var viewFunction = "";
-    if(isNumeric(viewFunc)) {
-        viewFunction = ' portfolio-link\' data-target=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' +viewFunc + ')\"';
-    }else{
-        viewFunction = '\' onclick =' +viewFunc + '\"';
+    if (isNumeric(viewFunc)) {
+        viewFunction = ' portfolio-link\' data-target=\"#viewQualModal\" data-toggle=\"modal\" onclick=\"viewQual(' + viewFunc + ')\"';
+    } else {
+        viewFunction = '\' onclick =' + viewFunc + '\"';
     }
 
+    //add onclick for edit item icon
     var editFunction = "";
     var inClientTab = false;
-    if(type == 'project'){
+    if (type == 'project') {
         editFunction = 'data-toggle=\"modal\" data-target=\"#createProjModal\" onclick=\"editProject(' + editFunc + ')\"';
-    }else if(type == 'qual'){
+    } else if (type == 'qual') {
         editFunction = 'data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"editQual(' + editFunc + ')\"';
-    }else if(type == 'client'){
+    } else if (type == 'client') {
         inClientTab = true;
         editFunction = 'data-toggle=\"modal\" data-target=\"#updateClientModal\" onclick=\"updateClientDetails(' + editFunc + ')\"';
     }
 
-
+    //html rendering of item
     var str = "\
     <div class='col-md-3 col-sm-6 portfolio-item'> \
         <a href='#' class='portfolio-link' data-toggle='modal' > \
@@ -442,66 +357,68 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
             </div>";
         }
 
-        str +="<div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
+        str += "<div class='portfolio-hover-content archiveIcon' onclick=" + archiveFunc + ">\
                 <i class = 'fa fa-trash-o fa-3x'> </i>\
             </div>";
     }
-    str +="</div>\
-    <div class=\"portfolio-image\" style='background-image: url(\"" + image +"\")'>\
+    str += "</div>\
+    <div class=\"portfolio-image\" style='background-image: url(\"" + image + "\")'>\
     </div>\
         </a> \
         <div class='portfolio-caption'> \
-            <h4>"+name+"</h4> \
+            <h4>" + name + "</h4> \
             </div>\
         </div>";
-//<img id='itemPic' style=\"vertical-align: middle;border:none\" src=\"" + image + "\"class=\"main-thumbnail\">\
     return str;
 }
 
-function determineItemImage(clientImage, projectImage, type){
+//get item image depending on type of element
+function determineItemImage(clientImage, projectImage, type) {
 
     var image = "";
-    if(type == 'qual'){
-        console.log("here qual  "+projectImage);
-        if(projectImage == null){
-            if(clientImage == null){
-                console.log("here returned "+image);
+    if (type == 'qual') {
+        console.log("here qual  " + projectImage);
+        if (projectImage == null) {
+            if (clientImage == null) {
+                console.log("here returned " + image);
                 return "imgs/deloitte.jpg";
-            }else{
+            } else {
                 return clientImage;
             }
 
-        }else{
+        } else {
             return projectImage
         }
-    }else if(type == 'client'){
+    } else if (type == 'client') {
         return "imgs/client.png";
-    }else if(type == 'project'){
+    } else if (type == 'project') {
         return "imgs/deloitte.jpg";
     }
 }
 
-
+//checks if the param is a number
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-function addProjectQualsToGroup(projectID){
+//adds all the quals in a project to the cart
+function addProjectQualsToGroup(projectID) {
 
-    getQualsByProject(projectID, function(){
+    getQualsByProject(projectID, function () {
 
         var quals = this;
 
         sucessfulQuals = quals.length;
 
-        for(i = 0; i< quals.length; i++) {
+        //add each qual to cart
+        for (i = 0; i < quals.length; i++) {
             addToCart(quals[i].qualId, quals[i].projectName, true);
         }
 
         var qualOrQuals = sucessfulQuals === 1 ? " qual has " : " quals have ";
 
-
-        if(sucessfulQuals > 0) {
+        //alert popup to notify user of # of quals
+        if (sucessfulQuals > 0) {
             new PNotify({
                 title: "Success",
                 text: sucessfulQuals + qualOrQuals + "been added to the cart",
@@ -512,17 +429,17 @@ function addProjectQualsToGroup(projectID){
         }
         sucessfulQuals = 0;
     });
-
 }
 
+//generates html for project quals
 function openQualsForProject(projectID, projectName) {
     HoldOn.open();
-    getQualsByProject(projectID, function(){
+    getQualsByProject(projectID, function () {
 
         var quals = this;
 
         var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-primary btn-lg pull-right col-md-2' onclick='getProjects(accountId)'>Back To Projects</button><br>";
-        for(i = 0; i< quals.length; i++){
+        for (i = 0; i < quals.length; i++) {
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
                 '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
@@ -534,27 +451,26 @@ function openQualsForProject(projectID, projectName) {
                 'qual'
             );
         }
-        $("#projects").html(htmlStr);
+        $("#projects").html(htmlStr); //load projects tab with the generated html
         $("#heading").html(projectName);
 
     });
 
-    setTimeout(function(){
+    setTimeout(function () {
         HoldOn.close();
-    },2000);
-
-
+    }, 2000);
 }
 
+//retrieve and display quals for a client project
 function openQualsForClientProject(projectID, projectName) {
-    getQualsByProject(projectID, function(){
+    getQualsByProject(projectID, function () {
 
         var quals = this;
         var htmlStr = "<h1 id='heading' class='col-md-10'>Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-lg btn-primary pull-right col-md-2' onclick='openPrevClientProj()'>Back To Project</button><br>";
-        for(i = 0; i< quals.length; i++){
+        for (i = 0; i < quals.length; i++) {
             htmlStr += addPortfolioItem(
                 quals[i].qualId,
-                '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName+ '\')\"',
+                '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
                 quals[i].qualId,
                 quals[i].projectName,
                 '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
@@ -563,66 +479,61 @@ function openQualsForClientProject(projectID, projectName) {
                 'qual'
             );
         }
-        $("#clients").html(htmlStr);
+        $("#clients").html(htmlStr); //load clients tab with the generated html
         $("#heading").html(projectName);
-
     });
 
 }
 
-function openPrevClientProj(){
+function openPrevClientProj() {
     $("#clients").html(htmlClientProject);
 }
 
-function duplicateQual(qual_id){
+function duplicateQual(qual_id) {
     console.log(qual_id);
-    //sessionStorage.clear();
     sessionStorage.setItem("dup_qual_id", qual_id);
- //   sessionStorage.setItem("account_id", accountId);
-
-    //document.getElementById('frameQual').src = document.getElementById('qual_add.html').src
     $('#frameViewQual').attr('src', 'qual_add.html');
-    //location.href = 'qual_add.html';
 }
 
-function viewQual(qual_id){
+//open view qual content in a modal
+function viewQual(qual_id) {
     console.log(qual_id);
     sessionStorage.setItem("qual_id", qual_id);
 
-    if(!isClient) {
-
+    if (!isClient) {
 
         var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-3x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
 
-        $("#btnDuplicate").remove();
-        $('#viewButtons').prepend(dup);
-        //document.getElementById('btnDuplicate').setAttribute('onclick', 'duplicateQual(' + qual_id + ')');
+        $("#btnDuplicate").remove(); //removed to avoid multiple duplicate buttons
+        $('#viewButtons').prepend(dup); //duplication button added to front
     }
     $('#frameViewQual').attr('src', 'view_qual.html');
 }
 
-function getQuals(){
+//get quals depending on user type
+function getQuals() {
     if (isClient) {
         getQualsByAccount(accountId, processQuals);
-    }else{
+    } else {
         getQualsByAdminGroup(adminGroupID, processQuals)
     }
 }
 
-function processQuals(){
+//create html elements to load quals tab
+function processQuals() {
     var quals = this;
     alert_type = "info";
 
-    var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
+    var htmlStr = "<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
-    if (!isClient){
+    if (!isClient) {
         htmlStr += "<button type='submit' style='margin-top: 20px;margin-bottom: 15px' class='btn btn-primary vcenter btn-lg pull-right col-md-2' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button><br>";
     }
 
     for (i = 0; i < quals.length; i++) {
         htmlStr += addPortfolioItem(
             quals[i].qualId,
-            '\"addToCart(' + quals[i].qualId+ ", \'" + quals[i].projectName + '\')\"',
+            '\"addToCart(' + quals[i].qualId + ", \'" + quals[i].projectName + '\')\"',
             quals[i].qualId,
             quals[i].projectName,
             '\"confirmArchive(\'QUAL\'' + ", \'" + quals[i].qualId + '\')\"',
@@ -631,22 +542,23 @@ function processQuals(){
             'qual'
         );
     }
-    $("#quals").html(htmlStr)
+    $("#quals").html(htmlStr) //load qual tab with the generated html
 
 }
 
+//create html elements to load clients tab
 function getClients() {
 
     HoldOn.open();
 
-    var htmlStr ="<h1 id='heading' class='col-md-10'>Clients</h1>";
+    var htmlStr = "<h1 id='heading' class='col-md-10'>Clients</h1>";
 
     getAllClients(function () {
         var clients = this;
         var list = document.getElementById("client_list");
         for (i = 0; i < clients.length; i++) {
             htmlStr += addPortfolioItem(
-                "\"getProjectforClient("+clients[i].accountId+ ', \''   +clients[i].accountName+'\')',
+                "\"getProjectforClient(" + clients[i].accountId + ', \'' + clients[i].accountName + '\')',
                 '\"\"',
                 clients[i].accountId,
                 clients[i].accountName,
@@ -657,24 +569,24 @@ function getClients() {
             );
         }
 
-        $("#clients").html(htmlStr)
-
+        $("#clients").html(htmlStr); //load clients tab with the generated html
         HoldOn.close();
     });
 
-
 }
 
-function getProjectforClient(id, clientName){
+//gets all the projects associated with a client
+function getProjectforClient(id, clientName) {
 
     HoldOn.open();
 
-    getProjectsByClient(id,function(){
+    getProjectsByClient(id, function () {
         var projects = this;
-        var htmlStr = "<h1 id='heading' class='col-md-10'>"+clientName+"\'s Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-primary btn-lg pull-right col-md-2' onclick='getClients()'>Back To Clients</button><br>";
-        for(i = 0; i< projects.length; i++){
+        //html elements created for every project
+        var htmlStr = "<h1 id='heading' class='col-md-10'>" + clientName + "\'s Projects</h1><button type='submit' style='margin-top: 20px' class='btn btn-primary btn-lg pull-right col-md-2' onclick='getClients()'>Back To Clients</button><br>";
+        for (i = 0; i < projects.length; i++) {
             htmlStr += addPortfolioItem(
-                '\"openQualsForClientProject(' + projects[i].id+ ", \'" + projects[i].projectGroupName + '\')\"',
+                '\"openQualsForClientProject(' + projects[i].id + ", \'" + projects[i].projectGroupName + '\')\"',
                 '\"addProjectQualsToGroup(\'' + projects[i].id + '\')\"',
                 projects[i].id,
                 projects[i].projectGroupName,
@@ -685,7 +597,7 @@ function getProjectforClient(id, clientName){
             );
         }
         htmlClientProject = htmlStr;
-        $("#clients").html(htmlStr);
+        $("#clients").html(htmlStr); //load clients tab with the generated html
 
         HoldOn.close();
 
@@ -695,19 +607,21 @@ function getProjectforClient(id, clientName){
 
 // qID = Qual ID
 // m = name of qual, used as html element id
-function addToCart(qID, m, isProject){
+//isProject = specifies whether a project is added to cart
+function addToCart(qID, m, isProject) {
 
     var duplicate = false;
-    for(var id in qualsToAdd){
-        if(qualsToAdd[id] == qID){
+    for (var id in qualsToAdd) {
+        if (qualsToAdd[id] == qID) {
             duplicate = true;
-            if(isProject){
+            if (isProject) {
                 sucessfulQuals = sucessfulQuals - 1;
             }
         }
-
     }
-    if(duplicate == false){
+
+
+    if (duplicate == false) {
         qualsToAdd.push(qID);
 
         var root = document.getElementById("ProjectCart");
@@ -722,26 +636,27 @@ function addToCart(qID, m, isProject){
         a.setAttribute("href", "#");
         div.id = "deleteQual";
 
-    var span = document.createElement("span");
-    span.setAttribute("class","icon");
+        var span = document.createElement("span");
+        span.setAttribute("class", "icon");
 
         var span = document.createElement("span");
-        span.setAttribute("class","icon");
+        span.setAttribute("class", "icon");
 
         spanDiv.appendChild(span);
         textDiv.appendChild(document.createTextNode(m));
 
-
         a.appendChild(spanDiv);
         a.appendChild(textDiv);
         div.appendChild(a);
-        div.onclick = function() {this.parentNode.removeChild(this); qualsToAdd.splice(qualsToAdd.indexOf(this),1);}
+        div.onclick = function () {
+            this.parentNode.removeChild(this);
+            qualsToAdd.splice(qualsToAdd.indexOf(this), 1);
+        }
         div.setAttribute("id", m); // added line
         root.appendChild(div);
 
-
-
-        if(!isProject) {
+        //if it's not a project, the alert is displayed
+        if (!isProject) {
             var notice = new PNotify({
                 title: "Success",
                 text: "1 Qual has been added to the cart",
@@ -750,27 +665,26 @@ function addToCart(qID, m, isProject){
                 type: 'success'
             });
         }
-    }else{
-        getQualById(qID, function() {
+    } else {
+        //notify user when a qual is added to cart more than once
+        getQualById(qID, function () {
             var qual = this;
             var notice = new PNotify({
                 title: "Oops",
-                text: qual.projectName+" has already added to cart",
+                text: qual.projectName + " has already added to cart",
                 icon: false,
                 hide: true,
                 type: 'error'
             });
         });
     }
-
-
-    //timeout();
 }
 
-function clearModalPic(){
+function clearModalPic() {
     $('#client-logo').css('background', 'url("")');
 }
 
+//loads the tab specified on the homepage
 function loadTab(tab) {
 
     HoldOn.open();
@@ -803,102 +717,105 @@ function loadTab(tab) {
 
     getEverything();
 
-    setTimeout(function(){
+    setTimeout(function () {
         HoldOn.close();
-    },2000);
+    }, 2000);
 
 }
 
 var allProjects = [], allQuals = [], allClients = [];
 
-
 //need to get these according the the account
-function getEverything(){
+function getEverything() {
 
     var adminGroups = sessionStorage.getItem("adminGroups");
     adminGroupID = JSON.parse(adminGroups)[0].id;
     accountId = sessionStorage.getItem("account_id");
-    //isClient = sessionStorage.getItem("isAdmin");
 
+    if (isClient) {
 
-    //isClient = (isClient === "false") ? false : true;
-
-    if(isClient) {
         getQualsByAccount(accountId, function () {
             allQuals = this;
         });
-        //it's actually by account but named client for some reason :/
+
+        //this is by account
         getProjectsByClient(accountId, function () {
             allProjects = this;
         });
-    }else{
+
+    } else {
+        //get all quals admin group has access to
         getQualsByAdminGroup(adminGroupID, function () {
             allQuals = this;
         });
 
+        //get all projects admin group has access to
         getProjectsByAdminGroup(adminGroupID, function () {
             allProjects = this;
         });
 
-        getAllClients(function(){
+        //all admin groups can see all clients
+        getAllClients(function () {
             allClients = this;
         });
     }
 }
 
-function resetProjID(){
+function resetProjID() {
     projGroupID = -1;
 }
 
-function addQual(){
+//load addqual form in an iframe
+function addQual() {
     sessionStorage.setItem("add_qual", "Y");
     $('#qualModalLabel').text("Add New Qual");
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }
 
-function editQual(qual_id){
+//load edit qual form in an iframe
+function editQual(qual_id) {
     sessionStorage.setItem("edit_qual_id", qual_id); // Setting edit qual id
     $('#qualModalLabel').text("Edit Existing Qual"); // Changing Title of modal
     $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
 }
 
+//updates the client details when the user clicks on edit client -> update
 function updateClientDetails(account_id) {
-    $("#updateClientBtn").prop('disabled', false);
+    $("#updateClientBtn").prop('disabled', false); //disable button to avoid user updating it again
 
-    getAccountById(account_id, function() {
+    getAccountById(account_id, function () {
         var account = this;
         tempClientId = account_id;
 
-        console.log("tempID = " + tempClientId);
-
+        //Populate modal with account info
         $("#client_modal_heading").html("Edit Client");
-
         $("#update_clientName").val(account.accountName);
         $("#update_qual_colour_primary").val(account.primaryColour);
         $("update_qual_colour_secondary").val(account.secondaryColour);
         var htmlStr = "<button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='loadTab('#clients')'><span aria-hidden='true'>&times;</span></button>" +
-            "The password for the client is: <strong>"+account.password +"</strong>"
+            "The password for the client is: <strong>" + account.password + "</strong>"
         $("#update_passwordAlert").html(htmlStr);
         $("#update_passwordAlert").attr('style', '');
     });
 }
 
-
+//populates project modal with project details
 function editProject(project_id) {
-    getProjectById(project_id, function() {
+    getProjectById(project_id, function () {
         var project = this;
-        $("#project_modal_title").html("Edit Project");
-        $("#createProjBtn").prop('disabled', false);
-        $("#createProjBtn").html('Update');
-        $("#projName").val(project.projectGroupName);
-        console.log(project_id);
+        $("#project_modal_title").html("Edit Project"); //edit title
+        $("#createProjBtn").prop('disabled', false); //enable create button
+        $("#createProjBtn").html('Update'); //change button text
+        $("#projName").val(project.projectGroupName); //change proj name
 
         getAccountsByProjectGroup(project_id, function () {
             var account = this;
-            $("#clientDropdown").select2("val", account.accountId);
+            $("#clientDropdown").select2("val", account.accountId); //select account in dropdown
         });
     });
 }
+
+//reloads page in 2 seconds
 function timeout() {
     setTimeout(function () {
         location.reload();
