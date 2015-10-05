@@ -149,10 +149,38 @@
                     clientLogo, productServicesImage, function () {
                         var qual = this;
 
+                        var ags = JSON.parse(sessionStorage.getItem("adminGroups"));
+                        var agIDs = [];
+
+                        for(i = 0; i < ags.length; i++){
+                            agIDs.push(ags[i].id);
+                        }
+
+                        console.log(ags);
+                        console.log("prev:" + agIDs);
+
+
+
                         if (adminGroups != null) {
+                            console.log("ag:" + adminGroups);
                             $.each(adminGroups, function (i, val) {
                                 assignQualToAdminGroup(val, qual); // Assigning qual to each selected group
+                                for(i = 0; i < agIDs.length; i++) {
+
+                                    if (val == agIDs[i]) {
+                                        console.log("pos:" + i);
+                                        agIDs.splice(i, 1);
+                                    }
+                                }
+
                             });
+                        }
+
+
+                        console.log("post:" + agIDs);
+
+                        for(i = 0; i < agIDs.length; i++) {
+                            assignQualToAdminGroup(agIDs[i], qual);
                         }
 
                         closeModal();

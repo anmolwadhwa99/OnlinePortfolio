@@ -815,7 +815,8 @@ var allProjects = [], allQuals = [], allClients = [];
 //need to get these according the the account
 function getEverything(){
 
-    adminGroupID = sessionStorage.getItem("adminGroupID");
+    var adminGroups = sessionStorage.getItem("adminGroups");
+    adminGroupID = JSON.parse(adminGroups)[0].id;
     accountId = sessionStorage.getItem("account_id");
     //isClient = sessionStorage.getItem("isAdmin");
 

@@ -1,6 +1,6 @@
 
-var url = "http://q-hub.herokuapp.com/webapi";
-//var url = "http://localhost:8080/onlineportfolio/webapi";
+//var url = "http://q-hub.herokuapp.com/webapi";
+var url = "http://localhost:8080/onlineportfolio/webapi";
 //var url = "http://q-hub.herokuapp.com/webapi";
 //var url = "http://onlineportfolio.herokuapp.com/webapi";
 var _qual = "/qual";

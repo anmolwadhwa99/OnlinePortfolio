@@ -1,0 +1,9 @@
+org.se761.project.onlineportfolio
+org.se761.project.onlineportfolio.cors
+org.se761.project.onlineportfolio.database
+org.se761.project.onlineportfolio.exception
+org.se761.project.onlineportfolio.heroku
+org.se761.project.onlineportfolio.model
+org.se761.project.onlineportfolio.resource
+org.se761.project.onlineportfolio.service
+org.se761.project.onlineportfolio.test
