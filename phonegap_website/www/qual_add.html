@@ -135,30 +135,27 @@
 
             console.log(adminGroups);
 
-//            insertQual(true, isAnonymous, challenges, clientName, industry,
-//                    tags, outcome, problem, projName, relevance, serviceLine, solution,
-//                    access, projSubtitle, emailAction, websiteAction,
-//                    clientLogo, productServicesImage, function () {
-//                        var qual = this;
-//
-//                        if (adminGroups != null) {
-//                            $.each(adminGroups, function (i, val) {
-//                                assignQualToAdminGroup(val, qual); // Assigning qual to each selected group
-//                            });
-//                        }
-//
-//                        var agId = sessionStorage.getItem("adminGroupID");
-//                        assignQualToAdminGroup(agId, qual);
-//
-//                        closeModal();
-//                    }
-//            );
+            insertQual(true, isAnonymous, challenges, clientName, industry,
+                    tags, outcome, problem, projName, relevance, serviceLine, solution,
+                    access, projSubtitle, emailAction, websiteAction,
+                    clientLogo, productServicesImage, function () {
+                        var qual = this;
 
-//             Dismissing loading screen
-//            setTimeout(function(){
-//                location.reload();
-//                HoldOn.close();
-//            },2000);
+                        if (adminGroups != null) {
+                            $.each(adminGroups, function (i, val) {
+                                assignQualToAdminGroup(val, qual); // Assigning qual to each selected group
+                            });
+                        }
+
+                        closeModal();
+                    }
+            );
+
+            // Dismissing loading screen
+            setTimeout(function(){
+                location.reload();
+                HoldOn.close();
+            },2000);
 
         }
 
@@ -222,7 +219,6 @@
                                 assignQualToAdminGroup(val, qual.qualId); // Assigning qual to each selected group
                             });
                         }
-
 
                         closeModal();
                     }
