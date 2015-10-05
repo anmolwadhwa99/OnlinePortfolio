@@ -114,6 +114,14 @@
 
             var adminGroups = $('#ddAdminGroups').val();
 
+            if(clientLogo == "imgs/noPreview.png"){
+                clientLogo = ""; // Changing no-preview to none
+            }
+
+            if(productServicesImage == "imgs/noPreview.png"){
+                productServicesImage = ""; // Changing no-preview to none
+            }
+
             console.log(projName);
             console.log(projSubtitle);
             console.log(clientName);
@@ -153,7 +161,7 @@
 
             // Dismissing loading screen
             setTimeout(function(){
-                location.reload();
+                //location.reload();
                 HoldOn.close();
             },2000);
 
@@ -185,6 +193,14 @@
             var serviceLine = $("#qual_service_line").val();
 
             var adminGroups = $('#ddAdminGroups').val();
+
+            if(clientLogo == "imgs/noPreview.png"){
+                clientLogo = ""; // Changing no-preview to none
+            }
+
+            if(productServicesImage == "imgs/noPreview.png"){
+                productServicesImage = ""; // Changing no-preview to none
+            }
 
             console.log(qualId);
             console.log(projName);
@@ -375,8 +391,20 @@
                         $('#qual_public').attr('checked', true).trigger('click');
                     }
 
-                    $('#ddExistingProdServ').val(qual.projectImage).trigger("change");
-                    $('#ddExistingLogo').val(qual.clientImage).trigger("change");
+                    var clientLogo = qual.clientImage;
+
+                    var productServicesImage = qual.projectImage;
+
+                    if(clientLogo == ""){
+                        clientLogo = "imgs/noPreview.png"; // Changing none to no-preview
+                    }
+
+                    if(productServicesImage == ""){
+                        productServicesImage = "imgs/noPreview.png"; // Changing no-preview to none
+                    }
+
+                    $('#ddExistingProdServ').val(productServicesImage).trigger("change");
+                    $('#ddExistingLogo').val(clientLogo).trigger("change");
                 });
 
                 var groups = [];
@@ -425,8 +453,20 @@
                             $('#qual_public').attr('checked', true).trigger('click');
                         }
 
-                        $('#ddExistingProdServ').val(qual.projectImage).trigger("change");
-                        $('#ddExistingLogo').val(qual.clientImage).trigger("change");
+                        var clientLogo = qual.clientImage;
+
+                        var productServicesImage = qual.projectImage;
+
+                        if(clientLogo == ""){
+                            clientLogo = "imgs/noPreview.png"; // Changing none to no-preview
+                        }
+
+                        if(productServicesImage == ""){
+                            productServicesImage = "imgs/noPreview.png"; // Changing no-preview to none
+                        }
+
+                        $('#ddExistingProdServ').val(productServicesImage).trigger("change");
+                        $('#ddExistingLogo').val(clientLogo).trigger("change");
                     });
 
                     var groups = [];
