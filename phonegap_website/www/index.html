@@ -150,13 +150,7 @@
                         //if the account is an admin get all the AdminGroupsByAccount
                         if (account.isAdmin == true) {
                             getAdminGroupsByAccount(account.accountId, function(){
-<<<<<<< HEAD
-                                var adminGroup = this; //store the admin roup
-                                console.log("setAG "+this[0].id);
-                                sessionStorage.setItem("adminGroupID", this[0].id);
-                                location.replace("homepage.html"); //changes to homepage.html
-                                HoldOn.close(); //close loading screen
-=======
+
                                 var adminGroup = this;
 //                                sessionStorage.setItem("adminGroupID", this[0].id);
                                 sessionStorage.setItem("adminGroups", JSON.stringify(adminGroup));
@@ -165,7 +159,7 @@
 
                                 location.replace("homepage.html");
                                 HoldOn.close();
->>>>>>> origin/master
+
                             });
 
                         } else {
