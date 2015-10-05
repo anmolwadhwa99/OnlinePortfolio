@@ -1,7 +1,11 @@
+/*
+This is the file which connects the website with the web service and
+contains methods for each of the urls exposed by the web service.
+ */
 
+// The web service location
 var url = "http://q-hub.herokuapp.com/webapi";
 //var url = "http://localhost:8080/onlineportfolio/webapi";
-//var url = "http://q-hub.herokuapp.com/webapi";
 //var url = "http://onlineportfolio.herokuapp.com/webapi";
 var _qual = "/qual";
 var _ac = "/account";
@@ -10,7 +14,11 @@ var _pg = "/projectGroup";
 var _proj = "/project";
 var _img = "/image";
 
-
+/*
+Below are objects which correspond to each table in the database
+in the web service.
+ */
+// Qual Object
 function Qual(x){
     this.qualId = x.qualId;
     this.projectImage = x.projectImage;
@@ -58,6 +66,7 @@ function Qual(x){
     };
 }
 
+// Project Group Object
 function ProjectGroup(x){
     this.id = x.projGroupId;
     this.projectGroupName = x.projGroupName;
@@ -75,6 +84,7 @@ function ProjectGroup(x){
     };
 }
 
+// Account Object
 function Account(x){
     this.accountId = x.accountId;
     this.accountName = x.accountName;
@@ -96,6 +106,7 @@ function Account(x){
 
 }
 
+// Admin Group Object
 function AdminGroup(x){
     this.id = x.adminGroupId;
     this.name = x.adminGroupName;
@@ -106,6 +117,7 @@ function AdminGroup(x){
     }
 }
 
+// Image Object
 function Pic(x){
     this.active = x.active;
     this.imageId = x.imageId;
@@ -135,6 +147,15 @@ function Results(){
     value =  "";
 }
 
+/**
+ * Performs a search based on the input string and the supplied data.
+ * Searches for Qual Names, Client Names and Project Names
+ * @param str The search string
+ * @param quals The list of quals to search in
+ * @param clients The list of clients to search in
+ * @param projects The list of projects to search in
+ * @returns {Array} The results
+ */
 function doSearch(str, quals, clients, projects){
 
     if (str === ''){
@@ -189,7 +210,11 @@ function doSearch(str, quals, clients, projects){
 }
 
 // === Web Service Connection ======================================
-
+/**
+ * Checks if the supplied password is valid
+ * @param pw The input password
+ * @param callback The account which the password corresponds to
+ */
 function verifyAccount(pw,callback){
     var methodURL = url + _ac + "/verify/" + pw;
     var method = "GET";
@@ -221,6 +246,10 @@ function verifyAccount(pw,callback){
     req.send();
 }
 
+/**
+ * Creates the async request to be sent to the web service
+ * @returns {*}
+ */
 function createRequest() {
     var result = null;
     if (window.XMLHttpRequest) {
@@ -241,7 +270,11 @@ function createRequest() {
 
 // === QUALS =======================================================
 
-
+/**
+ * Retrieve a qual by it's id
+ * @param id the qual
+ * @param callback contains the quals
+ */
 function getQualById(id, callback){
     var methodURL = url + _qual + "/" + id;
     var method = "GET";
@@ -267,6 +300,10 @@ function getQualById(id, callback){
     req.send();
 }
 
+/**
+ * Retrieves ALL the quals
+ * @param callback contains the quals
+ */
 function getAllQuals(callback){
     var methodURL = url + _qual;
     var method = "GET";
@@ -274,6 +311,7 @@ function getAllQuals(callback){
     var req = createRequest();
 
     if (req){
+        // Response processing
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
@@ -302,6 +340,10 @@ function getAllQuals(callback){
     req.send();
 }
 
+/**
+ * Get all quals which are available to the public
+ * @param callback contains the public quals
+ */
 function getAllPublicQuals(callback){
     var methodURL = url + _qual + "/" + "public";
     var method = "GET";
@@ -309,6 +351,7 @@ function getAllPublicQuals(callback){
     var req = createRequest();
 
     if (req){
+        // Response processing
         req.onreadystatechange = function(){
             if (req.readyState != 4) return;
             if (req.status != 200) {
@@ -336,6 +379,7 @@ function getAllPublicQuals(callback){
     req.open(method, methodURL, true);
     req.send();
 }
+
 
 function getQualsByAccount(acId, callback){
     var methodURL = url + _qual + _ac + "/" + acId;

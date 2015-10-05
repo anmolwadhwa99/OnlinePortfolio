@@ -86,8 +86,13 @@
 
         }
 
+        /**
+         * Adds a qual with input from the user
+         */
         function addQual() {
 //            HoldOn.open();
+
+            // Get all the user input
             var projName = $("#qual_project_name").val();
             var projSubtitle = $("#qual_project_sub").val();
             var clientName = $("#qual_client_name").val();
@@ -159,8 +164,7 @@
                         console.log(ags);
                         console.log("prev:" + agIDs);
 
-
-
+                        // links the created qual with the selected admin groups
                         if (adminGroups != null) {
                             console.log("ag:" + adminGroups);
                             $.each(adminGroups, function (i, val) {
@@ -179,6 +183,7 @@
 
                         console.log("post:" + agIDs);
 
+                        // assign the quals to the admin groups that the current user belongs to
                         for(i = 0; i < agIDs.length; i++) {
                             assignQualToAdminGroup(agIDs[i], qual);
                         }
@@ -393,6 +398,8 @@
             if (qual_id != null) {
                 $('#btnReset').prop('disabled', true); // Disabling reset for now as would clear entire form instead of resetting to original values
                 getQualById(qual_id, function() {
+
+                    //Set the values based on the current data
                     var qual = this; // gets the qual info
                     $("#qual_project_name").val(qual.projectName);
                     $("#qual_project_sub").val(qual.subtitle);
