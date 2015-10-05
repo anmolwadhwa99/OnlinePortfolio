@@ -381,6 +381,7 @@ function addPortfolioItem(viewFunc, addFunc, editFunc, name, archiveFunc, client
     var locHeight = 210;
     var locWidth = 295;
     var image = determineItemImage(clientImg, projectImg, type);
+    console.log("returned "+image);
 
     //var newImg = new Image();
     //newImg.src = image;
@@ -461,9 +462,11 @@ function determineItemImage(clientImage, projectImage, type){
 
     var image = "";
     if(type == 'qual'){
+        console.log("here qual  "+projectImage);
         if(projectImage == null){
             if(clientImage == null){
-                return "img/portfolio/startup-framework.png";
+                console.log("here returned "+image);
+                return "imgs/deloitte.jpg";
             }else{
                 return clientImage;
             }
@@ -589,7 +592,7 @@ function viewQual(qual_id){
     if(!isClient) {
 
 
-        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-4x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
+        var dup = '<i id="btnDuplicate" class="fa fa-clipboard fa-3x" onclick=\"duplicateQual(' + qual_id + ')\"></i>';
 
         $("#btnDuplicate").remove();
         $('#viewButtons').prepend(dup);
@@ -613,7 +616,7 @@ function processQuals(){
     var htmlStr ="<h1 id='heading' class='col-md-10'>All Quals</h1>";
 
     if (!isClient){
-        htmlStr += "<button type='submit' style='margin-top: 20px;' class='btn btn-primary vcenter btn-lg pull-right col-md-2' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button><br>";
+        htmlStr += "<button type='submit' style='margin-top: 20px;margin-bottom: 15px' class='btn btn-primary vcenter btn-lg pull-right col-md-2' data-toggle=\"modal\" data-target=\"#qualModal\" onclick=\"addQual();\" >Add New Qual</button><br>";
     }
 
     for (i = 0; i < quals.length; i++) {
@@ -812,7 +815,8 @@ var allProjects = [], allQuals = [], allClients = [];
 //need to get these according the the account
 function getEverything(){
 
-    adminGroupID = sessionStorage.getItem("adminGroupID");
+    var adminGroups = sessionStorage.getItem("adminGroups");
+    adminGroupID = JSON.parse(adminGroups)[0].id;
     accountId = sessionStorage.getItem("account_id");
     //isClient = sessionStorage.getItem("isAdmin");
 
