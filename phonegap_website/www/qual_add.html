@@ -86,12 +86,8 @@
 
         }
 
-        /**
-         * Adds a qual with input from the user
-         */
+        // Adds a qual with input from the user
         function addQual() {
-//            HoldOn.open();
-
             // Get all the user input
             var projName = $("#qual_project_name").val();
             var projSubtitle = $("#qual_project_sub").val();
@@ -200,6 +196,7 @@
 
         }
 
+        // Modifies an existing qual (duplicate or edited)
         function modifyQual() {
             var qualId = $('#qual_id').val();
             var projName = $("#qual_project_name").val();
@@ -298,18 +295,16 @@
 
     <script type="application/javascript">
         function requireAnonName() {
-            //document.getElementById('qual_anonymous_name').required = true;
             $('#qual_anonymous_name').rules('add', {"required":true, "validAnon":true});
             addRules();
         }
         function optionalAnonName() {
-            //document.getElementById('qual_anonymous_name').required = false;
             $('#qual_anonymous_name').rules('remove');
             removeRules();
         }
 
+        // Turns the rule on
         function addRules(){
-            // Turns the rule on
             $('#qual_project_name').rules('add', {"validAnon":true});
             $('#qual_project_sub').rules('add', {"validAnon":true});
             $('#qual_anonymous_name').rules('add', {"validAnon":true});
@@ -323,8 +318,8 @@
             $('#qual_relevance').rules('add', {"validAnon":true});
         }
 
+        // Turns the rule off
         function removeRules(){
-            // Turns the rule off
             $('#qual_problems').rules('remove', 'validAnon');
             $('#qual_challenges').rules('remove', 'validAnon');
             $('#qual_solution').rules('remove', 'validAnon');
@@ -361,32 +356,37 @@
                 });
             };
 
+            // Using Select2 for all select lists
             $('#ddExistingProdServ').select2({width:"style"});
             $('#ddExistingLogo').select2({width:"style"});
             $('#ddAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups who can view this Qual"});
 
+            // Default option for iamges
             $('#ddExistingProdServ').append('<option value=\"imgs/noPreview.png\" >' + 'No Product Service Image (No image will be displayed)' + '</option>');
             $('#ddExistingLogo').append('<option value=\"imgs/noPreview.png\" >' + 'No Logo (No image will be displayed)' + '</option>');
-
             $('#ddExistingProdServ').val("imgs/noPreview.png").trigger("change");
             $('#ddExistingLogo').val("imgs/noPreview.png").trigger("change");
 
+            // Loading tags select with data
             var tags = [{id: '123', text:'test'}]; // TODO load tags with existing tags
             //e.g. tags = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
             $('#qual_tags').append('<option></option>').select2({width:"style", tags:true, placeholder:"Select existing tags or enter new ones", data:tags});
 
+            // Loading Industry select with data
             var industry = [{id:'consumerBusiness', text:'Consumer Business'}, {id:'energyAndResources', text:'Energy And Resources'},
                 {id:'financialServices', text:'Financial Services'}, {id:'lifeScienceAndHealthCare', text:'Life Science And Health Care'},
                 {id:'manufacturing', text:'Manufacturing'}, {id:'primary', text:'Primary'}, {id:'publicSector', text:'Public Sector'},
                 {id:'realEstate', text:'Real Estate'}, {id:'technologyMediaAndTelecommunications', text:'Technology Media And Telecommunications'}];
             $('#qual_industry').append('<option></option>').select2({width:"style", placeholder:"Select Industry", data:industry});
 
+            // Loading Serviceline select with data
             var serviceline = [{id:'audit', text:'Audit'}, {id:'deloittePrivate', text:'Deloitte Private'},
                 {id:'financialAdvisory', text:'Financial Advisory'}, {id:'humanCapital', text:'Human Capital'},
                 {id:'operations', text:'Operations'},{id:'risk', text:'Risk'},{id:'strategy', text:'Strategy'},
                 {id:'tax', text:'Tax'},{id:'technology', text:'Technology'}];
             $('#qual_service_line').append('<option></option>').select2({width:"style", placeholder:"Select service line", data:serviceline});
 
+            // Loading Product Service Image select with existing image options
             getAllProjectImages(function () {
                 var prodServs = this;
                 $.each(prodServs, function(i, val){
@@ -394,6 +394,7 @@
                 });
             });
 
+            // Loading Client Logo Image select with existing image options
             getAllClientImages(function (){
                 var logos = this;
                 $.each(logos, function(i, val){
@@ -401,6 +402,7 @@
                 });
             });
 
+            // Loading Admin Groups select list with data
             getAllAdminGroups(function (){
                 var groups = this;
                 $.each(groups, function(i, val){
@@ -411,6 +413,7 @@
                 });
             });
 
+            // Loading fields with duplicate qual data
             var qual_id = sessionStorage.getItem("dup_qual_id");
             if (qual_id != null) {
                 $('#btnReset').prop('disabled', true); // Disabling reset for now as would clear entire form instead of resetting to original values
@@ -471,6 +474,7 @@
                 sessionStorage.removeItem("dup_qual_id");
             }else{ // dup_qual_id is null
                 qual_id = sessionStorage.getItem("edit_qual_id");
+                // Loading fields with edited qual data
                 if(qual_id != null) {
                     $('#btnReset').prop('disabled', true); // Disabling reset for now as would clear entire form instead of resetting to original values
 
@@ -537,13 +541,16 @@
 
         });
 
+        // Changes the image url for Product Service
         function SelectProdServ(url) {
             $('#prod_serv_img').attr('src', url);
         }
+        // Changes the image url for Client Logo
         function SelectLogo(url) {
             $('#client_logo_img').attr('src', url);
         }
 
+        // Manual resetting of fields that aren't reset by Reset button
         function ManualReset(){
             HoldOn.open();
             $("#qual_industry").select2("val", "");
@@ -565,6 +572,7 @@
 
         }
 
+        // Adds http:// to url if it is not already at the front
         function checkURL (abc) {
             var string = abc.value;
             console.log(string);
@@ -854,7 +862,8 @@
                 $('.prod_serv_progress-bar').addClass('active');
             }
     ).bind('cloudinarydone', function (e, data) {
-                console.log(data);
+
+                // Inserting uploaded image url and public_id to database
                 insertImage(true, data.result.public_id, 'PRODSERV', data.result.url, function(){});
 
                 $('#ddExistingProdServ').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
@@ -887,6 +896,7 @@
             }
     ).bind('cloudinarydone', function (e, data) {
 
+                // Inserting uploaded image url and public_id to database
                 insertImage(true, data.result.public_id, 'LOGO', data.result.url, function(){});
 
                 $('#ddExistingLogo').append('<option value="' + data.result.url + '" >' + data.result.public_id + '</option>'); // Adding to select list, so can change back to if necessary
@@ -921,7 +931,7 @@
         badge: false
     });
 
-
+    // New Validator method for checking that anonymous quals don't contain the client name anywhere except for the client name field
     $.validator.addMethod("validAnon", function(value, element){
         //console.log(element);
 
@@ -990,6 +1000,7 @@
                 url: true
             }
         },
+        // Extra changes to jQueryValidation to display correctly within Bootstrap Framework
         highlight: function(element) {
             $(element).closest('.form-group').addClass('has-error');
         },
