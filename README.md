@@ -8,7 +8,7 @@ The demo server used can take time to active completely.
 
 ---
 
-The Prototype consists of a Login Page, Admin Main Page, Add/Edit/Duplicate Qual, Client Main Page, and SuperUser Page.
+The Final consists of a Login Page, Admin Main Page, Add/Edit/Duplicate Qual, Client Main Page, and SuperUser Page.
 
 ---
 
