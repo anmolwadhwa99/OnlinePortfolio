@@ -297,16 +297,25 @@
 
     <script type="application/javascript">
         function requireAnonName() {
-            document.getElementById('qual_anonymous_name').required = true;
+            //document.getElementById('qual_anonymous_name').required = true;
+            $('#qual_anonymous_name').rules('add', {"required":true, "validAnon":true});
             addRules();
         }
         function optionalAnonName() {
-            document.getElementById('qual_anonymous_name').required = false;
+            //document.getElementById('qual_anonymous_name').required = false;
+            $('#qual_anonymous_name').rules('remove');
             removeRules();
         }
 
         function addRules(){
-            $('#qual_problems').rules('add', {"validAnon":true}); // Turns the rule on globally
+            // Turns the rule on
+            $('#qual_project_name').rules('add', {"validAnon":true});
+            $('#qual_project_sub').rules('add', {"validAnon":true});
+            $('#qual_anonymous_name').rules('add', {"validAnon":true});
+            $('#qual_email').rules('add', {"validAnon":true});
+            $('#qual_website').rules('add', {"validAnon":true});
+            $('#qual_tags').rules('add', {"validAnon":true});
+            $('#qual_problems').rules('add', {"validAnon":true});
             $('#qual_challenges').rules('add', {"validAnon":true});
             $('#qual_solution').rules('add', {"validAnon":true});
             $('#qual_outcome').rules('add', {"validAnon":true});
@@ -314,11 +323,18 @@
         }
 
         function removeRules(){
-            $('#qual_problems').rules('remove'); // Turns the rule off globally
-            $('#qual_challenges').rules('remove');
-            $('#qual_solution').rules('remove');
-            $('#qual_outcome').rules('remove');
-            $('#qual_relevance').rules('remove');
+            // Turns the rule off
+            $('#qual_problems').rules('remove', 'validAnon');
+            $('#qual_challenges').rules('remove', 'validAnon');
+            $('#qual_solution').rules('remove', 'validAnon');
+            $('#qual_outcome').rules('remove', 'validAnon');
+            $('#qual_relevance').rules('remove', 'validAnon');
+            $('#qual_project_name').rules('remove', 'validAnon');
+            $('#qual_project_sub').rules('remove', 'validAnon');
+            $('#qual_anonymous_name').rules('remove', 'validAnon');
+            $('#qual_email').rules('remove', 'validAnon');
+            $('#qual_website').rules('remove', 'validAnon');
+            $('#qual_tags').rules('remove', 'validAnon');
         }
 
     </script>
@@ -542,7 +558,7 @@
             $('.client_logo_progress').hide();
 
             setTimeout(function(){
-                location.reload();
+                //location.reload();
                 HoldOn.close();
             },2000);
 
@@ -628,7 +644,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="qual_project_sub">Project Subtitle: </label>
-                                <input id="qual_project_sub" type="text" class="form-control" placeholder="Subtitle">
+                                <input id="qual_project_sub" name="subtitle" type="text" class="form-control" placeholder="Subtitle">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -684,7 +700,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_anonymous_name">Anonymous Name: </label>
-                        <input id="qual_anonymous_name" type="text" class="form-control" placeholder="Anonymous Name">
+                        <input id="qual_anonymous_name" name="anon" type="text" class="form-control" placeholder="Anonymous Name">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -707,13 +723,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_email">Email Action: </label>
-                        <input id="qual_email" type="email" class="form-control" placeholder="Email">
+                        <input id="qual_email" name="email" type="email" class="form-control" placeholder="Email">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="qual_website">Website Action: </label>
-                        <input id="qual_website" type="url" class="form-control" placeholder="Website" onblur="checkURL(this)">
+                        <input id="qual_website" name="web" type="url" class="form-control" placeholder="Website" onblur="checkURL(this)">
                     </div>
                 </div>
             </div>
@@ -763,19 +779,19 @@
             </div>
             <div class="form-group">
                 <label for="qual_challenges">Challenges Faced: </label>
-                <textarea id="qual_challenges" rows="3" class="form-control" placeholder="Challenges"></textarea>
+                <textarea id="qual_challenges" name="challenges" rows="3" class="form-control" placeholder="Challenges"></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_solution">Solution: </label>
-                <textarea id="qual_solution" rows="3" class="form-control" placeholder="Solution"></textarea>
+                <textarea id="qual_solution" name="solution" rows="3" class="form-control" placeholder="Solution"></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_outcome">Outcome: </label>
-                <textarea id="qual_outcome" rows="3" class="form-control" placeholder="Outcome"></textarea>
+                <textarea id="qual_outcome" name="outcome" rows="3" class="form-control" placeholder="Outcome"></textarea>
             </div>
             <div class="form-group">
                 <label for="qual_relevance">Relevance to Client: </label>
-                <textarea id="qual_relevance" rows="3" class="form-control"
+                <textarea id="qual_relevance" name="relevance" rows="3" class="form-control"
                           placeholder="Relevance to Client"></textarea>
             </div>
         </div>
@@ -940,7 +956,7 @@
                 return true;
             }
         }
-    }, "Anonymous Qual's cannot contain the Client Name");
+    }, "Anonymous Qual's can only contain Client Name in the Client Name field");
 
     // jQueryValidation
     $('#qual_add_form').validate({
@@ -965,6 +981,12 @@
             },
             service:{
                 required: true
+            },
+            email:{
+                email: true
+            },
+            web:{
+                url: true
             }
         },
         highlight: function(element) {
