@@ -95,10 +95,13 @@
         }
     </style>
 
+    <!-- Script block document.ready for add/edit qual modal -->
     <script>
         $(document).ready(function(){
+            // Activates iframeresize plugin for specified iframe
             $('#frameQual').iFrameResize();
 
+            // Clears content from the modal when closed
             $('#qualModal').on('hidden.bs.modal', function () {
                 $('#frameQual').attr('src', '');
                 $('#qualModalLabel').text("");
@@ -154,6 +157,8 @@
                 });
             });
         }
+
+        // Loads the modal with the relevant information for Adding Admin
         function loadAdminAdd(){
             $('#modalAdminTitle').text("Add Admin Account");
             $('#modalAdminConfirmAdd').show();
@@ -171,17 +176,21 @@
             alert_type = "info";
             alert("Updating admin group: " + ag_name);
         }
+        // Loads the modal with the relevant information for Adding Admin Group
         function loadAGAdd(){
             $('#modalAGTitle').text("Create Admin Group");
             $('#modalAGConfirmAdd').show();
         }
 
+        // Loads the modal with the relevant information for Editing Admin Group
         function loadEditAG(id, name){
             $('#modalAGTitle').text("Edit Admin Group");
             $('#ag_name').val(name);
             $('#ag_id').val(id);
             $('#modalAGConfirmEdit').show();
         }
+
+        // Loads the modal with the relevant information for Editing Admin
         function loadEditAdmin(id, name, superStatus, pw){
             $('#modalAdminTitle').text("Edit Admin Account");
             $('#modalAdminConfirmEdit').show();
@@ -208,7 +217,9 @@
                 $('#admin_normal').attr('checked', true).trigger('click');
             }
         }
+        //===============================================================================================================//
 
+        /* Loading methods for the Activate/Deactivate form, used for Admin, Admin Group, Qual, Project Group and Client*/
 
         function loadAct(){
             $('#form_submit').text("Reactivate").addClass("btn-primary");
@@ -216,7 +227,6 @@
         function loadDeact(){
             $('#form_submit').text("Deactivate").addClass("btn-danger");
         }
-
         function loadActAG(id){
             loadAct();
 
@@ -274,6 +284,10 @@
 
             confirmAction(id, "Deactivate?", "error", "deact_pg", "Successfully deactivated the Project!");
         }
+
+        //===============================================================================================================//
+
+        /* Methods for Loading the individual tables with their relevant data */
 
         function loadAdminGroupsTable(table){
             getAllAdminGroups(function(){
@@ -399,7 +413,7 @@
                             disableDeactive = "disabled=\"disabled\"";
                         }
 
-                        // TODO add tooltip to edit for when editing a deactivated qual
+                        // Edit is also disabled if the item is deactivated, as must first reactivate before editing
                         table.row.add([projectName,subtitle,clientName,anonymousName,anonymousState,qualStatus,
                                 '<button type="button" '+disableDeactive+' data-toggle="modal" data-target="#qualModal" class="btn" onclick="editQual('+val.qualId+')"><span class="fa fa-pencil"><span class="sr-only">Edit</span></span></button>',
                             active,'<button type="button" class="btn" '+disableReactive+'  onclick="loadActQual('+val.qualId+')"><span class="fa fa-recycle"><span class="sr-only">Reactivate</span></span></button>',
@@ -482,7 +496,7 @@
         }
 
         function editQual(qual_id){
-            console.log(qual_id);
+//            console.log(qual_id);
             sessionStorage.setItem("edit_qual_id", qual_id); // Setting edit qual id
             $('#qualModalLabel').text("Edit Existing Qual"); // Changing Title of modal
             $('#frameQual').attr('src', 'qual_add.html'); // Loading the iframe
@@ -490,6 +504,7 @@
     </script>
 
     <script>
+        // Uses PNotify to display a confirmation box for Activate/Deactivate item
         function confirmAction(item_id, notice_title, notice_type, submit_option, success_message) {
             var notice = new PNotify({
                 title: notice_title,
@@ -568,6 +583,7 @@
             });
         }
 
+        // Clears the form of contents
         function cleanseForm(){
             $('#form_title').text("");
             $('#form_body').text("");
@@ -600,9 +616,11 @@
                 });
             };
 
+            // Using Select2 for the Admin Groups select list
             $('#selectAdminGroups').select2({width:"style", multiple:"true", placeholder:"Select Admin Groups for this Account"});
 
             // Global variables, as required to do specific reloading of individual tables instead of entire page
+            // Setting up the tables using DataTable plugin
             tableQuals = $('#tableQuals').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
@@ -633,6 +651,7 @@
             });
             $('#tableClients_filter').append('<div class="form-group" style="padding-left: 10px;"><button type="button" onclick="reloadClients();"><span class="glyphicon glyphicon-refresh"></span></button></div>');
 
+            // Initial loading of each table
             loadAdminGroupsTable(tableAdminGroups);
             loadAdminsTable(tableAdmins);
             loadQualsTable(tableQuals);
