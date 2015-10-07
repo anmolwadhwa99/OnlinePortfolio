@@ -7,7 +7,60 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
+    <script src="js/scripts/webServices.js"></script>
+    <script>
+        if(window.location.hash) {
+            var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+            console.log(hash);
+            HoldOn.open();
+            verifyAccount(hash, function() { //run verifcation on the account once verified run the callback function
+                var account = this; //stores the account that was recieved when verify account was called in variable
+                if(!(account instanceof Account)) { // if account is not an instance of Account  the incorrect password was entered so throw pop up
+                    HoldOn.close();
+                    var notice = new PNotify({
+                        title: "ERROR",
+                        text: "Incorrect password. Please try again.",
+                        icon: true,
+                        hide: true,
+                        type: 'error'
+                    });
+                } else {
+                    var noticeSignin = new PNotify({
+                        title: "Please Wait",
+                        text: "You will be signed in momentarily",
+                        icon: true,
+                        hide: true,
+                        type: 'info'
+                    });
+                    //set the account ID
+                    sessionStorage.setItem("account_id", account.accountId);
 
+                    var isClient = !account.isAdmin; //boolean for if account isClient
+                    var isSuperUser = account.isSuperUser; //boolean for if account isSuperUser
+
+                    sessionStorage.setItem("superuserStatus", account.isSuperUser);
+                    sessionStorage.setItem("isAdmin", account.isAdmin);
+                    //if the account is an admin get all the AdminGroupsByAccount
+                    if (account.isAdmin == true) {
+                        getAdminGroupsByAccount(account.accountId, function() {
+
+                            var adminGroup = this;
+                            sessionStorage.setItem("adminGroups", JSON.stringify(adminGroup));
+                            console.log("AdminGroups");
+                            console.log(JSON.stringify(adminGroup));
+                            location.replace("homepage.html");
+                            HoldOn.close();
+                        });
+                    } else {
+                        location.replace("homepage_client.html"); //goes to the client view
+                        HoldOn.close();
+                    }
+                }
+            });
+        }
+    </script>
     <title>Deloitte New Zealand </title>
     <link rel=" shortcut icon" href="imgs/favicon.ico">
 
@@ -34,7 +87,7 @@
     <link rel="stylesheet" href="filmStripSlider/flexslider.css" type="text/css" media="screen" />
     <script src="js/scripts/homepage.js"></script>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>-->
     <script src="js/agency.js"></script>
 
     <!-- filmStrip -->
@@ -49,9 +102,8 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <script src="js/jquery-2.1.4.min.js"></script>
+    <!--<script src="js/jquery-2.1.4.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts/webServices.js"></script>
 
     <!--pNotify related links-->
     <script type="application/javascript" src="js/pnotify.custom.min.js"></script>
@@ -363,7 +415,7 @@ and rendered-->
     <input type="password" id="inputPassword" class="form-control" name="signin_password" placeholder="Password"
            style="margin-left: auto;margin-right: auto;width: 65%;height: 46px;text-align: center;" required autofocus>
     <br>
-    <button class="btn btn-lg btn-primary1 btn-block" style="margin-left: auto;margin-right: auto;width: 65%;"type="submit">Sign in</button>
+    <button id="submit" class="btn btn-lg btn-primary1 btn-block" style="margin-left: auto;margin-right: auto;width: 65%;"type="submit">Sign in</button>
 
 </form></div>
 
@@ -385,14 +437,7 @@ and rendered-->
         </div>
     </div>
 </div>
-
-
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
-
 </body>
-
-
-<script src="js/Fullscreen-Loading-Indicators-with-jQuery-CSS3-HoldOn-js/src/js/HoldOn.min.js"></script>
-
 </html>
